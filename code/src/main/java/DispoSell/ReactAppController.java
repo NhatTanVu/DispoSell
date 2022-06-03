@@ -10,7 +10,7 @@ public class ReactAppController {
 
     @RequestMapping(value = { "/", "/{x:[\\w\\-]+}", "/{x:^(?!api$).*$}/**/{y:[\\w\\-]+}" })
     public String getIndex(HttpServletRequest request) {
-        return "/index.html";
+        return "index.html";
     }
 
 }
