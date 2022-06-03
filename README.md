@@ -3,3 +3,5 @@ A website dedicated to collect unused furniture in usable condition, refurbishin
 ## How to run
 1. Configure IntelliJ to [delegate build and run actions to Maven](https://www.jetbrains.com/help/idea/delegate-build-and-run-actions-to-maven.html#delegate_to_maven)
 2. Run the application
+## Our team
+![Our Team](screenshots/our_team.jpg)
