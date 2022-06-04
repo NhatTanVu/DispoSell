@@ -1,8 +1,11 @@
 import React from 'react';
+import localStyles from '../../scss/pages/Home.module.scss';
 
 function Home() {
     return (
-        <h2>Home</h2>
+        <div className={localStyles["home-page"]}>
+            <h2>Home</h2>
+        </div>
     )
 }
 

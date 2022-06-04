@@ -5,17 +5,16 @@ import {
     Route,
     Link
 } from "react-router-dom";
+import '../scss/App.scss';
 import Home from './pages/Home';
 import Category from './pages/Category';
 import About from './pages/About';
-import '../css/App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {Container, Nav, Navbar} from "react-bootstrap";
 
 export default function App() {
     return (
         <Router>
-            <div>
+            <div className="App">
                 <Navbar bg="dark" variant="dark">
                     <Container>
                         <Nav className="me-auto">
