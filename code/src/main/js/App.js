@@ -8,30 +8,32 @@ import {
 import Home from './pages/Home';
 import Category from './pages/Category';
 import About from './pages/About';
+import '../css/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Container, Nav, Navbar} from "react-bootstrap";
 
 export default function App() {
     return (
         <Router>
             <div>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/category">Category</Link>
-                        </li>
-                        <li>
-                            <Link to="/about">About</Link>
-                        </li>
-                    </ul>
-                </nav>
+                <Navbar bg="dark" variant="dark">
+                    <Container>
+                        <Nav className="me-auto">
+                            <Navbar.Brand href="/">DispoSell</Navbar.Brand>
+                            <Nav.Link href="/">Home</Nav.Link>
+                            <Nav.Link href="/category">Category</Nav.Link>
+                            <Nav.Link href="/about">About</Nav.Link>
+                        </Nav>
+                    </Container>
+                </Navbar>
 
-                <Routes>
-                    <Route path="/about" element={<About/>}/>
-                    <Route path="/category" element={<Category/>}/>
-                    <Route path="/" element={<Home/>}/>
-                </Routes>
+                <Container>
+                    <Routes>
+                        <Route path="/about" element={<About/>}/>
+                        <Route path="/category" element={<Category/>}/>
+                        <Route path="/" element={<Home/>}/>
+                    </Routes>
+                </Container>
             </div>
         </Router>
     );
