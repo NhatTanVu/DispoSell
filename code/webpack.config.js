@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
     plugins: [new MiniCssExtractPlugin({
-        filename: './src/main/resources/static/build/style.css'
+        filename: './src/main/resources/static/build/styles.css'
     })],
     entry: './src/main/js/index.js',
     devtool: 'source-map',
