@@ -4,7 +4,7 @@ import React from "react";
 function Header() {
     return (
         <header>
-            <Navbar bg="dark" variant="dark" expand="csm">
+            <Navbar bg="dark" variant="dark" expand="sm">
                 <Container>
                     <Navbar.Brand href="/">DispoSell</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
