@@ -1,3 +1,13 @@
+$grid-breakpoints: (
+  xs: 0,
+  csm: 376px, /* Custom mobile breakpoint */
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px
+);
+
 @import "~bootstrap/scss/bootstrap";
 
 $primary-color: #282c34;
@@ -14,7 +24,7 @@ html {
 /* ------------------- */
 /* Tablet view         */
 /* ------------------- */
-@media only screen and (min-width : 768px) and (max-width : 1023px) {
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
   html {
     font-size: 1.953125vw; /* 15px for 768px-viewport */
   }
@@ -23,7 +33,7 @@ html {
 /* ------------------- */
 /* Mobile view         */
 /* ------------------- */
-@media only screen and (max-width : 767px) {
+@media only screen and (max-width: 767px) {
   html {
     font-size: 4vmin; /* 15px for 375px-viewport */
   }
