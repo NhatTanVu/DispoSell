@@ -6,3 +6,25 @@ $secondary-color: #61dafb;
 .App h2 {
   color: $primary-color;
 }
+
+html {
+  font-size: 1.5625vw; /* 16px for 1024px-viewport */
+}
+
+/* ------------------- */
+/* Tablet view         */
+/* ------------------- */
+@media only screen and (min-width : 768px) and (max-width : 1023px) {
+  html {
+    font-size: 1.953125vw; /* 15px for 768px-viewport */
+  }
+}
+
+/* ------------------- */
+/* Mobile view         */
+/* ------------------- */
+@media only screen and (max-width : 767px) {
+  html {
+    font-size: 4vmin; /* 15px for 375px-viewport */
+  }
+}
