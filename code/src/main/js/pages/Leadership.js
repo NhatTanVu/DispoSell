@@ -12,7 +12,11 @@ function Leadership() {
                 </li>
                 <li>
                     {/* Mariana */}
-                    <img src="images/Leadership/avatar_Mariana.jpg" alt="Mariana" />
+                    <a href="https://www.linkedin.com/in/mariana-meneses-del-valle/" target="_blank">
+                        <img src="images/Leadership/avatar_Mariana.jpg" alt="Mariana" />
+                    </a>
+                    <a href="https://www.linkedin.com/in/mariana-meneses-del-valle/" target="_blank">
+                        Mariana Meneses (Data Analyst)</a>
                 </li>
                 <li>
                     {/* Tan */}
