@@ -1,20 +1,7 @@
-$grid-breakpoints: (
-        xs: 0,
-        sm: 576px,
-        md: 768px,
-        lg: 992px,
-        xl: 1200px,
-        xxl: 1400px
-);
-
 @import "~bootstrap/scss/bootstrap";
 
 $primary-color: #282c34;
 $secondary-color: #61dafb;
-
-.App h2 {
-  color: $primary-color; /* Testing only */
-}
 
 html {
   font-size: 1.12vw; /* 16px for 1440px-viewport */
@@ -22,6 +9,12 @@ html {
 
 main {
   margin: 0.5rem 0 3rem 0;
+}
+
+.App {
+  h2 {
+    color: $primary-color; /* Testing only */
+  }
 }
 
 /* ------------------- */

@@ -7,10 +7,10 @@ import {
 import '../scss/App.scss';
 import Home from './pages/Home';
 import Category from './pages/Category';
-import About from './pages/About';
+import Leadership from './pages/Leadership';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import {Container, Nav, Navbar} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 
 export default function App() {
     return (
@@ -20,7 +20,7 @@ export default function App() {
                 <main>
                     <Container>
                         <Routes>
-                            <Route path="/about" element={<About/>}/>
+                            <Route path="/leadership" element={<Leadership/>}/>
                             <Route path="/category" element={<Category/>}/>
                             <Route path="/" element={<Home/>}/>
                         </Routes>
