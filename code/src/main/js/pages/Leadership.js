@@ -8,7 +8,10 @@ function Leadership() {
             <ul>
                 <li>
                     {/* Ferry */}
-                    <img src="images/Leadership/avatar_Ferry.jpg" alt="Ferry" />
+                    <a href="https://www.linkedin.com/in/ferryalviantotjahjadi/" target="_blank">
+                        <img src="images/Leadership/avatar_Ferry.jpg" alt="Ferry" />
+                    </a>
+                    <a href="https://www.linkedin.com/in/ferryalviantotjahjadi/" target="_blank">Ferry Tjahjadi (CEO)</a>
                 </li>
                 <li>
                     {/* Mariana */}
