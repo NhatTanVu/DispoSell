@@ -30,7 +30,10 @@ function Leadership() {
                 </li>
                 <li>
                     {/* Khang */}
-                    <img src="images/Leadership/avatar_Khang.jpg" alt="Khang" />
+                    <a href="https://www.linkedin.com/in/khangtruong8385/" target="_blank">
+                        <img src="images/Leadership/avatar_Khang.jpg" alt="Khang" />
+                    </a>
+                    <a href="https://www.linkedin.com/in/khangtruong8385/" target="_blank">Khang Truong (Junior Developer)</a>
                 </li>
             </ul>
         </div>
