@@ -8,11 +8,18 @@ function Leadership() {
             <ul>
                 <li>
                     {/* Ferry */}
-                    <img src="images/Leadership/avatar_Ferry.jpg" alt="Ferry" />
+                    <a href="https://www.linkedin.com/in/ferryalviantotjahjadi/" target="_blank">
+                        <img src="images/Leadership/avatar_Ferry.jpg" alt="Ferry" />
+                    </a>
+                    <a href="https://www.linkedin.com/in/ferryalviantotjahjadi/" target="_blank">Ferry Tjahjadi (CEO)</a>
                 </li>
                 <li>
                     {/* Mariana */}
-                    <img src="images/Leadership/avatar_Mariana.jpg" alt="Mariana" />
+                    <a href="https://www.linkedin.com/in/mariana-meneses-del-valle/" target="_blank">
+                        <img src="images/Leadership/avatar_Mariana.jpg" alt="Mariana" />
+                    </a>
+                    <a href="https://www.linkedin.com/in/mariana-meneses-del-valle/" target="_blank">
+                        Mariana Meneses (Data Analyst)</a>
                 </li>
                 <li>
                     {/* Tan */}
@@ -21,9 +28,13 @@ function Leadership() {
                     </a>
                     <a href="https://www.linkedin.com/in/tanvu/" target="_blank">Nhat Tan Vu (CTO)</a>
                 </li>
+
                 <li>
                     {/* Khang */}
-                    <img src="images/Leadership/avatar_Khang.jpg" alt="Khang" />
+                    <a href="https://www.linkedin.com/in/khangtruong8385/" target="_blank">
+                        <img src="images/Leadership/avatar_Khang.jpg" alt="Khang" />
+                    </a>
+                    <a href="https://www.linkedin.com/in/khangtruong8385/" target="_blank">Khang Truong (Junior Developer)</a>
                 </li>
             </ul>
         </div>
