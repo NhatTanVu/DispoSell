@@ -28,6 +28,7 @@ function Leadership() {
                     </a>
                     <a href="https://www.linkedin.com/in/tanvu/" target="_blank">Nhat Tan Vu (CTO)</a>
                 </li>
+
                 <li>
                     {/* Khang */}
                     <a href="https://www.linkedin.com/in/khangtruong8385/" target="_blank">
