@@ -13,6 +13,7 @@ function Header() {
                             <Nav.Link href="/">Home</Nav.Link>
                             <Nav.Link href="/category">Category</Nav.Link>
                             <Nav.Link href="/leadership">Leadership</Nav.Link>
+                            <Nav.Link href="/aboutUs">AboutUs</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
