@@ -1,5 +1,6 @@
-package DispoSell;
+package DispoSell.repository;
 
+import DispoSell.models.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
