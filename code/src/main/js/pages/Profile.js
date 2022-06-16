@@ -1,35 +1,26 @@
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
 import AuthService from "../services/auth.service";
-import { Navigate } from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 
-export default class Profile extends Component {
-    constructor(props) {
-        super(props);
+export default function Profile() {
+    const [redirect, setRedirect] = useState(null);
+    const [isUserReady, setUserReady] = useState(false);
+    const [currentUser, setCurrentUser] = useState({username: ""});
 
-        this.state = {
-            redirect: null,
-            userReady: false,
-            currentUser: {username: ""}
-        };
-    }
-
-    componentDidMount() {
+    useEffect(() => {
         const currentUser = AuthService.getCurrentUser();
 
-        if (!currentUser) this.setState({redirect: "/home"});
-        this.setState({currentUser: currentUser, userReady: true})
-    }
+        if (!currentUser) setRedirect("/home");
+        setCurrentUser(currentUser);
+        setUserReady(true);
+    }, []);
 
-    render() {
-        if (this.state.redirect) {
-            return <Navigate to={this.state.redirect}/>
-        }
-
-        const {currentUser} = this.state;
-
-        return (
+    return (
+        (redirect) ?
+            <Navigate to={redirect}/>
+            :
             <div className="container">
-                {(this.state.userReady) ?
+                {(isUserReady) ?
                     <div>
                         <header className="jumbotron">
                             <h3>
@@ -39,7 +30,7 @@ export default class Profile extends Component {
                         <p>
                             <strong>Token:</strong>{" "}
                             {currentUser.accessToken.substring(0, 20)} ...{" "}
-                            {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
+                            {currentUser.accessToken.substring(currentUser.accessToken.length - 20)}
                         </p>
                         <p>
                             <strong>Id:</strong>{" "}
@@ -56,6 +47,5 @@ export default class Profile extends Component {
                         </ul>
                     </div> : null}
             </div>
-        );
-    }
+    );
 }

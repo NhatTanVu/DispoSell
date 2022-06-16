@@ -9,7 +9,7 @@ function Header() {
     const [isAdmin, setIsAdmin] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
 
-    const logOut = () => {
+    const signOut = () => {
         AuthService.logout();
         setIsDelivery(false);
         setIsAdmin(false);
@@ -26,7 +26,7 @@ function Header() {
         }
 
         EventBus.on("logout", () => {
-            logOut();
+            signOut();
         });
 
         return () => {
@@ -52,12 +52,12 @@ function Header() {
                             {currentUser ? (
                                 <>
                                     <Nav.Link as={Link} to="/profile" style={{color: "darkgreen"}}>{currentUser.username}</Nav.Link>
-                                    <Nav.Link as={Link} to="/login" onClick={logOut}>LogOut</Nav.Link>
+                                    <Nav.Link as={Link} to="/login" onClick={signOut}>Sign out</Nav.Link>
                                 </>
                             ) : (
                                 <>
-                                    <Nav.Link as={Link} to="/login">Login</Nav.Link>
-                                    <Nav.Link as={Link} to="/register">Sign Up</Nav.Link>
+                                    <Nav.Link as={Link} to="/login">Log in</Nav.Link>
+                                    <Nav.Link as={Link} to="/register">Sign up</Nav.Link>
                                 </>
                             )}
                         </Nav>
