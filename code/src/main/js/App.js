@@ -10,6 +10,7 @@ import Category from './pages/Category';
 import Leadership from './pages/Leadership';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import AboutUs from "./pages/AboutUs";
 import {Container} from "react-bootstrap";
 
 export default function App() {
@@ -18,13 +19,14 @@ export default function App() {
             <div className="App">
                 <Header/>
                 <main>
-                    <Container>
+                    {/*<Container>*/}
                         <Routes>
                             <Route path="/leadership" element={<Leadership/>}/>
                             <Route path="/category" element={<Category/>}/>
                             <Route path="/" element={<Home/>}/>
+                            <Route path="/aboutUs" element={<AboutUs/>}/>
                         </Routes>
-                    </Container>
+                    {/*</Container>*/}
                 </main>
                 <Footer/>
             </div>
