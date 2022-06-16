@@ -19,14 +19,12 @@ export default function App() {
             <div className="App">
                 <Header/>
                 <main>
-                    {/*<Container>*/}
                         <Routes>
                             <Route path="/leadership" element={<Leadership/>}/>
                             <Route path="/category" element={<Category/>}/>
                             <Route path="/aboutUs" element={<AboutUs/>}/>
                             <Route path="/" element={<Home/>}/>
                         </Routes>
-                    {/*</Container>*/}
                 </main>
                 <Footer/>
             </div>
