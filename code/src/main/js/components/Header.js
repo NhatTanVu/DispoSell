@@ -10,6 +10,7 @@ function Header() {
                     <Navbar.Brand as={Link} to="/">DispoSell</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+
                         <Nav>
                             <Nav.Link as={Link} to="/">Home</Nav.Link>
                             <Nav.Link as={Link} to="/category">Category</Nav.Link>
