@@ -1,0 +1,81 @@
+.intro{
+  width: 88.5rem;
+  height: 50rem;
+}
+.image_header img{
+  position:relative;
+  width:88.5rem;
+  z-index: 1;
+  //filter: brightness(1);
+  //filter: blur(4px);
+  //filter: grayscale(50%);
+  /* filter: saturate(300%); */
+  /* filter: contrast(90%); */
+}
+.overlay{
+  position: relative;
+  background-color: gray;
+  opacity: 0.5;
+  width: 88.5rem;
+  height: 50rem;
+  top: -50rem;
+  z-index: 2;
+}
+.header{
+  position:relative;
+  z-index: 3;
+  margin-left: 10rem;
+  width: 88.5rem;
+  top: -103rem;
+  color: white;
+  font-size: 15rem;
+}
+.content{
+  position:relative;
+  z-index: 3;
+  top: -105rem;
+  left: 22rem;
+  width: 50rem;
+  height: 29rem;
+  /* border: 1px solid black; */
+  background-color: white;
+  border-radius: 0.5rem;
+  opacity: 0.95;
+}
+.content p{
+  padding: 2rem;
+  font-size: 1.5rem;
+}
+.team{
+  padding: 5rem;
+}
+/* just for testing */
+/* table, th, td {
+    border: 1px solid black;
+  } */
+
+.float_left{
+  float: left;
+  font-size: 13rem;
+}
+.float_right{
+  float: right;
+}
+td{
+  padding: 2rem;
+}
+table img{
+  width: 15rem;
+  height: 15rem;
+  /* border: 1px solid black; */
+  border-radius: 100rem;
+  object-fit: cover;
+}
+table tr td{
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+table tr td a{
+  text-decoration: none;
+}
