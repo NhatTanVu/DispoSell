@@ -2,7 +2,6 @@ import React from "react";
 import localStyles from '../../scss/pages/AboutUs.module.scss';
 
 function AboutUs() {
-
     return (
         <div className={localStyles["aboutUs"]}>
             <div className={localStyles["intro"]}>
