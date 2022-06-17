@@ -8,9 +8,7 @@
     "react": "^18.1.0",
     "react-bootstrap": "^2.4.0",
     "react-dom": "^18.1.0",
-    "react-router-dom": "^6.3.0",
-    "react-validation": "^3.0.7",
-    "validator": "^13.7.0"
+    "react-router-dom": "^6.3.0"
   },
   "scripts": {
     "watch": "webpack --watch -d --output ./target/classes/static/build/bundle.js"
