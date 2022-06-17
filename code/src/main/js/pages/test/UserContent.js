@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from "react";
-import UserService from "../services/user.service";
-import EventBus from "../common/EventBus";
+import UserService from "../../services/test.service";
+//import EventBus from "../../common/EventBus";
+import {useNavigate} from "react-router-dom";
 
-export default function DeliveryBoard() {
+export default function UserContent() {
     const [content, setContent] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
-        UserService.getDeliveryBoard().then(
+        UserService.getUserContent().then(
             response => {
                 setContent(response.data);
             },
@@ -19,8 +21,10 @@ export default function DeliveryBoard() {
                     error.toString()
                 );
 
-                if (error.response && error.response.status === 401) {
-                    EventBus.dispatch("logout");
+                if (error.response && error.response.status >= 400 && error.response.status <= 500) {
+                    //EventBus.dispatch("logout");
+                    navigate("/");
+                    window.location.reload();
                 }
             }
         );

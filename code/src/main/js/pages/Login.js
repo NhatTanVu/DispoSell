@@ -2,11 +2,12 @@ import React, {useState} from "react";
 import AuthService from "../services/auth.service";
 import {useNavigate} from "react-router-dom";
 
-function Login(props) {
+export default function Login(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
     function onChangeUsername(e) {
         setUsername(e.target.value);
@@ -24,7 +25,7 @@ function Login(props) {
 
         AuthService.login(username, password).then(
             () => {
-                props.history("/profile");
+                navigate("/profile");
                 window.location.reload();
             },
             error => {
@@ -99,7 +100,3 @@ function Login(props) {
         </div>
     );
 }
-
-export default (props) => (
-    <Login history={useNavigate()}/>
-);

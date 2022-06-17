@@ -10,7 +10,7 @@ export default function Profile() {
     useEffect(() => {
         const currentUser = AuthService.getCurrentUser();
 
-        if (!currentUser) setRedirect("/home");
+        if (!currentUser) setRedirect("/");
         setCurrentUser(currentUser);
         setUserReady(true);
     }, []);
@@ -39,6 +39,14 @@ export default function Profile() {
                         <p>
                             <strong>Email:</strong>{" "}
                             {currentUser.email}
+                        </p>
+                        <p>
+                            <strong>Delivery Address:</strong>{" "}
+                            {currentUser.deliveryAddress}
+                        </p>
+                        <p>
+                            <strong>Phone Number:</strong>{" "}
+                            {currentUser.phoneNumber}
                         </p>
                         <strong>Authorities:</strong>
                         <ul>

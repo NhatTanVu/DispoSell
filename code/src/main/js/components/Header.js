@@ -5,12 +5,14 @@ import AuthService from "../services/auth.service";
 import EventBus from "../common/EventBus";
 
 function Header() {
+    const [isUser, setIsUser] = useState(false);
     const [isDelivery, setIsDelivery] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
 
     const signOut = () => {
         AuthService.logout();
+        setIsUser(false);
         setIsDelivery(false);
         setIsAdmin(false);
         setCurrentUser(null);
@@ -21,6 +23,7 @@ function Header() {
 
         if (user) {
             setCurrentUser(user);
+            setIsUser(user.roles.includes("ROLE_USER"));
             setIsAdmin(user.roles.includes("ROLE_ADMIN"));
             setIsDelivery(user.roles.includes("ROLE_DELIVERY"));
         }
@@ -46,7 +49,7 @@ function Header() {
                             <Nav.Link as={Link} to="/">Home</Nav.Link>
                             <Nav.Link as={Link} to="/category">Category</Nav.Link>
                             <Nav.Link as={Link} to="/leadership">Leadership</Nav.Link>
-                            {currentUser != null && <Nav.Link as={Link} to="/user">User</Nav.Link>}
+                            {isUser && <Nav.Link as={Link} to="/user">User</Nav.Link>}
                             {isDelivery && <Nav.Link as={Link} to="/delivery">Delivery</Nav.Link>}
                             {isAdmin && <Nav.Link as={Link} to="/admin">Admin</Nav.Link>}
                             {currentUser ? (

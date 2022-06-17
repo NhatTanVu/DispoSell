@@ -3,22 +3,18 @@ import authHeader from './auth-header';
 
 const API_URL = './api/test/';
 
-class UserService {
-  getPublicContent() {
-    return axios.get(API_URL + 'all');
-  }
-
-  getUserBoard() {
+class TestService {
+  getUserContent() {
     return axios.get(API_URL + 'user', { headers: authHeader() });
   }
 
-  getDeliveryBoard() {
+  getDeliveryContent() {
     return axios.get(API_URL + 'delivery', { headers: authHeader() });
   }
 
-  getAdminBoard() {
+  getAdminContent() {
     return axios.get(API_URL + 'admin', { headers: authHeader() });
   }
 }
 
-export default new UserService();
+export default new TestService();

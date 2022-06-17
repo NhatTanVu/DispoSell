@@ -7,6 +7,8 @@ export default function Register() {
     const [password, setPassword] = useState("");
     const [successful, setSuccessful] = useState(false);
     const [message, setMessage] = useState("");
+    const [deliveryAddress, setDeliveryAddress] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
 
     function onChangeUsername(e) {
         setUsername(e.target.value);
@@ -20,6 +22,14 @@ export default function Register() {
         setPassword(e.target.value);
     }
 
+    function onChangeDeliveryAddress(e) {
+        setDeliveryAddress(e.target.value);
+    }
+
+    function onChangePhoneNumber(e) {
+        setPhoneNumber(e.target.value);
+    }
+
     function handleRegister(e) {
         e.preventDefault();
 
@@ -29,7 +39,9 @@ export default function Register() {
         AuthService.register(
             username,
             email,
-            password
+            password,
+            deliveryAddress,
+            phoneNumber
         ).then(
             response => {
                 setMessage(response.data.message);
@@ -75,6 +87,17 @@ export default function Register() {
                             </div>
 
                             <div className="col-12">
+                                <label htmlFor="password" className="form-label">Password</label>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    name="password"
+                                    value={password}
+                                    onChange={onChangePassword}
+                                />
+                            </div>
+
+                            <div className="col-12">
                                 <label htmlFor="email" className="form-label">Email</label>
                                 <input
                                     type="text"
@@ -86,13 +109,24 @@ export default function Register() {
                             </div>
 
                             <div className="col-12">
-                                <label htmlFor="password" className="form-label">Password</label>
+                                <label htmlFor="deliveryAddress" className="form-label">Delivery Address</label>
                                 <input
-                                    type="password"
+                                    type="text"
                                     className="form-control"
-                                    name="password"
-                                    value={password}
-                                    onChange={onChangePassword}
+                                    name="deliveryAddress"
+                                    value={deliveryAddress}
+                                    onChange={onChangeDeliveryAddress}
+                                />
+                            </div>
+
+                            <div className="col-12">
+                                <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    name="phoneNumber"
+                                    value={phoneNumber}
+                                    onChange={onChangePhoneNumber}
                                 />
                             </div>
 
