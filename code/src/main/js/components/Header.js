@@ -49,6 +49,8 @@ function Header() {
                             <Nav.Link as={Link} to="/">Home</Nav.Link>
                             <Nav.Link as={Link} to="/category">Category</Nav.Link>
                             <Nav.Link as={Link} to="/leadership">Leadership</Nav.Link>
+                            <Nav.Link as={Link} to="/aboutUs">About Us</Nav.Link>
+
                             {isUser && <Nav.Link as={Link} to="/user">User</Nav.Link>}
                             {isDelivery && <Nav.Link as={Link} to="/delivery">Delivery</Nav.Link>}
                             {isAdmin && <Nav.Link as={Link} to="/admin">Admin</Nav.Link>}
