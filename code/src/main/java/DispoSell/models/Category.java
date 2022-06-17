@@ -1,4 +1,4 @@
-package DispoSell;
+package DispoSell.models;
 
 public class Category {
 

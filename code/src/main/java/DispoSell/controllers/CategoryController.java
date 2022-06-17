@@ -1,5 +1,7 @@
-package DispoSell;
+package DispoSell.controllers;
 
+import DispoSell.repository.Catdao;
+import DispoSell.models.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
