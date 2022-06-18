@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import AuthService from "../services/auth.service";
 import {Navigate} from 'react-router-dom';
+import EventBus from "../common/EventBus";
 
 export default function Profile() {
     const [redirect, setRedirect] = useState(null);
@@ -10,9 +11,12 @@ export default function Profile() {
     useEffect(() => {
         const currentUser = AuthService.getCurrentUser();
 
-        if (!currentUser) setRedirect("/");
-        setCurrentUser(currentUser);
-        setUserReady(true);
+        if (!currentUser) {
+            EventBus.dispatch("logout");
+        } else {
+            setCurrentUser(currentUser);
+            setUserReady(true);
+        }
     }, []);
 
     return (

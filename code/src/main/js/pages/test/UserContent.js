@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from "react";
 import UserService from "../../services/test.service";
-//import EventBus from "../../common/EventBus";
-import {useNavigate} from "react-router-dom";
+import EventBus from "../../common/EventBus";
 
 export default function UserContent() {
     const [content, setContent] = useState("");
-    const navigate = useNavigate();
 
     useEffect(() => {
         UserService.getUserContent().then(
@@ -22,9 +20,7 @@ export default function UserContent() {
                 );
 
                 if (error.response && error.response.status >= 400 && error.response.status <= 500) {
-                    //EventBus.dispatch("logout");
-                    navigate("/");
-                    window.location.reload();
+                    EventBus.dispatch("logout");
                 }
             }
         );

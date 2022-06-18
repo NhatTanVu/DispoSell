@@ -1,6 +1,6 @@
 import {Container, Nav, Navbar} from "react-bootstrap";
 import React, {useState, useEffect} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import AuthService from "../services/auth.service";
 import EventBus from "../common/EventBus";
 
@@ -9,6 +9,7 @@ function Header() {
     const [isDelivery, setIsDelivery] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
+    const navigate = useNavigate();
 
     const signOut = () => {
         AuthService.logout();
@@ -16,6 +17,8 @@ function Header() {
         setIsDelivery(false);
         setIsAdmin(false);
         setCurrentUser(null);
+        navigate("/");
+        window.location.reload();
     }
 
     useEffect(() => {
@@ -56,7 +59,8 @@ function Header() {
                             {isAdmin && <Nav.Link as={Link} to="/admin">Admin</Nav.Link>}
                             {currentUser ? (
                                 <>
-                                    <Nav.Link as={Link} to="/profile" style={{color: "darkgreen"}}>{currentUser.username}</Nav.Link>
+                                    <Nav.Link as={Link} to="/profile"
+                                              style={{color: "darkgreen"}}>{currentUser.username}</Nav.Link>
                                     <Nav.Link as={Link} to="/login" onClick={signOut}>Sign out</Nav.Link>
                                 </>
                             ) : (
