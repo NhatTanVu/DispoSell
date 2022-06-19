@@ -1,77 +1,139 @@
-.intro{
-  width: 88.5rem;
-  height: 50rem;
+//.intro {
+//  width: 88.5rem;
+//  height: 50rem;
+//}
+//
+//.image_header img {
+//  position: relative;
+//  width: 88.5rem;
+//  z-index: 1;
+//}
+//
+//.overlay {
+//  position: relative;
+//  background-color: gray;
+//  opacity: 0.5;
+//  width: 88.5rem;
+//  height: 50rem;
+//  top: -50rem;
+//  z-index: 2;
+//}
+//
+//.header {
+//  position: relative;
+//  z-index: 3;
+//  margin-left: 10rem;
+//  width: 88.5rem;
+//  top: -103rem;
+//  color: white;
+//  font-size: 15rem;
+//}
+//
+//.content {
+//  position: relative;
+//  z-index: 3;
+//  top: -105rem;
+//  left: 22rem;
+//  width: 50rem;
+//  height: 29rem;
+//  /* border: 1px solid black; */
+//  background-color: white;
+//  border-radius: 0.5rem;
+//  opacity: 0.95;
+//}
 
+.aboutTxt{
+  padding-left: 3rem;
+  padding-right: 3rem;
+  padding-top: 3rem;
+  width: 100%;
+  alignment: center;
 }
-.image_header img{
-  position:relative;
-  width:88.5rem;
-  z-index: 1;
-}
-.overlay{
-  position: relative;
-  background-color: gray;
-  opacity: 0.5;
-  width: 88.5rem;
-  height: 50rem;
-  top: -50rem;
-  z-index: 2;
-}
-.header{
-  position:relative;
-  z-index: 3;
-  margin-left: 10rem;
-  width: 88.5rem;
-  top: -103rem;
-  color: white;
-  font-size: 15rem;
-}
-.content{
-  position:relative;
-  z-index: 3;
-  top: -105rem;
-  left: 22rem;
-  width: 50rem;
-  height: 29rem;
-  /* border: 1px solid black; */
-  background-color: white;
-  border-radius: 0.5rem;
-  opacity: 0.95;
-}
-.content p{
+
+.container p {
   padding: 2rem;
-  font-size: 1.5rem;
+  font-size: 1rem;
+  font-family: SFProDisplay, sans-serif, Fallback;
 }
-.team{
-  padding: 5rem;
+
+.cover {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  background: url("/images/AboutUs/image_header.jpg") no-repeat fixed center;
+  background-size: cover;
+  align-items: center;
 }
+
+.container {
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(20px);
+  text-align: left;
+  margin: 1rem 3rem 3rem;
+}
+
+.team {
+  padding: 3rem;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.teamTxt{
+  width: 100%;
+  alignment: center;
+}
+
 /* just for testing */
 /* table, th, td {
     border: 1px solid black;
   } */
 
-.float_left{
+.float_left {
   float: left;
-  font-size: 13rem;
+  flex: 50%
 }
-.float_right{
+
+.float_right {
   float: right;
+  flex: 50%
 }
-td{
+
+.flex {
+  flex:50%
+}
+
+@media (max-width: 1080px) {
+  .team{
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+
+  tr{
+    width: 50%;
+  }
+}
+
+td {
   padding: 2rem;
 }
-table img{
+
+table img {
   width: 15rem;
   height: 15rem;
   /* border: 1px solid black; */
   border-radius: 100rem;
   object-fit: cover;
 }
-table tr td{
+
+table tr td {
   font-size: 1.5rem;
   text-align: center;
 }
 
-table tr td a{
+table tr td a {
   text-decoration: none;
 }

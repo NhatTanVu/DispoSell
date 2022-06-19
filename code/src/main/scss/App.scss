@@ -1,14 +1,26 @@
 @import "~bootstrap/scss/bootstrap";
 
-$primary-color: #282c34;
-$secondary-color: #61dafb;
+@font-face {
+  font-family: NHaasGrotesk;
+  src: url("/fonts/NHaasGroteskTXPro-55Rg.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: SFProDisplay;
+  src: url("/fonts/SF-Pro-Display-Regular.otf") format("otf");
+}
+
+$primary-color: #000000;
+$secondary-color: #ffffff;
 
 html {
   font-size: 1.12vw; /* 16px for 1440px-viewport */
+  scroll-behavior: smooth;
 }
 
 main {
   margin: 0.5rem 0 3rem 0;
+  overflow-x: hidden;
 }
 
 .App {
