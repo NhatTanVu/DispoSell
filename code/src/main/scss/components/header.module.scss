@@ -1,0 +1,51 @@
+//.hoverEffect {
+//  &:after {
+//    content: "";
+//    position: absolute;
+//    bottom: 0;
+//    left: 1em;
+//    right: 1em;
+//    height: 2px;
+//    background: currentColor;
+//    transform: scaleX(0);
+//    transition: transform 150ms ease-in-out;
+//    transition: transform 150ms ease-in-out;
+//  }
+//
+//  &:hover::after {
+//    transform: scaleX(1);
+//  }
+//}
+
+.headerStyle {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(40px);
+  font-family: NHaasGrotesk, sans-serif, Fallback;
+  font-size: 1rem;
+}
+
+.showAlways{
+  visibility: visible;
+}
+
+.showMobileOnly{
+  visibility: hidden;
+}
+
+@media (max-width: 800px) {
+  header{
+    width: 100%;
+  }
+
+  .showDesktopOnly{
+    visibility: hidden;
+  }
+
+  .showMobileOnly{
+    visibility: visible;
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(40px);
+    font-family: NHaasGrotesk, sans-serif, Fallback;
+    font-size: 1rem;
+  }
+}
