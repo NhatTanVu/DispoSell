@@ -1,58 +1,10 @@
-//.intro {
-//  width: 88.5rem;
-//  height: 50rem;
-//}
-//
-//.image_header img {
-//  position: relative;
-//  width: 88.5rem;
-//  z-index: 1;
-//}
-//
-//.overlay {
-//  position: relative;
-//  background-color: gray;
-//  opacity: 0.5;
-//  width: 88.5rem;
-//  height: 50rem;
-//  top: -50rem;
-//  z-index: 2;
-//}
-//
-//.header {
-//  position: relative;
-//  z-index: 3;
-//  margin-left: 10rem;
-//  width: 88.5rem;
-//  top: -103rem;
-//  color: white;
-//  font-size: 15rem;
-//}
-//
-//.content {
-//  position: relative;
-//  z-index: 3;
-//  top: -105rem;
-//  left: 22rem;
-//  width: 50rem;
-//  height: 29rem;
-//  /* border: 1px solid black; */
-//  background-color: white;
-//  border-radius: 0.5rem;
-//  opacity: 0.95;
-//}
-
-.aboutTxt{
-  padding-left: 3rem;
-  padding-right: 3rem;
-  padding-top: 3rem;
+.aboutTxt, .teamTxt{
   width: 100%;
   alignment: center;
 }
 
 .container p {
   padding: 2rem;
-  font-size: 1rem;
   font-family: SFProDisplay, sans-serif, Fallback;
 }
 
@@ -64,6 +16,7 @@
   background: url("/images/AboutUs/image_header.jpg") no-repeat fixed center;
   background-size: cover;
   align-items: center;
+  padding: 2rem;
 }
 
 .container {
@@ -72,49 +25,94 @@
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   text-align: left;
-  margin: 1rem 3rem 3rem;
+  margin: 1rem 2rem 2rem;
+}
+
+.div-hover {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.anchorOurTeam:hover {
+  opacity: 1;
+  animation: none;
+  -webkit-animation: none;
+  transition: 3s ease;
+  -webkit-transition: 3s ease;
+}
+
+.anchor {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  padding: 1em 2em;
+  align-items: center;
+  cursor: pointer;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.anchorOurTeam{
+  height: 70px;
+  width: auto;
+  animation: blink 3s;
+  -webkit-animation: blink 3s;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
 }
 
 .team {
-  padding: 3rem;
+  padding: 1rem;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   position: relative;
 }
 
-.teamTxt{
-  width: 100%;
-  alignment: center;
-}
-
-/* just for testing */
-/* table, th, td {
-    border: 1px solid black;
-  } */
-
 .float_left {
   float: left;
-  flex: 50%
+  flex: 50%;
+  -webkit-flex: 50%;
 }
 
 .float_right {
   float: right;
-  flex: 50%
+  flex: 50%;
+  -webkit-flex: 50%;
 }
 
-.flex {
-  flex:50%
-}
-
-@media (max-width: 1080px) {
-  .team{
+@media (max-width: 767px) {
+  .team, .cover{
     -webkit-flex-direction: column;
     flex-direction: column;
   }
 
-  tr{
-    width: 50%;
+  .div-hover{
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 1023px){
+  .team {
+    -webkit-flex-direction: column;
+    flex-direction: column;
   }
 }
 
@@ -123,15 +121,14 @@ td {
 }
 
 table img {
-  width: 15rem;
-  height: 15rem;
+  width: 100%;
+  height: auto;
   /* border: 1px solid black; */
   border-radius: 100rem;
   object-fit: cover;
 }
 
 table tr td {
-  font-size: 1.5rem;
   text-align: center;
 }
 
