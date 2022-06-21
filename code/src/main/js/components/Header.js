@@ -78,7 +78,7 @@ function Header() {
                                 <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
                                 &nbsp;
                                 <Nav.Link as={Link} to="/trade">
-                                    <button className="bg-transparent rounded-pill">Trade</button>
+                                    <button className={`bg-transparent rounded-pill ${localStyles["tradeBtn"]}`}>Trade</button>
                                 </Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
