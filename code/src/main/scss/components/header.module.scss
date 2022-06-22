@@ -1,55 +1,67 @@
-//.hoverEffect {
-//  &:after {
-//    content: "";
-//    position: absolute;
-//    bottom: 0;
-//    left: 1em;
-//    right: 1em;
-//    height: 2px;
-//    background: currentColor;
-//    transform: scaleX(0);
-//    transition: transform 150ms ease-in-out;
-//    transition: transform 150ms ease-in-out;
-//  }
-//
-//  &:hover::after {
-//    transform: scaleX(1);
-//  }
-//}
 
 .headerStyle {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(143, 143, 143, 0.3);
   backdrop-filter: blur(40px);
   -webkit-backdrop-filter: blur(40px);
   font-family: NHaasGrotesk, sans-serif, Fallback;
   font-size: 1rem;
 }
 
-.showAlways{
+.showAlways {
   visibility: visible;
 }
 
-.showMobileOnly{
+.logoBlack:hover {
+  filter: invert(1);
+  -webkit-filter: invert(1);
+  transition: 0.2s ease;
+  -webkit-transition: 0.2s ease;
+}
+
+.showMobileOnly {
   visibility: hidden;
 }
 
-.btnTrade{
+.btnTrade {
   -webkit-appearance: none;
   border: solid black;
+  padding-right: 1em;
+  padding-left: 1em;
+  background: transparent;
 }
 
-@media (max-width: 767px){
-  header{
+.btnTrade:hover {
+  color: #000000;
+  background: rgb(255, 255, 255);
+  -webkit-appearance: none;
+  transition: 0.5s ease;
+  -webkit-transition: 0.5s ease;
+  border: white solid;
+  font-weight: bolder;
+}
+
+.icon {
+  width: 2em;
+  height: auto;
+}
+
+
+.dropdown::after{
+  background-color: rgba(143, 143, 143, 0.3) !important;
+}
+
+@media (max-width: 767px) {
+  header {
     width: 100%;
   }
 
-  .showDesktopOnly{
+  .showDesktopOnly {
     visibility: hidden;
   }
 
-  .showMobileOnly{
+  .showMobileOnly {
     visibility: visible;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(143, 143, 143, 0.3);
     backdrop-filter: blur(40px);
     -webkit-backdrop-filter: blur(40px);
     font-family: NHaasGrotesk, sans-serif, Fallback;

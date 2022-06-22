@@ -1,4 +1,4 @@
-import {Container, DropdownButton, Nav, Navbar, NavDropdown} from "react-bootstrap";
+import {Button, Container, Dropdown, DropdownButton, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import React, {useState, useEffect} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import AuthService from "../services/auth.service";
@@ -49,7 +49,8 @@ function Header() {
                 <Container>
                     <Navbar expand='sm' className={localStyles["showDesktopOnly"]}>
                         <Navbar.Brand href="/" className={localStyles["showAlways"]}>
-                            <img height={40} src="images/logos/DispoSellblack.png" alt="DispoSell Logo"/>
+                            <img height={40} className={localStyles["logoBlack"]} src="images/logos/DispoSellblack.png"
+                                 alt="DispoSell Logo"/>
                         </Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                         <Navbar.Collapse id="basic-navbar-nav"
@@ -59,8 +60,7 @@ function Header() {
                                 &nbsp;
                                 <Nav.Link as={Link} to="/search">Search</Nav.Link>
                                 &nbsp;
-                                <NavDropdown title="Account" id="dropdown-menu">
-                                    {/*<Nav>*/}
+                                <NavDropdown title="Account" key="down" drop="down">
                                     {isUser && <Nav.Link as={Link} to="/user">User</Nav.Link>}
                                     {isDelivery && <Nav.Link as={Link} to="/delivery">Delivery</Nav.Link>}
                                     {isAdmin && <Nav.Link as={Link} to="/admin">Admin</Nav.Link>}
@@ -72,13 +72,13 @@ function Header() {
                                         <Nav.Link as={Link} to="/login">Log in</Nav.Link>
                                         <Nav.Link as={Link} to="/register">Sign up</Nav.Link>
                                     </>)}
-                                    {/*</Nav>*/}
                                 </NavDropdown>
                                 &nbsp;
                                 <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
                                 &nbsp;
                                 <Nav.Link as={Link} to="/trade">
-                                    <button className={`bg-transparent rounded-pill ${localStyles["btnTrade"]}`}>Trade</button>
+                                    <button className={`rounded-pill ${localStyles["btnTrade"]}`}>Trade
+                                    </button>
                                 </Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
@@ -90,77 +90,58 @@ function Header() {
                 <Container>
                     <Navbar>
                         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-                        <Navbar.Collapse id="basic-navbar-nav"
-                                         className='justify-content-center'>
-                            <Nav className={`align-items-center`}>
-                                <Nav.Link as={Link} to="/">Browse</Nav.Link>
+                        <Navbar.Collapse id="basic-navbar-nav" className='justify-content-center'>
+                            <Nav className="text-center">
+                                <Nav.Link as={Link} to="/">
+                                    <img className={`${localStyles["icon"]}`} src="images/icons/browse.png"
+                                         alt="Browse"/>
+                                    <br/>Browse
+                                </Nav.Link>
                                 &nbsp;
-                                <Nav.Link as={Link} to="/search">Search</Nav.Link>
+                                <Nav.Link as={Link} to="/search">
+                                    <img className={localStyles["icon"]} src="images/icons/search.png" alt="Search"/>
+                                    <br/>Search
+                                </Nav.Link>
                                 &nbsp;
 
-                                <NavDropdown title="Account" key='up' drop='up'>
-                                    {/*<Nav>*/}
-                                    {isUser && <Nav.Link as={Link} to="/user">User</Nav.Link>}
-                                    {isDelivery && <Nav.Link as={Link} to="/delivery">Delivery</Nav.Link>}
-                                    {isAdmin && <Nav.Link as={Link} to="/admin">Admin</Nav.Link>}
-                                    {currentUser ? (<>
-                                        <Nav.Link as={Link} to="/profile"
-                                                  style={{color: "darkgreen"}}>{currentUser.username}</Nav.Link>
-                                        <Nav.Link as={Link} to="/login" onClick={signOut}>Sign out</Nav.Link>
-                                    </>) : (<>
-                                        <Nav.Link as={Link} to="/login">Log in</Nav.Link>
-                                        <Nav.Link as={Link} to="/register">Sign up</Nav.Link>
-                                    </>)}
-                                    {/*</Nav>*/}
-                                </NavDropdown>
+                                <div>
+                                    <img className={`${localStyles["icon"]}`} src="images/icons/account.png"
+                                         alt="Account"/>
+
+                                    <NavDropdown title="Account" drop='up' className={localStyles['dropdown']}>
+                                        {isUser && <Nav.Link as={Link} to="/user">User</Nav.Link>}
+                                        {isDelivery && <Nav.Link as={Link} to="/delivery">Delivery</Nav.Link>}
+                                        {isAdmin && <Nav.Link as={Link} to="/admin">Admin</Nav.Link>}
+                                        {currentUser ? (<>
+                                            <Nav.Link as={Link} to="/profile"
+                                                      style={{color: "darkgreen"}}>{currentUser.username}</Nav.Link>
+                                            <Nav.Link as={Link} to="/login" onClick={signOut}>Sign out</Nav.Link>
+                                        </>) : (<>
+                                            <Nav.Link as={Link} to="/login">Log in</Nav.Link>
+                                            <Nav.Link as={Link} to="/register">Sign up</Nav.Link>
+                                        </>)}
+                                    </NavDropdown>
+                                </div>
+
+
                                 &nbsp;
-                                <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
+                                <Nav.Link as={Link} to="/cart">
+                                    <img className={`${localStyles["icon"]}`} src="images/icons/cart.png" alt="Cart"/>
+                                    <br/>
+                                    Cart</Nav.Link>
                                 &nbsp;
                                 <Nav.Link as={Link} to="/trade">
+                                    <img className={`${localStyles["icon"]}`} src="images/icons/trade.png" alt="Trade"/>
+                                    <br/>
                                     Trade
                                 </Nav.Link>
+
                             </Nav>
                         </Navbar.Collapse>
                     </Navbar>
                 </Container>
             </div>
-
         </div>
-
-
-
-        // <header>
-        //     <Navbar bg="white" variant="light" expand="sm">
-        //         <Container>
-        //             <Navbar.Brand as={Link} to="/">DispoSell</Navbar.Brand>
-        //             <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-        //             <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-        //                 <Nav>
-        //                     <Nav.Link as={Link} to="/">Home</Nav.Link>
-        //                     <Nav.Link as={Link} to="/category">Category</Nav.Link>
-        //                     <Nav.Link as={Link} to="/leadership">Leadership</Nav.Link>
-        //                     <Nav.Link as={Link} to="/aboutUs">About Us</Nav.Link>
-        //
-        //                     {isUser && <Nav.Link as={Link} to="/user">User</Nav.Link>}
-        //                     {isDelivery && <Nav.Link as={Link} to="/delivery">Delivery</Nav.Link>}
-        //                     {isAdmin && <Nav.Link as={Link} to="/admin">Admin</Nav.Link>}
-        //                     {currentUser ? (
-        //                         <>
-        //                             <Nav.Link as={Link} to="/profile"
-        //                                       style={{color: "darkgreen"}}>{currentUser.username}</Nav.Link>
-        //                             <Nav.Link as={Link} to="/login" onClick={signOut}>Sign out</Nav.Link>
-        //                         </>
-        //                     ) : (
-        //                         <>
-        //                             <Nav.Link as={Link} to="/login">Log in</Nav.Link>
-        //                             <Nav.Link as={Link} to="/register">Sign up</Nav.Link>
-        //                         </>
-        //                     )}
-        //                 </Nav>
-        //             </Navbar.Collapse>
-        //         </Container>
-        //     </Navbar>
-        // </header>
     )
 }
 

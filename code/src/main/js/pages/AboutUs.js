@@ -51,13 +51,13 @@ function AboutUs() {
             {/*    </div>*/}
             {/*</div>*/}
 
-            <div className={localStyles["team"]} id="our-team">
-                <div className={localStyles["float_left"]}>
+            <div className={`${localStyles["team"]} justify-content-evenly`} id="our-team">
+                <div className={`${localStyles["float_left"]} justify-content-center`}>
                     <img className={localStyles["teamTxt"]} src="/images/AboutUs/ourteamtxt.png" alt="Our Team"/>
                 </div>
                 <div className={localStyles["float_right"]}>
                     <table>
-                        <tr className=' justify-content-evenly'>
+                        <tr className='justify-content-center'>
                             <td>
                                 {/*Ferry */}
                                 <a href="https://www.linkedin.com/in/ferryalviantotjahjadi/" target="_blank">
@@ -65,7 +65,7 @@ function AboutUs() {
                                 </a>
                                 <br/>
                                 <a href="https://www.linkedin.com/in/ferryalviantotjahjadi/" target="_blank">Ferry
-                                    Tjahjadi <br/>CEO</a>
+                                    Tjahjadi<br/>CEO</a>
                             </td>
                             <td>
                                 {/*Mariana*/}
@@ -77,7 +77,7 @@ function AboutUs() {
                                     Mariana Meneses<br/>Data Analyst</a>
                             </td>
                         </tr>
-                        <tr className=' justify-content-evenly'>
+                        <tr className='justify-content-center'>
                             <td>
                                 {/*Tan*/}
                                 <a href="https://www.linkedin.com/in/tanvu/" target="_blank">

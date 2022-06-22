@@ -1,11 +1,22 @@
 .aboutTxt, .teamTxt{
   width: 100%;
   alignment: center;
+  pointer-events: none;
+  touch-action: none;
+}
+
+.aboutUs{
+  scroll-snap-type: y mandatory;
+}
+
+.aboutUs .cover, .aboutUs .team{
+  scroll-snap-align: start;
 }
 
 .container p {
   padding: 2rem;
   font-family: SFProDisplay, sans-serif, Fallback;
+  color: #ffffff;
 }
 
 .cover {
@@ -20,8 +31,8 @@
 }
 
 .container {
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 2em;
+  background-color: rgba(143, 143, 143, 0.3);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   text-align: left;
@@ -70,12 +81,14 @@
 }
 
 .anchorOurTeam{
-  height: 70px;
+  height: 80px;
   width: auto;
   animation: blink 3s;
   -webkit-animation: blink 3s;
   animation-iteration-count: infinite;
   -webkit-animation-iteration-count: infinite;
+  touch-action: none;
+  pointer-events: none;
 }
 
 .team {
@@ -123,9 +136,10 @@ td {
 table img {
   width: 100%;
   height: auto;
-  /* border: 1px solid black; */
   border-radius: 100rem;
   object-fit: cover;
+  touch-action: none;
+  pointer-events: none;
 }
 
 table tr td {
