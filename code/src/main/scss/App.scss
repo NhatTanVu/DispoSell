@@ -14,7 +14,7 @@ $primary-color: #000000;
 $secondary-color: #ffffff;
 
 html {
-  font-size: 1.12vw; /* 16px for 1440px-viewport */
+  font-size: 100%;
   scroll-behavior: smooth;
 }
 
@@ -24,6 +24,10 @@ main {
 }
 
 .App {
+  h1 {
+    font-size: calc(1.3rem + 3.6vw);
+  }
+
   h2 {
     color: $primary-color; /* Testing only */
   }
@@ -65,17 +69,17 @@ main {
 /* ------------------- */
 /* Tablet view         */
 /* ------------------- */
-@media only screen and (min-width: 768px) and (max-width: 1023px) {
-  html {
-    font-size: 1.953125vw; /* 15px for 768px-viewport */
-  }
-}
+//@media only screen and (min-width: 768px) and (max-width: 1023px) {
+//  html {
+//    font-size: 1.953125vw; /* 15px for 768px-viewport */
+//  }
+//}
 
 /* ------------------- */
 /* Mobile view         */
 /* ------------------- */
-@media only screen and (max-width: 767px) {
-  html {
-    font-size: 4vmin; /* 15px for 375px-viewport */
-  }
-}
+//@media only screen and (max-width: 767px) {
+//  html {
+//    font-size: 4vmin; /* 15px for 375px-viewport */
+//  }
+//}
