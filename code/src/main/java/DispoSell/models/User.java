@@ -32,18 +32,24 @@ public class User {
     @Size(max = 120)
     private String password;
 
+    @Size(max = 150)
+    private String firstName;
+
+    @Size(max = 150)
+    private String lastName;
+
     @NotBlank
     @Size(max = 250)
-    private String deliveryAddress;
+    private String contactAddress;
 
     @NotBlank
     @Size(max = 20)
     private String phoneNumber;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "userRoles",
+            joinColumns = @JoinColumn(name = "userID"),
+            inverseJoinColumns = @JoinColumn(name = "roleID"))
     private Set<Role> roles = new HashSet<>();
 
     public User() {
@@ -54,7 +60,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.deliveryAddress = deliveryAddress;
+        this.contactAddress = deliveryAddress;
         this.phoneNumber = phoneNumber;
     }
 
@@ -90,12 +96,28 @@ public class User {
         this.password = password;
     }
 
-    public String getDeliveryAddress() {
-        return deliveryAddress;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setDeliveryAddress(String deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getContactAddress() {
+        return contactAddress;
+    }
+
+    public void setContactAddress(String deliveryAddress) {
+        this.contactAddress = deliveryAddress;
     }
 
     public String getPhoneNumber() {

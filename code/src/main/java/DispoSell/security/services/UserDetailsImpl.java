@@ -52,7 +52,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
-                user.getDeliveryAddress(),
+                user.getContactAddress(),
                 user.getPhoneNumber(),
                 authorities);
     }
