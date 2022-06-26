@@ -6,6 +6,7 @@ function Home() {
     return (
         <div className={localStyles["home-page"]}>
             <h2>Home</h2>
+            <Product/>
         </div>
     )
 }
