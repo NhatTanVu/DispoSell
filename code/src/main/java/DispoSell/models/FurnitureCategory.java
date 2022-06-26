@@ -5,25 +5,25 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "category",
+@Table(name = "furniturecategories",
         uniqueConstraints = {
         @UniqueConstraint(columnNames = "categoryID")
     })
-public class Category {
+public class FurnitureCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String categoryID;
+    private Long categoryID;
 
     @NotBlank
     @Size(max = 50)
     private String categoryname;
 
-    public String getCategoryID() {
+    public Long getCategoryID() {
         return categoryID;
     }
 
-    public void setCategoryID(String categoryID) {
+    public void setCategoryID(Long categoryID) {
         this.categoryID = categoryID;
     }
 

@@ -93,7 +93,7 @@ public class DispoSellApplication {
                 FurnitureMedia media1 = new FurnitureMedia(furniture, "img3.png", "png", null);
                 furnitureMediaRepository.save(media1);
 
-                FurnitureMedia media2 = new FurnitureMedia(furniture, "img3.png", "png", user);
+                FurnitureMedia media2 = new FurnitureMedia(furniture, "img4.png", "png", user);
                 furnitureMediaRepository.save(media2);
 
                 furniture = new Furniture();

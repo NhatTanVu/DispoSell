@@ -1,7 +1,5 @@
 package DispoSell.models;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -9,7 +7,7 @@ import java.time.ZonedDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "Furniture",
+@Table(name = "furniture",
         uniqueConstraints = {
         @UniqueConstraint(columnNames = "furnitureID")
 })
@@ -37,28 +35,24 @@ public class Furniture {
 
     private Float length;
 
-    @NotBlank
     private Integer quantity;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "conditionID", referencedColumnName = "conditionID")
     private FurnitureCondition conditionID;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Category categoryID;
+    @JoinColumn(name = "categoryID", referencedColumnName = "categoryID")
+    private FurnitureCategory categoryID;
 
-    @NotBlank
     private Float estimatedPrice;
 
-    @NotBlank
     private Float estimatedCost;
 
-    @NotBlank
     private Float credit;
 
-    @NotBlank
     private Float sellingPrice;
 
-    @NotBlank
     private Float actualCost;
 
     @OneToOne
@@ -162,11 +156,11 @@ public class Furniture {
         this.conditionID = conditionID;
     }
 
-    public Category getCategoryID() {
+    public FurnitureCategory getCategoryID() {
         return categoryID;
     }
 
-    public void setCategoryID(Category categoryID) {
+    public void setCategoryID(FurnitureCategory categoryID) {
         this.categoryID = categoryID;
     }
 

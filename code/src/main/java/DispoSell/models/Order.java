@@ -20,6 +20,7 @@ public class Order {
     private Long orderID;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userID")
     private User userID;
 
     @NotBlank

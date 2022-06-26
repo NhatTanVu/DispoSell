@@ -5,7 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "furniturecondition",
+@Table(name = "furnitureconditions",
         uniqueConstraints = {
         @UniqueConstraint(columnNames = "conditionID")
     })
