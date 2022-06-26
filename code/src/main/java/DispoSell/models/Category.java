@@ -1,23 +1,37 @@
 package DispoSell.models;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+@Entity
+@Table(name = "category",
+        uniqueConstraints = {
+        @UniqueConstraint(columnNames = "categoryID")
+    })
 public class Category {
 
-    private String catcode;
-    private String catdesc;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String categoryID;
 
-    public String getCatcode() {
-        return catcode;
+    @NotBlank
+    @Size(max = 50)
+    private String categoryname;
+
+    public String getCategoryID() {
+        return categoryID;
     }
 
-    public void setCatcode(String catcode) {
-        this.catcode = catcode;
+    public void setCategoryID(String categoryID) {
+        this.categoryID = categoryID;
     }
 
-    public String getCatdesc() {
-        return catdesc;
+    public String getCategoryname() {
+        return categoryname;
     }
 
-    public void setCatdesc(String catdesc) {
-        this.catdesc = catdesc;
+    public void setCategoryname(String categoryname) {
+        this.categoryname = categoryname;
     }
 }

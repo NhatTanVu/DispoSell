@@ -6,7 +6,10 @@ import javax.validation.constraints.Size;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name = "FurnitureMedia")
+@Table(name = "furnituremedia",
+        uniqueConstraints = {
+        @UniqueConstraint(columnNames = { "furnitureID", "url" })
+})
 public class FurnitureMedia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

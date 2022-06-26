@@ -29,8 +29,8 @@ public class Catdao {
 
         return template.query("select * from category", (RowMapper) (rs, row) -> {
             Category c = new Category();
-            c.setCatcode(rs.getString(1));
-            c.setCatdesc(rs.getString(2));
+            c.setCategoryID(rs.getString(1));
+            c.setCategoryname(rs.getString(2));
             return c;
         });
     }

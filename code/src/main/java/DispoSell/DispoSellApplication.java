@@ -66,7 +66,43 @@ public class DispoSellApplication {
                 furniture.setDescription("Description 2");
                 furnitureRepository.save(furniture);
             }
+
+            //Insert Test
+            if (userRepository.findByUsername("test_user_290194").isEmpty()) {
+                User user = new User();
+                user.setUsername("test_user_290194");
+                user.setEmail("test_user_2901946@gmail.com");
+                user.setContactAddress("test_user_290194 delivery address");
+                user.setPhoneNumber("987654321");
+                user.setPassword("test_user_290194 password");
+                Role userRole = roleRepository.findByName(ERole.ROLE_USER).get();
+                Set<Role> roles = new HashSet<>();
+                roles.add(userRole);
+                user.setRoles(roles);
+                userRepository.save(user);
+
+                user = userRepository.findByUsername("test_user_290194").get();
+                Furniture furniture = new Furniture();
+                furniture.setName("Furniture 3");
+                furniture.setDescription("Description 3");
+                furniture.setApprover(user);
+                furniture.setApprovedDate(java.time.ZonedDateTime.now());
+                furnitureRepository.save(furniture);
+
+                furniture = furnitureRepository.findByName("Furniture 3").get();
+                FurnitureMedia media1 = new FurnitureMedia(furniture, "img3.png", "png", null);
+                furnitureMediaRepository.save(media1);
+
+                FurnitureMedia media2 = new FurnitureMedia(furniture, "img3.png", "png", user);
+                furnitureMediaRepository.save(media2);
+
+                furniture = new Furniture();
+                furniture.setName("Furniture 3");
+                furniture.setDescription("Description 3");
+                furnitureRepository.save(furniture);
+
+            }
+
         };
     }
-
 }

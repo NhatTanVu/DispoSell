@@ -52,6 +52,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "roleID"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "userID")
+    private Set<Order> orders;
+
     public User() {
     }
 
@@ -135,4 +138,14 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
+
 }
