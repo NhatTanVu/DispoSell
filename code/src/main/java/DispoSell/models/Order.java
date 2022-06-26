@@ -9,10 +9,7 @@ import java.time.ZonedDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "orders",
-uniqueConstraints = {
-        @UniqueConstraint(columnNames = "orderID")
-})
+@Table(name = "orders")
 public class Order {
 
     @Id
