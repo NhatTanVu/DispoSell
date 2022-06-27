@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import AuthService from "../services/auth.service";
 import {Link, useNavigate} from "react-router-dom";
-import localStyles from "../../scss/pages/login.module.scss";
 import {Nav} from "react-bootstrap";
+
+import localStyles from '../../scss/pages/login.module.scss';
 
 export default function Login(props) {
     const [username, setUsername] = useState("");
@@ -83,7 +84,7 @@ export default function Login(props) {
 
                             <div className="col-12 text-start">
                                 <button
-                                    className="btn btn-primary btn-block"
+                                    className={`btn ${localStyles['btnLogin']}`}
                                     disabled={loading}
                                 >
                                     {loading && (
