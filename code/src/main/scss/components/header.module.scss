@@ -7,28 +7,6 @@
   font-size: 1rem;
 }
 
-.dropdownMenu {
-  div {
-    background-color: rgba(143, 143, 143, 0.3) !important;
-    backdrop-filter: blur(40px);
-    -webkit-backdrop-filter: blur(40px);
-    min-width: 5em;
-    text-align: center;
-    right: 0;
-  }
-}
-
-#accountImg{
-  position: relative;
-  bottom: 0.5em;
-}
-
-.accountMobile{
-  align-self: center;
-  padding-left: 0.6em;
-  padding-right: 0.6em;
-}
-
 .showAlways {
   visibility: visible;
 }
@@ -50,7 +28,6 @@
   padding-right: 1em;
   padding-left: 1em;
   background: transparent;
-  color: black;
 }
 
 .btnTrade:hover {
@@ -69,45 +46,8 @@
 }
 
 
-nav .navbar-collapse {
-  position: fixed;
-  top: 56px;
-  background: #343a40;
-  right: -100%;
-  width: 100vw;
-  height: 100vh;
-  display: block;
-  transition: right 0.3s ease;
-}
-
-nav .navbar-collapse.show {
-  right: 0;
-}
-
-.menuCenter {
-  right: auto;
-  left: 50%;
-  -webkit-transform: translate(-50%, 0);
-  -o-transform: translate(-50%, 0);
-  transform: translate(-50%, 0);
-  width: 2em;
-}
-
-#dropdown-basic::after {
-  display: none;
-  -webkit-appearance: none;
-}
-
-#dropdown-basic:hover {
-  color: rgba(0, 0, 0, 0.7)
-}
-
-#dropdown-basic {
-  background-color: transparent;
-  border: none;
-  color: rgba(0, 0, 0, 0.55);
-  padding: inherit;
-  -webkit-appearance: none;
+.dropdown::after{
+  background-color: rgba(143, 143, 143, 0.3) !important;
 }
 
 @media (max-width: 767px) {
