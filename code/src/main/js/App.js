@@ -17,6 +17,7 @@ import AdminContent from "./pages/test/AdminContent";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
+import Payment from "./pages/Payment";
 
 export default function App() {
     return (
@@ -25,19 +26,21 @@ export default function App() {
                 <Header/>
                 <main>
                     {/*<Container>*/}
-                        <Routes>
-                            <Route path="/" element={<Home/>}/>
-                            <Route path="/category" element={<Category/>}/>
-                            <Route path="/aboutUs" element={<AboutUs/>}/>
+                    <Routes>
+                        <Route path="/" element={<Home/>}/>
+                        <Route path="/category" element={<Category/>}/>
+                        <Route path="/aboutUs" element={<AboutUs/>}/>
 
-                            <Route path="/user" element={<UserContent/>}/>
-                            <Route path="/delivery" element={<DeliveryContent/>}/>
-                            <Route path="/admin" element={<AdminContent/>}/>
+                        <Route path="/user" element={<UserContent/>}/>
+                        <Route path="/delivery" element={<DeliveryContent/>}/>
+                        <Route path="/admin" element={<AdminContent/>}/>
 
-                            <Route path="/login" element={<Login/>}/>
-                            <Route path="/profile" element={<Profile/>}/>
-                            <Route path="/register" element={<Register/>}/>
-                        </Routes>
+                        <Route path="/login" element={<Login/>}/>
+                        <Route path="/profile" element={<Profile/>}/>
+                        <Route path="/register" element={<Register/>}/>
+
+                        <Route path="/payment" element={<Payment show={true}/>}/>
+                    </Routes>
                     {/*</Container>*/}
                 </main>
                 <Footer/>
