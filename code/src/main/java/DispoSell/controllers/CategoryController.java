@@ -1,6 +1,6 @@
 package DispoSell.controllers;
 
-import DispoSell.repository.Catdao;
+import DispoSell.repositories.Catdao;
 import DispoSell.models.FurnitureCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,6 +1,5 @@
-package DispoSell.repository;
+package DispoSell.repositories;
 
-import DispoSell.models.FurnitureCondition;
 import DispoSell.models.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -27,8 +27,8 @@ import DispoSell.payload.request.LoginRequest;
 import DispoSell.payload.request.SignupRequest;
 import DispoSell.payload.response.JwtResponse;
 import DispoSell.payload.response.MessageResponse;
-import DispoSell.repository.RoleRepository;
-import DispoSell.repository.UserRepository;
+import DispoSell.repositories.RoleRepository;
+import DispoSell.repositories.UserRepository;
 import DispoSell.security.jwt.JwtUtils;
 import DispoSell.security.services.UserDetailsImpl;
 

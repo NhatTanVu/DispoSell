@@ -1,4 +1,4 @@
-package DispoSell.repository;
+package DispoSell.repositories;
 
 import DispoSell.models.FurnitureCategory;
 import org.springframework.beans.factory.annotation.Autowired;

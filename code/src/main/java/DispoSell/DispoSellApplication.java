@@ -1,10 +1,10 @@
 package DispoSell;
 
 import DispoSell.models.*;
-import DispoSell.repository.FurnitureMediaRepository;
-import DispoSell.repository.FurnitureRepository;
-import DispoSell.repository.RoleRepository;
-import DispoSell.repository.UserRepository;
+import DispoSell.repositories.FurnitureMediaRepository;
+import DispoSell.repositories.FurnitureRepository;
+import DispoSell.repositories.RoleRepository;
+import DispoSell.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
