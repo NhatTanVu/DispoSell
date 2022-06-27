@@ -1,0 +1,39 @@
+.float_left {
+  float: left;
+  flex: 50%;
+  -webkit-flex: 50%;
+}
+
+.float_right {
+  float: right;
+  flex: 50%;
+  -webkit-flex: 50%;
+}
+
+#cardBackground{
+  border-radius: 2em;
+  background-color: rgba(143, 143, 143, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.login {
+  min-height: 100vh;
+  display: flex;
+  padding: 3rem 2rem 2rem;
+  background: rgb(238, 174, 174);
+  background: linear-gradient(164deg, rgba(238, 174, 174, 1) 0%, rgba(225, 233, 148, 1) 100%);
+  //backdrop-filter: blur(20px);
+  //-webkit-backdrop-filter: blur(20px);
+}
+
+@media (max-width: 767px) {
+  .login {
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+
+  .float_left {
+    visibility: hidden;
+  }
+}
