@@ -6,9 +6,6 @@ function Home() {
     return (
         <div className={localStyles["home-page"]}>
             <h2>Home</h2>
-
-            {/* add component for testing  */}
-            <Product/>
         </div>
     )
 }
