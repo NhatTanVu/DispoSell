@@ -1,9 +1,30 @@
 .cover {
+  background: rgba(143, 143, 143, 0.5) url("/images/home/home.jpg") no-repeat fixed center;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   position: relative;
-  background: rgba(143, 143, 143, 0.3) url("/images/home/home.jpg") no-repeat fixed center;
+  background-size: cover;
+  align-items: center;
+  padding: 2rem;
+}
+
+.featuredProducts {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  background-size: cover;
+  align-items: center;
+  padding: 2rem;
+}
+
+.trade {
+  background: rgba(143, 143, 143, 0.5) url("/images/home/home-request.jpg") no-repeat fixed center;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: relative;
   background-size: cover;
   align-items: center;
   padding: 2rem;
@@ -13,11 +34,17 @@
   background: radial-gradient(circle closest-side, rgba(80, 80, 80, 0.5), transparent 50px)
 }
 
-.disposellLogo{
+.disposellLogo {
   width: 85%;
   height: auto;
   filter: invert(1);
   -webkit-filter: invert(1);
+  margin: 2em;
+}
+
+.request {
+  width: 85%;
+  height: auto;
   margin: 2em;
 }
 
@@ -62,7 +89,7 @@
   }
 }
 
-.anchorScrollDown{
+.anchorScrollDown {
   height: 80px;
   width: auto;
   animation: blink 3s;
@@ -71,4 +98,32 @@
   -webkit-animation-iteration-count: infinite;
   touch-action: none;
   pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .div-hover {
+    visibility: hidden;
+  }
+}
+
+.btnTrade {
+  flex: 1 1 0;
+  padding: 0.25em 1em;
+  border: black solid;
+  min-width: 20%;
+  color: white;
+  background-color: rgb(0, 0, 0);
+  -webkit-appearance: none;
+}
+
+.btnTrade:hover {
+  flex: 1 1 0;
+  padding: 0.25em 1em;
+  border: black solid;
+  min-width: 20%;
+  color: #000000;
+  background-color: rgb(255, 255, 255);
+  -webkit-appearance: none;
+  transition: 0.5s ease;
+  -webkit-transition: 0.5s ease;
 }
