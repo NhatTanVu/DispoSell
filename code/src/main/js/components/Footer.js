@@ -101,7 +101,7 @@ function Footer() {
             <div className={`${localStyles["showMobileOnly"]} text-center p-4`} style={{backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
                 <p>© 2022 DispoSell</p>
             </div>
-            <div className={`${localStyles["editOnMobile"]} text-center p-4`} style={{backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
+            <div className='text-center p-4' style={{backgroundColor: 'rgba(0, 0, 0, 0.05)'}}>
                 © 2022 DispoSell
             </div>
         </MDBFooter>
