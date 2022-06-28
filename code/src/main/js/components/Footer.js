@@ -7,7 +7,8 @@ import {MDBFooter} from 'mdb-react-ui-kit';
 
 function Footer() {
     return (
-        <MDBFooter bgColor='light' className='text-center text-lg-start'>
+        // <MDBFooter bgColor='light' className='text-center text-lg-start'>
+        <MDBFooter bgColor='light' className={`text-center text-lg-start ${localStyles["sticky"]}`}>
             <section className='border-top'>
                 <div className='container text-center text-md-start mt-5'>
                     <div className='row mt-3'>

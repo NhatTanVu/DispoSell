@@ -5,7 +5,7 @@ import Product from "../components/Product";
 function Home() {
     return (
         <div className={localStyles["home-page"]}>
-            <h2>Home</h2>
+            <h1>Home Page</h1>
         </div>
     )
 }

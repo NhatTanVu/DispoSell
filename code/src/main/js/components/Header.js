@@ -53,10 +53,9 @@ function Header() {
                                  alt="DispoSell Logo"/>
                         </Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-                        <Navbar.Collapse id="basic-navbar-nav"
-                                         className='justify-content-end'>
+                        <Navbar.Collapse id="basic-navbar-nav" className='justify-content-end'>
                             <Nav className={`align-items-center`}>
-                                <Nav.Link as={Link} to="/">Browse</Nav.Link>
+                                <Nav.Link as={Link} to="/browse">Browse</Nav.Link>
                                 &nbsp;
                                 <Nav.Link as={Link} to="/search">Search</Nav.Link>
                                 &nbsp;
@@ -92,7 +91,7 @@ function Header() {
                         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                         <Navbar.Collapse id="basic-navbar-nav" className='justify-content-center'>
                             <Nav className="text-center">
-                                <Nav.Link as={Link} to="/">
+                                <Nav.Link as={Link} to="/browse">
                                     <img className={`${localStyles["icon"]}`} src="images/icons/browse.png"
                                          alt="Browse"/>
                                     <br/>Browse

@@ -10,6 +10,7 @@ import Category from './pages/Category';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import AboutUs from "./pages/AboutUs";
+import Browse from "./pages/Browse"
 import {Container} from "react-bootstrap";
 import UserContent from "./pages/test/UserContent";
 import DeliveryContent from "./pages/test/DeliveryContent";
@@ -37,6 +38,8 @@ export default function App() {
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/profile" element={<Profile/>}/>
                             <Route path="/register" element={<Register/>}/>
+
+                            <Route path="/browse" element={<Browse/>}/>
                         </Routes>
                     {/*</Container>*/}
                 </main>
