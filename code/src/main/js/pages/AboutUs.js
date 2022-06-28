@@ -32,25 +32,6 @@ function AboutUs() {
                 </div>
             </div>
 
-            {/*<div className={`align-top ${localStyles["cover"]}`}>*/}
-            {/*    <div>*/}
-            {/*        <img className={localStyles["aboutTxt"]} src="/images/AboutUs/abouttxt.png" alt="About Us"/>*/}
-            {/*        <div className={localStyles["container"]}>*/}
-            {/*            <p>DispoSell is a web application company that is focused on solving the*/}
-            {/*                inconveniences of furniture removal and the crippling condition of*/}
-            {/*                furniture poverty. We operate in Metro Vancouver, primarily in the cities of Vancouver,*/}
-            {/*                Burnaby, and New Westminster.*/}
-            {/*                <br/> <br/>*/}
-            {/*                We believe that unused furniture in usable condition deserves a second chance.*/}
-            {/*                We collect unused furniture, refurbish them, and sell them through our website.*/}
-            {/*                First, we collect unused usable furniture from our users.*/}
-            {/*                Then, we make sure the furniture is usable by making minor fixes like painting and cleaning.*/}
-            {/*                Last but not least, we sell the furniture on our website.*/}
-            {/*            </p>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
-
             <div className={`${localStyles["team"]} justify-content-evenly`} id="our-team">
                 <div className={`${localStyles["float_left"]} justify-content-center`}>
                     <img className={localStyles["teamTxt"]} src="/images/AboutUs/ourteamtxt.png" alt="Our Team"/>
