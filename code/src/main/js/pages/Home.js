@@ -1,6 +1,6 @@
 import React from 'react';
 import localStyles from '../../scss/pages/Home.module.scss';
-import Product from "../components/Product";
+import Product from "../components/Product.js";
 import {HashLink as Link} from "react-router-hash-link";
 
 function Home() {
@@ -22,27 +22,17 @@ function Home() {
             </div>
 
 
-            <div id="featured-products" className={`text-center align-content-center justify-content-center ${localStyles['featuredProducts']}`}>
-                <div className='align-self-baseline text-center' style={{position:"absolute", paddingTop:"2em"}}><h2>Featured Products</h2></div>
-                <div className='container text-center text-md-start mt-5'>
-                    <div className='row mt-3'>
-                        <div className='col-md-3 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4'>
-                        test
-                        </div>
-
-                        <div className='col-md-3 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4'>
-                        test
-                        </div>
-
-                        <div className='col-md-3 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4'>
-                        test
-                        </div>
-
-                        <div className='col-md-3 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4'>
-                        test
-                        </div>
-
-                        </div>
+            <div id="featured-products"
+                 className={`text-center align-content-center justify-content-center ${localStyles['featuredProducts']}`}>
+                <div className='row align-content-center justify-content-center'>
+                    <div className='align-self-baseline text-center'
+                         style={{position: "relative", marginTop: "3em", marginBottom: "2em"}}>
+                        <h2>Featured Products</h2>
+                    </div>
+                    <Product/>
+                    <Product/>
+                    <Product/>
+                    <Product/>
                 </div>
             </div>
 
@@ -52,12 +42,14 @@ function Home() {
                         <img src="/images/home/request.png" alt="Request a pick-up"
                              className={localStyles['request']} loading='lazy'/>
                         <br/>FREE REMOVAL SERVICE, TRADE & GET STORE CREDIT*
-                        <div style={{padding:"1.5em"}}>
+                        <div style={{padding: "1.5em"}}>
                             <button className={`mb-4 ${localStyles["btnTrade"]}`}>Trade Now</button>
                         </div>
                     </h2>
                     <div className='text-start'>
-                        <p style={{fontSize:"x-small", marginLeft:"3em"}}>*<a style={{textDecoration:"underline"}} href="">Terms & Conditions</a> applied.</p>
+                        <p style={{fontSize: "x-small", marginLeft: "3em"}}>*<a style={{textDecoration: "underline"}}
+                                                                                href="">Terms & Conditions</a> applied.
+                        </p>
                     </div>
                 </div>
             </div>
