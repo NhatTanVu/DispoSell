@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import AuthService from "../services/auth.service";
 import {Link, useNavigate} from "react-router-dom";
-import {Nav} from "react-bootstrap";
 
 import localStyles from '../../scss/pages/login.module.scss';
 
