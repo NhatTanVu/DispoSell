@@ -1,9 +1,10 @@
 package DispoSell.repositories;
 
-import DispoSell.models.FurnitureCategory;
+import DispoSell.models.BuyingOrder;
+import DispoSell.models.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FurnitureCategoryRepository extends JpaRepository<FurnitureCategory, Long> {
+public interface BuyingOrderRepository extends JpaRepository<Order, BuyingOrder> {
 }

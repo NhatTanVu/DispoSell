@@ -5,7 +5,10 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "furniturecategories")
+@Table(name = "furniturecategories",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "categoryID")
+        })
 public class FurnitureCategory {
 
     @Id
@@ -15,6 +18,10 @@ public class FurnitureCategory {
     @NotBlank
     @Size(max = 50)
     private String categoryname;
+
+    public FurnitureCategory(){
+
+    }
 
     public Long getCategoryID() {
         return categoryID;

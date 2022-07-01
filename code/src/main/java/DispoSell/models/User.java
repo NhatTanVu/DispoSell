@@ -23,15 +23,6 @@ public class User {
     @Size(max = 20)
     private String username;
 
-    @NotBlank
-    @Size(max = 50)
-    @Email
-    private String email;
-
-    @NotBlank
-    @Size(max = 120)
-    private String password;
-
     @Size(max = 150)
     private String firstName;
 
@@ -39,12 +30,28 @@ public class User {
     private String lastName;
 
     @NotBlank
+    @Size(max = 20)
+    private String phoneNumber;
+
+    @NotBlank
+    @Size(max = 50)
+    @Email
+    private String email;
+
+    @NotBlank
     @Size(max = 250)
     private String contactAddress;
 
     @NotBlank
-    @Size(max = 20)
-    private String phoneNumber;
+    @Size(max = 120)
+    private String password;
+
+    private Float TotalCredit;
+
+    @Size(max = 250)
+    @NotBlank
+    private String avatarUrl;
+
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userRoles",
@@ -147,5 +154,19 @@ public class User {
         this.orders = orders;
     }
 
+    public Float getTotalCredit() {
+        return TotalCredit;
+    }
 
+    public void setTotalCredit(Float totalCredit) {
+        TotalCredit = totalCredit;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
+    }
 }

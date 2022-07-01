@@ -5,19 +5,20 @@ import jdk.jfr.BooleanFlag;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Set;
 
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderID;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userID")
+    @JoinColumn(name = "userID", referencedColumnName = "id")
     private User userID;
 
     @NotBlank
@@ -25,9 +26,9 @@ public class Order {
     @NotBlank
     private ZonedDateTime scheduledDate;
 
-    @Size(max = 30)
-    @NotBlank
-    private String orderStatus;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "statusID", referencedColumnName = "statusID")
+    private OrderStatus statusID;
 
     @NotBlank
     @Size(max = 20)
@@ -75,12 +76,12 @@ public class Order {
         this.scheduledDate = scheduledDate;
     }
 
-    public String getOrderStatus() {
-        return orderStatus;
+    public OrderStatus getStatusID() {
+        return statusID;
     }
 
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
+    public void setStatusID(OrderStatus statusID) {
+        this.statusID = statusID;
     }
 
     public String getContactNumber() {

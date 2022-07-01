@@ -30,7 +30,7 @@ public class FurnitureMedia {
 
     @OneToOne
     @JoinColumn(name = "publisherID", referencedColumnName = "id")
-    private User publisher;
+    private User publisherID;
 
     @Column(name = "publishedDate")
     private ZonedDateTime publishedDate;
@@ -42,8 +42,8 @@ public class FurnitureMedia {
         this.furniture = furniture;
         this.url = url;
         this.fileType = fileType;
-        this.publisher = publisher;
-        if (this.publisher != null)
+        this.publisherID = publisher;
+        if (this.publisherID != null)
             this.publishedDate = java.time.ZonedDateTime.now();
     }
 
@@ -80,11 +80,11 @@ public class FurnitureMedia {
     }
 
     public User getPublisher() {
-        return publisher;
+        return publisherID;
     }
 
     public void setPublisher(User publisherID) {
-        this.publisher = publisherID;
+        this.publisherID = publisherID;
     }
 
     public ZonedDateTime getpublishedDate() {

@@ -1,5 +1,7 @@
 package DispoSell.models;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -57,24 +59,28 @@ public class Furniture {
 
     @OneToOne
     @JoinColumn(name = "approverID", referencedColumnName = "id")
-    private User approver;
+    private User approverID;
 
     private ZonedDateTime approvedDate;
 
     @OneToOne
     @JoinColumn(name = "verifierID", referencedColumnName = "id")
-    private User verifier;
+    private User verifierID;
 
     private ZonedDateTime verifiedDate;
 
     @OneToOne
     @JoinColumn(name = "publisherID", referencedColumnName = "id")
-    private User publisher;
+    private User publisherID;
 
     private ZonedDateTime publishedDate;
 
     @OneToMany(mappedBy="furniture")
     private Set<FurnitureMedia> furnitureMedia;
+
+    public Furniture(){
+
+    }
 
     public Long getFurnitureID() {
         return furnitureID;
@@ -205,11 +211,11 @@ public class Furniture {
     }
 
     public User getApprover() {
-        return approver;
+        return approverID;
     }
 
     public void setApprover(User approver) {
-        this.approver = approver;
+        this.approverID = approver;
     }
 
     public ZonedDateTime getApprovedDate() {
@@ -221,11 +227,11 @@ public class Furniture {
     }
 
     public User getVerifier() {
-        return verifier;
+        return verifierID;
     }
 
     public void setVerifier(User verifier) {
-        this.verifier = verifier;
+        this.verifierID = verifier;
     }
 
     public ZonedDateTime getVerifiedDate() {
@@ -237,11 +243,11 @@ public class Furniture {
     }
 
     public User getPublisher() {
-        return publisher;
+        return publisherID;
     }
 
     public void setPublisher(User publisher) {
-        this.publisher = publisher;
+        this.publisherID = publisher;
     }
 
     public ZonedDateTime getPublishedDate() {
