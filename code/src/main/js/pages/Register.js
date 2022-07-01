@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import AuthService from "../services/auth.service";
 
+import localStyles from '../../scss/pages/login.module.scss';
+
 export default function Register() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -62,13 +64,8 @@ export default function Register() {
     }
 
     return (
-        <div className="col-md-12">
-            <div className="card card-container">
-                <img
-                    src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-                    alt="profile-img"
-                    className="profile-img-card"
-                />
+        <div className={`${localStyles["login"]} jumbotron d-flex align-items-center`}>
+            <div className={`card card-container`} id={localStyles['cardBackground']}>
 
                 <form className="row g-3"
                       onSubmit={handleRegister}
@@ -131,7 +128,9 @@ export default function Register() {
                             </div>
 
                             <div className="col-12">
-                                <button className="btn btn-primary btn-block">Sign Up</button>
+                                <button
+                                    className={`btn ${localStyles['btnLogin']}`}
+                                >Sign Up</button>
                             </div>
                         </>
                     )}
