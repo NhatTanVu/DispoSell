@@ -3,15 +3,14 @@ package DispoSell.models;
 import java.io.Serializable;
 
 public class ShipperDeliveryPKId implements Serializable {
-    private Long deliveryID;
-    private Long shipperID;
+    private Long delivery;
+    private Long shipper;
 
     public ShipperDeliveryPKId() {
-
     }
 
-    public ShipperDeliveryPKId(Long deliveryID, Long shipperID){
-        this.deliveryID = deliveryID;
-        this.shipperID = shipperID;
+    public ShipperDeliveryPKId(Long delivery, Long shipper){
+        this.delivery = delivery;
+        this.shipper = shipper;
     }
 }

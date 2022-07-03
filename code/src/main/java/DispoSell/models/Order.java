@@ -1,34 +1,35 @@
 package DispoSell.models;
 
-import jdk.jfr.BooleanFlag;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.Set;
 
-@Entity
 @Table(name = "orders")
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderID;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userID", referencedColumnName = "id")
-    private User userID;
+    private User user;
 
-    @NotBlank
-    private ZonedDateTime orderDate;
-    @NotBlank
+    @NotNull
+    private ZonedDateTime orderedDate;
+
     private ZonedDateTime scheduledDate;
 
+    @NotNull
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "statusID", referencedColumnName = "statusID")
-    private OrderStatus statusID;
+    private OrderStatus status;
 
     @NotBlank
     @Size(max = 20)
@@ -38,8 +39,10 @@ public class Order implements Serializable {
     @Size(max = 250)
     private String address;
 
-    @NotBlank
+    @NotNull
     private Boolean isBuyingOrder;
+
+    private Float credit;
 
     public Order() {
     }
@@ -52,20 +55,20 @@ public class Order implements Serializable {
         this.orderID = orderID;
     }
 
-    public User getUserID() {
-        return userID;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserID(User userID) {
-        this.userID = userID;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public ZonedDateTime getOrderDate() {
-        return orderDate;
+    public ZonedDateTime getOrderedDate() {
+        return orderedDate;
     }
 
-    public void setOrderDate(ZonedDateTime orderDate) {
-        this.orderDate = orderDate;
+    public void setOrderedDate(ZonedDateTime orderedDate) {
+        this.orderedDate = orderedDate;
     }
 
     public ZonedDateTime getScheduledDate() {
@@ -76,12 +79,12 @@ public class Order implements Serializable {
         this.scheduledDate = scheduledDate;
     }
 
-    public OrderStatus getStatusID() {
-        return statusID;
+    public OrderStatus getStatus() {
+        return status;
     }
 
-    public void setStatusID(OrderStatus statusID) {
-        this.statusID = statusID;
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
     public String getContactNumber() {
@@ -106,5 +109,13 @@ public class Order implements Serializable {
 
     public void setBuyingOrder(Boolean buyingOrder) {
         isBuyingOrder = buyingOrder;
+    }
+
+    public Float getCredit() {
+        return credit;
+    }
+
+    public void setCredit(Float credit) {
+        this.credit = credit;
     }
 }

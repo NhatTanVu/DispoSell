@@ -1,0 +1,8 @@
+package DispoSell.models;
+
+public enum EProductCondition {
+    PRODUCT_CONDITION_UNUSED,
+    PRODUCT_CONDITION_VERY_GOOD,
+    PRODUCT_CONDITION_GOOD,
+    PRODUCT_CONDITION_FAIR
+}

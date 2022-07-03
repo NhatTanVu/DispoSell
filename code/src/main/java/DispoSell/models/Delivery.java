@@ -2,19 +2,22 @@ package DispoSell.models;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name = "delivery")
+@Table(name = "deliveries")
 public class Delivery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long deliveryID;
 
+    @NotNull
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderID", referencedColumnName = "orderID")
-    private Order orderID;
+    private Order order;
 
     private String vehicleNumber;
 
@@ -24,14 +27,15 @@ public class Delivery {
 
     private ZonedDateTime endTime;
 
+    @NotBlank
     private String startLocation;
 
     private String currentLocation;
 
+    @NotBlank
     private String endLocation;
 
     public Delivery(){
-
     }
 
     public Long getDeliveryID() {
@@ -42,12 +46,12 @@ public class Delivery {
         this.deliveryID = deliveryID;
     }
 
-    public Order getOrderID() {
-        return orderID;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderID(Order orderID) {
-        this.orderID = orderID;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public String getVehicleNumber() {

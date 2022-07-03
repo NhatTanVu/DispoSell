@@ -1,22 +1,21 @@
 package DispoSell.models;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.ZonedDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "furniture",
+@Table(name = "products",
         uniqueConstraints = {
-        @UniqueConstraint(columnNames = "furnitureID")
+        @UniqueConstraint(columnNames = "productID")
 })
-public class Furniture {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long furnitureID;
+    private Long productID;
 
     @Size(max = 100)
     @NotBlank
@@ -37,15 +36,16 @@ public class Furniture {
 
     private Float length;
 
-    private Integer quantity;
+    private Integer availableQuantity;
 
+    @NotNull
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "conditionID", referencedColumnName = "conditionID")
-    private FurnitureCondition conditionID;
+    private ProductCondition condition;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoryID", referencedColumnName = "categoryID")
-    private FurnitureCategory categoryID;
+    private ProductCategory category;
 
     private Float estimatedPrice;
 
@@ -59,35 +59,34 @@ public class Furniture {
 
     @OneToOne
     @JoinColumn(name = "approverID", referencedColumnName = "id")
-    private User approverID;
+    private User approver;
 
     private ZonedDateTime approvedDate;
 
     @OneToOne
     @JoinColumn(name = "verifierID", referencedColumnName = "id")
-    private User verifierID;
+    private User verifier;
 
     private ZonedDateTime verifiedDate;
 
     @OneToOne
     @JoinColumn(name = "publisherID", referencedColumnName = "id")
-    private User publisherID;
+    private User publisher;
 
     private ZonedDateTime publishedDate;
 
-    @OneToMany(mappedBy="furniture")
-    private Set<FurnitureMedia> furnitureMedia;
+    @OneToMany(mappedBy= "product")
+    private Set<ProductMedia> productMedia;
 
-    public Furniture(){
-
+    public Product(){
     }
 
-    public Long getFurnitureID() {
-        return furnitureID;
+    public Long getProductID() {
+        return productID;
     }
 
-    public void setFurnitureID(Long furnitureID) {
-        this.furnitureID = furnitureID;
+    public void setProductID(Long productID) {
+        this.productID = productID;
     }
 
     public String getName() {
@@ -146,28 +145,28 @@ public class Furniture {
         this.length = length;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Integer getAvailableQuantity() {
+        return availableQuantity;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setAvailableQuantity(Integer quantity) {
+        this.availableQuantity = quantity;
     }
 
-    public FurnitureCondition getConditionID() {
-        return conditionID;
+    public ProductCondition getCondition() {
+        return condition;
     }
 
-    public void setConditionID(FurnitureCondition conditionID) {
-        this.conditionID = conditionID;
+    public void setCondition(ProductCondition condition) {
+        this.condition = condition;
     }
 
-    public FurnitureCategory getCategoryID() {
-        return categoryID;
+    public ProductCategory getCategory() {
+        return category;
     }
 
-    public void setCategoryID(FurnitureCategory categoryID) {
-        this.categoryID = categoryID;
+    public void setCategory(ProductCategory category) {
+        this.category = category;
     }
 
     public Float getEstimatedPrice() {
@@ -211,11 +210,11 @@ public class Furniture {
     }
 
     public User getApprover() {
-        return approverID;
+        return approver;
     }
 
     public void setApprover(User approver) {
-        this.approverID = approver;
+        this.approver = approver;
     }
 
     public ZonedDateTime getApprovedDate() {
@@ -227,11 +226,11 @@ public class Furniture {
     }
 
     public User getVerifier() {
-        return verifierID;
+        return verifier;
     }
 
     public void setVerifier(User verifier) {
-        this.verifierID = verifier;
+        this.verifier = verifier;
     }
 
     public ZonedDateTime getVerifiedDate() {
@@ -243,11 +242,11 @@ public class Furniture {
     }
 
     public User getPublisher() {
-        return publisherID;
+        return publisher;
     }
 
     public void setPublisher(User publisher) {
-        this.publisherID = publisher;
+        this.publisher = publisher;
     }
 
     public ZonedDateTime getPublishedDate() {
@@ -258,11 +257,11 @@ public class Furniture {
         this.publishedDate = publishedDate;
     }
 
-    public Set<FurnitureMedia> getFurnitureMedia() {
-        return furnitureMedia;
+    public Set<ProductMedia> getProductMedia() {
+        return productMedia;
     }
 
-    public void setFurnitureMedia(Set<FurnitureMedia> furnitureMedia) {
-        this.furnitureMedia = furnitureMedia;
+    public void setProductMedia(Set<ProductMedia> productMedia) {
+        this.productMedia = productMedia;
     }
 }

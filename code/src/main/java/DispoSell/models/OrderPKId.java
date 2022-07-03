@@ -5,16 +5,15 @@ import java.io.Serializable;
 
 
 public class OrderPKId implements Serializable {
-    private Long orderID;
-    private Long furnitureID;
+    private Long order;
+    private Long product;
 
-    public OrderPKId(){
-
+    public OrderPKId() {
     }
 
-    public OrderPKId(Long orderID, Long furnitureID) {
-        this.orderID = orderID;
-        this.furnitureID = furnitureID;
+    public OrderPKId(Long order, Long product) {
+        this.order = order;
+        this.product = product;
     }
 
 }

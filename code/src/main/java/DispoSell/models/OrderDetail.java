@@ -1,47 +1,58 @@
 package DispoSell.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity
 @Table(name = "orderdetail",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"orderID", "furnitureID"})
+                @UniqueConstraint(columnNames = {"orderID", "productID"})
         })
 @IdClass(OrderPKId.class)
 public class OrderDetail implements Serializable{
-
-
     @Id
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderID", referencedColumnName = "orderID")
-    private Order orderID;
+    private Order order;
 
     @Id
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "furnitureID",referencedColumnName = "furnitureID")
+    @JoinColumn(name = "productID",referencedColumnName = "productID")
     @MapsId
-    private Furniture furnitureID;
+    private Product product;
 
-    public OrderDetail(){
+    private int quantity;
 
+    public OrderDetail() {
     }
 
-    public Order getOrderID() {
-        return orderID;
+    public OrderDetail(Order order, Product product, int quantity) {
+        this.order = order;
+        this.product = product;
+        this.quantity = quantity;
+    }
+    
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderID(Order orderID) {
-        this.orderID = orderID;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
-    public Furniture getFurnitureID() {
-        return furnitureID;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setFurnitureID(Furniture furnitureID) {
-        this.furnitureID = furnitureID;
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

@@ -1,7 +1,7 @@
 package DispoSell.controllers;
 
 import DispoSell.repositories.Catdao;
-import DispoSell.models.FurnitureCategory;
+import DispoSell.models.ProductCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,8 +15,8 @@ public class CategoryController {
     Catdao dao;
 
     @GetMapping("/api/categories")
-    public List<FurnitureCategory> all() throws SQLException, ClassNotFoundException {
-        List<FurnitureCategory> list = dao.display();
+    public List<ProductCategory> all() throws SQLException, ClassNotFoundException {
+        List<ProductCategory> list = dao.display();
         return list;
     }
 }

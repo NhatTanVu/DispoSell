@@ -4,41 +4,39 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "shippersdeliverorder",
+@Table(name = "shipperdeliveries",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"deliveryID", "shipperID"})
         })
 @IdClass(ShipperDeliveryPKId.class)
-public class ShippersDeliversOrder implements Serializable{
-
-
+public class ShipperDelivery implements Serializable{
     @Id
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "deliveryID", referencedColumnName = "deliveryID")
-    private Delivery deliveryID;
+    private Delivery delivery;
 
     @Id
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shipperID", referencedColumnName = "id")
-    private User shipperID;
+    private User shipper;
 
-    public ShippersDeliversOrder(){
+    public ShipperDelivery(){
 
     }
 
-    public Delivery getDeliveryID() {
-        return deliveryID;
+    public Delivery getDelivery() {
+        return delivery;
     }
 
-    public void setDeliveryID(Delivery deliveryID) {
-        this.deliveryID = deliveryID;
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
     }
 
-    public User getShipperID() {
-        return shipperID;
+    public User getShipper() {
+        return shipper;
     }
 
-    public void setShipperID(User shipperID) {
-        this.shipperID = shipperID;
+    public void setShipper(User shipper) {
+        this.shipper = shipper;
     }
 }

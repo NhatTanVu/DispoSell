@@ -49,9 +49,7 @@ public class User {
     private Float TotalCredit;
 
     @Size(max = 250)
-    @NotBlank
     private String avatarUrl;
-
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "userRoles",
@@ -59,7 +57,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "roleID"))
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "userID")
+    @OneToMany(mappedBy = "user")
     private Set<Order> orders;
 
     public User() {

@@ -6,11 +6,11 @@ import javax.validation.constraints.Size;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name = "furnituremedia",
+@Table(name = "productmedia",
         uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "furnitureID", "url" })
+        @UniqueConstraint(columnNames = { "productID", "url" })
 })
-public class FurnitureMedia {
+public class ProductMedia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,25 +25,25 @@ public class FurnitureMedia {
     private String fileType;
 
     @ManyToOne
-    @JoinColumn(name = "furnitureID", nullable = false)
-    private Furniture furniture;
+    @JoinColumn(name = "productID", nullable = false)
+    private Product product;
 
     @OneToOne
     @JoinColumn(name = "publisherID", referencedColumnName = "id")
-    private User publisherID;
+    private User publisher;
 
     @Column(name = "publishedDate")
     private ZonedDateTime publishedDate;
 
-    public FurnitureMedia() {
+    public ProductMedia() {
     }
 
-    public FurnitureMedia(Furniture furniture, String url, String fileType, User publisher) {
-        this.furniture = furniture;
+    public ProductMedia(Product product, String url, String fileType, User publisher) {
+        this.product = product;
         this.url = url;
         this.fileType = fileType;
-        this.publisherID = publisher;
-        if (this.publisherID != null)
+        this.publisher = publisher;
+        if (this.publisher != null)
             this.publishedDate = java.time.ZonedDateTime.now();
     }
 
@@ -71,27 +71,27 @@ public class FurnitureMedia {
         this.fileType = fileType;
     }
 
-    public Furniture getFurniture() {
-        return furniture;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setFurniture(Furniture furniture) {
-        this.furniture = furniture;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public User getPublisher() {
-        return publisherID;
+        return publisher;
     }
 
-    public void setPublisher(User publisherID) {
-        this.publisherID = publisherID;
+    public void setPublisher(User publisher) {
+        this.publisher = publisher;
     }
 
-    public ZonedDateTime getpublishedDate() {
+    public ZonedDateTime getPublishedDate() {
         return publishedDate;
     }
 
-    public void setpublishedDate(ZonedDateTime publishedDate) {
+    public void setPublishedDate(ZonedDateTime publishedDate) {
         this.publishedDate = publishedDate;
     }
 }
