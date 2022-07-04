@@ -1,6 +1,6 @@
-package DispoSell.repository;
+package DispoSell.repositories;
 
-import DispoSell.models.Category;
+import DispoSell.models.ProductCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -24,13 +24,13 @@ public class Catdao {
         this.template = template;
     }
 
-    public List<Category> display() throws ClassNotFoundException, SQLException {
+    public List<ProductCategory> display() throws ClassNotFoundException, SQLException {
         //create an array list that will contain the data recovered
 
         return template.query("select * from category", (RowMapper) (rs, row) -> {
-            Category c = new Category();
-            c.setCatcode(rs.getString(1));
-            c.setCatdesc(rs.getString(2));
+            ProductCategory c = new ProductCategory();
+            c.setCategoryID(rs.getLong(1));
+            c.setName(rs.getString(2));
             return c;
         });
     }

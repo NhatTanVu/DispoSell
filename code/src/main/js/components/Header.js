@@ -8,7 +8,7 @@ import localStyles from '../../scss/components/header.module.scss';
 
 function Header() {
     const [isUser, setIsUser] = useState(false);
-    const [isDelivery, setIsDelivery] = useState(false);
+    const [isShipper, setIsShipper] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ function Header() {
     const signOut = () => {
         AuthService.logout();
         setIsUser(false);
-        setIsDelivery(false);
+        setIsShipper(false);
         setIsAdmin(false);
         setCurrentUser(null);
         navigate("/");
@@ -29,8 +29,8 @@ function Header() {
         if (user) {
             setCurrentUser(user);
             setIsUser(user.roles.includes("ROLE_USER"));
-            setIsAdmin(user.roles.includes("ROLE_ADMIN"));
-            setIsDelivery(user.roles.includes("ROLE_DELIVERY"));
+            setIsAdmin(user.roles.includes("ROLE_ADMINISTRATOR"));
+            setIsShipper(user.roles.includes("ROLE_SHIPPER"));
         }
 
         EventBus.on("logout", () => {
@@ -62,7 +62,7 @@ function Header() {
                                 &nbsp;
                                 <NavDropdown title="Account" key="down" drop="down" className={localStyles['dropdownMenu']}>
                                     {isUser && <Nav.Link as={Link} to="/user">User</Nav.Link>}
-                                    {isDelivery && <Nav.Link as={Link} to="/delivery">Delivery</Nav.Link>}
+                                    {isShipper && <Nav.Link as={Link} to="/delivery">Delivery</Nav.Link>}
                                     {isAdmin && <Nav.Link as={Link} to="/admin">Admin</Nav.Link>}
                                     {currentUser ? (<>
                                         <Nav.Link as={Link} to="/profile"
@@ -106,7 +106,7 @@ function Header() {
                                     <img className={localStyles["icon"]} src="images/icons/account.png" alt="Account" id={localStyles['accountImg']}/>
                                     <NavDropdown title="Account" key="up" drop="up" className={localStyles['dropdownMenu']} id={localStyles["dropdown-basic"]}>
                                         {isUser && <Nav.Link as={Link} to="/user">User</Nav.Link>}
-                                        {isDelivery && <Nav.Link as={Link} to="/delivery">Delivery</Nav.Link>}
+                                        {isShipper && <Nav.Link as={Link} to="/delivery">Delivery</Nav.Link>}
                                         {isAdmin && <Nav.Link as={Link} to="/admin">Admin</Nav.Link>}
                                         {currentUser ? (<>
                                             <Nav.Link as={Link} to="/profile"

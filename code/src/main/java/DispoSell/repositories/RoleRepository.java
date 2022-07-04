@@ -1,4 +1,4 @@
-package DispoSell.repository;
+package DispoSell.repositories;
 
 import java.util.Optional;
 
