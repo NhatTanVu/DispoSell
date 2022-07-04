@@ -10,6 +10,7 @@ public class TradeOrder extends Order{
     private ZonedDateTime confirmedDate;
 
     public TradeOrder(){
+        this.setPurchaseOrder(false);
     }
 
     public ZonedDateTime getConfirmedDate() {

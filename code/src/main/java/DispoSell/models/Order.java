@@ -40,7 +40,7 @@ public class Order implements Serializable {
     private String address;
 
     @NotNull
-    private Boolean isBuyingOrder;
+    private Boolean isPurchaseOrder;
 
     private Float credit;
 
@@ -103,12 +103,12 @@ public class Order implements Serializable {
         this.address = address;
     }
 
-    public Boolean getBuyingOrder() {
-        return isBuyingOrder;
+    public Boolean getPurchaseOrder() {
+        return isPurchaseOrder;
     }
 
-    public void setBuyingOrder(Boolean buyingOrder) {
-        isBuyingOrder = buyingOrder;
+    public void setPurchaseOrder(Boolean isPurchaseOrder) {
+        this.isPurchaseOrder = isPurchaseOrder;
     }
 
     public Float getCredit() {

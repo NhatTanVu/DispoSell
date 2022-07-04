@@ -15,6 +15,7 @@ public class PurchaseOrder extends Order{
     private String paymentTransactionID;
 
     public PurchaseOrder(){
+        this.setPurchaseOrder(true);
     }
 
     public ZonedDateTime getPaymentDate() {

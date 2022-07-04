@@ -148,7 +148,6 @@ public class DispoSellApplication {
                 OrderStatus status = orderStatusRepository.findByName(EOrderStatus.ORDER_STATUS_IN_DELIVERY).get();
                 order.setUser(user);
                 order.setStatus(status);
-                order.setBuyingOrder(false);
                 order.setContactNumber(user.getPhoneNumber());
                 order.setAddress(user.getContactAddress());
                 Long orderID = tradeOrderRepository.save(order).getOrderID();
@@ -194,7 +193,6 @@ public class DispoSellApplication {
                 OrderStatus status = orderStatusRepository.findByName(EOrderStatus.ORDER_STATUS_NEW).get();
                 order.setUser(user);
                 order.setStatus(status);
-                order.setBuyingOrder(false);
                 order.setContactNumber(user.getPhoneNumber());
                 order.setAddress(user.getContactAddress());
                 Long orderID = purchaseOrderRepository.save(order).getOrderID();
