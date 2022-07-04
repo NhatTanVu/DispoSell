@@ -2,10 +2,12 @@ package DispoSell;
 
 import DispoSell.models.*;
 import DispoSell.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,7 +31,8 @@ public class DispoSellApplication {
                                         PurchaseOrderRepository purchaseOrderRepository,
                                         OrderDetailRepository orderDetailRepository,
                                         DeliveryRepository deliveryRepository,
-                                        ShipperDeliveryRepository shipperDeliveryRepository
+                                        ShipperDeliveryRepository shipperDeliveryRepository,
+                                        PasswordEncoder passwordEncoder
                                         ) {
         return args -> {
             if (roleRepository.count() == 0) {
@@ -67,7 +70,7 @@ public class DispoSellApplication {
                 user.setEmail("test_user_123456@gmail.com");
                 user.setContactAddress("test_user_123456 delivery address");
                 user.setPhoneNumber("123456789");
-                user.setPassword("test_user_123456 password");
+                user.setPassword(passwordEncoder.encode("test_user_123456"));
                 user.setAvatarUrl("test_user_123456 avatar.png");
                 Role userRole = roleRepository.findByName(ERole.ROLE_USER).get();
                 Set<Role> roles = new HashSet<>();
@@ -106,7 +109,7 @@ public class DispoSellApplication {
                 user.setEmail("test_user_2901946@gmail.com");
                 user.setContactAddress("test_user_290194 delivery address");
                 user.setPhoneNumber("987654321");
-                user.setPassword("test_user_290194 password");
+                user.setPassword(passwordEncoder.encode("test_user_290194"));
                 user.setAvatarUrl("test_user_290194 avatar.png");
                 Role userRole = roleRepository.findByName(ERole.ROLE_USER).get();
                 Set<Role> roles = new HashSet<>();
@@ -169,7 +172,7 @@ public class DispoSellApplication {
                 shipper.setEmail("test_shipper_123456@gmail.com");
                 shipper.setContactAddress("test_shipper_123456 delivery address");
                 shipper.setPhoneNumber("123456789");
-                shipper.setPassword("test_shipper_123456 password");
+                shipper.setPassword(passwordEncoder.encode("test_shipper_123456"));
                 shipper.setAvatarUrl("test_shipper_123456 avatar.png");
                 Role userRole = roleRepository.findByName(ERole.ROLE_SHIPPER).get();
                 Set<Role> roles = new HashSet<>();
