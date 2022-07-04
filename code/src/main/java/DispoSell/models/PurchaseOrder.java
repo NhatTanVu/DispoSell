@@ -1,12 +1,11 @@
 package DispoSell.models;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name = "buyingorders")
-public class BuyingOrder extends Order{
+@Table(name = "purchaseorders")
+public class PurchaseOrder extends Order{
     private ZonedDateTime paymentDate;
 
     private String paymentMethod;
@@ -15,7 +14,7 @@ public class BuyingOrder extends Order{
 
     private String paymentTransactionID;
 
-    public BuyingOrder(){
+    public PurchaseOrder(){
     }
 
     public ZonedDateTime getPaymentDate() {

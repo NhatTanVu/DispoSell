@@ -26,7 +26,7 @@ public class DispoSellApplication {
                                         ProductConditionRepository productConditionRepository,
                                         ProductCategoryRepository productCategoryRepository,
                                         TradeOrderRepository tradeOrderRepository,
-                                        BuyingOrderRepository buyingOrderRepository,
+                                        PurchaseOrderRepository purchaseOrderRepository,
                                         OrderDetailRepository orderDetailRepository,
                                         DeliveryRepository deliveryRepository,
                                         ShipperDeliveryRepository shipperDeliveryRepository
@@ -43,6 +43,7 @@ public class DispoSellApplication {
                 orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_PAID));
                 orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_IN_DELIVERY));
                 orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_DONE));
+                orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_CANCELLED));
             }
             if (productConditionRepository.count() == 0) {
                 productConditionRepository.save(new ProductCondition(EProductCondition.PRODUCT_CONDITION_UNUSED));
@@ -186,8 +187,8 @@ public class DispoSellApplication {
             }
 
             // TODO: Remove later, for testing only
-            if(buyingOrderRepository.count() == 0) {
-                BuyingOrder order = new BuyingOrder();
+            if(purchaseOrderRepository.count() == 0) {
+                PurchaseOrder order = new PurchaseOrder();
                 order.setOrderedDate(java.time.ZonedDateTime.now());
                 User user = userRepository.findByUsername("test_user_290194").get();
                 OrderStatus status = orderStatusRepository.findByName(EOrderStatus.ORDER_STATUS_NEW).get();
@@ -196,9 +197,9 @@ public class DispoSellApplication {
                 order.setBuyingOrder(false);
                 order.setContactNumber(user.getPhoneNumber());
                 order.setAddress(user.getContactAddress());
-                Long orderID = buyingOrderRepository.save(order).getOrderID();
+                Long orderID = purchaseOrderRepository.save(order).getOrderID();
 
-                order = buyingOrderRepository.findById(orderID).get();
+                order = purchaseOrderRepository.findById(orderID).get();
                 Product product = productRepository.findByName("Furniture 4").get();
                 OrderDetail orderDetail = new OrderDetail(order, product, 5);
                 orderDetailRepository.save(orderDetail);
