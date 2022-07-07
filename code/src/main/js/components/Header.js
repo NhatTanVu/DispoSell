@@ -56,18 +56,18 @@ function Header() {
                         <Navbar.Collapse id={`basic-navbar-nav ${localStyles['dropdown']}`}
                                          className='justify-content-end'>
                             <Nav className={`align-items-center`}>
-                                <Nav.Link as={Link} to="/">Browse</Nav.Link>
+                                <Nav.Link as={Link} to="/browse">Browse</Nav.Link>
                                 &nbsp;
                                 <Nav.Link as={Link} to="/search">Search</Nav.Link>
                                 &nbsp;
                                 <NavDropdown title="Account" key="down" drop="down" className={localStyles['dropdownMenu']}>
-                                    {isUser && <Nav.Link as={Link} to="/user">User</Nav.Link>}
-                                    {isDelivery && <Nav.Link as={Link} to="/delivery">Delivery</Nav.Link>}
-                                    {isAdmin && <Nav.Link as={Link} to="/admin">Admin</Nav.Link>}
+                                    {/*{isUser && <Nav.Link as={Link} to="/user">User</Nav.Link>}*/}
+                                    {/*{isDelivery && <Nav.Link as={Link} to="/delivery">Delivery</Nav.Link>}*/}
+                                    {/*{isAdmin && <Nav.Link as={Link} to="/admin">Admin</Nav.Link>}*/}
                                     {currentUser ? (<>
                                         <Nav.Link as={Link} to="/profile"
                                                   style={{color: "darkgreen"}}>{currentUser.username}</Nav.Link>
-                                        <Nav.Link as={Link} to="/login" onClick={signOut}>Sign out</Nav.Link>
+                                        <Nav.Link as={Link} to="/login" onClick={signOut}>Log out</Nav.Link>
                                     </>) : (<>
                                         <Nav.Link as={Link} to="/login">Log in</Nav.Link>
                                         <Nav.Link as={Link} to="/register">Sign up</Nav.Link>
@@ -87,12 +87,12 @@ function Header() {
             </header>
 
             <div className={`fixed-bottom ${localStyles["showMobileOnly"]}`}>
-                <Container>
+                <Container style={{paddingLeft:"0", paddingRight:"0"}}>
                     {/*<Navbar collapseOnSelect expand={false}>*/}
-                    <Navbar>
+                    <Navbar style={{paddingBottom:"0"}}>
                         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-around">
-                            <Nav className="text-center">
+                            <Nav className={`text-center ${localStyles["navContainer"]}`} style={{maxWidth:"-webkit-fit-content"}}>
                                 <Nav.Link>
                                     <img className={`${localStyles["icon"]}`} src="images/icons/browse.png"
                                          alt="Browse"/>

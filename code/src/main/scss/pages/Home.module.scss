@@ -104,6 +104,19 @@
   .div-hover {
     visibility: hidden;
   }
+
+  .trade {
+    background-attachment: inherit;
+    margin: 0;
+  }
+
+  .disposellLogo, .request{
+    margin: 1.5rem 0;
+  }
+
+  .request{
+    width: 100%;
+  }
 }
 
 .btnTrade {
