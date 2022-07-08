@@ -1,6 +1,7 @@
 import React from 'react';
 import localStyles from '../../scss/pages/Browse.module.scss';
 import Product from "../components/Product";
+import {Dropdown} from "react-bootstrap";
 
 function Browse() {
     return (
@@ -9,13 +10,26 @@ function Browse() {
             <div className={localStyles["showMobileOnly"]}
                  style={{marginTop: "4.1rem", marginLeft: "0px", marginRight: "0px"}}>
                 <div className={`text-center`}
-                    style={{
-                        width: "-webkit-fill-available",
-                        borderRightWidth: "1.5px",
-                        borderStyle: "solid",
-                        padding: "2% 10%"
-                    }}>
-                    <a>Category</a>
+                     style={{
+                         width: "-webkit-fill-available",
+                         borderRightWidth: "1.5px",
+                         borderStyle: "solid",
+                         padding: "2% 10%"
+                     }}>
+                    {/*<Dropdown id={localStyles['dropdownMenu']}>*/}
+                    {/*    <Dropdown.Toggle className="dropdown-basic" id={localStyles['dropdown-basic']}>*/}
+                            <a>Category</a>
+                    {/*    </Dropdown.Toggle>*/}
+                    {/*    <Dropdown.Menu className={`text-center`} style={{inset:"unset"}}>*/}
+                    {/*        <a href="" >All Categories</a><br/>*/}
+                    {/*        <a href="#bedframes">Bed Frames</a><br/>*/}
+                    {/*        <a href="#chairs">Chairs</a><br/>*/}
+                    {/*        <a href="#diningTables">Dining Tables</a><br/>*/}
+                    {/*        <a href="#sideTables">Side Tables</a><br/>*/}
+                    {/*        <a href="#sofas">Sofas</a><br/>*/}
+                    {/*        <a href="#stools">Stools</a>*/}
+                    {/*    </Dropdown.Menu>*/}
+                    {/*</Dropdown>*/}
                 </div>
                 <div style={{
                     width: "-webkit-fill-available",
@@ -23,13 +37,14 @@ function Browse() {
                     borderStyle: "solid",
                     padding: "2% 10%"
                 }} className={`text-center`}>
+
                     <a>Sort</a>
                 </div>
             </div>
 
             <div className={localStyles["float_left"]}>
                 <h3>All Categories</h3>
-                <a href="#bedframe">Bed Frames</a>
+                <a href="#bedframes">Bed Frames</a>
                 <br/>
                 <a href="#chairs">Chairs</a>
                 <br/>
@@ -42,8 +57,9 @@ function Browse() {
                 <a href="#stools">Stools</a>
             </div>
             <div className={localStyles["middleSection"]}>
-                <div id="bedframe">
-                    <h2>Bed Frame</h2>
+                <div id="bedframes">
+                    <h2>Bed Frames</h2>
+
                     <div className="container">
                         <div className="row align-items-center text-start">
                             <div className="col-lg">
