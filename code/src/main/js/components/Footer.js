@@ -7,8 +7,7 @@ import {MDBFooter} from 'mdb-react-ui-kit';
 
 function Footer() {
     return (
-        // <MDBFooter bgColor='light' className='text-center text-lg-start'>
-        <MDBFooter bgColor='light' className={`text-center text-lg-start ${localStyles["sticky"]}`}>
+        <MDBFooter bgColor='light' className='text-center text-lg-start'>
             <section className='border-top'>
                 <div className='container text-center text-md-start mt-5'>
                     <div className='row mt-3'>
@@ -39,7 +38,7 @@ function Footer() {
                             </form>
                         </div>
 
-                        <div className='col-md-4 col-lg-4 col-xl-4 mx-auto mb-4'>
+                        <div className='col-md-2 col-lg-2 col-xl-2 mx-auto mb-4'>
                             <h6 className='text-uppercase fw-bold mb-4'>Company</h6>
                             <p>
                                 <a href="/AboutUs" className='text-reset'>
@@ -63,7 +62,7 @@ function Footer() {
                             </p>
                         </div>
 
-                        <div className='col-md-4 col-lg-4 col-xl-4 mx-auto mb-4'>
+                        <div className='col-md-2 col-lg-2 col-xl-2 mx-auto mb-4'>
                             <h6 className='text-uppercase fw-bold mb-4'>Buy</h6>
                             <p>
                                 <a href='#!' className='text-reset'>
@@ -77,7 +76,7 @@ function Footer() {
                             </p>
                         </div>
 
-                        <div className='col-md-4 col-lg-4 col-xl-4 mx-auto mb-4'>
+                        <div className='col-md-3 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4'>
                             <h6 className='text-uppercase fw-bold mb-4'>Trade</h6>
                             <p>
                                 <a href='#!' className='text-reset'>

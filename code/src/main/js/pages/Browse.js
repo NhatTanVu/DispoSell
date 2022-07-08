@@ -8,7 +8,7 @@ function Browse() {
         <div className={localStyles["browse-page"]}>
 
             <div className={localStyles["showMobileOnly"]}
-                 style={{marginTop: "4.1rem", marginLeft: "0px", marginRight: "0px"}}>
+                 style={{marginTop: "4.1rem", marginLeft: "0px", marginRight: "0px", position:"fixed"}}>
                 <div className={`text-center`}
                      style={{
                          width: "-webkit-fill-available",
