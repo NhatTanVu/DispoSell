@@ -1,5 +1,7 @@
 package DispoSell.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -58,6 +60,7 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private Set<Order> orders;
 
     public User() {
