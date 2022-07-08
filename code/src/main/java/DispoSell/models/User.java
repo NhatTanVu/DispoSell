@@ -1,5 +1,7 @@
 package DispoSell.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,28 +25,43 @@ public class User {
     @Size(max = 20)
     private String username;
 
+    @Size(max = 150)
+    private String firstName;
+
+    @Size(max = 150)
+    private String lastName;
+
+    @NotBlank
+    @Size(max = 20)
+    private String phoneNumber;
+
     @NotBlank
     @Size(max = 50)
     @Email
     private String email;
 
     @NotBlank
+    @Size(max = 250)
+    private String contactAddress;
+
+    @NotBlank
     @Size(max = 120)
     private String password;
 
-    @NotBlank
-    @Size(max = 250)
-    private String deliveryAddress;
+    private Float TotalCredit;
 
-    @NotBlank
-    @Size(max = 20)
-    private String phoneNumber;
+    @Size(max = 250)
+    private String avatarUrl;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "userRoles",
+            joinColumns = @JoinColumn(name = "userID"),
+            inverseJoinColumns = @JoinColumn(name = "roleID"))
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    private Set<Order> orders;
 
     public User() {
     }
@@ -54,7 +71,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.deliveryAddress = deliveryAddress;
+        this.contactAddress = deliveryAddress;
         this.phoneNumber = phoneNumber;
     }
 
@@ -90,12 +107,28 @@ public class User {
         this.password = password;
     }
 
-    public String getDeliveryAddress() {
-        return deliveryAddress;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setDeliveryAddress(String deliveryAddress) {
-        this.deliveryAddress = deliveryAddress;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getContactAddress() {
+        return contactAddress;
+    }
+
+    public void setContactAddress(String deliveryAddress) {
+        this.contactAddress = deliveryAddress;
     }
 
     public String getPhoneNumber() {
@@ -112,5 +145,29 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
+    public Float getTotalCredit() {
+        return TotalCredit;
+    }
+
+    public void setTotalCredit(Float totalCredit) {
+        TotalCredit = totalCredit;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 }

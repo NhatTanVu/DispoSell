@@ -4,6 +4,7 @@ import Product from "../components/Product.js";
 import {HashLink as Link} from "react-router-hash-link";
 
 function Home() {
+
     return (
         <div className={localStyles["home"]}>
             <div className={localStyles['shadow']}>
@@ -20,7 +21,6 @@ function Home() {
                     </div>
                 </div>
             </div>
-
 
             <div id="featured-products"
                  className={`text-center align-content-center justify-content-center ${localStyles['featuredProducts']}`}>

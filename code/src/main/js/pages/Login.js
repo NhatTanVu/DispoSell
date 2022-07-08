@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import AuthService from "../services/auth.service";
 import {Link, useNavigate} from "react-router-dom";
-import {Nav} from "react-bootstrap";
 
 import localStyles from '../../scss/pages/login.module.scss';
 
@@ -47,8 +46,10 @@ export default function Login(props) {
 
     return (
         <div className={`${localStyles["login"]} jumbotron d-flex align-items-center`}>
-            <div className={localStyles["float_left"]}></div>
-            <div className={`${localStyles["float_right"]}`}>
+            <div className={localStyles["float_left"]} style={{alignContent:"center", alignSelf:"center", display:"block"}}>
+                <img style={{maxWidth:"90%", minWidth:"85%", marginLeft:"7%", marginRight:"5%"}} src="/images/login/hello.gif" alt="Hello"/>
+            </div>
+            <div className={`${localStyles["float_right"]}`} id={localStyles['signin']}>
                 <div className="col-md-12 text-center">
                     <div className={`card card-container`} id={localStyles['cardBackground']}>
                         {/*<img*/}

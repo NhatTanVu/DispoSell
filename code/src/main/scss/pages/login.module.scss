@@ -56,7 +56,24 @@
     flex-direction: column;
   }
 
+  #signin{
+    margin-top: 5rem;
+  }
+
+  #signup{
+    max-height: fit-content;
+    min-height: 125vh;
+  }
+
   .float_left {
     visibility: hidden;
+  }
+
+  .float_right{
+    position: absolute;
+    top: 0;
+    margin-top: 2rem;
+    right: 0;
+    left: 0;
   }
 }

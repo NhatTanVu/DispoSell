@@ -18,7 +18,7 @@ export default function Profile() {
     }, []);
 
     return (
-        <div className="container">
+        <div className="container" style={{marginTop:"5rem", marginBottom:"2rem"}}>
             {(isUserReady) ?
                 <div>
                     <header className="jumbotron">
