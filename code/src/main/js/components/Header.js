@@ -82,6 +82,7 @@ function Header() {
                                     <button className={`rounded-pill ${localStyles["btnTrade"]}`}>Trade
                                     </button>
                                 </Nav.Link>
+                                <Nav.Link as={Link} to="/payment">Payment</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Navbar>
