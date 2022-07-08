@@ -98,7 +98,7 @@ function Header() {
                                 <Nav.Link>
                                     <img className={`${localStyles["icon"]}`} src="images/icons/browse.png"
                                          alt="Browse"/>
-                                    <Nav.Link as={Link} to="/">Browse</Nav.Link>
+                                    <Nav.Link as={Link} to="/browse">Browse</Nav.Link>
                                 </Nav.Link>
                                 <Nav.Link>
                                     <img className={localStyles["icon"]} src="images/icons/search.png" alt="Search"/>

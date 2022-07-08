@@ -13,7 +13,14 @@ function Product() {
             maxWidth: "100%",
             }} >
             <img src="images/test_for_browse/white_side_table.jpeg" alt="white_side_table" width={250}
-            loading="lazy"/>
+            loading="lazy"
+            style={{
+                display: "block",
+                marginLeft: "auto",
+                marginRight: "auto",
+                minWidth: "80%",
+                maxWidth: "100%",
+            }}/>
             <h6 className='text-uppercase fw-bold'> White Side Table </h6>
             <h5> $30</h5>
             <button className={`mb-4 ${localStyles["btnToCart"]}`}>ADD TO CART</button>

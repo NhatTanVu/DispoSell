@@ -6,6 +6,27 @@ function Browse() {
     return (
         <div className={localStyles["browse-page"]}>
 
+            <div className={localStyles["showMobileOnly"]}
+                 style={{marginTop: "4.1rem", marginLeft: "0px", marginRight: "0px"}}>
+                <div className={`text-center`}
+                    style={{
+                        width: "-webkit-fill-available",
+                        borderRightWidth: "1.5px",
+                        borderStyle: "solid",
+                        padding: "2% 10%"
+                    }}>
+                    <a>Category</a>
+                </div>
+                <div style={{
+                    width: "-webkit-fill-available",
+                    borderLeftWidth: "1.5px",
+                    borderStyle: "solid",
+                    padding: "2% 10%"
+                }} className={`text-center`}>
+                    <a>Sort</a>
+                </div>
+            </div>
+
             <div className={localStyles["float_left"]}>
                 <h3>All Categories</h3>
                 <a href="#bedframe">Bed Frames</a>
@@ -19,12 +40,6 @@ function Browse() {
                 <a href="#sofas">Sofas</a>
                 <br/>
                 <a href="#stools">Stools</a>
-                <div className={localStyles["showMobileOnly"]}>
-                    <h3>Sort</h3>
-                    <p>Latest Arrivals</p>
-                    <p>Price: Low to High</p>
-                    <p>Price: High to Low</p>
-                </div>
             </div>
             <div className={localStyles["middleSection"]}>
                 <div id="bedframe">
@@ -149,9 +164,9 @@ function Browse() {
             </div>
             <div className={localStyles["float_right"]}>
                 <h3>Sort</h3>
-                <p>Latest Arrivals</p>
-                <p>Price: Low to High</p>
-                <p>Price: High to Low</p>
+                <a>Latest Arrivals</a> <br/>
+                <a>Price: Low to High</a> <br/>
+                <a>Price: High to Low</a>
             </div>
         </div>
 

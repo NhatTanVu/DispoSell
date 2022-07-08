@@ -36,8 +36,19 @@
 @media (max-width: 767px) {
   .showMobileOnly {
     visibility: visible;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    background-color: white;
   }
-  .float_right{
+  .float_right, .float_left{
     visibility: hidden;
+  }
+
+  .middleSection{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 8rem;
   }
 }
