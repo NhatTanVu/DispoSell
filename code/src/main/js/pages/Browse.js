@@ -26,21 +26,21 @@ function Browse() {
                     <p>Price: High to Low</p>
                 </div>
             </div>
-            <div className={localStyles["middle"]}>
+            <div className={localStyles["middleSection"]}>
                 <div id="bedframe">
                     <h2>Bed Frame</h2>
                     <div className="container">
-                        <div className="row">
-                            <div className="col-sm">
+                        <div className="row align-items-center text-start">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
                         </div>
@@ -51,16 +51,16 @@ function Browse() {
                     <h2>Chairs</h2>
                     <div className="container">
                         <div className="row">
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
                         </div>
@@ -71,16 +71,16 @@ function Browse() {
                     <h2>Dining Tables</h2>
                     <div className="container">
                         <div className="row">
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
                         </div>
@@ -91,16 +91,16 @@ function Browse() {
                     <h2>Side Tables</h2>
                     <div className="container">
                         <div className="row">
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
                         </div>
@@ -111,16 +111,16 @@ function Browse() {
                     <h2>Sofas</h2>
                     <div className="container">
                         <div className="row">
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
                         </div>
@@ -131,16 +131,16 @@ function Browse() {
                     <h2>Stools</h2>
                     <div className="container">
                         <div className="row">
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
-                            <div className="col-sm">
+                            <div className="col-lg">
                                 <Product/>
                             </div>
                         </div>

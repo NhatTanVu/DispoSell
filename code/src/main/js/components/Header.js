@@ -56,7 +56,7 @@ function Header() {
                         <Navbar.Collapse id={`basic-navbar-nav ${localStyles['dropdown']}`}
                                          className='justify-content-end'>
                             <Nav className={`align-items-center`}>
-                                <Nav.Link as={Link} to="/">Browse</Nav.Link>
+                                <Nav.Link as={Link} to="/browse">Browse</Nav.Link>
                                 &nbsp;
                                 <Nav.Link as={Link} to="/search">Search</Nav.Link>
                                 &nbsp;
