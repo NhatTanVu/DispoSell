@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 import '../scss/App.scss';
 import Home from './pages/Home';
-import Category from './pages/Category';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import AboutUs from "./pages/AboutUs";
@@ -27,7 +26,6 @@ export default function App() {
                     {/*<Container>*/}
                         <Routes>
                             <Route path="/" element={<Home/>}/>
-                            <Route path="/category" element={<Category/>}/>
                             <Route path="/aboutUs" element={<AboutUs/>}/>
 
                             <Route path="/user" element={<UserContent/>}/>

@@ -86,6 +86,7 @@ public class DispoSellApplication {
                 product.setDescription("Description 1");
                 product.setApprover(user);
                 product.setApprovedDate(java.time.ZonedDateTime.now());
+                product.setAvailableQuantity(10);
                 productRepository.save(product);
 
                 product = productRepository.findByName("Furniture 1").get();
@@ -99,6 +100,7 @@ public class DispoSellApplication {
                 product.setName("Furniture 2");
                 product.setCondition(condition);
                 product.setDescription("Description 2");
+                product.setAvailableQuantity(20);
                 productRepository.save(product);
             }
 
@@ -125,6 +127,7 @@ public class DispoSellApplication {
                 product.setDescription("Description 3");
                 product.setApprover(user);
                 product.setApprovedDate(java.time.ZonedDateTime.now());
+                product.setAvailableQuantity(40);
                 productRepository.save(product);
 
                 product = productRepository.findByName("Furniture 3").get();
@@ -138,6 +141,7 @@ public class DispoSellApplication {
                 product.setName("Furniture 4");
                 product.setCondition(condition);
                 product.setDescription("Description 4");
+                product.setAvailableQuantity(50);
                 productRepository.save(product);
 
             }

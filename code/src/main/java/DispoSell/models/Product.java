@@ -1,5 +1,7 @@
 package DispoSell.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -10,8 +12,8 @@ import java.util.Set;
 @Entity
 @Table(name = "products",
         uniqueConstraints = {
-        @UniqueConstraint(columnNames = "productID")
-})
+                @UniqueConstraint(columnNames = "productID")
+        })
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +38,7 @@ public class Product {
 
     private Float length;
 
+    @NotNull
     private Integer availableQuantity;
 
     @NotNull
@@ -75,10 +78,11 @@ public class Product {
 
     private ZonedDateTime publishedDate;
 
-    @OneToMany(mappedBy= "product")
+    @OneToMany(mappedBy = "product")
+    @JsonManagedReference
     private Set<ProductMedia> productMedia;
 
-    public Product(){
+    public Product() {
     }
 
     public Long getProductID() {

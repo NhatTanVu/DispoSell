@@ -1,5 +1,7 @@
 package DispoSell.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -26,6 +28,7 @@ public class ProductMedia {
 
     @ManyToOne
     @JoinColumn(name = "productID", nullable = false)
+    @JsonBackReference
     private Product product;
 
     @OneToOne

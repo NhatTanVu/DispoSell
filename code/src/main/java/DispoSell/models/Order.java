@@ -1,11 +1,15 @@
 package DispoSell.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.Set;
 
 @Table(name = "orders")
 @Entity
@@ -19,6 +23,7 @@ public class Order implements Serializable {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userID", referencedColumnName = "id")
+    @JsonBackReference
     private User user;
 
     @NotNull
@@ -43,6 +48,10 @@ public class Order implements Serializable {
     private Boolean isPurchaseOrder;
 
     private Float credit;
+
+    @OneToMany(mappedBy = "order")
+    @JsonManagedReference
+    private Set<OrderDetail> orderDetails;
 
     public Order() {
     }
@@ -117,5 +126,13 @@ public class Order implements Serializable {
 
     public void setCredit(Float credit) {
         this.credit = credit;
+    }
+
+    public Set<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(Set<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }

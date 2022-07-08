@@ -1,6 +1,9 @@
 package DispoSell.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -11,8 +14,9 @@ import java.io.Serializable;
 @IdClass(OrderPKId.class)
 public class OrderDetail implements Serializable{
     @Id
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orderID", referencedColumnName = "orderID")
+    @JsonBackReference
     private Order order;
 
     @Id
@@ -21,6 +25,7 @@ public class OrderDetail implements Serializable{
     @MapsId
     private Product product;
 
+    @NotNull
     private int quantity;
 
     public OrderDetail() {
