@@ -19,3 +19,10 @@
   transition: 0.5s ease;
   -webkit-transition: 0.5s ease;
 }
+
+img{
+  touch-action: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}

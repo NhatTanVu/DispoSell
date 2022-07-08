@@ -18,12 +18,16 @@
   }
 }
 
-#accountImg{
+.navContainer {
+  max-width: fit-content;
+}
+
+#accountImg {
   position: relative;
   bottom: 0.5em;
 }
 
-.accountMobile{
+.accountMobile {
   align-self: center;
   padding-left: 0.6em;
   padding-right: 0.6em;
@@ -126,5 +130,11 @@ nav .navbar-collapse.show {
     -webkit-backdrop-filter: blur(40px);
     font-family: NHaasGrotesk, sans-serif, Fallback;
     font-size: 1rem;
+  }
+
+  .navContainer{
+    img{
+      min-width: 20%;
+    }
   }
 }
