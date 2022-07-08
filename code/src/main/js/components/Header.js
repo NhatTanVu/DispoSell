@@ -1,4 +1,4 @@
-import {Container, Dropdown, Nav, Navbar, NavDropdown} from "react-bootstrap";
+import {Container, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import React, {useState, useEffect} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import AuthService from "../services/auth.service";
@@ -52,6 +52,7 @@ function Header() {
                             <img height={40} className={localStyles["logoBlack"]} src="images/logos/DispoSellblack.png"
                                  alt="DispoSell Logo"/>
                         </Navbar.Brand>
+
                         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                         <Navbar.Collapse id={`basic-navbar-nav ${localStyles['dropdown']}`}
                                          className='justify-content-end'>
@@ -98,7 +99,7 @@ function Header() {
                                 <Nav.Link>
                                     <img className={`${localStyles["icon"]}`} src="images/icons/browse.png"
                                          alt="Browse"/>
-                                    <Nav.Link as={Link} to="/">Browse</Nav.Link>
+                                    <Nav.Link as={Link} to="/browse">Browse</Nav.Link>
                                 </Nav.Link>
                                 <Nav.Link>
                                     <img className={localStyles["icon"]} src="images/icons/search.png" alt="Search"/>
