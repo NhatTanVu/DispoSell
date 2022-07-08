@@ -78,6 +78,7 @@ export default function Payment(props) {
                                         nonce: paymentMethodNonce
                                     }).then(function (response) {
                                         console.log(response.data);
+                                        alert("Transaction ID = " + response.data.id);
                                     }).catch(function (error) {
                                         console.log(error);
                                     });
