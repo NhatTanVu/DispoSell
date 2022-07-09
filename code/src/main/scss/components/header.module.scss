@@ -15,6 +15,15 @@
     min-width: 5em;
     text-align: center;
     right: 0;
+    position: relative;
+  }
+}
+
+@media all and (-webkit-min-device-pixel-ratio:0) and (min-resolution: .001dpcm) {
+  .selector:not(*:root), .dropdownMenu {
+    div {
+      background-color: rgb(211, 211, 211, 0.97) !important;
+    }
   }
 }
 
