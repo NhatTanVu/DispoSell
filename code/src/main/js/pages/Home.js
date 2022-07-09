@@ -29,10 +29,18 @@ function Home() {
                          style={{position: "relative", marginTop: "3em", marginBottom: "2em"}}>
                         <h2>Featured Products</h2>
                     </div>
-                    <Product/>
-                    <Product/>
-                    <Product/>
-                    <Product/>
+                        <div className="col-md-auto">
+                            <Product/>
+                        </div>
+                        <div className="col-md-auto">
+                            <Product/>
+                        </div>
+                        <div className="col-md-auto">
+                            <Product/>
+                        </div>
+                        <div className="col-md-auto">
+                            <Product/>
+                        </div>
                 </div>
             </div>
 

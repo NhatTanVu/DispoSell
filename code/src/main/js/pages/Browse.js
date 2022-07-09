@@ -6,9 +6,8 @@ import {Dropdown} from "react-bootstrap";
 function Browse() {
     return (
         <div className={localStyles["browse-page"]}>
-
             <div className={localStyles["showMobileOnly"]}
-                 style={{marginTop: "4.1rem", marginLeft: "0px", marginRight: "0px", position:"fixed"}}>
+                 style={{marginTop: "4.1rem", marginLeft: "0px", marginRight: "0px"}}>
                 <div className={`text-center`}
                      style={{
                          width: "-webkit-fill-available",
@@ -18,7 +17,7 @@ function Browse() {
                      }}>
                     {/*<Dropdown id={localStyles['dropdownMenu']}>*/}
                     {/*    <Dropdown.Toggle className="dropdown-basic" id={localStyles['dropdown-basic']}>*/}
-                            <a>Category</a>
+                    <a>Category</a>
                     {/*    </Dropdown.Toggle>*/}
                     {/*    <Dropdown.Menu className={`text-center`} style={{inset:"unset"}}>*/}
                     {/*        <a href="" >All Categories</a><br/>*/}
@@ -37,12 +36,14 @@ function Browse() {
                     borderStyle: "solid",
                     padding: "2% 10%"
                 }} className={`text-center`}>
-
                     <a>Sort</a>
                 </div>
             </div>
 
-            <div className={localStyles["float_left"]}>
+            <div className={localStyles["float_left"]} style={{
+                left: "0",
+                position: "fixed",
+            }}>
                 <h3>All Categories</h3>
                 <a href="#bedframes">Bed Frames</a>
                 <br/>
@@ -56,22 +57,22 @@ function Browse() {
                 <br/>
                 <a href="#stools">Stools</a>
             </div>
+
             <div className={localStyles["middleSection"]}>
                 <div id="bedframes">
-                    <h2>Bed Frames</h2>
-
                     <div className="container">
-                        <div className="row align-items-center text-start">
-                            <div className="col-lg">
+                        <h2>Bed Frames</h2>
+                        <div className="row d-flex justify-content-around">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
                         </div>
@@ -79,19 +80,20 @@ function Browse() {
                 </div>
 
                 <div id="chairs">
-                    <h2>Chairs</h2>
                     <div className="container">
-                        <div className="row">
-                            <div className="col-lg">
+                        <br/>
+                        <h2>Chairs</h2>
+                        <div className="row d-flex justify-content-around">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
                         </div>
@@ -99,19 +101,20 @@ function Browse() {
                 </div>
 
                 <div id="diningTables">
-                    <h2>Dining Tables</h2>
                     <div className="container">
-                        <div className="row">
-                            <div className="col-lg">
+                        <br/>
+                        <h2>Dining Tables</h2>
+                        <div className="row d-flex justify-content-around">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
                         </div>
@@ -119,19 +122,20 @@ function Browse() {
                 </div>
 
                 <div id="sideTables">
-                    <h2>Side Tables</h2>
                     <div className="container">
-                        <div className="row">
-                            <div className="col-lg">
+                        <br/>
+                        <h2>Side Tables</h2>
+                        <div className="row d-flex justify-content-around">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
                         </div>
@@ -139,19 +143,20 @@ function Browse() {
                 </div>
 
                 <div id="sofas">
-                    <h2>Sofas</h2>
                     <div className="container">
-                        <div className="row">
-                            <div className="col-lg">
+                        <br/>
+                        <h2>Sofas</h2>
+                        <div className="row d-flex justify-content-around">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
                         </div>
@@ -159,25 +164,28 @@ function Browse() {
                 </div>
 
                 <div id="stools">
-                    <h2>Stools</h2>
                     <div className="container">
-                        <div className="row">
-                            <div className="col-lg">
+                        <br/>
+                        <h2>Stools</h2>
+                        <div className="row d-flex justify-content-around">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg">
+                            <div className="col-lg-auto">
                                 <Product/>
                             </div>
                         </div>
+                        <br/>
                     </div>
                 </div>
             </div>
+
             <div className={localStyles["float_right"]}>
                 <h3>Sort</h3>
                 <a>Latest Arrivals</a> <br/>
@@ -185,7 +193,6 @@ function Browse() {
                 <a>Price: High to Low</a>
             </div>
         </div>
-
     )
 }
 

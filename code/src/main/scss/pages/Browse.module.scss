@@ -3,20 +3,15 @@
   align-items: stretch;
 }
 
-//a:active {
-//  font-weight: bold;
-//}
 .float_left {
-  float: left;
   flex: 18%;
-  position: fixed;
   -webkit-flex: 18%;
   margin-top: 10rem;
   margin-left: 2rem;
 }
 
 .middleSection {
-  margin-top: 4rem;
+  margin-top: 6rem;
   margin-left: 13rem;
   margin-right: 13rem;
   display: inline;
@@ -24,7 +19,6 @@
 }
 
 .float_right {
-  float: right;
   position: fixed;
   right: 0;
   flex: 18%;
@@ -77,6 +71,7 @@
 @media (max-width: 767px) and (orientation: portrait) {
   .showMobileOnly {
     visibility: visible;
+    position: fixed;
     top: 0;
     width: 100%;
     display: flex;
