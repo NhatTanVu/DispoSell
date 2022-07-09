@@ -17,6 +17,8 @@ import AdminContent from "./pages/test/AdminContent";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
+import Cart from "./pages/test/Cart";
+import BrowseTest from "./pages/test/browsetest";
 
 export default function App() {
     return (
@@ -36,8 +38,10 @@ export default function App() {
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/profile" element={<Profile/>}/>
                             <Route path="/register" element={<Register/>}/>
-
                             <Route path="/browse" element={<Browse/>}/>
+
+                            <Route path="/browsetest" element={<BrowseTest/>}/>
+                            <Route path="/cart" element={<Cart/>}/>
                         </Routes>
                     {/*</Container>*/}
                 </main>
