@@ -20,9 +20,8 @@ public class OrderDetail implements Serializable{
     private Order order;
 
     @Id
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "productID",referencedColumnName = "productID")
-    @MapsId
     private Product product;
 
     @NotNull
