@@ -4,10 +4,7 @@ import authHeader from './auth-header';
 class OrderService {
     createPurchaseOrder(purchaseOrder) {
         return axios.post("./api/createpurchaseorder",
-            purchaseOrder
-        , {
-            headers: authHeader()
-        });
+            purchaseOrder);
     }
 
     createTradeOrder(tradeOrder) {

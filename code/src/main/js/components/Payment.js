@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import dropin from "braintree-web-drop-in";
 import {Button} from "react-bootstrap";
 import axios from "axios";
+import PaymentService from "../services/payment.service";
 
 export default function Payment(props) {
     const {show, canPay, onPaymentCompleted, onPaymentError} = props;
@@ -12,7 +13,7 @@ export default function Payment(props) {
     useEffect(() => {
         if (show) {
             setEnablePayment(canPay);
-            axios.get("/api/payment/client_token").then((token) => {
+            PaymentService.getClientToken().then((token) => {
                 const initializeBraintree = () => dropin.create({
                     // insert your tokenization key or client token here
                     authorization: token.data,
@@ -55,10 +56,7 @@ export default function Payment(props) {
                         const paymentMethodNonce = payload.nonce;
                         //console.log("payment method nonce", paymentMethodNonce);
 
-                        axios.post('/api/payment/checkout', {
-                            chargeAmount: paymentAmount,
-                            nonce: paymentMethodNonce
-                        }).then(function (response) {
+                        PaymentService.checkout(paymentAmount, paymentMethodNonce).then(function (response) {
                             //console.log(response.data);
                             let paymentTransactionID = response.data.id;
                             if (onPaymentCompleted)
