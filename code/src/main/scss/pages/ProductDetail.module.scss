@@ -6,7 +6,8 @@
 .float_left {
   left: 6rem;
   position: fixed;
-  width: 20rem;
+  max-width: 15rem;
+  min-width: 10rem;
   flex: 18%;
   -webkit-flex: 18%;
   margin-top: 10rem;
@@ -66,7 +67,7 @@ h5 {
   .showMobileOnly {
     visibility: visible;
     position: fixed;
-    top: 0;
+    bottom: 0;
     width: 100%;
     background-color: white;
   }
@@ -77,7 +78,7 @@ h5 {
   .middleSection {
     margin-left: 1rem;
     margin-right: 1rem;
-    margin-top: 15rem;
+    margin-top: 4rem;
   }
 }
 

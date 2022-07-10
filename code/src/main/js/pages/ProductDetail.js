@@ -4,17 +4,7 @@ import localStyles from '../../scss/pages/ProductDetail.module.scss';
 function ProductDetail() {
     return (
         <div className={localStyles["product-detail-page"]}>
-            <div className={localStyles["showMobileOnly"]}
-                 style={{marginTop: "4.1rem",marginLeft: "1rem", marginRight: "1rem"}}>
-                <h6 className='text-uppercase fw-bold'> White Side Table </h6>
-                <p>This is a description of White Side Table. Bla bla bla bla.
-                    This is a description of White Side Table. Bla bla bla bla
-                    This is a description of White Side Table. Bla bla bla bla</p>
-                <h5> $30</h5>
-                <button className={`mb-4 ${localStyles["btnToCart"]}`}>ADD TO CART</button>
-            </div>
-
-            <div className={localStyles["float_left"]}>
+            <div className={`align-self-center ${localStyles["float_left"]}`} style={{marginBottom:"10rem"}}>
                 <h6 className='text-uppercase fw-bold'> White Side Table </h6>
                 <p>This is a description of White Side Table. Bla bla bla bla.
                     This is a description of White Side Table. Bla bla bla bla
@@ -51,7 +41,17 @@ function ProductDetail() {
                 </div>
             </div>
 
-            <div className={localStyles["float_right"]}>
+            <div className={`align-self-center ${localStyles["float_right"]}`} style={{marginBottom:"10rem"}}>
+                <h5> $30</h5>
+                <button className={`mb-4 ${localStyles["btnToCart"]}`}>ADD TO CART</button>
+            </div>
+
+            <div className={` ${localStyles["showMobileOnly"]}`}
+                 style={{marginBottom: "5rem", padding: "1rem", position:"fixed"}}>
+                <h6 className='text-uppercase fw-bold'> White Side Table </h6>
+                <p>This is a description of White Side Table. Bla bla bla bla.
+                    This is a description of White Side Table. Bla bla bla bla
+                    This is a description of White Side Table. Bla bla bla bla</p>
                 <h5> $30</h5>
                 <button className={`mb-4 ${localStyles["btnToCart"]}`}>ADD TO CART</button>
             </div>
