@@ -1,9 +1,9 @@
 import React from "react";
 
-import Item1 from '../../../../resources/static/images/test_for_browse/green-stool.jpg'
-import Item2 from '../../../../resources/static/images/test_for_browse/blue-table.jpg'
-import Item3 from '../../../../resources/static/images/test_for_browse/folding-chair.jpg'
-import Item4 from '../../../../resources/static/images/test_for_browse/white_side_table.jpeg'
+// import Item1 from '../../../../resources/static/images/test_for_browse/white_side_table.jpeg'
+// import Item2 from '../../../../resources/static/images/test_for_browse/white_side_table.jpeg'
+// import Item3 from '../../../../resources/static/images/test_for_browse/white_side_table.jpeg'
+// import Item4 from '../../../../resources/static/images/test_for_browse/white_side_table.jpeg'
 import {ADD_TO_CART, REMOVE_ITEM, SUB_QUANTITY, ADD_QUANTITY, ADD_SHIPPING} from '../actions/action-types/cart-actions'
 
 
@@ -14,28 +14,28 @@ const initState = {
             title: 'Winter body',
             desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ex.",
             price: 110,
-            img: Item1
+            img: ""
         },
         {
             id: 2,
             title: 'Adidas',
             desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ex.",
             price: 80,
-            img: Item2
+            img: ""
         },
         {
             id: 3,
             title: 'Vans',
             desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ex.",
             price: 120,
-            img: Item3
+            img: ""
         },
         {
             id: 4,
             title: 'White',
             desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima, ex.",
             price: 260,
-            img: Item4
+            img: ""
         }
     ],
     addedItems: [],
