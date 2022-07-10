@@ -17,6 +17,7 @@ import AdminContent from "./pages/test/AdminContent";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
+import ProductDetail from "./pages/ProductDetail";
 
 export default function App() {
     return (
@@ -38,6 +39,7 @@ export default function App() {
                             <Route path="/register" element={<Register/>}/>
 
                             <Route path="/browse" element={<Browse/>}/>
+                            <Route path="/productDetail" element={<ProductDetail/>}/>
                         </Routes>
                     {/*</Container>*/}
                 </main>
