@@ -5,6 +5,7 @@ import {Dropdown} from "react-bootstrap";
 
 function Browse() {
     return (
+        // /api/productDetail/id=?
         <div className={localStyles["browse-page"]}>
             <div className={localStyles["showMobileOnly"]}
                  style={{marginTop: "4.1rem", marginLeft: "0px", marginRight: "0px"}}>
@@ -66,15 +67,15 @@ function Browse() {
                             <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                 </div>
@@ -87,15 +88,15 @@ function Browse() {
                             <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                 </div>
@@ -108,15 +109,15 @@ function Browse() {
                             <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                 </div>
@@ -129,15 +130,15 @@ function Browse() {
                             <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                 </div>
@@ -150,15 +151,15 @@ function Browse() {
                             <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                 </div>
@@ -171,15 +172,15 @@ function Browse() {
                             <div className="col-lg-auto">
                                 <Product/>
                             </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
+                            {/*<div className="col-lg-auto">*/}
+                            {/*    <Product/>*/}
+                            {/*</div>*/}
                         </div>
                         <br/>
                     </div>

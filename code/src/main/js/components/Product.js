@@ -1,11 +1,32 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import localStyles from "../../scss/components/product.module.scss";
 import {Link} from "react-router-dom";
+import ProductService from "../services/product.service";
 
 function Product() {
-    return (
+    const [products, setProduct]=useState([]);
+    useEffect(()=>{
+        ProductService.getProduct().then(
+            response=>{
+                setProduct(response.data);
+                console.log(response.data);
+            },
+            error=>{
+                setProduct(
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString()
+                );
 
-        //  you connect to back-end, it should be synchronous img + title product + price
+                if (error.response && (error.response.status == 401 || error.response.status == 403)) {
+                    navigate("/");
+                }
+            }
+        )
+    },[]);
+    return (
         <div className='col-md-3 col-lg-3 col-xl-3 align-items-center text-start' style={{
             display: "block",
             marginLeft: "auto",
@@ -13,8 +34,11 @@ function Product() {
             minWidth: "80%",
             maxWidth: "100%",
         }}>
-            <Link as={Link} to="/productdetail">
-                <img src="images/test_for_browse/white_side_table.jpeg" alt="white_side_table" width={250}
+    {products.map((product)=>(
+        <div className="col-lg-auto" key={product.productID}>
+            <Link as={Link} to={`/productdetail/id=${product.productID}`}>
+                {/*<img src={product.productMedia[1].url} alt={product.name} width={250}*/}
+                <img src="images/test_for_browse/white_side_table.jpeg" alt={product.name} width={250}
                      loading="lazy"
                      style={{
                          display: "block",
@@ -23,13 +47,35 @@ function Product() {
                          minWidth: "80%",
                          maxWidth: "100%",
                      }}/>
-            </Link> <Link as={Link} to="/productdetail">
-
-            <h6 className='text-uppercase fw-bold'> White Side Table </h6></Link>
-
-            <h5> $30</h5>
+            </Link> <Link as={Link} to={`/productdetail/id=${product.productID}`}>
+            <h6 className='text-uppercase fw-bold'> {product.name} </h6></Link>
+            <h5>${product.sellingPrice}</h5>
             <button className={`mb-4 ${localStyles["btnToCart"]}`}>ADD TO CART</button>
         </div>
+    ))}
+        </div>
+        // <div className='col-md-3 col-lg-3 col-xl-3 align-items-center text-start' style={{
+        //     display: "block",
+        //     marginLeft: "auto",
+        //     marginRight: "auto",
+        //     minWidth: "80%",
+        //     maxWidth: "100%",
+        // }}>
+        //     <Link as={Link} to="/productdetail">
+        //         <img src="images/test_for_browse/white_side_table.jpeg" alt="white_side_table" width={250}
+        //              loading="lazy"
+        //              style={{
+        //                  display: "block",
+        //                  marginLeft: "auto",
+        //                  marginRight: "auto",
+        //                  minWidth: "80%",
+        //                  maxWidth: "100%",
+        //              }}/>
+        //     </Link> <Link as={Link} to="/productdetail">
+        //     <h6 className='text-uppercase fw-bold'> White Side Table </h6></Link>
+        //     <h5> $30</h5>
+        //     <button className={`mb-4 ${localStyles["btnToCart"]}`}>ADD TO CART</button>
+        // </div>
     )
 }
 
