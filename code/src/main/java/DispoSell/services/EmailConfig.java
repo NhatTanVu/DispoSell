@@ -12,10 +12,10 @@ import java.util.Properties;
 @Configuration
 @PropertySource(value={"classpath:application.properties"})
 public class EmailConfig {
-    @Value("${spring.mail.host}")
+    @Value("${spring.mail.host:smtp.gmail.com}")
     private String mailServerHost;
 
-    @Value("${spring.mail.port}")
+    @Value("${spring.mail.port:587}")
     private Integer mailServerPort;
 
     @Value("${spring.mail.username}")
