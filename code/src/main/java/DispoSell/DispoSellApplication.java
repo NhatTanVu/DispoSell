@@ -28,12 +28,11 @@ public class DispoSellApplication {
                                         ProductConditionRepository productConditionRepository,
                                         ProductCategoryRepository productCategoryRepository,
                                         TradeOrderRepository tradeOrderRepository,
-                                        PurchaseOrderRepository purchaseOrderRepository,
                                         OrderDetailRepository orderDetailRepository,
                                         DeliveryRepository deliveryRepository,
                                         ShipperDeliveryRepository shipperDeliveryRepository,
                                         PasswordEncoder passwordEncoder
-                                        ) {
+    ) {
         return args -> {
             if (roleRepository.count() == 0) {
                 roleRepository.save(new Role(ERole.ROLE_ADMINISTRATOR));
@@ -157,6 +156,7 @@ public class DispoSellApplication {
                 order.setStatus(status);
                 order.setContactNumber(user.getPhoneNumber());
                 order.setAddress(user.getContactAddress());
+                order.setEmail(user.getEmail());
                 Long orderID = tradeOrderRepository.save(order).getOrderID();
 
                 order = tradeOrderRepository.findById(orderID).get();

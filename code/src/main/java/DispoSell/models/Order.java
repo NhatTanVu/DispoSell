@@ -43,6 +43,10 @@ public class Order implements Serializable {
     @Size(max = 250)
     private String address;
 
+    @NotBlank
+    @Size(max = 50)
+    private String email;
+
     @NotNull
     private Boolean isPurchaseOrder;
 
@@ -109,6 +113,14 @@ public class Order implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Boolean getPurchaseOrder() {

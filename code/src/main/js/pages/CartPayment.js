@@ -16,6 +16,7 @@ export default function CartPayment() {
         let cart = {
             "contactNumber": "1465987722",
             "address": "1465987722 delivery address",
+            "email": "onchua2006@gmail.com",
             "status": {
                 "statusID": 1
             },
