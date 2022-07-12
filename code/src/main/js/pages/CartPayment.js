@@ -18,7 +18,7 @@ export default function CartPayment() {
             "address": "1465987722 delivery address",
             "email": "onchua2006@gmail.com",
             "status": {
-                "statusID": 1
+                "statusID": 24
             },
             "orderDetails": [
                 {
