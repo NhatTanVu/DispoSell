@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { removeItem,addQuantity,subtractQuantity} from './actions/cartActions'
 import Recipe from './Recipe'
-class Cart extends Component{
+class CartTest extends Component{
 
     //to remove the item completely
     handleRemove = (id)=>{
@@ -80,4 +80,4 @@ const mapDispatchToProps = (dispatch)=>{
         subtractQuantity: (id)=>{dispatch(subtractQuantity(id))}
     }
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Cart)
+export default connect(mapStateToProps,mapDispatchToProps)(CartTest)

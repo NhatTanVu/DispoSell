@@ -150,7 +150,7 @@ function Header() {
                                 {/*</Nav.Link>*/}
 
                                 <Nav.Link>
-                                    <img className={`${localStyles["icon"]}`} src="images/icons/cart.png" alt="Cart"/>
+                                    <img className={`${localStyles["icon"]}`} src="images/icons/cart.png" alt="CartTest"/>
                                     <Nav.Link as={Link} to="/cart">
                                         Cart</Nav.Link>
                                 </Nav.Link>
