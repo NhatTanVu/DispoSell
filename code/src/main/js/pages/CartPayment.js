@@ -18,7 +18,7 @@ export default function CartPayment() {
             "address": "1465987722 delivery address",
             "email": "onchua2006@gmail.com",
             "status": {
-                "statusID": 24
+                "statusID": 4
             },
             "orderDetails": [
                 {
@@ -53,7 +53,7 @@ export default function CartPayment() {
         setCart(prevState => ({
             ...prevState,
             "status": {
-                "statusID": 3
+                "statusID": 24
             },
             "paymentAmount": paymentAmount,
             "paymentTransactionID": paymentTransactionID
