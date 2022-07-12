@@ -2,7 +2,6 @@ package DispoSell;
 
 import DispoSell.models.*;
 import DispoSell.repositories.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -33,7 +32,7 @@ public class DispoSellApplication {
                                         DeliveryRepository deliveryRepository,
                                         ShipperDeliveryRepository shipperDeliveryRepository,
                                         PasswordEncoder passwordEncoder
-                                        ) {
+    ) {
         return args -> {
             if (roleRepository.count() == 0) {
                 roleRepository.save(new Role(ERole.ROLE_ADMINISTRATOR));
@@ -190,24 +189,6 @@ public class DispoSellApplication {
                 shipper = userRepository.findByUsername("test_shipper_123456").get();
                 shipperDelivery.setShipper(shipper);
                 shipperDeliveryRepository.save(shipperDelivery);
-            }
-
-            // TODO: Remove later, for testing only
-            if(purchaseOrderRepository.count() == 0) {
-                PurchaseOrder order = new PurchaseOrder();
-                order.setOrderedDate(java.time.ZonedDateTime.now());
-                User user = userRepository.findByUsername("test_user_290194").get();
-                OrderStatus status = orderStatusRepository.findByName(EOrderStatus.ORDER_STATUS_NEW).get();
-                order.setUser(user);
-                order.setStatus(status);
-                order.setContactNumber(user.getPhoneNumber());
-                order.setAddress(user.getContactAddress());
-                Long orderID = purchaseOrderRepository.save(order).getOrderID();
-
-                order = purchaseOrderRepository.findById(orderID).get();
-                Product product = productRepository.findByName("Furniture 4").get();
-                OrderDetail orderDetail = new OrderDetail(order, product, 5);
-                orderDetailRepository.save(orderDetail);
             }
 
         };

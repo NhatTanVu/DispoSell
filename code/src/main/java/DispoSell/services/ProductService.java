@@ -4,10 +4,12 @@ import DispoSell.models.Product;
 import DispoSell.models.ProductMedia;
 import DispoSell.repositories.ProductMediaRepository;
 import DispoSell.repositories.ProductRepository;
-import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class ProductService {
     private MediaService mediaService;
     private final ProductRepository productRepository;
@@ -32,6 +34,10 @@ public class ProductService {
 
     public Product updateAvailableQuantity(long productID, int purchasedQuantity) {
         Product product = this.productRepository.findById(productID).get();
+        if (product.getAvailableQuantity() < purchasedQuantity) {
+            throw new IllegalArgumentException();
+        }
+
         product.setAvailableQuantity(product.getAvailableQuantity() - purchasedQuantity);
         return this.productRepository.save(product);
     }
