@@ -265,10 +265,10 @@ public class DispoSellApplication {
                 productRepository.save(product);
 
                 product = productRepository.findByName("White Side Table").get();
-                ProductMedia media1 = new ProductMedia(product, "../resources/static/images/products/white_side_table_1.jpeg", "png", null);
+                ProductMedia media1 = new ProductMedia(product, "/images/products/4.jpeg", "jpeg", null);
                 productMediaRepository.save(media1);
-                ProductMedia media2 = new ProductMedia(product, "img2.png", "png", user);
-                productMediaRepository.save(media2);
+//                ProductMedia media2 = new ProductMedia(product, "img2.png", "png", user);
+//                productMediaRepository.save(media2);
 
                 product = new Product();
                 product.setName("Thin White Bed Frame");
@@ -280,9 +280,9 @@ public class DispoSellApplication {
                 product.setCategory(productCategory2);
                 productRepository.save(product);
 
-//                product = productRepository.findByName("Thin White Bed Frame").get();
-//                ProductMedia media3 = new ProductMedia(product, "img11.png", "png", null);
-//                productMediaRepository.save(media3);
+                product = productRepository.findByName("Thin White Bed Frame").get();
+                ProductMedia media3 = new ProductMedia(product, "/images/products/3.jpeg", "jpeg", null);
+                productMediaRepository.save(media3);
 //                ProductMedia media4 = new ProductMedia(product, "img21.png", "png", user);
 //                productMediaRepository.save(media4);
             }
@@ -317,10 +317,12 @@ public class DispoSellApplication {
                 productRepository.save(product);
 
                 product = productRepository.findByName("Off White Folding Chair").get();
-                ProductMedia media1 = new ProductMedia(product, "img3.png", "png", null);
+                ProductMedia media1 = new ProductMedia(product, "/images/products/2.jpg", "jpg", null);
                 productMediaRepository.save(media1);
-                ProductMedia media2 = new ProductMedia(product, "img4.png", "png", user);
-                productMediaRepository.save(media2);
+//                ProductMedia media2 = new ProductMedia(product, "off_white_folding_chair_2.jpg", "jpg", user);
+//                productMediaRepository.save(media2);
+//                ProductMedia media21 = new ProductMedia(product, "off_white_folding_chair_3.jpg", "jpg", user);
+//                productMediaRepository.save(media21);
 
                 product = new Product();
                 product.setName("Light Gray Lounge Sofa");
@@ -332,10 +334,10 @@ public class DispoSellApplication {
                 product.setCategory(productCategory2);
                 productRepository.save(product);
 
-//                product = productRepository.findByName("Light Gray Lounge Sofa").get();
-//                ProductMedia media3 = new ProductMedia(product, "img4.png", "png", null);
-//                productMediaRepository.save(media3);
-//                ProductMedia media4 = new ProductMedia(product, "img5.png", "png", user);
+                product = productRepository.findByName("Light Gray Lounge Sofa").get();
+                ProductMedia media3 = new ProductMedia(product, "/images/products/1.jpeg", "jpeg", null);
+                productMediaRepository.save(media3);
+//                ProductMedia media4 = new ProductMedia(product, "light_gray_lounge_sofa_2.webp", "webp", user);
 //                productMediaRepository.save(media4);
             }
 

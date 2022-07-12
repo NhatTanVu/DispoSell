@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import localStyles from "../../scss/components/product.module.scss";
 import {Link} from "react-router-dom";
 import ProductService from "../services/product.service";
+import image from "../"
 
 function Product() {
     const [products, setProduct]=useState([]);
@@ -37,8 +38,7 @@ function Product() {
     {products.map((product)=>(
         <div className="col-lg-auto" key={product.productID}>
             <Link as={Link} to={`/productdetail/id=${product.productID}`}>
-                {/*<img src={product.productMedia[1].url} alt={product.name} width={250}*/}
-                <img src="images/test_for_browse/white_side_table.jpeg" alt={product.name} width={250}
+                <img src={`${product.productMedia[0].url}`} alt={product.name} width={250}
                      loading="lazy"
                      style={{
                          display: "block",
@@ -49,6 +49,7 @@ function Product() {
                      }}/>
             </Link> <Link as={Link} to={`/productdetail/id=${product.productID}`}>
             <h6 className='text-uppercase fw-bold'> {product.name} </h6></Link>
+            {/*<p>{product.productMedia[0].url}</p>*/}
             <h5>${product.sellingPrice}</h5>
             <button className={`mb-4 ${localStyles["btnToCart"]}`}>ADD TO CART</button>
         </div>
