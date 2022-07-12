@@ -23,7 +23,7 @@ export default function CartPayment() {
             "orderDetails": [
                 {
                     "product": {
-                        "productID": 1,
+                        "productID": 4,
                         "productMedia": [
                             {
                                 "url": "image 1.jpg",
@@ -35,7 +35,7 @@ export default function CartPayment() {
                 },
                 {
                     "product": {
-                        "productID": 2
+                        "productID": 14
                     },
                     "quantity": 10
                 }
