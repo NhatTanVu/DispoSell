@@ -5,14 +5,14 @@ import ProductService from "../services/product.service";
 import image from "../"
 
 function Product() {
-    const [products, setProduct]=useState([]);
-    useEffect(()=>{
+    const [products, setProduct] = useState([]);
+    useEffect(() => {
         ProductService.getProduct().then(
-            response=>{
+            response => {
                 setProduct(response.data);
                 console.log(response.data);
             },
-            error=>{
+            error => {
                 setProduct(
                     (error.response &&
                         error.response.data &&
@@ -26,34 +26,28 @@ function Product() {
                 }
             }
         )
-    },[]);
+    }, []);
     return (
-        <div className='col-md-3 col-lg-3 col-xl-3 align-items-center text-start' style={{
-            display: "block",
-            marginLeft: "auto",
-            marginRight: "auto",
-            minWidth: "80%",
-            maxWidth: "100%",
-        }}>
-    {products.map((product)=>(
-        <div className="col-lg-auto" key={product.productID}>
-            <Link as={Link} to={`/productdetail/id=${product.productID}`}>
-                <img src={`${product.productMedia[0].url}`} alt={product.name} width={250}
-                     loading="lazy"
-                     style={{
-                         display: "block",
-                         marginLeft: "auto",
-                         marginRight: "auto",
-                         minWidth: "80%",
-                         maxWidth: "100%",
-                     }}/>
-            </Link> <Link as={Link} to={`/productdetail/id=${product.productID}`}>
-            <h6 className='text-uppercase fw-bold'> {product.name} </h6></Link>
-            {/*<p>{product.productMedia[0].url}</p>*/}
-            <h5>${product.sellingPrice}</h5>
-            <button className={`mb-4 ${localStyles["btnToCart"]}`}>ADD TO CART</button>
-        </div>
-    ))}
+        <div className="d-inline-flex row justify-content-around" style={{padding: "2rem"}}>
+            {products.map((product) => (
+                    <div className="col-sm-auto" key={product.productID}>
+                        <Link as={Link} to={`/productdetail/id=${product.productID}`}>
+                            <img src={`${product.productMedia[0].url}`} alt={product.name} width={250}
+                                 loading="lazy"
+                                 style={{
+                                     display: "block",
+                                     marginLeft: "auto",
+                                     marginRight: "auto",
+                                     minWidth: "80%",
+                                     maxWidth: "100%",
+                                 }}/>
+                        </Link> <Link as={Link} to={`/productdetail/id=${product.productID}`}>
+                        <h6 className='text-uppercase fw-bold'> {product.name} </h6></Link>
+                        {/*<p>{product.productMedia[0].url}</p>*/}
+                        <h5>${product.sellingPrice}</h5>
+                        <button className={`mb-4 ${localStyles["btnToCart"]}`}>ADD TO CART</button>
+                </div>
+            ))}
         </div>
         // <div className='col-md-3 col-lg-3 col-xl-3 align-items-center text-start' style={{
         //     display: "block",

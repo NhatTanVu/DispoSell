@@ -64,19 +64,17 @@ function Browse() {
                     <div className="container">
                         <h2>Bed Frames</h2>
                         <div className="row d-flex justify-content-around">
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
+                            <Product/>
                         </div>
+                        {/*<div className="col-lg-auto">*/}
+                        {/*    <Product/>*/}
+                        {/*</div>*/}
+                        {/*<div className="col-lg-auto">*/}
+                        {/*    <Product/>*/}
+                        {/*</div>*/}
+                        {/*<div className="col-lg-auto">*/}
+                        {/*    <Product/>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
 
@@ -85,9 +83,7 @@ function Browse() {
                         <br/>
                         <h2>Chairs</h2>
                         <div className="row d-flex justify-content-around">
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
+                            <Product/>
                             {/*<div className="col-lg-auto">*/}
                             {/*    <Product/>*/}
                             {/*</div>*/}
@@ -106,9 +102,7 @@ function Browse() {
                         <br/>
                         <h2>Dining Tables</h2>
                         <div className="row d-flex justify-content-around">
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
+                            <Product/>
                             {/*<div className="col-lg-auto">*/}
                             {/*    <Product/>*/}
                             {/*</div>*/}
@@ -127,9 +121,7 @@ function Browse() {
                         <br/>
                         <h2>Side Tables</h2>
                         <div className="row d-flex justify-content-around">
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
+                            <Product/>
                             {/*<div className="col-lg-auto">*/}
                             {/*    <Product/>*/}
                             {/*</div>*/}
@@ -148,9 +140,7 @@ function Browse() {
                         <br/>
                         <h2>Sofas</h2>
                         <div className="row d-flex justify-content-around">
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
+                            <Product/>
                             {/*<div className="col-lg-auto">*/}
                             {/*    <Product/>*/}
                             {/*</div>*/}
@@ -169,9 +159,7 @@ function Browse() {
                         <br/>
                         <h2>Stools</h2>
                         <div className="row d-flex justify-content-around">
-                            <div className="col-lg-auto">
-                                <Product/>
-                            </div>
+                            <Product/>
                             {/*<div className="col-lg-auto">*/}
                             {/*    <Product/>*/}
                             {/*</div>*/}
