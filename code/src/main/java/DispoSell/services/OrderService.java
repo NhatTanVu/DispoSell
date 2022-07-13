@@ -13,14 +13,16 @@ public class OrderService {
     private final TradeOrderRepository tradeOrderRepository;
     private final OrderDetailRepository orderDetailRepository;
     private final PurchaseOrderRepository purchaseOrderRepository;
+    private final EmailService emailService;
 
     public OrderService(ProductService productService, TradeOrderRepository tradeOrderRepository,
                         OrderDetailRepository orderDetailRepository, ProductRepository productRepository,
-                        PurchaseOrderRepository purchaseOrderRepository) {
+                        PurchaseOrderRepository purchaseOrderRepository, EmailService emailService) {
         this.productService = productService;
         this.tradeOrderRepository = tradeOrderRepository;
         this.orderDetailRepository = orderDetailRepository;
         this.purchaseOrderRepository = purchaseOrderRepository;
+        this.emailService = emailService;
     }
 
     public TradeOrder createTradeOrder(TradeOrder tradeOrder) {
@@ -45,6 +47,9 @@ public class OrderService {
                 this.orderDetailRepository.save(orderDetail);
             }
         }
+
+        this.emailService.sendSimpleMessage(newOrder.getEmail(), "[DispoSell] Trade Order created", "Your trade order #" + newOrder.getOrderID() + " was created.");
+        this.emailService.sendSimpleMessageToAdmin( "[DispoSell] Trade Order created", "New trade order #" + newOrder.getOrderID() + " was created.");
 
         return newOrder;
     }
@@ -74,6 +79,9 @@ public class OrderService {
                 orderDetail.setOrder(newOrder);
                 this.orderDetailRepository.save(orderDetail);
             }
+
+            this.emailService.sendSimpleMessage(newOrder.getEmail(), "[DispoSell] Purchase Order created", "Your purchase order #" + newOrder.getOrderID() + " was created.");
+            this.emailService.sendSimpleMessageToAdmin( "[DispoSell] Purchase Order created", "New purchase order #" + newOrder.getOrderID() + " was created.");
 
             return newOrder;
         } else
