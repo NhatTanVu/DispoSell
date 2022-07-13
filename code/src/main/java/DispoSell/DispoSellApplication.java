@@ -2,6 +2,7 @@ package DispoSell;
 
 import DispoSell.models.*;
 import DispoSell.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,6 +28,7 @@ public class DispoSellApplication {
                                         ProductConditionRepository productConditionRepository,
                                         ProductCategoryRepository productCategoryRepository,
                                         TradeOrderRepository tradeOrderRepository,
+                                        PurchaseOrderRepository purchaseOrderRepository,
                                         OrderDetailRepository orderDetailRepository,
                                         DeliveryRepository deliveryRepository,
                                         ShipperDeliveryRepository shipperDeliveryRepository,
@@ -79,27 +81,38 @@ public class DispoSellApplication {
                 user = userRepository.findByUsername("test_user_123456").get();
                 Product product = new Product();
                 ProductCondition condition = productConditionRepository.findByName(EProductCondition.PRODUCT_CONDITION_UNUSED).get();
-                product.setName("Furniture 1");
+                product.setName("White Side Table");
                 product.setCondition(condition);
                 product.setDescription("Description 1");
                 product.setApprover(user);
                 product.setApprovedDate(java.time.ZonedDateTime.now());
                 product.setAvailableQuantity(10);
+                product.setSellingPrice(30f);
+                ProductCategory productCategory1=productCategoryRepository.findById(4l).get();
+                product.setCategory(productCategory1);
                 productRepository.save(product);
 
-                product = productRepository.findByName("Furniture 1").get();
-                ProductMedia media1 = new ProductMedia(product, "img1.png", "png", null);
+                product = productRepository.findByName("White Side Table").get();
+                ProductMedia media1 = new ProductMedia(product, "/images/products/4.jpeg", "jpeg", null);
                 productMediaRepository.save(media1);
-
-                ProductMedia media2 = new ProductMedia(product, "img2.png", "png", user);
-                productMediaRepository.save(media2);
+//                ProductMedia media2 = new ProductMedia(product, "img2.png", "png", user);
+//                productMediaRepository.save(media2);
 
                 product = new Product();
-                product.setName("Furniture 2");
+                product.setName("Thin White Bed Frame");
                 product.setCondition(condition);
                 product.setDescription("Description 2");
                 product.setAvailableQuantity(20);
+                product.setSellingPrice(100.99f);
+                ProductCategory productCategory2=productCategoryRepository.findById(1l).get();
+                product.setCategory(productCategory2);
                 productRepository.save(product);
+
+                product = productRepository.findByName("Thin White Bed Frame").get();
+                ProductMedia media3 = new ProductMedia(product, "/images/products/3.jpeg", "jpeg", null);
+                productMediaRepository.save(media3);
+//                ProductMedia media4 = new ProductMedia(product, "img21.png", "png", user);
+//                productMediaRepository.save(media4);
             }
 
             // TODO: Remove later, for testing only
@@ -120,28 +133,40 @@ public class DispoSellApplication {
                 user = userRepository.findByUsername("test_user_290194").get();
                 Product product = new Product();
                 ProductCondition condition = productConditionRepository.findByName(EProductCondition.PRODUCT_CONDITION_UNUSED).get();
-                product.setName("Furniture 3");
+                product.setName("Off White Folding Chair");
                 product.setCondition(condition);
                 product.setDescription("Description 3");
                 product.setApprover(user);
                 product.setApprovedDate(java.time.ZonedDateTime.now());
                 product.setAvailableQuantity(40);
+                product.setSellingPrice(20.49f);
+                ProductCategory productCategory1=productCategoryRepository.findById(2l).get();
+                product.setCategory(productCategory1);
                 productRepository.save(product);
 
-                product = productRepository.findByName("Furniture 3").get();
-                ProductMedia media1 = new ProductMedia(product, "img3.png", "png", null);
+                product = productRepository.findByName("Off White Folding Chair").get();
+                ProductMedia media1 = new ProductMedia(product, "/images/products/2.jpg", "jpg", null);
                 productMediaRepository.save(media1);
-
-                ProductMedia media2 = new ProductMedia(product, "img4.png", "png", user);
-                productMediaRepository.save(media2);
+//                ProductMedia media2 = new ProductMedia(product, "off_white_folding_chair_2.jpg", "jpg", user);
+//                productMediaRepository.save(media2);
+//                ProductMedia media21 = new ProductMedia(product, "off_white_folding_chair_3.jpg", "jpg", user);
+//                productMediaRepository.save(media21);
 
                 product = new Product();
-                product.setName("Furniture 4");
+                product.setName("Light Gray Lounge Sofa");
                 product.setCondition(condition);
                 product.setDescription("Description 4");
                 product.setAvailableQuantity(50);
+                product.setSellingPrice(150f);
+                ProductCategory productCategory2=productCategoryRepository.findById(5l).get();
+                product.setCategory(productCategory2);
                 productRepository.save(product);
 
+                product = productRepository.findByName("Light Gray Lounge Sofa").get();
+                ProductMedia media3 = new ProductMedia(product, "/images/products/1.jpeg", "jpeg", null);
+                productMediaRepository.save(media3);
+//                ProductMedia media4 = new ProductMedia(product, "light_gray_lounge_sofa_2.webp", "webp", user);
+//                productMediaRepository.save(media4);
             }
 
             // TODO: Remove later, for testing only
@@ -159,7 +184,7 @@ public class DispoSellApplication {
                 Long orderID = tradeOrderRepository.save(order).getOrderID();
 
                 order = tradeOrderRepository.findById(orderID).get();
-                Product product = productRepository.findByName("Furniture 3").get();
+                Product product = productRepository.findByName("Off White Folding Chair").get();
                 OrderDetail orderDetail = new OrderDetail(order, product, 2);
                 orderDetailRepository.save(orderDetail);
 
