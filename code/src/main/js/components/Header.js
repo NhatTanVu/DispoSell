@@ -77,7 +77,7 @@ function Header() {
                                     </>)}
                                 </NavDropdown>
                                 &nbsp;
-                                <Nav.Link as={Link} to="/cart_payment">Cart</Nav.Link>
+                                <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
                                 &nbsp;
                                 <Nav.Link as={Link} to="/trade">
                                     <button className={`rounded-pill ${localStyles["btnTrade"]}`}>Trade
