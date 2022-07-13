@@ -2,7 +2,6 @@ import React, {useState, useEffect} from "react";
 import localStyles from "../../scss/components/product.module.scss";
 import {Link} from "react-router-dom";
 import ProductService from "../services/product.service";
-import image from "../"
 
 function Product() {
     const [products, setProduct] = useState([]);

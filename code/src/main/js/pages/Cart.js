@@ -44,7 +44,6 @@ export default function Cart() {
         setPhoneNumber(e.target.value);
     }
 
-
     const signOut = () => {
         AuthService.logout();
         setIsUser(false);
@@ -183,16 +182,47 @@ export default function Cart() {
     }
 
     return (
-        <div
-            style={{
-                marginBottom: "2rem",
-                marginLeft: "2rem",
-                marginRight: "2rem",
-                minHeight: "150vh",
-                maxHeight: "auto"
-            }}>
-            <div className={localStyles["float_right"]}
-                 style={{position: "absolute", width: "20%", paddingRight: "2rem"}}>
+        <div style={{
+            marginBottom: "2rem",
+            marginLeft: "2rem",
+            marginRight: "2rem",
+            minHeight: "150vh",
+            marginTop: "7rem",
+            maxHeight: "auto",
+            display: "block",
+        }} className="d-flex">
+
+            <div style={{width: "80vw", paddingRight: "2rem", paddingLeft: "1rem"}}>
+                <div className="justify-content-between d-inline-flex" style={{}}>
+                    <div style={{width: "10vw", backgroundColor: "transparent"}}></div>
+                    <h6 className='text-uppercase fw-bold' style={{width: "40vw", paddingLeft:"1rem"}}> ITEM </h6>
+                    <h6 className='text-uppercase fw-bold' style={{width: "10vw", paddingLeft:"1rem"}}> PRICE </h6>
+                </div>
+                <hr/>
+                <div className="justify-content-between d-inline-flex" style={{}}>
+                    <div style={{width: "10vw"}}>
+                        <img src="images/test_for_browse/white_side_table.jpeg"
+                             loading="lazy"
+                             style={{
+                                 display: "block",
+                              width:"inherit"
+                             }}/>
+                    </div>
+                    <h6 className='text-uppercase' style={{width: "40vw", paddingLeft:"1rem"}}> White Side Table </h6>
+                    <h6 className='text-uppercase' style={{width: "10vw", paddingLeft:"1rem"}}> $30 </h6>
+                </div>
+                <hr/>
+                <div className="justify-content-between d-inline-flex" style={{}}>
+                    <div style={{width: "10vw", backgroundColor: "transparent"}}></div>
+                    <h6 className='text-uppercase fw-bold' style={{width: "40vw", paddingLeft:"1rem"}}> TOTAL </h6>
+                    <h6 className='text-uppercase fw-bold' style={{width: "10vw", paddingLeft:"1rem"}}> $30 </h6>
+                </div>
+            </div>
+
+            {/*<div className={localStyles["float_right"]}*/}
+            {/*     style={{position: "absolute", width: "20%", paddingRight: "2rem"}}>*/}
+            <div className={localStyles[""]}
+                 style={{width: "20vw", paddingRight: "1rem", paddingLeft: "1rem"}}>
                 {(canCheckout) ?
                     <div className={`text-start`}>
                         {(isUserReady) ?
