@@ -6,11 +6,17 @@ import AuthService from "../services/auth.service";
 import {Link, useNavigate} from "react-router-dom";
 import localStyles from "../../scss/pages/cart.module.scss";
 import EventBus from "../common/EventBus";
+import {useSelector} from "react-redux";
 
 export default function Cart() {
     const [canPay, setCanPay] = useState(true);
     const [canCheckout, setCanCheckout] = useState(false);
-    const [cart, setCart] = useState(undefined);
+
+    //const [cart, setCart] = useState(undefined);
+    const cart = useSelector(state =>
+        state.cart
+    );
+
     const navigate = useNavigate();
 
     const [isUserReady, setUserReady] = useState(false);
@@ -56,34 +62,35 @@ export default function Cart() {
 
     useEffect(() => {
         const currentUser = AuthService.getCurrentUser();
-        let cart = {
-            "contactNumber": "1465987722",
-            "address": "1465987722 delivery address",
-            "email": "onchua2006@gmail.com",
-            "status": {
-                "statusID": 1
-            },
-            "orderDetails": [
-                {
-                    "product": {
-                        "productID": 1,
-                        "productMedia": [
-                            {
-                                "url": "image 1.jpg",
-                                "fileType": "jpg"
-                            }
-                        ]
-                    },
-                    "quantity": 5
-                },
-                {
-                    "product": {
-                        "productID": 2
-                    },
-                    "quantity": 10
-                }
-            ]
-        };
+        // let cart = {
+        //     "contactNumber": "1465987722",
+        //     "address": "1465987722 delivery address",
+        //     "email": "onchua2006@gmail.com",
+        //     "status": {
+        //         "statusID": 1
+        //     },
+        //     "orderDetails": [
+        //         {
+        //             "product": {
+        //                 "productID": 1,
+        //                 "productMedia": [
+        //                     {
+        //                         "url": "image 1.jpg",
+        //                         "fileType": "jpg"
+        //                     }
+        //                 ]
+        //             },
+        //             "quantity": 5
+        //         },
+        //         {
+        //             "product": {
+        //                 "productID": 2
+        //             },
+        //             "quantity": 10
+        //         }
+        //     ]
+        // };
+        alert(JSON.stringify(cart));
 
         EventBus.on("logout", () => {
             signOut();
@@ -98,7 +105,7 @@ export default function Cart() {
             setCanCheckout(true);
             setCanPay(true);
         }
-        setCart(cart);
+        //setCart(cart);
 
         return () => {
             // Anything in here is fired on component unmount.

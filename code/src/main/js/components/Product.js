@@ -4,15 +4,15 @@ import {Link} from "react-router-dom";
 import ProductService from "../services/product.service";
 
 function Product() {
-    const [products, setProduct] = useState([]);
+    const [products, setProducts] = useState([]);
     useEffect(() => {
-        ProductService.getProduct().then(
+        ProductService.getProducts().then(
             response => {
-                setProduct(response.data);
+                setProducts(response.data);
                 console.log(response.data);
             },
             error => {
-                setProduct(
+                setProducts(
                     (error.response &&
                         error.response.data &&
                         error.response.data.message) ||
@@ -30,7 +30,7 @@ function Product() {
         <div className="d-inline-flex row justify-content-around" style={{padding: "2rem"}}>
             {products.map((product) => (
                     <div className="col-sm-auto" key={product.productID}>
-                        <Link as={Link} to={`/productdetail/id=${product.productID}`}>
+                        <Link as={Link} to={`/productDetail/${product.productID}`}>
                             <img src={`${product.productMedia[0].url}`} alt={product.name} width={250}
                                  loading="lazy"
                                  style={{
@@ -40,7 +40,7 @@ function Product() {
                                      minWidth: "80%",
                                      maxWidth: "100%",
                                  }}/>
-                        </Link> <Link as={Link} to={`/productdetail/id=${product.productID}`}>
+                        </Link> <Link as={Link} to={`/productDetail/${product.productID}`}>
                         <h6 className='text-uppercase fw-bold'> {product.name} </h6></Link>
                         {/*<p>{product.productMedia[0].url}</p>*/}
                         <h5>${product.sellingPrice}</h5>

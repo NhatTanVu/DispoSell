@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 class ProductService {
-    getProduct() {
+    getProducts() {
         return axios.get('/api/products');
     }
 }
