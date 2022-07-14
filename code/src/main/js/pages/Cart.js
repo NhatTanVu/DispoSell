@@ -24,6 +24,8 @@ export default function Cart() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
 
+    const [isCartReady, setCartReady] = useState(false);
+
     function onChangeFirstName(e) {
         setFirstName(e.target.value);
     }
@@ -56,34 +58,35 @@ export default function Cart() {
 
     useEffect(() => {
         const currentUser = AuthService.getCurrentUser();
-        let cart = {
-            "contactNumber": "1465987722",
-            "address": "1465987722 delivery address",
-            "email": "onchua2006@gmail.com",
-            "status": {
-                "statusID": 1
-            },
-            "orderDetails": [
-                {
-                    "product": {
-                        "productID": 1,
-                        "productMedia": [
-                            {
-                                "url": "image 1.jpg",
-                                "fileType": "jpg"
-                            }
-                        ]
-                    },
-                    "quantity": 5
-                },
-                {
-                    "product": {
-                        "productID": 2
-                    },
-                    "quantity": 10
-                }
-            ]
-        };
+
+        // let cart = {
+        //     "contactNumber": "1465987722",
+        //     "address": "1465987722 delivery address",
+        //     "email": "onchua2006@gmail.com",
+        //     "status": {
+        //         "statusID": 1
+        //     },
+        //     "orderDetails": [
+        //         {
+        //             "product": {
+        //                 "productID": 1,
+        //                 "productMedia": [
+        //                     {
+        //                         "url": "image 1.jpg",
+        //                         "fileType": "jpg"
+        //                     }
+        //                 ]
+        //             },
+        //             "quantity": 5
+        //         },
+        //         {
+        //             "product": {
+        //                 "productID": 2
+        //             },
+        //             "quantity": 10
+        //         }
+        //     ]
+        // };
 
         EventBus.on("logout", () => {
             signOut();
@@ -104,6 +107,16 @@ export default function Cart() {
             // Anything in here is fired on component unmount.
             EventBus.remove("logout");
         }
+
+        const cartt = JSON.parse(localStorage.getItem("items") || "[]");
+
+        if(cartt.length > 0){
+            setCartReady(true);
+        }
+
+        cartt.forEach(function(item, index) {
+            console.log("[" + index + "]: " + item.id);
+        });
 
     }, []);
 
@@ -181,6 +194,18 @@ export default function Cart() {
         );
     }
 
+    // const getCart = () => {
+    //     let cart = JSON.parse(localStorage.getItem("items") || "[]");
+    //
+    //     if(cart.length > 0){
+    //         setCartReady(true);
+    //     }
+    //
+    //     cart.forEach(function(item, index) {
+    //         console.log("[" + index + "]: " + item.id);
+    //     });
+    // }
+
     return (
         <div style={{
             marginBottom: "2rem",
@@ -191,6 +216,11 @@ export default function Cart() {
             maxHeight: "auto",
             display: "block",
         }} className="d-flex">
+
+            {(isCartReady) ?
+                <h1> ready </h1>
+            : <h1> not ready</h1>
+            }
 
             <div style={{width: "80vw", paddingRight: "2rem", paddingLeft: "1rem"}}>
                 <div className="justify-content-between d-inline-flex" style={{}}>
