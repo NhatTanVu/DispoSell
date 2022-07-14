@@ -96,14 +96,14 @@ function Header() {
                         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-around">
                             <Nav className={`text-center ${localStyles["navContainer"]}`} style={{maxWidth:"-webkit-fit-content"}}>
-                                <Nav.Link>
+                                <Nav.Link as={Link} to="/browse">
                                     <img className={`${localStyles["icon"]}`} src="images/icons/browse.png"
                                          alt="Browse"/>
-                                    <Nav.Link as={Link} to="/browse">Browse</Nav.Link>
+                                    <span className="nav-link">Browse</span>
                                 </Nav.Link>
-                                <Nav.Link>
+                                <Nav.Link as={Link} to="/search">
                                     <img className={localStyles["icon"]} src="images/icons/search.png" alt="Search"/>
-                                    <Nav.Link as={Link} to="/search">Search</Nav.Link>
+                                    <span className="nav-link">Search</span>
                                 </Nav.Link>
                                 <div className={localStyles['accountMobile']}>
                                     <img className={localStyles["icon"]} src="images/icons/account.png" alt="Account" id={localStyles['accountImg']}/>
@@ -149,15 +149,13 @@ function Header() {
                                 {/*</NavDropdown>*/}
                                 {/*</Nav.Link>*/}
 
-                                <Nav.Link>
+                                <Nav.Link as={Link} to="/cart">
                                     <img className={`${localStyles["icon"]}`} src="images/icons/cart.png" alt="CartTest"/>
-                                    <Nav.Link as={Link} to="/cart">
-                                        Cart</Nav.Link>
+                                    <span className="nav-link">Cart</span>
                                 </Nav.Link>
-                                <Nav.Link>
+                                <Nav.Link as={Link} to="/trade">
                                     <img className={`${localStyles["icon"]}`} src="images/icons/trade.png" alt="Trade"/>
-                                    <Nav.Link as={Link} to="/trade">
-                                        Trade</Nav.Link>
+                                    <span className="nav-link">Trade</span>
                                 </Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
