@@ -6,11 +6,17 @@ import AuthService from "../services/auth.service";
 import {Link, useNavigate} from "react-router-dom";
 import localStyles from "../../scss/pages/cart.module.scss";
 import EventBus from "../common/EventBus";
+import {useSelector} from "react-redux";
 
 export default function Cart() {
     const [canPay, setCanPay] = useState(true);
     const [canCheckout, setCanCheckout] = useState(false);
-    const [cart, setCart] = useState(undefined);
+
+    //const [cart, setCart] = useState(undefined);
+    const cart = useSelector(state =>
+        state.cart
+    );
+
     const navigate = useNavigate();
 
     const [isUserReady, setUserReady] = useState(false);
@@ -23,8 +29,6 @@ export default function Cart() {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-
-    const [isCartReady, setCartReady] = useState(false);
 
     function onChangeFirstName(e) {
         setFirstName(e.target.value);
@@ -58,7 +62,6 @@ export default function Cart() {
 
     useEffect(() => {
         const currentUser = AuthService.getCurrentUser();
-
         // let cart = {
         //     "contactNumber": "1465987722",
         //     "address": "1465987722 delivery address",
@@ -87,6 +90,7 @@ export default function Cart() {
         //         }
         //     ]
         // };
+        alert(JSON.stringify(cart));
 
         EventBus.on("logout", () => {
             signOut();
@@ -101,22 +105,12 @@ export default function Cart() {
             setCanCheckout(true);
             setCanPay(true);
         }
-        setCart(cart);
+        //setCart(cart);
 
         return () => {
             // Anything in here is fired on component unmount.
             EventBus.remove("logout");
         }
-
-        const cartt = JSON.parse(localStorage.getItem("items") || "[]");
-
-        if(cartt.length > 0){
-            setCartReady(true);
-        }
-
-        cartt.forEach(function(item, index) {
-            console.log("[" + index + "]: " + item.id);
-        });
 
     }, []);
 
@@ -194,18 +188,6 @@ export default function Cart() {
         );
     }
 
-    // const getCart = () => {
-    //     let cart = JSON.parse(localStorage.getItem("items") || "[]");
-    //
-    //     if(cart.length > 0){
-    //         setCartReady(true);
-    //     }
-    //
-    //     cart.forEach(function(item, index) {
-    //         console.log("[" + index + "]: " + item.id);
-    //     });
-    // }
-
     return (
         <div style={{
             marginBottom: "2rem",
@@ -216,11 +198,6 @@ export default function Cart() {
             maxHeight: "auto",
             display: "block",
         }} className="d-flex">
-
-            {(isCartReady) ?
-                <h1> ready </h1>
-            : <h1> not ready</h1>
-            }
 
             <div style={{width: "80vw", paddingRight: "2rem", paddingLeft: "1rem"}}>
                 <div className="justify-content-between d-inline-flex" style={{}}>
