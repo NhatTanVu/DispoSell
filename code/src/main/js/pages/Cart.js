@@ -6,18 +6,19 @@ import AuthService from "../services/auth.service";
 import {Link, useNavigate} from "react-router-dom";
 import localStyles from "../../scss/pages/cart.module.scss";
 import EventBus from "../common/EventBus";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {setCartInfo} from "../redux/cartSlice";
+import {getElement, getElementFromSelector} from "bootstrap/js/src/util";
 
 export default function Cart() {
     const [canPay, setCanPay] = useState(true);
     const [canCheckout, setCanCheckout] = useState(false);
 
-    //const [cart, setCart] = useState(undefined);
-    const cart = useSelector(state =>
-        state.cart
-    );
+    const [cart, setCart] = useState(undefined);
 
     const navigate = useNavigate();
+
+    const [readyCheckout, setReadyCheckout] = useState(false);
 
     const [isUserReady, setUserReady] = useState(false);
     const [currentUser, setCurrentUser] = useState({username: ""});
@@ -29,6 +30,8 @@ export default function Cart() {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [cartReady, setCartReady] = useState(false);
 
     function onChangeFirstName(e) {
         setFirstName(e.target.value);
@@ -60,63 +63,57 @@ export default function Cart() {
         window.location.reload();
     }
 
+    let cartRedux;
+
+    useSelector(state =>
+        cartRedux = state.cart
+    );
+
     useEffect(() => {
         const currentUser = AuthService.getCurrentUser();
-        // let cart = {
-        //     "contactNumber": "1465987722",
-        //     "address": "1465987722 delivery address",
-        //     "email": "onchua2006@gmail.com",
-        //     "status": {
-        //         "statusID": 1
-        //     },
-        //     "orderDetails": [
-        //         {
-        //             "product": {
-        //                 "productID": 1,
-        //                 "productMedia": [
-        //                     {
-        //                         "url": "image 1.jpg",
-        //                         "fileType": "jpg"
-        //                     }
-        //                 ]
-        //             },
-        //             "quantity": 5
-        //         },
-        //         {
-        //             "product": {
-        //                 "productID": 2
-        //             },
-        //             "quantity": 10
-        //         }
-        //     ]
-        // };
-        alert(JSON.stringify(cart));
+
+        const compare = JSON.stringify(cartRedux);
+        const initialState = `{"firstName":"","lastName":"","contactNumber":"","address":"","email":"","status":{"statusID":1},"orderDetails":[]}`;
+
+        if (compare === initialState) {
+            setCartReady(false);
+        } else {
+            setCartReady(true);
+        }
+
+        let cart = JSON.parse(JSON.stringify(cartRedux));
 
         EventBus.on("logout", () => {
             signOut();
         });
 
         if (currentUser && currentUser.id) {
-            cart.user = {
-                "id": currentUser.id
-            };
+            // cart.id = {
+            //     "id": currentUser.id
+            // };
             setCurrentUser(currentUser);
             setUserReady(true);
-            setCanCheckout(true);
-            setCanPay(true);
+            //setCanCheckout(true);
+            setReadyCheckout(true);
         }
-        //setCart(cart);
+        setCart(cart);
+
+        alert(cart);
 
         return () => {
             // Anything in here is fired on component unmount.
             EventBus.remove("logout");
         }
-
     }, []);
 
     function onPaymentCompleted(paymentAmount, paymentTransactionID) {
         setCart(prevState => ({
             ...prevState,
+            "firstName": document.getElementById("firstName").value,
+            "lastName": document.getElementById("lastName").value,
+            "contactNumber": document.getElementById("phoneNumber").value,
+            "address": document.getElementById("address").value,
+            "email": document.getElementById("email").value,
             "status": {
                 "statusID": 3
             },
@@ -129,14 +126,14 @@ export default function Cart() {
 
     function onPaymentError(error) {
         alert(error);
-        setCanCheckout(true);
+        setCanCheckout(false);
     }
 
     function onCheckoutClick(e) {
         OrderService.createPurchaseOrder(cart).then(
             (value) => {
-                alert("Purchase products successfully");
-                navigate("/");
+                alert(JSON.stringify(cart));
+                //navigate("/");
             },
             (reason) => {
                 const resMessage =
@@ -151,8 +148,7 @@ export default function Cart() {
     }
 
     function checkoutGuest() {
-        setCanCheckout(true);
-        setCanPay(true);
+        setReadyCheckout(true);
     }
 
     function onChangeUsername(e) {
@@ -189,193 +185,226 @@ export default function Cart() {
     }
 
     return (
-        <div style={{
-            marginBottom: "2rem",
-            marginLeft: "2rem",
-            marginRight: "2rem",
-            minHeight: "150vh",
-            marginTop: "7rem",
-            maxHeight: "auto",
-            display: "block",
-        }} className="d-flex">
-
-            <div style={{width: "80vw", paddingRight: "2rem", paddingLeft: "1rem"}}>
-                <div className="justify-content-between d-inline-flex" style={{}}>
-                    <div style={{width: "10vw", backgroundColor: "transparent"}}></div>
-                    <h6 className='text-uppercase fw-bold' style={{width: "40vw", paddingLeft:"1rem"}}> ITEM </h6>
-                    <h6 className='text-uppercase fw-bold' style={{width: "10vw", paddingLeft:"1rem"}}> PRICE </h6>
-                </div>
-                <hr/>
-                <div className="justify-content-between d-inline-flex" style={{}}>
-                    <div style={{width: "10vw"}}>
-                        <img src="images/test_for_browse/white_side_table.jpeg"
-                             loading="lazy"
-                             style={{
-                                 display: "block",
-                              width:"inherit"
-                             }}/>
+        <>
+            {(cartReady) ?
+                <div style={{
+                    marginBottom: "2rem",
+                    marginLeft: "2rem",
+                    marginRight: "2rem",
+                    minHeight: "150vh",
+                    marginTop: "7rem",
+                    maxHeight: "auto",
+                    display: "block",
+                }} className="d-flex">
+                    <div style={{width: "80vw", paddingRight: "2rem", paddingLeft: "1rem"}}>
+                        <div className="justify-content-between d-inline-flex" style={{}}>
+                            <div style={{width: "10vw", backgroundColor: "transparent"}}></div>
+                            <h6 className='text-uppercase fw-bold'
+                                style={{width: "40vw", paddingLeft: "1rem"}}> ITEM </h6>
+                            <h6 className='text-uppercase fw-bold'
+                                style={{width: "10vw", paddingLeft: "1rem"}}> PRICE </h6>
+                        </div>
+                        <hr/>
+                        <div className="justify-content-between d-inline-flex" style={{}}>
+                            <div style={{width: "10vw"}}>
+                                <img src="images/test_for_browse/white_side_table.jpeg"
+                                     loading="lazy"
+                                     style={{
+                                         display: "block",
+                                         width: "inherit"
+                                     }}/>
+                            </div>
+                            <h6 className='text-uppercase' style={{width: "40vw", paddingLeft: "1rem"}}> White Side
+                                Table </h6>
+                            <h6 className='text-uppercase' style={{width: "10vw", paddingLeft: "1rem"}}> $30 </h6>
+                        </div>
+                        <hr/>
+                        <div className="justify-content-between d-inline-flex" style={{}}>
+                            <div style={{width: "10vw", backgroundColor: "transparent"}}></div>
+                            <h6 className='text-uppercase fw-bold'
+                                style={{width: "40vw", paddingLeft: "1rem"}}> TOTAL </h6>
+                            <h6 className='text-uppercase fw-bold'
+                                style={{width: "10vw", paddingLeft: "1rem"}}>$30</h6>
+                        </div>
                     </div>
-                    <h6 className='text-uppercase' style={{width: "40vw", paddingLeft:"1rem"}}> White Side Table </h6>
-                    <h6 className='text-uppercase' style={{width: "10vw", paddingLeft:"1rem"}}> $30 </h6>
-                </div>
-                <hr/>
-                <div className="justify-content-between d-inline-flex" style={{}}>
-                    <div style={{width: "10vw", backgroundColor: "transparent"}}></div>
-                    <h6 className='text-uppercase fw-bold' style={{width: "40vw", paddingLeft:"1rem"}}> TOTAL </h6>
-                    <h6 className='text-uppercase fw-bold' style={{width: "10vw", paddingLeft:"1rem"}}> $30 </h6>
-                </div>
-            </div>
 
-            {/*<div className={localStyles["float_right"]}*/}
-            {/*     style={{position: "absolute", width: "20%", paddingRight: "2rem"}}>*/}
-            <div className={localStyles[""]}
-                 style={{width: "20vw", paddingRight: "1rem", paddingLeft: "1rem"}}>
-                {(canCheckout) ?
-                    <div className={`text-start`}>
-                        {(isUserReady) ?
-                            <>
-                                <h5>Logged in as <Link as={Link} to={"/profile"}
-                                                       style={{textDecoration: "underline"}}>{currentUser.username}</Link>
-                                </h5>
-                                <p>Not {currentUser.username}? Sign in as another user <Link
-                                    as={Link} to="/cart"
-                                    style={{textDecoration: "underline", cursor: "pointer"}}
-                                    onClick={signOut}>here</Link>.
-                                </p>
-                            </>
-                            :
-                            <>
-                                <h5>Checking out as a guest</h5>
-                                <p>Have an account? Click <Link
-                                    as={Link} to="/cart"
-                                    style={{textDecoration: "underline", cursor: "pointer"}}
-                                    onClick={signOut}>here</Link> to login.
-                                </p>
-                            </>
-                        }
+                    {/*<div className={localStyles["float_right"]}*/}
+                    {/*     style={{position: "absolute", width: "20%", paddingRight: "2rem"}}>*/}
+                    <div className={localStyles[""]}
+                         style={{width: "20vw", paddingRight: "1rem", paddingLeft: "1rem"}}>
+                        {(readyCheckout) ?
+                            <div className={`text-start`}>
+                                {(isUserReady) ?
+                                    <>
+                                        <h5>Logged in as <Link as={Link} to={"/profile"}
+                                                               style={{textDecoration: "underline"}}>{currentUser.username}</Link>
+                                        </h5>
+                                        <p>Not {currentUser.username}? Sign in as another user <Link
+                                            as={Link} to="/cart"
+                                            style={{textDecoration: "underline", cursor: "pointer"}}
+                                            onClick={signOut}>here</Link>.
+                                        </p>
+                                    </>
+                                    :
+                                    <>
+                                        <h5>Checking out as a guest</h5>
+                                        <p>Have an account? Click <Link
+                                            as={Link} to="/cart"
+                                            style={{textDecoration: "underline", cursor: "pointer"}}
+                                            onClick={signOut}>here</Link> to login.
+                                        </p>
+                                    </>
+                                }
 
-                        <div className="col-12">
-                            <label htmlFor="name" className="form-label text-start">First Name</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="First Name"
-                                value={currentUser.firstName}
-                                onChange={onChangeFirstName}
-                            />
-                        </div>
-
-                        <div className="col-12">
-                            <label htmlFor="name" className="form-label text-start">Last Name</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="Last Name"
-                                value={currentUser.lastName}
-                                onChange={onChangeLastName}
-                            />
-                        </div>
-
-                        <div className="col-12">
-                            <label htmlFor="email" className="form-label text-start">Email</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="email"
-                                value={currentUser.email}
-                                onChange={onChangeEmail}
-                            />
-                        </div>
-
-                        <div className="col-12">
-                            <label htmlFor="deliveryAddress" className="form-label text-start">Delivery
-                                Address</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="deliveryAddress"
-                                value={currentUser.deliveryAddress}
-                                onChange={onChangeDeliveryAddress}
-                            />
-                        </div>
-
-                        <div className="col-12">
-                            <label htmlFor="phoneNumber" className="form-label text-start">Phone
-                                Number</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="phoneNumber"
-                                value={currentUser.phoneNumber}
-                                onChange={onChangePhoneNumber}
-                            />
-                        </div>
-
-                        <Payment show={true} canPay={canPay} onPaymentCompleted={onPaymentCompleted}
-                                 onPaymentError={onPaymentError} disabled={!canCheckout}
-                                 onClick={onCheckoutClick}/>
-
-                        {/*<Button*/}
-                        {/*    type="primary"*/}
-                        {/*    className="ms-2"*/}
-                        {/*    disabled={!canCheckout}*/}
-                        {/*    onClick={onCheckoutClick}*/}
-                        {/*>*/}
-                        {/*    Checkout*/}
-                        {/*</Button>*/}
-
-                    </div> : (<>
-                        <h5 className={`text-start`}>You are not logged in</h5>
-                        <p className={`text-start`}>Log in to check out or check out as guest <a
-                            style={{textDecoration: "underline", cursor: "pointer"}} onClick={checkoutGuest}>here</a>.
-                        </p>
-                        <form className="row g-3"
-                              onSubmit={handleLogin}
-                        >
-                            <div className="col-12">
-                                <label htmlFor="username" className="form-label text-start">Username</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    name="username"
-                                    value={username}
-                                    onChange={onChangeUsername}
-                                />
-                            </div>
-
-                            <div className="col-12">
-                                <label htmlFor="password" className="form-label text-start">Password</label>
-                                <input
-                                    type="password"
-                                    className="form-control"
-                                    name="password"
-                                    value={password}
-                                    onChange={onChangePassword}
-                                />
-                            </div>
-
-                            <div className="col-12 text-start">
-                                <button
-                                    className={`btn ${localStyles['btn']}`}
-                                    disabled={loading}
-                                >
-                                    {loading && (
-                                        <span className="spinner-border spinner-border-sm"></span>
-                                    )}
-                                    <span>Login</span>
-                                </button>
-                            </div>
-
-                            {message && (
                                 <div className="col-12">
-                                    <div className="alert alert-danger" role="alert">
-                                        {message}
-                                    </div>
+                                    <label htmlFor="name" className="form-label text-start">First Name</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="firstName"
+                                        defaultValue={currentUser.firstName}
+                                        onChange={onChangeFirstName}
+                                    />
                                 </div>
-                            )}
-                        </form>
-                    </>)}
-            </div>
-        </div>
+
+                                <div className="col-12">
+                                    <label htmlFor="name" className="form-label text-start">Last Name</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="lastName"
+                                        defaultValue={currentUser.lastName}
+                                        onChange={onChangeLastName}
+                                    />
+                                </div>
+
+                                <div className="col-12">
+                                    <label htmlFor="email" className="form-label text-start">Email</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="email"
+                                        defaultValue={currentUser.email}
+                                        onChange={onChangeEmail}
+                                    />
+                                </div>
+
+                                <div className="col-12">
+                                    <label htmlFor="deliveryAddress" className="form-label text-start">Delivery
+                                        Address</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="address"
+                                        defaultValue={currentUser.deliveryAddress}
+                                        onChange={onChangeDeliveryAddress}
+                                    />
+                                </div>
+
+                                <div className="col-12">
+                                    <label htmlFor="phoneNumber" className="form-label text-start">Phone
+                                        Number</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="phoneNumber"
+                                        defaultValue={currentUser.phoneNumber}
+                                        onChange={onChangePhoneNumber}
+                                    />
+                                </div>
+
+                                <Payment show={true} canPay={canPay} onPaymentCompleted={onPaymentCompleted}
+                                         onPaymentError={onPaymentError}/>
+
+                                <Button
+                                    type="primary"
+                                    className="ms-2"
+                                    id={localStyles['btn']}
+                                    disabled={!canCheckout}
+                                    onClick={onCheckoutClick}
+                                >
+                                    Checkout
+                                </Button>
+
+                            </div> : (<>
+                                <h5 className={`text-start`}>You are not logged in</h5>
+                                <p className={`text-start`}>Log in to check out or check out as guest <a
+                                    style={{textDecoration: "underline", cursor: "pointer"}}
+                                    onClick={checkoutGuest}>here</a>.
+                                </p>
+                                <form className="row g-3"
+                                      onSubmit={handleLogin}
+                                >
+                                    <div className="col-12">
+                                        <label htmlFor="username" className="form-label text-start">Username</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            name="username"
+                                            value={username}
+                                            onChange={onChangeUsername}
+                                        />
+                                    </div>
+
+                                    <div className="col-12">
+                                        <label htmlFor="password" className="form-label text-start">Password</label>
+                                        <input
+                                            type="password"
+                                            className="form-control"
+                                            name="password"
+                                            value={password}
+                                            onChange={onChangePassword}
+                                        />
+                                    </div>
+
+                                    <div className="col-12 text-start">
+                                        <button
+                                            className={`btn ${localStyles['btn']}`}
+                                            disabled={loading}
+                                        >
+                                            {loading && (
+                                                <span className="spinner-border spinner-border-sm"></span>
+                                            )}
+                                            <span>Login</span>
+                                        </button>
+                                    </div>
+
+                                    {message && (
+                                        <div className="col-12">
+                                            <div className="alert alert-danger" role="alert">
+                                                {message}
+                                            </div>
+                                        </div>
+                                    )}
+                                </form>
+                            </>)}
+                    </div>
+                </div>
+
+                : (
+                    <div style={{
+                        marginBottom: "2rem",
+                        marginLeft: "2rem",
+                        marginRight: "2rem",
+                        minHeight: "auto",
+                        marginTop: "6rem",
+                        maxHeight: "50rem",
+                        width: "100%",
+                        display: "block",
+                    }} className="d-flex text-center justify-content-center align-content-center">
+                        <div>
+                            <h1>cart empty</h1>
+                            <Button
+                                id={localStyles['btn']}
+                                href="/browse">
+                                Browse
+                            </Button>
+                        </div>
+
+
+                    </div>
+                )}
+
+        </>
     );
 }

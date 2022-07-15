@@ -2,9 +2,13 @@ import React, {useState, useEffect} from "react";
 import localStyles from "../../scss/components/product.module.scss";
 import {Link} from "react-router-dom";
 import ProductService from "../services/product.service";
+import {addCartItem} from "../redux/cartSlice";
+import {useDispatch} from "react-redux";
 
 function Product() {
     const [products, setProducts] = useState([]);
+    const dispatch = useDispatch();
+
     useEffect(() => {
         ProductService.getProducts().then(
             response => {
@@ -26,10 +30,27 @@ function Product() {
             }
         )
     }, []);
+
+    function addToCart() {
+        const price = (document.getElementById("price").textContent);
+        const id = (document.getElementById("productID").textContent);
+
+        dispatch(addCartItem(
+            id,
+            [
+                {
+                    "url": "1.jpeg",
+                    "fileType": "jpg",
+                }
+            ],
+            price, 5));
+    }
+
     return (
         <div className="d-inline-flex row justify-content-around" style={{padding: "2rem"}}>
             {products.map((product) => (
                     <div className="col-sm-auto" key={product.productID}>
+                        <div id="productID" style={{visibility:"hidden"}}>{product.productID}</div>
                         <Link as={Link} to={`/productDetail/${product.productID}`}>
                             <img src={`${product.productMedia[0].url}`} alt={product.name} width={250}
                                  loading="lazy"
@@ -43,8 +64,8 @@ function Product() {
                         </Link> <Link as={Link} to={`/productDetail/${product.productID}`}>
                         <h6 className='text-uppercase fw-bold'> {product.name} </h6></Link>
                         {/*<p>{product.productMedia[0].url}</p>*/}
-                        <h5>${product.sellingPrice}</h5>
-                        <button className={`mb-4 ${localStyles["btnToCart"]}`}>ADD TO CART</button>
+                        <h5>$<span id='price'>{product.sellingPrice}</span></h5>
+                        <button className={`mb-4 ${localStyles["btnToCart"]}`} onClick={addToCart}>ADD TO CART</button>
                 </div>
             ))}
         </div>

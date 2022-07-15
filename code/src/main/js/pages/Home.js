@@ -32,15 +32,6 @@ function Home() {
                         <div className="col-md-auto">
                             <Product/>
                         </div>
-                        {/*<div className="col-md-auto">*/}
-                        {/*    <Product/>*/}
-                        {/*</div>*/}
-                        {/*<div className="col-md-auto">*/}
-                        {/*    <Product/>*/}
-                        {/*</div>*/}
-                        {/*<div className="col-md-auto">*/}
-                        {/*    <Product/>*/}
-                        {/*</div>*/}
                 </div>
             </div>
 

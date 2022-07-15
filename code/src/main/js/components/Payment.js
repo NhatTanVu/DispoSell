@@ -7,7 +7,7 @@ import PaymentService from "../services/payment.service";
 import localStyles from "../../scss/pages/cart.module.scss";
 
 export default function Payment(props) {
-    const {show, canPay, onPaymentCompleted, onPaymentError} = props;
+    const {show, canPay, onPaymentCompleted, onPaymentError, canCheckout} = props;
     const [enablePayment, setEnablePayment] = useState(true);
     const [paymentAmount, setPaymentAmount] = useState(0);
     const [braintreeInstance, setBraintreeInstance] = useState(undefined);
@@ -100,7 +100,7 @@ export default function Payment(props) {
                 disabled={!braintreeInstance || !enablePayment}
                 onClick={onPaymentClick}
             >
-                Pay
+                Submit Payment
             </Button>
         </>
     )

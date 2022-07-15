@@ -13,47 +13,35 @@ export default function CartPayment() {
 
     useEffect(() => {
         const user = AuthService.getCurrentUser();
-        let cart = {
-            "contactNumber": "1465987722",
-            "address": "1465987722 delivery address",
-            "email": "onchua2006@gmail.com",
-            "status": {
-                "statusID": 4
-            },
-            "orderDetails": [
-                {
-                    "product": {
-                        "productID": 4,
-                        "productMedia": [
-                            {
-                                "url": "image 1.jpg",
-                                "fileType": "jpg"
-                            }
-                        ]
-                    },
-                    "quantity": 5
-                },
-                {
-                    "product": {
-                        "productID": 14
-                    },
-                    "quantity": 10
-                }
-            ]
-        };
+        let cart =
+            {
+                "firstName": "",
+                "lastName": "",
+                "contactNumber": "1213123",
+                "address": "asdfasdf",
+                "email": "asdfasdf",
+                "status": {"statusID": 1},
+                "orderDetails": []
+            };
         if (user && user.id) {
-            cart.user = {
+            cart.id = {
                 "id": user.id
             };
         }
         setCart(cart);
+        alert(cart);
     }, []);
 
     function onPaymentCompleted(paymentAmount, paymentTransactionID) {
         setCart(prevState => ({
             ...prevState,
+            "firstName": 'firstName',
+            "lastName": "lastName",
+            "contactNumber": "phoneNumber",
+            "address": "deliveryAddress",
+            "email": "email",
             "status": {
-                "statusID": 24
+                "statusID": 2
             },
             "paymentAmount": paymentAmount,
             "paymentTransactionID": paymentTransactionID
@@ -70,7 +58,7 @@ export default function CartPayment() {
     function onCheckoutClick(e) {
         OrderService.createPurchaseOrder(cart).then(
             (value) => {
-                alert("Purchase products successfully");
+                alert(JSON.stringify(cart));
                 navigate("/");
             },
             (reason) => {
@@ -87,7 +75,8 @@ export default function CartPayment() {
 
     return (
         <div style={{margin: "4rem 2rem 2rem 2rem"}}>
-            <Payment show={true} canPay={canPay} onPaymentCompleted={onPaymentCompleted} onPaymentError={onPaymentError}/>
+            <Payment show={true} canPay={canPay} onPaymentCompleted={onPaymentCompleted}
+                     onPaymentError={onPaymentError}/>
             <Button
                 type="primary"
                 className="ms-2"

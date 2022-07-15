@@ -1,9 +1,11 @@
-import { createSlice, nanoid } from '@reduxjs/toolkit'
+import {createSlice, nanoid} from '@reduxjs/toolkit'
 
 const initialState = {
-    "contactNumber": "1465987722",
-    "address": "1465987722 delivery address",
-    "email": "onchua2006@gmail.com",
+    "firstName": "",
+    "lastName": "",
+    "contactNumber": "",
+    "address": "",
+    "email": "",
     "status": {
         "statusID": 1
     },
@@ -15,15 +17,19 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         setCartInfo: {
-            reducer(state, action) {
+            reducer: function (state, action) {
+                state.firstName = action.payload.firstName;
+                state.lastName = action.payload.lastName;
                 state.contactNumber = action.payload.contactNumber;
                 state.address = action.payload.address;
                 state.email = action.payload.email;
                 state.orderDetails = [];
             },
-            prepare(contactNumber, address, email) {
+            prepare(firstName, lastName, contactNumber, address, email) {
                 return {
                     payload: {
+                        firstName,
+                        lastName,
                         contactNumber,
                         address,
                         email
@@ -32,7 +38,7 @@ const cartSlice = createSlice({
             }
         },
         addCartItem: {
-            reducer(state, action) {
+            reducer: function (state, action) {
                 state.orderDetails.push({
                     "product": {
                         "productID": action.payload.productID,
@@ -41,11 +47,12 @@ const cartSlice = createSlice({
                     "quantity": action.payload.quantity
                 });
             },
-            prepare(productID, productMedia, quantity) {
+            prepare(productID, productMedia, price, quantity) {
                 return {
                     payload: {
                         productID,
                         productMedia,
+                        price,
                         quantity
                     }
                 }
@@ -65,4 +72,4 @@ const cartSlice = createSlice({
 
 export default cartSlice.reducer
 
-export const { setCartInfo, addCartItem, removeCartItem } = cartSlice.actions
+export const {setCartInfo, addCartItem, removeCartItem} = cartSlice.actions
