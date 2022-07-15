@@ -181,6 +181,8 @@ public class DispoSellApplication {
                 order.setContactNumber(user.getPhoneNumber());
                 order.setAddress(user.getContactAddress());
                 order.setEmail(user.getEmail());
+                order.setFirstName(user.getFirstName());
+                order.setLastName(user.getLastName());
                 Long orderID = tradeOrderRepository.save(order).getOrderID();
 
                 order = tradeOrderRepository.findById(orderID).get();

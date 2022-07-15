@@ -14,15 +14,17 @@ public class OrderService {
     private final OrderDetailRepository orderDetailRepository;
     private final PurchaseOrderRepository purchaseOrderRepository;
     private final EmailService emailService;
+    private final OrderStatusRepository orderStatusRepository;
 
     public OrderService(ProductService productService, TradeOrderRepository tradeOrderRepository,
-                        OrderDetailRepository orderDetailRepository, ProductRepository productRepository,
-                        PurchaseOrderRepository purchaseOrderRepository, EmailService emailService) {
+                        OrderDetailRepository orderDetailRepository, PurchaseOrderRepository purchaseOrderRepository,
+                        EmailService emailService, OrderStatusRepository orderStatusRepository) {
         this.productService = productService;
         this.tradeOrderRepository = tradeOrderRepository;
         this.orderDetailRepository = orderDetailRepository;
         this.purchaseOrderRepository = purchaseOrderRepository;
         this.emailService = emailService;
+        this.orderStatusRepository = orderStatusRepository;
     }
 
     public TradeOrder createTradeOrder(TradeOrder tradeOrder) {
@@ -74,6 +76,8 @@ public class OrderService {
                 throw new IllegalArgumentException();
             }
 
+            OrderStatus status = orderStatusRepository.findByName(EOrderStatus.ORDER_STATUS_PAID).get();
+            purchaseOrder.setStatus(status);
             PurchaseOrder newOrder = this.purchaseOrderRepository.save(purchaseOrder);
             for (OrderDetail orderDetail : purchaseOrder.getOrderDetails()) {
                 orderDetail.setOrder(newOrder);

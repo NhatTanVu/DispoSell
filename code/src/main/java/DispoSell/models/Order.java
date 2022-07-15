@@ -35,6 +35,12 @@ public class Order implements Serializable {
     @JoinColumn(name = "statusID", referencedColumnName = "statusID")
     private OrderStatus status;
 
+    @Size(max = 150)
+    private String firstName;
+
+    @Size(max = 150)
+    private String lastName;
+
     @NotBlank
     @Size(max = 20)
     private String contactNumber;
@@ -97,6 +103,22 @@ public class Order implements Serializable {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getContactNumber() {

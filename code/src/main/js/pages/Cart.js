@@ -6,20 +6,16 @@ import AuthService from "../services/auth.service";
 import {Link, useNavigate} from "react-router-dom";
 import localStyles from "../../scss/pages/cart.module.scss";
 import EventBus from "../common/EventBus";
-import {useDispatch, useSelector} from "react-redux";
-import {setCartInfo} from "../redux/cartSlice";
+import {useDispatch} from "react-redux";
+import store from '../redux/store';
+import {setUserInfo, initialState, clearCart} from "../redux/cartSlice";
 import {getElement, getElementFromSelector} from "bootstrap/js/src/util";
 
 export default function Cart() {
     const [canPay, setCanPay] = useState(true);
     const [canCheckout, setCanCheckout] = useState(false);
-
-    const [cart, setCart] = useState(undefined);
-
     const navigate = useNavigate();
-
     const [readyCheckout, setReadyCheckout] = useState(false);
-
     const [isUserReady, setUserReady] = useState(false);
     const [currentUser, setCurrentUser] = useState({username: ""});
     const [username, setUsername] = useState("");
@@ -32,6 +28,8 @@ export default function Cart() {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [cartReady, setCartReady] = useState(false);
+    const dispatch = useDispatch();
+    const [paymentTransactionID, setPaymentTransactionID] = useState(undefined);
 
     function onChangeFirstName(e) {
         setFirstName(e.target.value);
@@ -63,42 +61,26 @@ export default function Cart() {
         window.location.reload();
     }
 
-    let cartRedux;
-
-    useSelector(state =>
-        cartRedux = state.cart
-    );
-
     useEffect(() => {
         const currentUser = AuthService.getCurrentUser();
 
-        const compare = JSON.stringify(cartRedux);
-        const initialState = `{"firstName":"","lastName":"","contactNumber":"","address":"","email":"","status":{"statusID":1},"orderDetails":[]}`;
-
-        if (compare === initialState) {
+        const cart = store.getState().cart;
+        if (cart === initialState) {
             setCartReady(false);
         } else {
             setCartReady(true);
         }
 
-        let cart = JSON.parse(JSON.stringify(cartRedux));
+        alert(JSON.stringify(cart));
 
         EventBus.on("logout", () => {
             signOut();
         });
 
         if (currentUser && currentUser.id) {
-            // cart.id = {
-            //     "id": currentUser.id
-            // };
-            setCurrentUser(currentUser);
             setUserReady(true);
-            //setCanCheckout(true);
             setReadyCheckout(true);
         }
-        setCart(cart);
-
-        alert(cart);
 
         return () => {
             // Anything in here is fired on component unmount.
@@ -106,20 +88,8 @@ export default function Cart() {
         }
     }, []);
 
-    function onPaymentCompleted(paymentAmount, paymentTransactionID) {
-        setCart(prevState => ({
-            ...prevState,
-            "firstName": document.getElementById("firstName").value,
-            "lastName": document.getElementById("lastName").value,
-            "contactNumber": document.getElementById("phoneNumber").value,
-            "address": document.getElementById("address").value,
-            "email": document.getElementById("email").value,
-            "status": {
-                "statusID": 3
-            },
-            "paymentAmount": paymentAmount,
-            "paymentTransactionID": paymentTransactionID
-        }));
+    function onPaymentCompleted(paymentAmount, transactionID) {
+        setPaymentTransactionID(transactionID);
         setCanPay(false);
         setCanCheckout(true);
     }
@@ -130,10 +100,18 @@ export default function Cart() {
     }
 
     function onCheckoutClick(e) {
+        dispatch(setUserInfo(firstName,
+            lastName,
+            phoneNumber,
+            deliveryAddress,
+            email,
+            paymentTransactionID));
+        const cart = store.getState().cart;
         OrderService.createPurchaseOrder(cart).then(
             (value) => {
                 alert(JSON.stringify(cart));
-                //navigate("/");
+                dispatch(clearCart());
+                navigate("/");
             },
             (reason) => {
                 const resMessage =
