@@ -3,10 +3,8 @@ package DispoSell.controllers;
 import DispoSell.models.*;
 import DispoSell.repositories.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -42,20 +40,15 @@ public class ProductController {
         return list;
     }
 
-    @GetMapping("/api/productdetail/id=")
-    public String getProductByID(Model model, @RequestParam(name="productID", defaultValue = "")
-    String product) {
-        List<Product> products;
+    @GetMapping("api/productdetail")
+    public Product getProductByID(@RequestParam(value = "productID") Long productID) {
+        Product id = productRepository.findByProductID(productID);
 
-        if(product.isEmpty()){
-            products = productRepository.findAll();
-
+        if(id == null){
+            return null;
         } else {
-            long id = Long.parseLong(product);
-            products = productRepository.findByProductID(id);
+            return id;
         }
-        model.addAttribute("productId", products);
-        return "products";
     }
 
 }
