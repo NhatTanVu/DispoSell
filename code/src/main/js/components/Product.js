@@ -43,7 +43,7 @@ function Product() {
                     "fileType": "jpg",
                 }
             ],
-            price, 5));
+            price, 1));
     }
 
     return (

@@ -10,15 +10,7 @@ function ProductDetail() {
     const [productDetail, setProductDetail] = useState({});
 
     useEffect(() => {
-        // alert(id);
-        // dispatch(addCartItem(4,
-        //     [
-        //         {
-        //             "url": "image 1.jpg",
-        //             "fileType": "jpg",
-        //         }
-        //     ],
-        //     20, 5));
+
     }, []);
 
     function addToCart(){
@@ -29,9 +21,10 @@ function ProductDetail() {
                     "fileType": "jpg",
                 }
             ],
-            20, 5));
-
+            20, 1));
         //alert(id);
+
+
     }
 
     return (

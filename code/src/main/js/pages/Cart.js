@@ -14,7 +14,7 @@ export default function Cart() {
     const [canPay, setCanPay] = useState(true);
     const [canCheckout, setCanCheckout] = useState(false);
 
-    const [cart, setCart] = useState(undefined);
+    const [cart, setCart] = useState([]);
 
     const navigate = useNavigate();
 
@@ -72,38 +72,34 @@ export default function Cart() {
     useEffect(() => {
         const currentUser = AuthService.getCurrentUser();
 
-        const compare = JSON.stringify(cartRedux);
-        const initialState = `{"firstName":"","lastName":"","contactNumber":"","address":"","email":"","status":{"statusID":1},"orderDetails":[]}`;
-
-        if (compare === initialState) {
-            setCartReady(false);
-        } else {
-            setCartReady(true);
-        }
 
         let cart = JSON.parse(JSON.stringify(cartRedux));
+
+        if (cartRedux.orderDetails.length > 0) {
+            setCart(cart);
+            setCartReady(true);
+            alert(cart);
+            console.log(cart)
+
+        } else {
+            setCartReady(false);
+        }
+
+        if (currentUser && currentUser.id) {
+            setCurrentUser(currentUser);
+            setUserReady(true);
+            setReadyCheckout(true);
+        }
 
         EventBus.on("logout", () => {
             signOut();
         });
 
-        if (currentUser && currentUser.id) {
-            // cart.id = {
-            //     "id": currentUser.id
-            // };
-            setCurrentUser(currentUser);
-            setUserReady(true);
-            //setCanCheckout(true);
-            setReadyCheckout(true);
-        }
-        setCart(cart);
-
-        alert(cart);
-
         return () => {
             // Anything in here is fired on component unmount.
             EventBus.remove("logout");
         }
+
     }, []);
 
     function onPaymentCompleted(paymentAmount, paymentTransactionID) {
@@ -205,19 +201,29 @@ export default function Cart() {
                                 style={{width: "10vw", paddingLeft: "1rem"}}> PRICE </h6>
                         </div>
                         <hr/>
-                        <div className="justify-content-between d-inline-flex" style={{}}>
-                            <div style={{width: "10vw"}}>
-                                <img src="images/test_for_browse/white_side_table.jpeg"
-                                     loading="lazy"
-                                     style={{
-                                         display: "block",
-                                         width: "inherit"
-                                     }}/>
+                        {console.log(cart)}
+
+                        {cart.map((item)=>(
+
+                            <div className="justify-content-between d-inline-flex" style={{}} key={item}>
+                                {console.log(item)}
+                                    <div style={{width: "10vw"}}>
+                                        <img src="images/test_for_browse/white_side_table.jpeg"
+                                             loading="lazy"
+                                             style={{
+                                                 display: "block",
+                                                 width: "inherit"
+                                             }}/>
+                                    </div>
+                                    <h6 className='text-uppercase' style={{width: "40vw", paddingLeft: "1rem"}}> White
+                                        Side
+                                        Table </h6>
+                                    <h6 className='text-uppercase'
+                                        style={{width: "10vw", paddingLeft: "1rem"}}>$2 {item.orderDetails}</h6>
                             </div>
-                            <h6 className='text-uppercase' style={{width: "40vw", paddingLeft: "1rem"}}> White Side
-                                Table </h6>
-                            <h6 className='text-uppercase' style={{width: "10vw", paddingLeft: "1rem"}}> $30 </h6>
-                        </div>
+
+                        ))}
+
                         <hr/>
                         <div className="justify-content-between d-inline-flex" style={{}}>
                             <div style={{width: "10vw", backgroundColor: "transparent"}}></div>
@@ -228,8 +234,6 @@ export default function Cart() {
                         </div>
                     </div>
 
-                    {/*<div className={localStyles["float_right"]}*/}
-                    {/*     style={{position: "absolute", width: "20%", paddingRight: "2rem"}}>*/}
                     <div className={localStyles[""]}
                          style={{width: "20vw", paddingRight: "1rem", paddingLeft: "1rem"}}>
                         {(readyCheckout) ?
@@ -380,7 +384,6 @@ export default function Cart() {
                             </>)}
                     </div>
                 </div>
-
                 : (
                     <div style={{
                         marginBottom: "2rem",
@@ -400,11 +403,8 @@ export default function Cart() {
                                 Browse
                             </Button>
                         </div>
-
-
                     </div>
                 )}
-
         </>
     );
 }
