@@ -57,7 +57,7 @@ function Products() {
         //     maxWidth: "100%",
         // }}>
         //     <Link as={Link} to="/productdetail">
-        //         <img src="images/test_for_browse/white_side_table.jpeg" alt="white_side_table" width={250}
+        //         <img src="/images/test_for_browse/white_side_table.jpeg" alt="white_side_table" width={250}
         //              loading="lazy"
         //              style={{
         //                  display: "block",
