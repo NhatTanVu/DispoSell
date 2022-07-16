@@ -62,7 +62,7 @@ function Browse() {
             <div className={localStyles["middleSection"]}>
                 <div id="bedframes">
                     <div className="container">
-                        <h2>Bed Frames</h2>
+                        {/*<h2>Bed Frames</h2>*/}
                         <div className="row d-flex justify-content-around">
                             <Products/>
                         </div>
