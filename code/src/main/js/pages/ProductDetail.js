@@ -44,26 +44,26 @@ function ProductDetail() {
                     maxWidth: "100%",
                 }}>
 
-                    {/*{productDetail.productMedia.map((media)=>(*/}
-                    {/*    <img src={`${media.url}`} alt={productDetail.name} width={250}*/}
-                    {/*         loading="lazy"*/}
-                    {/*         style={{*/}
-                    {/*             display: "block",*/}
-                    {/*             marginLeft: "auto",*/}
-                    {/*             marginRight: "auto",*/}
-                    {/*             minWidth:"50%",*/}
-                    {/*             maxWidth: "100%",*/}
-                    {/*         }}/>*/}
-                    {/*))}*/}
-                    <img src="/images/products/4.jpeg" alt={productDetail.name} width={250}
-                         loading="lazy"
-                         style={{
-                             display: "block",
-                             marginLeft: "auto",
-                             marginRight: "auto",
-                             minWidth:"50%",
-                             maxWidth: "100%",
-                         }}/>
+                    {productDetail.productMedia?.map((media)=>(
+                        <img src={`${media.url}`} alt={productDetail.name} width={250}
+                             loading="lazy"
+                             style={{
+                                 display: "block",
+                                 marginLeft: "auto",
+                                 marginRight: "auto",
+                                 minWidth:"50%",
+                                 maxWidth: "100%",
+                             }}/>
+                    ))}
+                    {/*<img src="/images/products/4.jpeg" alt={productDetail.name} width={250}*/}
+                    {/*     loading="lazy"*/}
+                    {/*     style={{*/}
+                    {/*         display: "block",*/}
+                    {/*         marginLeft: "auto",*/}
+                    {/*         marginRight: "auto",*/}
+                    {/*         minWidth:"50%",*/}
+                    {/*         maxWidth: "100%",*/}
+                    {/*     }}/>*/}
                 </div>
             </div>
 
