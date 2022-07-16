@@ -6,7 +6,7 @@ import AuthService from "../services/auth.service";
 import {Link, useNavigate} from "react-router-dom";
 import localStyles from "../../scss/pages/cart.module.scss";
 import EventBus from "../common/EventBus";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import store from '../redux/store';
 import {setUserInfo, initialState, clearCart} from "../redux/cartSlice";
 import {getElement, getElementFromSelector} from "bootstrap/js/src/util";
@@ -30,6 +30,7 @@ export default function Cart() {
     const [cartReady, setCartReady] = useState(false);
     const dispatch = useDispatch();
     const [paymentTransactionID, setPaymentTransactionID] = useState(undefined);
+    const cart = useSelector((state) => state.cart);
 
     function onChangeFirstName(e) {
         setFirstName(e.target.value);
@@ -64,7 +65,6 @@ export default function Cart() {
     useEffect(() => {
         const currentUser = AuthService.getCurrentUser();
 
-        const cart = store.getState().cart;
         if (cart === initialState) {
             setCartReady(false);
         } else {
@@ -106,10 +106,10 @@ export default function Cart() {
             deliveryAddress,
             email,
             paymentTransactionID));
-        const cart = store.getState().cart;
-        OrderService.createPurchaseOrder(cart).then(
+        const localCart = store.getState().cart;
+        OrderService.createPurchaseOrder(localCart).then(
             (value) => {
-                alert(JSON.stringify(cart));
+                alert(JSON.stringify(localCart));
                 dispatch(clearCart());
                 navigate("/");
             },
