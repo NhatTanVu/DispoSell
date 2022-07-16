@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import ProductService from "../services/product.service";
 import image from "../"
 
-function Product() {
+function Products() {
     const [products, setProduct] = useState([]);
     useEffect(() => {
         ProductService.getProduct().then(
@@ -31,7 +31,7 @@ function Product() {
         <div className="d-inline-flex row justify-content-around" style={{padding: "2rem"}}>
             {products.map((product) => (
                     <div className="col-sm-auto" key={product.productID}>
-                        <Link as={Link} to={`/productdetail/id=${product.productID}`}>
+                        <Link as={Link} to={`/productdetail/${product.productID}`}>
                             <img src={`${product.productMedia[0].url}`} alt={product.name} width={250}
                                  loading="lazy"
                                  style={{
@@ -41,7 +41,7 @@ function Product() {
                                      minWidth: "80%",
                                      maxWidth: "100%",
                                  }}/>
-                        </Link> <Link as={Link} to={`/productdetail/id=${product.productID}`}>
+                        </Link> <Link as={Link} to={`/productdetail/${product.productID}`}>
                         <h6 className='text-uppercase fw-bold'> {product.name} </h6></Link>
                         {/*<p>{product.productMedia[0].url}</p>*/}
                         <h5>${product.sellingPrice}</h5>
@@ -74,4 +74,4 @@ function Product() {
     )
 }
 
-export default Product;
+export default Products;

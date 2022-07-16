@@ -1,6 +1,6 @@
 import React from 'react';
 import localStyles from '../../scss/pages/Browse.module.scss';
-import Product from "../components/Product";
+import Products from "../components/Products";
 import {Dropdown} from "react-bootstrap";
 
 function Browse() {
@@ -64,115 +64,115 @@ function Browse() {
                     <div className="container">
                         <h2>Bed Frames</h2>
                         <div className="row d-flex justify-content-around">
-                            <Product/>
+                            <Products/>
                         </div>
                         {/*<div className="col-lg-auto">*/}
-                        {/*    <Product/>*/}
+                        {/*    <Products/>*/}
                         {/*</div>*/}
                         {/*<div className="col-lg-auto">*/}
-                        {/*    <Product/>*/}
+                        {/*    <Products/>*/}
                         {/*</div>*/}
                         {/*<div className="col-lg-auto">*/}
-                        {/*    <Product/>*/}
+                        {/*    <Products/>*/}
                         {/*</div>*/}
                     </div>
                 </div>
 
-                <div id="chairs">
-                    <div className="container">
-                        <br/>
-                        <h2>Chairs</h2>
-                        <div className="row d-flex justify-content-around">
-                            <Product/>
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
-                        </div>
-                    </div>
-                </div>
+                {/*<div id="chairs">*/}
+                {/*    <div className="container">*/}
+                {/*        <br/>*/}
+                {/*        <h2>Chairs</h2>*/}
+                {/*        <div className="row d-flex justify-content-around">*/}
+                {/*            <Products/>*/}
+                {/*            /!*<div className="col-lg-auto">*!/*/}
+                {/*            /!*    <Products/>*!/*/}
+                {/*            /!*</div>*!/*/}
+                {/*            /!*<div className="col-lg-auto">*!/*/}
+                {/*            /!*    <Products/>*!/*/}
+                {/*            /!*</div>*!/*/}
+                {/*            /!*<div className="col-lg-auto">*!/*/}
+                {/*            /!*    <Products/>*!/*/}
+                {/*            /!*</div>*!/*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
-                <div id="diningTables">
-                    <div className="container">
-                        <br/>
-                        <h2>Dining Tables</h2>
-                        <div className="row d-flex justify-content-around">
-                            <Product/>
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
-                        </div>
-                    </div>
-                </div>
+                {/*<div id="diningTables">*/}
+                {/*    <div className="container">*/}
+                {/*        <br/>*/}
+                {/*        <h2>Dining Tables</h2>*/}
+                {/*        <div className="row d-flex justify-content-around">*/}
+                {/*            <Products/>*/}
+                {/*            /!*<div className="col-lg-auto">*!/*/}
+                {/*            /!*    <Products/>*!/*/}
+                {/*            /!*</div>*!/*/}
+                {/*            /!*<div className="col-lg-auto">*!/*/}
+                {/*            /!*    <Products/>*!/*/}
+                {/*            /!*</div>*!/*/}
+                {/*            /!*<div className="col-lg-auto">*!/*/}
+                {/*            /!*    <Products/>*!/*/}
+                {/*            /!*</div>*!/*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
-                <div id="sideTables">
-                    <div className="container">
-                        <br/>
-                        <h2>Side Tables</h2>
-                        <div className="row d-flex justify-content-around">
-                            <Product/>
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
-                        </div>
-                    </div>
-                </div>
+                {/*<div id="sideTables">*/}
+                {/*    <div className="container">*/}
+                {/*        <br/>*/}
+                {/*        <h2>Side Tables</h2>*/}
+                {/*        <div className="row d-flex justify-content-around">*/}
+                {/*            <Products/>*/}
+                {/*            /!*<div className="col-lg-auto">*!/*/}
+                {/*            /!*    <Products/>*!/*/}
+                {/*            /!*</div>*!/*/}
+                {/*            /!*<div className="col-lg-auto">*!/*/}
+                {/*            /!*    <Products/>*!/*/}
+                {/*            /!*</div>*!/*/}
+                {/*            /!*<div className="col-lg-auto">*!/*/}
+                {/*            /!*    <Products/>*!/*/}
+                {/*            /!*</div>*!/*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
-                <div id="sofas">
-                    <div className="container">
-                        <br/>
-                        <h2>Sofas</h2>
-                        <div className="row d-flex justify-content-around">
-                            <Product/>
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
-                        </div>
-                    </div>
-                </div>
+                {/*<div id="sofas">*/}
+                {/*    <div className="container">*/}
+                {/*        <br/>*/}
+                {/*        <h2>Sofas</h2>*/}
+                {/*        <div className="row d-flex justify-content-around">*/}
+                {/*            <Products/>*/}
+                {/*            /!*<div className="col-lg-auto">*!/*/}
+                {/*            /!*    <Products/>*!/*/}
+                {/*            /!*</div>*!/*/}
+                {/*            /!*<div className="col-lg-auto">*!/*/}
+                {/*            /!*    <Products/>*!/*/}
+                {/*            /!*</div>*!/*/}
+                {/*            /!*<div className="col-lg-auto">*!/*/}
+                {/*            /!*    <Products/>*!/*/}
+                {/*            /!*</div>*!/*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
-                <div id="stools">
-                    <div className="container">
-                        <br/>
-                        <h2>Stools</h2>
-                        <div className="row d-flex justify-content-around">
-                            <Product/>
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
-                            {/*<div className="col-lg-auto">*/}
-                            {/*    <Product/>*/}
-                            {/*</div>*/}
-                        </div>
-                        <br/>
-                    </div>
-                </div>
+                {/*<div id="stools">*/}
+                {/*    <div className="container">*/}
+                {/*        <br/>*/}
+                {/*        <h2>Stools</h2>*/}
+                {/*        <div className="row d-flex justify-content-around">*/}
+                {/*            <Products/>*/}
+                {/*            /!*<div className="col-lg-auto">*!/*/}
+                {/*            /!*    <Products/>*!/*/}
+                {/*            /!*</div>*!/*/}
+                {/*            /!*<div className="col-lg-auto">*!/*/}
+                {/*            /!*    <Products/>*!/*/}
+                {/*            /!*</div>*!/*/}
+                {/*            /!*<div className="col-lg-auto">*!/*/}
+                {/*            /!*    <Products/>*!/*/}
+                {/*            /!*</div>*!/*/}
+                {/*        </div>*/}
+                {/*        <br/>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </div>
 
             <div className={localStyles["float_right"]}>

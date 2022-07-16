@@ -39,7 +39,7 @@ export default function App() {
                             <Route path="/register" element={<Register/>}/>
 
                             <Route path="/browse" element={<Browse/>}/>
-                            <Route path="/productDetail" element={<ProductDetail/>}/>
+                            <Route path="/productDetail/:id" element={<ProductDetail/>}/>
                         </Routes>
                     {/*</Container>*/}
                 </main>

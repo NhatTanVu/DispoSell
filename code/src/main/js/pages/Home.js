@@ -1,6 +1,6 @@
 import React from 'react';
 import localStyles from '../../scss/pages/Home.module.scss';
-import Product from "../components/Product.js";
+import Products from "../components/Products.js";
 import {HashLink as Link} from "react-router-hash-link";
 
 function Home() {
@@ -30,16 +30,16 @@ function Home() {
                         <h2>Featured Products</h2>
                     </div>
                         <div className="col-md-auto">
-                            <Product/>
+                            <Products/>
                         </div>
                         {/*<div className="col-md-auto">*/}
-                        {/*    <Product/>*/}
+                        {/*    <Products/>*/}
                         {/*</div>*/}
                         {/*<div className="col-md-auto">*/}
-                        {/*    <Product/>*/}
+                        {/*    <Products/>*/}
                         {/*</div>*/}
                         {/*<div className="col-md-auto">*/}
-                        {/*    <Product/>*/}
+                        {/*    <Products/>*/}
                         {/*</div>*/}
                 </div>
             </div>

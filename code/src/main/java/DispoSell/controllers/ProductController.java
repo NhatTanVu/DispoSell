@@ -40,7 +40,7 @@ public class ProductController {
         return list;
     }
 
-    @GetMapping("api/productdetail")
+    @GetMapping("/api/productdetail")
     public Product getProductByID(@RequestParam(value = "productID") Long productID) {
         Product id = productRepository.findByProductID(productID);
 
