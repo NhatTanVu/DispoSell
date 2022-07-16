@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import localStyles from '../../scss/pages/ProductDetail.module.scss';
-import {addCartItem, setCartInfo} from "../redux/cartSlice";
+import {addCartItem, setUserInfo} from "../redux/cartSlice";
 import {useDispatch} from 'react-redux';
 
 function ProductDetail() {

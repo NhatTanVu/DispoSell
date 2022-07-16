@@ -7,19 +7,15 @@ import {Link, useNavigate} from "react-router-dom";
 import localStyles from "../../scss/pages/cart.module.scss";
 import EventBus from "../common/EventBus";
 import {useDispatch, useSelector} from "react-redux";
-import {setCartInfo} from "../redux/cartSlice";
+import store from '../redux/store';
+import {setUserInfo, initialState, clearCart} from "../redux/cartSlice";
 import {getElement, getElementFromSelector} from "bootstrap/js/src/util";
 
 export default function Cart() {
     const [canPay, setCanPay] = useState(true);
     const [canCheckout, setCanCheckout] = useState(false);
-
-    const [cart, setCart] = useState([]);
-
     const navigate = useNavigate();
-
     const [readyCheckout, setReadyCheckout] = useState(false);
-
     const [isUserReady, setUserReady] = useState(false);
     const [currentUser, setCurrentUser] = useState({username: ""});
     const [username, setUsername] = useState("");
@@ -32,6 +28,9 @@ export default function Cart() {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [cartReady, setCartReady] = useState(false);
+    const dispatch = useDispatch();
+    const [paymentTransactionID, setPaymentTransactionID] = useState(undefined);
+    const cart = useSelector((state) => state.cart);
 
     function onChangeFirstName(e) {
         setFirstName(e.target.value);
@@ -63,59 +62,34 @@ export default function Cart() {
         window.location.reload();
     }
 
-    let cartRedux;
-
-    useSelector(state =>
-        cartRedux = state.cart
-    );
-
     useEffect(() => {
         const currentUser = AuthService.getCurrentUser();
 
-
-        let cart = JSON.parse(JSON.stringify(cartRedux));
-
-        if (cartRedux.orderDetails.length > 0) {
-            setCart(cart);
-            setCartReady(true);
-            alert(cart);
-            console.log(cart)
-
-        } else {
+        if (cart === initialState) {
             setCartReady(false);
+        } else {
+            setCartReady(true);
         }
 
-        if (currentUser && currentUser.id) {
-            setCurrentUser(currentUser);
-            setUserReady(true);
-            setReadyCheckout(true);
-        }
+        alert(JSON.stringify(cart));
 
         EventBus.on("logout", () => {
             signOut();
         });
 
+        if (currentUser && currentUser.id) {
+            setUserReady(true);
+            setReadyCheckout(true);
+        }
+
         return () => {
             // Anything in here is fired on component unmount.
             EventBus.remove("logout");
         }
-
     }, []);
 
-    function onPaymentCompleted(paymentAmount, paymentTransactionID) {
-        setCart(prevState => ({
-            ...prevState,
-            "firstName": document.getElementById("firstName").value,
-            "lastName": document.getElementById("lastName").value,
-            "contactNumber": document.getElementById("phoneNumber").value,
-            "address": document.getElementById("address").value,
-            "email": document.getElementById("email").value,
-            "status": {
-                "statusID": 3
-            },
-            "paymentAmount": paymentAmount,
-            "paymentTransactionID": paymentTransactionID
-        }));
+    function onPaymentCompleted(paymentAmount, transactionID) {
+        setPaymentTransactionID(transactionID);
         setCanPay(false);
         setCanCheckout(true);
     }
@@ -126,10 +100,18 @@ export default function Cart() {
     }
 
     function onCheckoutClick(e) {
-        OrderService.createPurchaseOrder(cart).then(
+        dispatch(setUserInfo(firstName,
+            lastName,
+            phoneNumber,
+            deliveryAddress,
+            email,
+            paymentTransactionID));
+        const localCart = store.getState().cart;
+        OrderService.createPurchaseOrder(localCart).then(
             (value) => {
-                alert(JSON.stringify(cart));
-                //navigate("/");
+                alert(JSON.stringify(localCart));
+                dispatch(clearCart());
+                navigate("/");
             },
             (reason) => {
                 const resMessage =
@@ -201,29 +183,19 @@ export default function Cart() {
                                 style={{width: "10vw", paddingLeft: "1rem"}}> PRICE </h6>
                         </div>
                         <hr/>
-                        {console.log(cart)}
-
-                        {cart.map((item)=>(
-
-                            <div className="justify-content-between d-inline-flex" style={{}} key={item}>
-                                {console.log(item)}
-                                    <div style={{width: "10vw"}}>
-                                        <img src="images/test_for_browse/white_side_table.jpeg"
-                                             loading="lazy"
-                                             style={{
-                                                 display: "block",
-                                                 width: "inherit"
-                                             }}/>
-                                    </div>
-                                    <h6 className='text-uppercase' style={{width: "40vw", paddingLeft: "1rem"}}> White
-                                        Side
-                                        Table </h6>
-                                    <h6 className='text-uppercase'
-                                        style={{width: "10vw", paddingLeft: "1rem"}}>$2 {item.orderDetails}</h6>
+                        <div className="justify-content-between d-inline-flex" style={{}}>
+                            <div style={{width: "10vw"}}>
+                                <img src="images/test_for_browse/white_side_table.jpeg"
+                                     loading="lazy"
+                                     style={{
+                                         display: "block",
+                                         width: "inherit"
+                                     }}/>
                             </div>
-
-                        ))}
-
+                            <h6 className='text-uppercase' style={{width: "40vw", paddingLeft: "1rem"}}> White Side
+                                Table </h6>
+                            <h6 className='text-uppercase' style={{width: "10vw", paddingLeft: "1rem"}}> $30 </h6>
+                        </div>
                         <hr/>
                         <div className="justify-content-between d-inline-flex" style={{}}>
                             <div style={{width: "10vw", backgroundColor: "transparent"}}></div>
@@ -234,6 +206,8 @@ export default function Cart() {
                         </div>
                     </div>
 
+                    {/*<div className={localStyles["float_right"]}*/}
+                    {/*     style={{position: "absolute", width: "20%", paddingRight: "2rem"}}>*/}
                     <div className={localStyles[""]}
                          style={{width: "20vw", paddingRight: "1rem", paddingLeft: "1rem"}}>
                         {(readyCheckout) ?
@@ -384,6 +358,7 @@ export default function Cart() {
                             </>)}
                     </div>
                 </div>
+
                 : (
                     <div style={{
                         marginBottom: "2rem",
@@ -403,8 +378,11 @@ export default function Cart() {
                                 Browse
                             </Button>
                         </div>
+
+
                     </div>
                 )}
+
         </>
     );
 }

@@ -1,14 +1,6 @@
 import {createSlice, nanoid} from '@reduxjs/toolkit'
 
-const initialState = {
-    "firstName": "",
-    "lastName": "",
-    "contactNumber": "",
-    "address": "",
-    "email": "",
-    "status": {
-        "statusID": ""
-    },
+export const initialState = {
     "orderDetails": []
 };
 
@@ -16,37 +8,43 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        setCartInfo: {
+        setUserInfo: {
             reducer: function (state, action) {
                 state.firstName = action.payload.firstName;
                 state.lastName = action.payload.lastName;
                 state.contactNumber = action.payload.contactNumber;
                 state.address = action.payload.address;
                 state.email = action.payload.email;
-                state.orderDetails = [];
+                state.paymentTransactionID = action.payload.paymentTransactionID;
             },
-            prepare(firstName, lastName, contactNumber, address, email) {
+            prepare(firstName, lastName, contactNumber, address, email, paymentTransactionID) {
                 return {
                     payload: {
                         firstName,
                         lastName,
                         contactNumber,
                         address,
-                        email
+                        email,
+                        paymentTransactionID
                     }
                 }
             }
         },
         addCartItem: {
             reducer: function (state, action) {
-                state.orderDetails.push({
-                    "product": {
-                        "productID": action.payload.productID,
-                        "productMedia": action.payload.productMedia
-                    },
-                    "price": action.payload.price,
-                    "quantity": action.payload.quantity
-                });
+                const index = state.orderDetails.findIndex(p => p.product.productID == action.payload.productID);
+                if (index > -1) {
+                    state.orderDetails[index].quantity += action.payload.quantity;
+                }
+                else {
+                    state.orderDetails.push({
+                        "product": {
+                            "productID": action.payload.productID,
+                            "productMedia": action.payload.productMedia
+                        },
+                        "quantity": action.payload.quantity
+                    });
+                }
             },
             prepare(productID, productMedia, price, quantity) {
                 return {
@@ -61,16 +59,29 @@ const cartSlice = createSlice({
         },
         removeCartItem: {
             reducer(state, action) {
+                const index = state.orderDetails.findIndex(p => p.product.productID == action.payload.productID);
+                if (index > -1) {
+                    if (state.orderDetails[index].quantity > action.payload.quantity) {
+                        state.orderDetails[index].quantity -= action.payload.quantity;
+                    }
+                    else {
+                        state.orderDetails.splice(index, 1);
+                    }
+                }
             },
-            prepare() {
+            prepare(productID, quantity) {
                 return {
-                    payload: {}
+                    payload: {
+                        productID,
+                        quantity
+                    }
                 }
             }
-        }
+        },
+        clearCart: () => initialState
     }
 })
 
 export default cartSlice.reducer
 
-export const {setCartInfo, addCartItem, removeCartItem} = cartSlice.actions
+export const {setUserInfo, addCartItem, removeCartItem, clearCart} = cartSlice.actions
