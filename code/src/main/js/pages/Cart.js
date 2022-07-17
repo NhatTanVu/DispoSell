@@ -14,7 +14,6 @@ import {getElement, getElementFromSelector} from "bootstrap/js/src/util";
 export default function Cart() {
     const [canPay, setCanPay] = useState(true);
     const [canCheckout, setCanCheckout] = useState(false);
-    const navigate = useNavigate();
     const [readyCheckout, setReadyCheckout] = useState(false);
     const [isUserReady, setUserReady] = useState(false);
     const [currentUser, setCurrentUser] = useState({username: ""});
@@ -28,9 +27,13 @@ export default function Cart() {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [cartReady, setCartReady] = useState(false);
-    const dispatch = useDispatch();
     const [paymentTransactionID, setPaymentTransactionID] = useState(undefined);
-    const cart = useSelector((state) => state.cart);
+    const [isCartNew, setCartNew] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    let savedCart = localStorage.getItem("savedCart");
+    let savedCartObj = JSON.parse(savedCart);
+    let cart = useSelector((state) => state.cart);
 
     function onChangeFirstName(e) {
         setFirstName(e.target.value);
@@ -65,13 +68,24 @@ export default function Cart() {
     useEffect(() => {
         const currentUser = AuthService.getCurrentUser();
 
-        if (cart === initialState) {
-            setCartReady(false);
+        if (savedCart === JSON.stringify(initialState) || savedCart === null) {
+            if (cart !== initialState) {
+                setCartReady(true);
+                setCartNew(true);
+                localStorage.setItem("savedCart", JSON.stringify(cart));
+            } else {
+                setCartReady(false);
+                alert(JSON.stringify(savedCartObj));
+            }
         } else {
             setCartReady(true);
-        }
 
-        alert(JSON.stringify(cart));
+            if ("savedCart" in localStorage && cart === initialState) {
+                alert("only page refresh");
+            }
+            console.log(cart);
+            console.log(savedCartObj);
+        }
 
         EventBus.on("logout", () => {
             signOut();
@@ -183,27 +197,48 @@ export default function Cart() {
                                 style={{width: "10vw", paddingLeft: "1rem"}}> PRICE </h6>
                         </div>
                         <hr/>
-                        <div className="justify-content-between d-inline-flex" style={{}}>
-                            <div style={{width: "10vw"}}>
-                                <img src="images/test_for_browse/white_side_table.jpeg"
-                                     loading="lazy"
-                                     style={{
-                                         display: "block",
-                                         width: "inherit"
-                                     }}/>
-                            </div>
-                            <h6 className='text-uppercase' style={{width: "40vw", paddingLeft: "1rem"}}> White Side
-                                Table </h6>
-                            <h6 className='text-uppercase' style={{width: "10vw", paddingLeft: "1rem"}}> $30 </h6>
-                        </div>
-                        <hr/>
-                        <div className="justify-content-between d-inline-flex" style={{}}>
-                            <div style={{width: "10vw", backgroundColor: "transparent"}}></div>
-                            <h6 className='text-uppercase fw-bold'
-                                style={{width: "40vw", paddingLeft: "1rem"}}> TOTAL </h6>
-                            <h6 className='text-uppercase fw-bold'
-                                style={{width: "10vw", paddingLeft: "1rem"}}>$30</h6>
-                        </div>
+
+                        {(isCartNew) ?
+                            <>
+                                {store.getState().cart.orderDetails.map(item => (
+                                    <div key={item.product}>
+                                        {item.price}
+                                    </div>
+                                ))}
+                            </>
+                            : (
+                                <>
+                                    {/*{ (savedItem => (*/}
+                                    {/*    <div key={savedItem.product}>*/}
+                                    {/*        {savedItem.price}*/}
+                                    {/*    </div>*/}
+                                    {/*))}*/}
+                                </>
+                            )}
+
+
+                        {/*<div className="justify-content-between d-inline-flex" style={{}}>*/}
+                        {/*    <div style={{width: "10vw"}}>*/}
+                        {/*        <img src="images/test_for_browse/white_side_table.jpeg"*/}
+                        {/*             loading="lazy"*/}
+                        {/*             style={{*/}
+                        {/*                 display: "block",*/}
+                        {/*                 width: "inherit"*/}
+                        {/*             }}/>*/}
+                        {/*    </div>*/}
+                        {/*    <h6 className='text-uppercase' style={{width: "40vw", paddingLeft: "1rem"}}> White Side*/}
+                        {/*        Table </h6>*/}
+                        {/*    <h6 className='text-uppercase' style={{width: "10vw", paddingLeft: "1rem"}}> $30 </h6>*/}
+                        {/*</div>*/}
+
+                        {/*<hr/>*/}
+                        {/*<div className="justify-content-between d-inline-flex" style={{}}>*/}
+                        {/*    <div style={{width: "10vw", backgroundColor: "transparent"}}></div>*/}
+                        {/*    <h6 className='text-uppercase fw-bold'*/}
+                        {/*        style={{width: "40vw", paddingLeft: "1rem"}}> TOTAL </h6>*/}
+                        {/*    <h6 className='text-uppercase fw-bold'*/}
+                        {/*        style={{width: "10vw", paddingLeft: "1rem"}}>$30</h6>*/}
+                        {/*</div>*/}
                     </div>
 
                     {/*<div className={localStyles["float_right"]}*/}

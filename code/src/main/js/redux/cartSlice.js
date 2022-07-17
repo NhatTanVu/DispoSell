@@ -42,6 +42,7 @@ const cartSlice = createSlice({
                             "productID": action.payload.productID,
                             "productMedia": action.payload.productMedia
                         },
+                        "price": action.payload.price,
                         "quantity": action.payload.quantity
                     });
                 }
