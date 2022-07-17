@@ -42,7 +42,7 @@ function AboutUs() {
                             <td>
                                 {/*Ferry */}
                                 <a href="https://www.linkedin.com/in/ferryalviantotjahjadi/" target="_blank">
-                                    <img src="images/Leadership/avatar_Ferry.jpg" alt="Ferry" width={351}/>
+                                    <img src="/images/Leadership/avatar_Ferry.jpg" alt="Ferry" width={351}/>
                                 </a>
                                 <br/>
                                 <a href="https://www.linkedin.com/in/ferryalviantotjahjadi/" target="_blank">Ferry
@@ -51,7 +51,7 @@ function AboutUs() {
                             <td>
                                 {/*Mariana*/}
                                 <a href="https://www.linkedin.com/in/mariana-meneses-del-valle/" target="_blank">
-                                    <img src="images/Leadership/avatar_Mariana.jpg" alt="Mariana" width={351}/>
+                                    <img src="/images/Leadership/avatar_Mariana.jpg" alt="Mariana" width={351}/>
                                 </a>
                                 <br/>
                                 <a href="https://www.linkedin.com/in/mariana-meneses-del-valle/" target="_blank">
@@ -62,7 +62,7 @@ function AboutUs() {
                             <td>
                                 {/*Tan*/}
                                 <a href="https://www.linkedin.com/in/tanvu/" target="_blank">
-                                    <img src="images/Leadership/avatar_Tan.jpg" alt="Tan" width={351}/>
+                                    <img src="/images/Leadership/avatar_Tan.jpg" alt="Tan" width={351}/>
                                 </a>
                                 <br/>
                                 <a href="https://www.linkedin.com/in/tanvu/" target="_blank">Nhat Tan Vu<br/>CTO</a>
@@ -70,7 +70,7 @@ function AboutUs() {
                             <td>
                                 {/*Khang*/}
                                 <a href="https://www.linkedin.com/in/khangtruong8385/" target="_blank">
-                                    <img src="images/Leadership/avatar_Khang.jpg" alt="Khang" width={351}/>
+                                    <img src="/images/Leadership/avatar_Khang.jpg" alt="Khang" width={351}/>
                                 </a>
                                 <br/>
                                 <a href="https://www.linkedin.com/in/khangtruong8385/" target="_blank">Khang
