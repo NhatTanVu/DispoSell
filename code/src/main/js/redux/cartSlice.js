@@ -32,7 +32,7 @@ const cartSlice = createSlice({
         },
         addCartItem: {
             reducer: function (state, action) {
-                const index = state.orderDetails.findIndex(p => p.product.productID == action.payload.productID);
+                const index = state.orderDetails.findIndex(p => p.product.productID === action.payload.productID);
                 if (index > -1) {
                     state.orderDetails[index].quantity += action.payload.quantity;
                 }

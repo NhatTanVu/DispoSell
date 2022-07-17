@@ -79,7 +79,7 @@ function Header() {
                                 &nbsp;
                                 <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
                                 &nbsp;
-                                <Nav.Link as={Link} to="/trade">
+                                <Nav.Link as={Link} to="/cartt">
                                     <button className={`rounded-pill ${localStyles["btnTrade"]}`}>Trade
                                     </button>
                                 </Nav.Link>

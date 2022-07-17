@@ -14,17 +14,15 @@ function ProductDetail() {
     }, []);
 
     function addToCart(){
-        dispatch(addCartItem(id,
+        dispatch(addCartItem(Number(id),
             [
                 {
-                    "url": "image 1.jpg",
+                    "url": "1.jpg",
                     "fileType": "jpg",
                 }
             ],
             20, 1));
         //alert(id);
-
-
     }
 
     return (

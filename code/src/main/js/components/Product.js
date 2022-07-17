@@ -36,14 +36,14 @@ function Product() {
         const id = (document.getElementById("productID").textContent);
 
         dispatch(addCartItem(
-            id,
+            Number(id),
             [
                 {
-                    "url": "1.jpeg",
+                    "url": "1.jpg",
                     "fileType": "jpg",
                 }
             ],
-            price, 1));
+            Number(price), Number(1)));
     }
 
     return (

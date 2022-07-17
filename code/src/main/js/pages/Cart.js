@@ -8,8 +8,9 @@ import localStyles from "../../scss/pages/cart.module.scss";
 import EventBus from "../common/EventBus";
 import {useDispatch, useSelector} from "react-redux";
 import store from '../redux/store';
-import {setUserInfo, initialState, clearCart} from "../redux/cartSlice";
+import {setUserInfo, initialState, clearCart, addCartItem} from "../redux/cartSlice";
 import {getElement, getElementFromSelector} from "bootstrap/js/src/util";
+import {createSlice} from "@reduxjs/toolkit";
 
 export default function Cart() {
     const [canPay, setCanPay] = useState(true);
@@ -31,9 +32,11 @@ export default function Cart() {
     const [isCartNew, setCartNew] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     let savedCart = localStorage.getItem("savedCart");
     let savedCartObj = JSON.parse(savedCart);
-    let cart = useSelector((state) => state.cart);
+
+    const cart = useSelector((state) => state.cart);
 
     function onChangeFirstName(e) {
         setFirstName(e.target.value);
@@ -68,23 +71,35 @@ export default function Cart() {
     useEffect(() => {
         const currentUser = AuthService.getCurrentUser();
 
+        console.log(JSON.stringify(cart));
+
         if (savedCart === JSON.stringify(initialState) || savedCart === null) {
             if (cart !== initialState) {
                 setCartReady(true);
                 setCartNew(true);
                 localStorage.setItem("savedCart", JSON.stringify(cart));
+                savedCart = localStorage.getItem("savedCart");
+                savedCartObj = JSON.parse(savedCart);
+                console.log(savedCartObj);
             } else {
                 setCartReady(false);
-                alert(JSON.stringify(savedCartObj));
+                console.log("cart is empty" + JSON.stringify(cart));
             }
         } else {
             setCartReady(true);
 
             if ("savedCart" in localStorage && cart === initialState) {
-                alert("only page refresh");
+                console.log(cart);
+                console.log(savedCartObj);
+                console.log("only page refresh");
             }
-            console.log(cart);
-            console.log(savedCartObj);
+            if ("savedCart" in localStorage && cart !== initialState) {
+                console.log(cart);
+                localStorage.setItem("savedCart", JSON.stringify(cart));
+                savedCart = localStorage.getItem("savedCart");
+                savedCartObj = JSON.parse(savedCart);
+                console.log(savedCartObj);
+            }
         }
 
         EventBus.on("logout", () => {
@@ -208,11 +223,12 @@ export default function Cart() {
                             </>
                             : (
                                 <>
-                                    {/*{ (savedItem => (*/}
-                                    {/*    <div key={savedItem.product}>*/}
-                                    {/*        {savedItem.price}*/}
-                                    {/*    </div>*/}
-                                    {/*))}*/}
+                                    {savedCartObj.orderDetails.map (savedItem => (
+                                        <div key={savedItem.product}>
+                                            <p>from local</p>
+                                            {savedItem.price}
+                                        </div>
+                                    ))}
                                 </>
                             )}
 
