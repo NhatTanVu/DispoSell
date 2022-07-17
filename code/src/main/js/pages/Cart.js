@@ -189,6 +189,20 @@ export default function Cart() {
         );
     }
 
+    const addQuantity = (id, name, url, type, price) => {
+        dispatch(addCartItem(
+            Number(id),
+            name,
+            [{
+                "url": url,
+                "fileType": type
+            }],
+            Number(price + price), Number(1)));
+    }
+
+    const removeItem = () => {
+    }
+
     return (
         <>
             {(cartReady) ?
@@ -226,28 +240,37 @@ export default function Cart() {
                                                          width: "inherit"
                                                      }}/>
                                             </div>
-                                            <div style={{display: "inline-block", width: "10vw"}}
-                                                 className='text-center'>
-                                                <Button style={{
-                                                    padding: "auto",
-                                                    border: "black",
-                                                    backgroundColor: "transparent",
-                                                    color: "black"
-                                                }}>-</Button>
-                                                <input
-                                                    className='text-center'
-                                                    type="text"
-                                                    min={item.quantity}
-                                                    defaultValue={item.quantity}
-                                                    style={{border: "none", maxWidth: "20px", padding: "auto"}}
-                                                    readOnly
-                                                />
-                                                <Button style={{
-                                                    padding: "auto",
-                                                    border: "black",
-                                                    backgroundColor: "transparent",
-                                                    color: "black"
-                                                }}>+</Button>
+                                            <div className='d-inline' style={{width: "10vw"}}>
+                                                <div style={{display: "inline-block", width: "10vw"}}
+                                                     className='text-center'>
+                                                    <Button style={{
+                                                        padding: "auto",
+                                                        border: "black",
+                                                        backgroundColor: "transparent",
+                                                        color: "black"
+                                                    }}>-</Button>
+                                                    <input
+                                                        className='text-center'
+                                                        type="text"
+                                                        min={item.quantity}
+                                                        max={10}
+                                                        defaultValue={item.quantity}
+                                                        style={{border: "none", maxWidth: "20px", padding: "auto"}}
+                                                        readOnly
+                                                    />
+                                                    <Button style={{
+                                                        padding: "auto",
+                                                        border: "black",
+                                                        backgroundColor: "transparent",
+                                                        color: "black"
+                                                    }}
+                                                            onClick={(e) => addQuantity(item.product.productID, item.product.productName,
+                                                                item.product.productMedia[0].url, item.product.productMedia[0].fileType,
+                                                                item.price)}>+</Button>
+                                                </div>
+                                                <div style={{width: "10vw"}} className='text-center'>
+                                                    <a onClick={removeItem}>Remove</a>
+                                                </div>
                                             </div>
                                             <h6 className='text-uppercase' style={{
                                                 width: "40vw",
@@ -264,48 +287,61 @@ export default function Cart() {
                                 <>
                                     {savedCartObj.orderDetails.map(savedItem => (
                                         <>
-                                        <div className="justify-content-between d-inline-flex" style={{}}>
-                                            <div style={{width: "7vw"}}>
-                                                <img src={`${savedItem.product.productMedia[0].url}`}
-                                                     loading="lazy"
-                                                     style={{
-                                                         display: "block",
-                                                         width: "inherit"
-                                                     }}/>
+                                            <div className="justify-content-between d-inline-flex" style={{}}>
+                                                <div style={{width: "7vw"}}>
+                                                    <img src={`${savedItem.product.productMedia[0].url}`}
+                                                         loading="lazy"
+                                                         style={{
+                                                             display: "block",
+                                                             width: "inherit"
+                                                         }}/>
+                                                </div>
+                                                <div className='d-inline' style={{width: "10vw"}}>
+                                                    <div style={{display: "inline-block", width: "10vw"}}
+                                                         className='text-center'>
+                                                        <Button style={{
+                                                            padding: "auto",
+                                                            border: "black",
+                                                            backgroundColor: "transparent",
+                                                            color: "black"
+                                                        }}>-</Button>
+                                                        <input
+                                                            className='text-center'
+                                                            type="text"
+                                                            min={savedItem.quantity}
+                                                            max={10}
+                                                            defaultValue={savedItem.quantity}
+                                                            style={{border: "none", maxWidth: "20px", padding: "auto"}}
+                                                            readOnly
+                                                        />
+                                                        <Button style={{
+                                                            padding: "auto",
+                                                            border: "black",
+                                                            backgroundColor: "transparent",
+                                                            color: "black"
+                                                        }}
+                                                                onClick={(e) => addQuantity(savedItem.product.productID, savedItem.product.productName,
+                                                                    savedItem.product.productMedia[0].url, savedItem.product.productMedia[0].fileType,
+                                                                    savedItem.price)}>+</Button>
+                                                    </div>
+                                                    <div style={{width: "10vw"}} className='text-center'>
+                                                        <a onClick={removeItem}>Remove</a>
+                                                    </div>
+                                                </div>
+
+                                                <h6 className='text-uppercase' style={{
+                                                    width: "40vw",
+                                                    paddingLeft: "1rem"
+                                                }}> {savedItem.product.productName} </h6>
+                                                <h6 className='text-uppercase'
+                                                    style={{
+                                                        width: "10vw",
+                                                        paddingLeft: "1rem"
+                                                    }}> ${savedItem.price} </h6>
                                             </div>
-                                            <div style={{display: "inline-block", width: "10vw"}}
-                                                 className='text-center'>
-                                                <Button style={{
-                                                    padding: "auto",
-                                                    border: "black",
-                                                    backgroundColor: "transparent",
-                                                    color: "black"
-                                                }}>-</Button>
-                                                <input
-                                                    className='text-center'
-                                                    type="text"
-                                                    min={savedItem.quantity}
-                                                    defaultValue={savedItem.quantity}
-                                                    style={{border: "none", maxWidth: "20px", padding: "auto"}}
-                                                    readOnly
-                                                />
-                                                <Button style={{
-                                                    padding: "auto",
-                                                    border: "black",
-                                                    backgroundColor: "transparent",
-                                                    color: "black"
-                                                }}>+</Button>
-                                            </div>
-                                            <h6 className='text-uppercase' style={{
-                                                width: "40vw",
-                                                paddingLeft: "1rem"
-                                            }}> {savedItem.product.productName} </h6>
-                                            <h6 className='text-uppercase'
-                                                style={{width: "10vw", paddingLeft: "1rem"}}> ${savedItem.price} </h6>
-                                        </div>
-                                        <hr/>
+                                            <hr/>
                                         </>
-                                        ))}
+                                    ))}
                                 </>
                             )}
                         <div className="justify-content-between d-inline-flex" style={{}}>
