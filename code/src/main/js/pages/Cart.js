@@ -13,6 +13,8 @@ import {getElement, getElementFromSelector} from "bootstrap/js/src/util";
 import {createSlice} from "@reduxjs/toolkit";
 
 export default function Cart() {
+    let savedCart = localStorage.getItem("savedCart");
+    let savedCartObj = JSON.parse(savedCart);
     const [canPay, setCanPay] = useState(true);
     const [canCheckout, setCanCheckout] = useState(false);
     const [readyCheckout, setReadyCheckout] = useState(false);
@@ -32,10 +34,6 @@ export default function Cart() {
     const [isCartNew, setCartNew] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    let savedCart = localStorage.getItem("savedCart");
-    let savedCartObj = JSON.parse(savedCart);
-
     const cart = useSelector((state) => state.cart);
 
     function onChangeFirstName(e) {
@@ -203,9 +201,11 @@ export default function Cart() {
                     maxHeight: "auto",
                     display: "block",
                 }} className="d-flex">
-                    <div style={{width: "80vw", paddingRight: "2rem", paddingLeft: "1rem"}}>
+                    <div style={{width: "100vw", paddingRight: "2rem", paddingLeft: "1rem"}}>
                         <div className="justify-content-between d-inline-flex" style={{}}>
-                            <div style={{width: "10vw", backgroundColor: "transparent"}}></div>
+                            <div style={{width: "7vw", backgroundColor: "transparent"}}></div>
+                            <h6 className='text-uppercase fw-bold'
+                                style={{width: "10vw", paddingLeft: "2rem"}}> QTY </h6>
                             <h6 className='text-uppercase fw-bold'
                                 style={{width: "40vw", paddingLeft: "1rem"}}> ITEM </h6>
                             <h6 className='text-uppercase fw-bold'
@@ -216,51 +216,111 @@ export default function Cart() {
                         {(isCartNew) ?
                             <>
                                 {store.getState().cart.orderDetails.map(item => (
-                                    <div key={item.product}>
-                                        {item.price}
-                                    </div>
+                                    <>
+                                        <div className="justify-content-between d-inline-flex" style={{}}>
+                                            <div style={{width: "7vw"}}>
+                                                <img src={`${item.product.productMedia[0].url}`}
+                                                     loading="lazy"
+                                                     style={{
+                                                         display: "block",
+                                                         width: "inherit"
+                                                     }}/>
+                                            </div>
+                                            <div style={{display: "inline-block", width: "10vw"}}
+                                                 className='text-center'>
+                                                <Button style={{
+                                                    padding: "auto",
+                                                    border: "black",
+                                                    backgroundColor: "transparent",
+                                                    color: "black"
+                                                }}>-</Button>
+                                                <input
+                                                    className='text-center'
+                                                    type="text"
+                                                    min={item.quantity}
+                                                    defaultValue={item.quantity}
+                                                    style={{border: "none", maxWidth: "20px", padding: "auto"}}
+                                                    readOnly
+                                                />
+                                                <Button style={{
+                                                    padding: "auto",
+                                                    border: "black",
+                                                    backgroundColor: "transparent",
+                                                    color: "black"
+                                                }}>+</Button>
+                                            </div>
+                                            <h6 className='text-uppercase' style={{
+                                                width: "40vw",
+                                                paddingLeft: "1rem"
+                                            }}> {item.product.productName} </h6>
+                                            <h6 className='text-uppercase'
+                                                style={{width: "10vw", paddingLeft: "1rem"}}> ${item.price} </h6>
+                                        </div>
+                                        <hr/>
+                                    </>
                                 ))}
                             </>
                             : (
                                 <>
-                                    {savedCartObj.orderDetails.map (savedItem => (
-                                        <div key={savedItem.product}>
-                                            <p>from local</p>
-                                            {savedItem.price}
+                                    {savedCartObj.orderDetails.map(savedItem => (
+                                        <>
+                                        <div className="justify-content-between d-inline-flex" style={{}}>
+                                            <div style={{width: "7vw"}}>
+                                                <img src={`${savedItem.product.productMedia[0].url}`}
+                                                     loading="lazy"
+                                                     style={{
+                                                         display: "block",
+                                                         width: "inherit"
+                                                     }}/>
+                                            </div>
+                                            <div style={{display: "inline-block", width: "10vw"}}
+                                                 className='text-center'>
+                                                <Button style={{
+                                                    padding: "auto",
+                                                    border: "black",
+                                                    backgroundColor: "transparent",
+                                                    color: "black"
+                                                }}>-</Button>
+                                                <input
+                                                    className='text-center'
+                                                    type="text"
+                                                    min={savedItem.quantity}
+                                                    defaultValue={savedItem.quantity}
+                                                    style={{border: "none", maxWidth: "20px", padding: "auto"}}
+                                                    readOnly
+                                                />
+                                                <Button style={{
+                                                    padding: "auto",
+                                                    border: "black",
+                                                    backgroundColor: "transparent",
+                                                    color: "black"
+                                                }}>+</Button>
+                                            </div>
+                                            <h6 className='text-uppercase' style={{
+                                                width: "40vw",
+                                                paddingLeft: "1rem"
+                                            }}> {savedItem.product.productName} </h6>
+                                            <h6 className='text-uppercase'
+                                                style={{width: "10vw", paddingLeft: "1rem"}}> ${savedItem.price} </h6>
                                         </div>
-                                    ))}
+                                        <hr/>
+                                        </>
+                                        ))}
                                 </>
                             )}
-
-
-                        {/*<div className="justify-content-between d-inline-flex" style={{}}>*/}
-                        {/*    <div style={{width: "10vw"}}>*/}
-                        {/*        <img src="images/test_for_browse/white_side_table.jpeg"*/}
-                        {/*             loading="lazy"*/}
-                        {/*             style={{*/}
-                        {/*                 display: "block",*/}
-                        {/*                 width: "inherit"*/}
-                        {/*             }}/>*/}
-                        {/*    </div>*/}
-                        {/*    <h6 className='text-uppercase' style={{width: "40vw", paddingLeft: "1rem"}}> White Side*/}
-                        {/*        Table </h6>*/}
-                        {/*    <h6 className='text-uppercase' style={{width: "10vw", paddingLeft: "1rem"}}> $30 </h6>*/}
-                        {/*</div>*/}
-
-                        {/*<hr/>*/}
-                        {/*<div className="justify-content-between d-inline-flex" style={{}}>*/}
-                        {/*    <div style={{width: "10vw", backgroundColor: "transparent"}}></div>*/}
-                        {/*    <h6 className='text-uppercase fw-bold'*/}
-                        {/*        style={{width: "40vw", paddingLeft: "1rem"}}> TOTAL </h6>*/}
-                        {/*    <h6 className='text-uppercase fw-bold'*/}
-                        {/*        style={{width: "10vw", paddingLeft: "1rem"}}>$30</h6>*/}
-                        {/*</div>*/}
+                        <div className="justify-content-between d-inline-flex" style={{}}>
+                            <div style={{width: "17vw", backgroundColor: "transparent"}}></div>
+                            <h6 className='text-uppercase fw-bold'
+                                style={{width: "40vw", paddingLeft: "1rem"}}> TOTAL </h6>
+                            <h6 className='text-uppercase fw-bold'
+                                style={{width: "10vw", paddingLeft: "1rem"}}>$30</h6>
+                        </div>
                     </div>
 
                     {/*<div className={localStyles["float_right"]}*/}
                     {/*     style={{position: "absolute", width: "20%", paddingRight: "2rem"}}>*/}
                     <div className={localStyles[""]}
-                         style={{width: "20vw", paddingRight: "1rem", paddingLeft: "1rem"}}>
+                         style={{width: "50vw", paddingRight: "1rem", paddingLeft: "1rem"}}>
                         {(readyCheckout) ?
                             <div className={`text-start`}>
                                 {(isUserReady) ?

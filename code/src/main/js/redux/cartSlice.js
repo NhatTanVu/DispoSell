@@ -35,11 +35,11 @@ const cartSlice = createSlice({
                 const index = state.orderDetails.findIndex(p => p.product.productID === action.payload.productID);
                 if (index > -1) {
                     state.orderDetails[index].quantity += action.payload.quantity;
-                }
-                else {
+                } else {
                     state.orderDetails.push({
                         "product": {
                             "productID": action.payload.productID,
+                            "productName": action.payload.productName,
                             "productMedia": action.payload.productMedia
                         },
                         "price": action.payload.price,
@@ -47,10 +47,11 @@ const cartSlice = createSlice({
                     });
                 }
             },
-            prepare(productID, productMedia, price, quantity) {
+            prepare(productID, productName, productMedia, price, quantity) {
                 return {
                     payload: {
                         productID,
+                        productName,
                         productMedia,
                         price,
                         quantity
@@ -64,8 +65,7 @@ const cartSlice = createSlice({
                 if (index > -1) {
                     if (state.orderDetails[index].quantity > action.payload.quantity) {
                         state.orderDetails[index].quantity -= action.payload.quantity;
-                    }
-                    else {
+                    } else {
                         state.orderDetails.splice(index, 1);
                     }
                 }

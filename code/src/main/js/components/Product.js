@@ -31,16 +31,26 @@ function Product() {
         )
     }, []);
 
-    function addToCart() {
-        const price = (document.getElementById("price").textContent);
-        const id = (document.getElementById("productID").textContent);
+    const onCLick = (e,index) => {
+        e.persist();
+
+        const product = products.at(index);
+        const price = product.sellingPrice;
+        const id = product.productID;
+        const productName = product.name;
+        const productMediaURL = product.productMedia[0].url;
+        const productMediaType = product.productMedia[0].fileType;
+
+        console.log(product.productMedia[0].url);
+
 
         dispatch(addCartItem(
             Number(id),
+            productName,
             [
                 {
-                    "url": "1.jpg",
-                    "fileType": "jpg",
+                    "url": productMediaURL,
+                    "fileType": productMediaType,
                 }
             ],
             Number(price), Number(1)));
@@ -48,24 +58,24 @@ function Product() {
 
     return (
         <div className="d-inline-flex row justify-content-around" style={{padding: "2rem"}}>
-            {products.map((product) => (
-                    <div className="col-sm-auto" key={product.productID}>
-                        <div id="productID" style={{visibility:"hidden"}}>{product.productID}</div>
-                        <Link as={Link} to={`/productDetail/${product.productID}`}>
-                            <img src={`${product.productMedia[0].url}`} alt={product.name} width={250}
-                                 loading="lazy"
-                                 style={{
-                                     display: "block",
-                                     marginLeft: "auto",
-                                     marginRight: "auto",
-                                     minWidth: "80%",
-                                     maxWidth: "100%",
-                                 }}/>
-                        </Link> <Link as={Link} to={`/productDetail/${product.productID}`}>
-                        <h6 className='text-uppercase fw-bold'> {product.name} </h6></Link>
-                        {/*<p>{product.productMedia[0].url}</p>*/}
-                        <h5>$<span id='price'>{product.sellingPrice}</span></h5>
-                        <button className={`mb-4 ${localStyles["btnToCart"]}`} onClick={addToCart}>ADD TO CART</button>
+            {products.map((product, _id) => (
+                <div className="col-sm-auto" key={_id}>
+                    {/*<div id="productID" style={{visibility:"visible"}}>{product.productID}</div>*/}
+                    <Link as={Link} to={`/productDetail/${product.productID}`}>
+                        <img src={`${product.productMedia[0].url}`} alt={product.name} width={250}
+                             loading="lazy"
+                             style={{
+                                 display: "block",
+                                 marginLeft: "auto",
+                                 marginRight: "auto",
+                                 minWidth: "80%",
+                                 maxWidth: "100%",
+                             }}/>
+                    </Link> <Link as={Link} to={`/productDetail/${product.productID}`}>
+                    <h6 className='text-uppercase fw-bold'><span id='productName'>{product.name}</span></h6></Link>
+                    {/*<p>{product.productMedia[0].url}</p>*/}
+                    <h5>$<span id='price'>{product.sellingPrice}</span></h5>
+                    <button className={`mb-4 ${localStyles["btnToCart"]}`} onClick={(e) => onCLick(e, _id)}>ADD TO CART</button>
                 </div>
             ))}
         </div>
