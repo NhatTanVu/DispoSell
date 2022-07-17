@@ -33,7 +33,7 @@ public class DispoSellApplication {
                                         DeliveryRepository deliveryRepository,
                                         ShipperDeliveryRepository shipperDeliveryRepository,
                                         PasswordEncoder passwordEncoder
-    ) {
+                                        ) {
         return args -> {
             if (roleRepository.count() == 0) {
                 roleRepository.save(new Role(ERole.ROLE_ADMINISTRATOR));
@@ -95,7 +95,7 @@ public class DispoSellApplication {
                 product = productRepository.findByName("White Side Table").get();
                 ProductMedia media1 = new ProductMedia(product, "/images/products/4.jpeg", "jpeg", null);
                 productMediaRepository.save(media1);
-//                ProductMedia media2 = new ProductMedia(product, "img2.png", "png", user);
+//                ProductMedia media2 = new ProductMedia(product, "/images/products/5.jpeg", "jpeg", user);
 //                productMediaRepository.save(media2);
 
                 product = new Product();
@@ -147,8 +147,8 @@ public class DispoSellApplication {
                 product = productRepository.findByName("Off White Folding Chair").get();
                 ProductMedia media1 = new ProductMedia(product, "/images/products/2.jpg", "jpg", null);
                 productMediaRepository.save(media1);
-//                ProductMedia media2 = new ProductMedia(product, "off_white_folding_chair_2.jpg", "jpg", user);
-//                productMediaRepository.save(media2);
+                ProductMedia media2 = new ProductMedia(product, "/images/products/5.jpeg", "jpeg", user);
+                productMediaRepository.save(media2);
 //                ProductMedia media21 = new ProductMedia(product, "off_white_folding_chair_3.jpg", "jpg", user);
 //                productMediaRepository.save(media21);
 
@@ -157,7 +157,7 @@ public class DispoSellApplication {
                 product.setCondition(condition);
                 product.setDescription("Description 4");
                 product.setAvailableQuantity(50);
-                product.setSellingPrice(150f);
+                product.setSellingPrice(99.9f);
                 ProductCategory productCategory2=productCategoryRepository.findById(5l).get();
                 product.setCategory(productCategory2);
                 productRepository.save(product);

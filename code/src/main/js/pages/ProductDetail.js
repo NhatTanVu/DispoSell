@@ -1,25 +1,26 @@
 import React, {useState, useEffect} from 'react';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import localStyles from '../../scss/pages/ProductDetail.module.scss';
 import {addCartItem, setUserInfo} from "../redux/cartSlice";
 import {useDispatch} from 'react-redux';
 import ProductService from "../services/product.service";
-import {onDOMContentLoaded} from "bootstrap/js/src/util";
 
 function ProductDetail() {
     let {id} = useParams();
     const dispatch = useDispatch();
-    const [products, setProducts] = useState([]);
-    const index = Number(id) - 1
+    const params=useParams();
+    const [productDetail, setProductDetail] = useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
-        ProductService.getProducts().then(
+        console.log(params.id);
+        ProductService.getProductDetail(params.id).then(
             response => {
-                setProducts(response.data);
-                //console.log(response.data);
+                console.log(response.data);
+                setProductDetail(response.data);
             },
             error => {
-                setProducts(
+                setProductDetail(
                     (error.response &&
                         error.response.data &&
                         error.response.data.message) ||
@@ -34,43 +35,24 @@ function ProductDetail() {
         );
     }, []);
 
-    let price;
-    let productName;
-    let productMediaURL;
-    let productMediaType;
-
-    const onCLick = (e) => {
-        let product = products.at(index);
-        price = product.sellingPrice;
-        productName = product.name;
-        productMediaURL = product.productMedia[0].url;
-        productMediaType = product.productMedia[0].fileType;
-
-        console.log(product);
-        console.log(price);
-        console.log(productName);
-        console.log(productMediaURL);
-        console.log(productMediaType);
-
+    const onClick = (e) => {
         dispatch(addCartItem(
             Number(id),
-            productName,
+            productDetail.name,
             [
                 {
-                    "url": productMediaURL,
-                    "fileType": productMediaType,
+                    "url": productDetail.productMedia[0].url,
+                    "fileType": productDetail.productMedia[0].fileType,
                 }
             ],
-            Number(price), Number(1)));
+            Number(productDetail.sellingPrice), Number(1)));
     }
 
     return (
         <div className={localStyles["product-detail-page"]} style={{minHeight: "100vh"}}>
             <div className={`align-self-center ${localStyles["float_left"]}`} style={{marginBottom: "10rem"}}>
-                <h6 className='text-uppercase fw-bold'> productName </h6>
-                <p>This is a description of White Side Table. Bla bla bla bla.
-                    This is a description of White Side Table. Bla bla bla bla
-                    This is a description of White Side Table. Bla bla bla bla</p>
+                <h6 className='text-uppercase fw-bold'> {productDetail.name} </h6>
+                <p>{productDetail.description}</p>
             </div>
 
             <div className={localStyles["middleSection"]}>
@@ -81,31 +63,31 @@ function ProductDetail() {
                     minWidth: "50%",
                     maxWidth: "100%",
                 }}>
-                    <img src={productMediaURL} alt="white_side_table" width={250}
-                         loading="lazy"
-                         style={{
-                             display: "block",
-                             marginLeft: "auto",
-                             marginRight: "auto",
-                             minWidth: "50%",
-                             maxWidth: "100%",
-                         }}/>
+                    {productDetail.productMedia?.map((media, index)=>(
+                        <img src={`${media.url}`} key={index} alt={productDetail.name} width={250}
+                             loading="lazy"
+                             style={{
+                                 display: "block",
+                                 marginLeft: "auto",
+                                 marginRight: "auto",
+                                 minWidth:"50%",
+                                 maxWidth: "100%",
+                             }}/>
+                    ))}
                 </div>
             </div>
 
-            <div className={`align-self-center ${localStyles["float_right"]}`} style={{marginBottom: "10rem"}}>
-                <h5> $sellingPrice</h5>
-                <button className={`mb-4 ${localStyles["btnToCart"]}`} onClick={onCLick}>ADD TO CART</button>
+            <div className={`align-self-center ${localStyles["float_right"]}`} style={{marginBottom:"10rem"}}>
+                <h5> ${productDetail.sellingPrice}</h5>
+                <button className={`mb-4 ${localStyles["btnToCart"]}`} onClick={onClick}>ADD TO CART</button>
             </div>
 
             <div className={` ${localStyles["showMobileOnly"]}`}
-                 style={{marginBottom: "5rem", padding: "1rem", position: "fixed"}}>
-                <h6 className='text-uppercase fw-bold'> White Side Table </h6>
-                <p>This is a description of White Side Table. Bla bla bla bla.
-                    This is a description of White Side Table. Bla bla bla bla
-                    This is a description of White Side Table. Bla bla bla bla</p>
-                <h5> $sellingPrice</h5>
-                <button className={`mb-4 ${localStyles["btnToCart"]}`}>ADD TO CART</button>
+                 style={{marginBottom: "5rem", padding: "1rem", position:"fixed"}}>
+                <h6 className='text-uppercase fw-bold'> {productDetail.name} </h6>
+                <p>{productDetail.description}</p>
+                <h5> ${productDetail.sellingPrice}</h5>
+                <button className={`mb-4 ${localStyles["btnToCart"]}`} onClick={onClick}>ADD TO CART</button>
             </div>
         </div>
     )

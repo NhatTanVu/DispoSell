@@ -49,7 +49,7 @@ function Header() {
                 <Container>
                     <Navbar expand='sm' className={localStyles["showDesktopOnly"]}>
                         <Navbar.Brand href="/" className={localStyles["showAlways"]}>
-                            <img height={40} className={localStyles["logoBlack"]} src="images/logos/DispoSellblack.png"
+                            <img height={40} className={localStyles["logoBlack"]} src="/images/logos/DispoSellblack.png"
                                  alt="DispoSell Logo"/>
                         </Navbar.Brand>
 
@@ -79,7 +79,7 @@ function Header() {
                                 &nbsp;
                                 <Nav.Link as={Link} to="/cart">Cart</Nav.Link>
                                 &nbsp;
-                                <Nav.Link as={Link} to="/cartt">
+                                <Nav.Link as={Link} to="/trade">
                                     <button className={`rounded-pill ${localStyles["btnTrade"]}`}>Trade
                                     </button>
                                 </Nav.Link>
@@ -97,16 +97,16 @@ function Header() {
                         <Navbar.Collapse id="basic-navbar-nav" className="justify-content-around">
                             <Nav className={`text-center ${localStyles["navContainer"]}`} style={{maxWidth:"-webkit-fit-content"}}>
                                 <Nav.Link as={Link} to="/browse">
-                                    <img className={`${localStyles["icon"]}`} src="images/icons/browse.png"
+                                    <img className={`${localStyles["icon"]}`} src="/images/icons/browse.png"
                                          alt="Browse"/>
                                     <span className="nav-link">Browse</span>
                                 </Nav.Link>
                                 <Nav.Link as={Link} to="/search">
-                                    <img className={localStyles["icon"]} src="images/icons/search.png" alt="Search"/>
+                                    <img className={localStyles["icon"]} src="/images/icons/search.png" alt="Search"/>
                                     <span className="nav-link">Search</span>
                                 </Nav.Link>
                                 <div className={localStyles['accountMobile']}>
-                                    <img className={localStyles["icon"]} src="images/icons/account.png" alt="Account" id={localStyles['accountImg']}/>
+                                    <img className={localStyles["icon"]} src="/images/icons/account.png" alt="Account" id={localStyles['accountImg']}/>
                                     <NavDropdown title="Account" key="up" drop="up" className={localStyles['dropdownMenu']} id={localStyles["dropdown-basic"]}>
                                         {isUser && <Nav.Link as={Link} to="/user">User</Nav.Link>}
                                         {isShipper && <Nav.Link as={Link} to="/delivery">Delivery</Nav.Link>}
@@ -150,11 +150,11 @@ function Header() {
                                 {/*</Nav.Link>*/}
 
                                 <Nav.Link as={Link} to="/cart">
-                                    <img className={`${localStyles["icon"]}`} src="images/icons/cart.png" alt="CartTest"/>
+                                    <img className={`${localStyles["icon"]}`} src="/images/icons/cart.png" alt="CartTest"/>
                                     <span className="nav-link">Cart</span>
                                 </Nav.Link>
                                 <Nav.Link as={Link} to="/trade">
-                                    <img className={`${localStyles["icon"]}`} src="images/icons/trade.png" alt="Trade"/>
+                                    <img className={`${localStyles["icon"]}`} src="/images/icons/trade.png" alt="Trade"/>
                                     <span className="nav-link">Trade</span>
                                 </Nav.Link>
                             </Nav>

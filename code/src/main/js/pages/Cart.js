@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import Payment from "../components/Payment";
-import {Button, Nav} from "react-bootstrap";
+import {Button } from "react-bootstrap";
 import OrderService from "../services/order.service";
 import AuthService from "../services/auth.service";
 import {Link, useNavigate} from "react-router-dom";
@@ -9,8 +9,6 @@ import EventBus from "../common/EventBus";
 import {useDispatch, useSelector} from "react-redux";
 import store from '../redux/store';
 import {setUserInfo, initialState, clearCart, addCartItem} from "../redux/cartSlice";
-import {getElement, getElementFromSelector} from "bootstrap/js/src/util";
-import {createSlice} from "@reduxjs/toolkit";
 
 export default function Cart() {
     let savedCart = localStorage.getItem("savedCart");
