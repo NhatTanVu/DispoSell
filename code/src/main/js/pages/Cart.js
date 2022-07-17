@@ -29,6 +29,7 @@ export default function Cart() {
     const [email, setEmail] = useState("");
     const [cartReady, setCartReady] = useState(false);
     const [paymentTransactionID, setPaymentTransactionID] = useState(undefined);
+    const [paymentAmount, setPaymentAmount] = useState(0);
     const [isCartNew, setCartNew] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -114,6 +115,7 @@ export default function Cart() {
     }, []);
 
     function onPaymentCompleted(paymentAmount, transactionID) {
+        setPaymentAmount(paymentAmount);
         setPaymentTransactionID(transactionID);
         setCanPay(false);
         setCanCheckout(true);
@@ -130,7 +132,8 @@ export default function Cart() {
             phoneNumber,
             deliveryAddress,
             email,
-            paymentTransactionID));
+            paymentTransactionID,
+            paymentAmount));
         const localCart = store.getState().cart;
         OrderService.createPurchaseOrder(localCart).then(
             (value) => {
@@ -436,7 +439,7 @@ export default function Cart() {
                                     />
                                 </div>
 
-                                <Payment show={true} canPay={canPay} onPaymentCompleted={onPaymentCompleted}
+                                <Payment show={true} canPay={canPay} paymentAmountProps={paymentAmount} onPaymentCompleted={onPaymentCompleted}
                                          onPaymentError={onPaymentError}/>
 
                                 <Button

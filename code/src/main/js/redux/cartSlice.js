@@ -16,8 +16,9 @@ const cartSlice = createSlice({
                 state.address = action.payload.address;
                 state.email = action.payload.email;
                 state.paymentTransactionID = action.payload.paymentTransactionID;
+                state.paymentAmount = action.payload.paymentAmount;
             },
-            prepare(firstName, lastName, contactNumber, address, email, paymentTransactionID) {
+            prepare(firstName, lastName, contactNumber, address, email, paymentTransactionID, paymentAmount) {
                 return {
                     payload: {
                         firstName,
@@ -25,7 +26,8 @@ const cartSlice = createSlice({
                         contactNumber,
                         address,
                         email,
-                        paymentTransactionID
+                        paymentTransactionID,
+                        paymentAmount
                     }
                 }
             }

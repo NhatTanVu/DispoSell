@@ -7,7 +7,7 @@ import PaymentService from "../services/payment.service";
 import localStyles from "../../scss/pages/cart.module.scss";
 
 export default function Payment(props) {
-    const {show, canPay, onPaymentCompleted, onPaymentError, canCheckout} = props;
+    const {show, canPay, onPaymentCompleted, onPaymentError, paymentAmountProps} = props;
     const [enablePayment, setEnablePayment] = useState(true);
     const [paymentAmount, setPaymentAmount] = useState(0);
     const [braintreeInstance, setBraintreeInstance] = useState(undefined);
@@ -15,6 +15,8 @@ export default function Payment(props) {
     useEffect(() => {
         if (show) {
             setEnablePayment(canPay);
+            if (paymentAmountProps)
+                setPaymentAmount(paymentAmountProps);
             PaymentService.getClientToken().then((token) => {
                 const initializeBraintree = () => dropin.create({
                     // insert your tokenization key or client token here
@@ -92,7 +94,7 @@ export default function Payment(props) {
                 />
             </div>
 
-            <div id={"braintree-drop-in-div"} className="mb-2" />
+            <div id={"braintree-drop-in-div"} className="mb-2"/>
 
             <Button
                 className="braintreePayButton" id={localStyles['btn']}
