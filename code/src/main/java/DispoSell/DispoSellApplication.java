@@ -329,7 +329,7 @@ public class DispoSellApplication {
                 product.setCondition(condition);
                 product.setDescription("Description 4");
                 product.setAvailableQuantity(50);
-                product.setSellingPrice(150f);
+                product.setSellingPrice(99.9f);
                 ProductCategory productCategory2=productCategoryRepository.findById(5l).get();
                 product.setCategory(productCategory2);
                 productRepository.save(product);

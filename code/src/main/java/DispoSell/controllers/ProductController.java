@@ -2,6 +2,11 @@ package DispoSell.controllers;
 
 import DispoSell.models.*;
 import DispoSell.repositories.*;
+import DispoSell.services.ProductService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,12 +19,17 @@ public class ProductController {
     private final ProductConditionRepository productConditionRepository;
     private final ProductRepository productRepository;
 
+    private final ProductService productService;
+
+
     public ProductController(ProductCategoryRepository productCategoryRepository,
                              ProductConditionRepository productConditionRepository,
-                             ProductRepository productRepository) {
+                             ProductRepository productRepository,
+                             ProductService productService) {
         this.productCategoryRepository = productCategoryRepository;
         this.productConditionRepository = productConditionRepository;
         this.productRepository = productRepository;
+        this.productService = productService;
     }
 
     @GetMapping("/api/categories")
@@ -49,6 +59,17 @@ public class ProductController {
         } else {
             return id;
         }
+    }
+
+    @GetMapping("/api/products/search/sorting")
+    public ResponseEntity browseProductsWithSorting(Pageable pageable) {
+        return ResponseEntity.ok(productService.browseProductsWithSorting(pageable));
+    }
+
+    @GetMapping("api/products/search/filter")
+    public ResponseEntity browseProductsWithFilter(@RequestParam(name="category") ProductCategory category,
+                                                   Pageable pageable) {
+        return ResponseEntity.ok(productService.filterProducts(category, pageable));
     }
 
 }
