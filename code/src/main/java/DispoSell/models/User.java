@@ -1,5 +1,6 @@
 package DispoSell.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.HashSet;
@@ -46,6 +47,7 @@ public class User {
 
     @NotBlank
     @Size(max = 120)
+    @JsonIgnore
     private String password;
 
     private Float TotalCredit;
@@ -66,9 +68,11 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password,
+    public User(String username, String firstName, String lastName, String email, String password,
                 String deliveryAddress, String phoneNumber) {
         this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.contactAddress = deliveryAddress;

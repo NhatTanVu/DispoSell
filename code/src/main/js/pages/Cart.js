@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import Payment from "../components/Payment";
-import {Button } from "react-bootstrap";
+import {Button} from "react-bootstrap";
 import OrderService from "../services/order.service";
 import AuthService from "../services/auth.service";
 import {Link, useNavigate} from "react-router-dom";
@@ -66,7 +66,7 @@ export default function Cart() {
     }
 
     useEffect(() => {
-        const currentUser = AuthService.getCurrentUser();
+        const localUser = AuthService.getCurrentUser();
 
         console.log(JSON.stringify(cart));
 
@@ -103,9 +103,15 @@ export default function Cart() {
             signOut();
         });
 
-        if (currentUser && currentUser.id) {
+        if (localUser && localUser.id) {
             setUserReady(true);
             setReadyCheckout(true);
+            setCurrentUser(localUser);
+            setFirstName(localUser.firstName);
+            setLastName(localUser.lastName);
+            setEmail(localUser.email);
+            setDeliveryAddress(localUser.deliveryAddress);
+            setPhoneNumber(localUser.phoneNumber);
         }
 
         return () => {
@@ -133,12 +139,16 @@ export default function Cart() {
             deliveryAddress,
             email,
             paymentTransactionID,
-            paymentAmount));
+            paymentAmount,
+            currentUser.id ? {
+                "id": currentUser.id
+            } : null));
         const localCart = store.getState().cart;
         OrderService.createPurchaseOrder(localCart).then(
             (value) => {
                 alert(JSON.stringify(localCart));
                 dispatch(clearCart());
+                localStorage.removeItem("savedCart");
                 navigate("/");
             },
             (reason) => {
@@ -388,7 +398,7 @@ export default function Cart() {
                                         type="text"
                                         className="form-control"
                                         id="firstName"
-                                        defaultValue={currentUser.firstName}
+                                        value={firstName}
                                         onChange={onChangeFirstName}
                                     />
                                 </div>
@@ -399,7 +409,7 @@ export default function Cart() {
                                         type="text"
                                         className="form-control"
                                         id="lastName"
-                                        defaultValue={currentUser.lastName}
+                                        value={lastName}
                                         onChange={onChangeLastName}
                                     />
                                 </div>
@@ -410,7 +420,7 @@ export default function Cart() {
                                         type="text"
                                         className="form-control"
                                         id="email"
-                                        defaultValue={currentUser.email}
+                                        value={email}
                                         onChange={onChangeEmail}
                                     />
                                 </div>
@@ -422,7 +432,7 @@ export default function Cart() {
                                         type="text"
                                         className="form-control"
                                         id="address"
-                                        defaultValue={currentUser.deliveryAddress}
+                                        value={deliveryAddress}
                                         onChange={onChangeDeliveryAddress}
                                     />
                                 </div>
@@ -434,12 +444,13 @@ export default function Cart() {
                                         type="text"
                                         className="form-control"
                                         id="phoneNumber"
-                                        defaultValue={currentUser.phoneNumber}
+                                        value={phoneNumber}
                                         onChange={onChangePhoneNumber}
                                     />
                                 </div>
 
-                                <Payment show={true} canPay={canPay} paymentAmountProps={paymentAmount} onPaymentCompleted={onPaymentCompleted}
+                                <Payment show={true} canPay={canPay} paymentAmountProps={paymentAmount}
+                                         onPaymentCompleted={onPaymentCompleted}
                                          onPaymentError={onPaymentError}/>
 
                                 <Button

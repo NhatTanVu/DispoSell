@@ -1,5 +1,6 @@
 package DispoSell.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -60,20 +61,23 @@ public class Product {
 
     private Float actualCost;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "approverID", referencedColumnName = "id")
+    @JsonBackReference(value="approver")
     private User approver;
 
     private ZonedDateTime approvedDate;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "verifierID", referencedColumnName = "id")
+    @JsonBackReference(value="verifier")
     private User verifier;
 
     private ZonedDateTime verifiedDate;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "publisherID", referencedColumnName = "id")
+    @JsonBackReference(value="publisher")
     private User publisher;
 
     private ZonedDateTime publishedDate;
