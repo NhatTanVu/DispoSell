@@ -70,8 +70,6 @@ export default function Cart() {
     useEffect(() => {
         const localUser = AuthService.getCurrentUser();
 
-        console.log(JSON.stringify(cart));
-
         if (savedCart === JSON.stringify(initialState) || savedCart === null) {
             if (cart !== initialState) {
                 setCartReady(true);
@@ -86,6 +84,7 @@ export default function Cart() {
             }
         } else {
             setCartReady(true);
+            cart = savedCartObj;
 
             if ("savedCart" in localStorage && cart === initialState) {
                 console.log(cart);
@@ -217,7 +216,7 @@ export default function Cart() {
     }
 
     const addQuantity = (e, index, item) => {
-        e.persist();
+        console.log(cart);
 
         dispatch(addCartItem(item.product.productID, item.product.productName, item.product.productMedia, item.price, 1));
 
@@ -231,19 +230,15 @@ export default function Cart() {
         price = '$' + `<span>${item.price * qty}</span>`;
         document.getElementById(`price${index}`).innerHTML = price;
 
-       console.log(cart);
+        console.log(cart);
     }
 
-    const removeItem = (e, index) => {
-        // dispatch(removeCartItem(
-        //     id, quantity
-        // ));
+    const removeItem = (e, index, item) => {
+        dispatch(removeCartItem(item.product.productID, item.quantity));
 
-        e.persist();
         document.getElementById(`show${index}`).style = "display:none";
 
-
-        console.log(index);
+        console.log(cart);
     }
 
     return (
@@ -291,9 +286,7 @@ export default function Cart() {
                                                         border: "black",
                                                         backgroundColor: "transparent",
                                                         color: "black"
-                                                    }} onClick={(e) => decreaseQuantity(e, index, item.product.productID, item.product.productName,
-                                                        item.product.productMedia[0].url, item.product.productMedia[0].fileType,
-                                                        item.price)}>-</Button>
+                                                    }} onClick={(e) => decreaseQuantity(e, index, item)}>-</Button>
                                                     <input
                                                         id={`qty${index}`}
                                                         className='text-center'
@@ -310,12 +303,10 @@ export default function Cart() {
                                                         backgroundColor: "transparent",
                                                         color: "black"
                                                     }}
-                                                            onClick={(e) => addQuantity(e, index, item.product.productID, item.product.productName,
-                                                                item.product.productMedia[0].url, item.product.productMedia[0].fileType,
-                                                                item.price)}>+</Button>
+                                                            onClick={(e) => addQuantity(e, index, item)}>+</Button>
                                                 </div>
                                                 <div style={{width: "10vw"}} className='text-center'>
-                                                    <a>Remove</a>
+                                                    <a onClick={(e) => removeItem(e, index, item)}>Remove</a>
                                                 </div>
                                             </div>
                                             <h6 className='text-uppercase' style={{
@@ -326,7 +317,8 @@ export default function Cart() {
                                                 style={{
                                                     width: "10vw",
                                                     paddingLeft: "1rem"
-                                                }} id={`price${index}`}> ${Number(item.price) * Number(item.quantity)} </h6>
+                                                }}
+                                                id={`price${index}`}> ${Number(item.price) * Number(item.quantity)} </h6>
                                         </div>
                                         <hr/>
                                     </>
@@ -375,7 +367,7 @@ export default function Cart() {
                                                                 onClick={(e) => addQuantity(e, index, savedItem)}>+</Button>
                                                     </div>
                                                     <div style={{width: "10vw"}} className='text-center'>
-                                                        <a onClick={(e) => removeItem(e, index)}>Remove</a>
+                                                        <a onClick={(e) => removeItem(e, index, savedItem)}>Remove</a>
                                                     </div>
                                                 </div>
 
@@ -387,7 +379,8 @@ export default function Cart() {
                                                     style={{
                                                         width: "10vw",
                                                         paddingLeft: "1rem"
-                                                    }} id={`price${index}`}> ${Number(savedItem.price) * Number(savedItem.quantity)}</h6>
+                                                    }}
+                                                    id={`price${index}`}> ${Number(savedItem.price) * Number(savedItem.quantity)}</h6>
                                             </div>
                                             <hr/>
                                         </>
