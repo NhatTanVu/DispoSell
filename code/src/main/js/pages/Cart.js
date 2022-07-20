@@ -70,7 +70,7 @@ export default function Cart() {
     useEffect(() => {
         const localUser = AuthService.getCurrentUser();
 
-        if (savedCart === JSON.stringify(initialState) || savedCart === null) {
+        if (savedCart === null) {
             if (cart !== initialState) {
                 setCartReady(true);
                 setCartNew(true);
