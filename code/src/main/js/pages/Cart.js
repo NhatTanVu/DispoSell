@@ -84,7 +84,7 @@ export default function Cart() {
             }
         } else {
             setCartReady(true);
-            cart = savedCartObj;
+            //cart = savedCartObj;
 
             if ("savedCart" in localStorage && cart === initialState) {
                 console.log(cart);
