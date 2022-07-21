@@ -68,6 +68,7 @@ function Browse() {
         }
 
     }
+
     return (
         <div className={localStyles["browse-page"]}>
             <div className={localStyles["showMobileOnly"]}

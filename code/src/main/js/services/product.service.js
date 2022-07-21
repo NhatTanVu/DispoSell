@@ -19,6 +19,7 @@ class ProductService {
     getFilterAndSort(categoryId,condition){
         return axios.get('/api/products/search/filter', {params:{category:categoryId, sort:condition}});
     }
+
 }
 
 export default new ProductService();

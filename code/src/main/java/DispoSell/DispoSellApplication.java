@@ -111,8 +111,6 @@ public class DispoSellApplication {
                 product = productRepository.findByName("Thin White Bed Frame").get();
                 ProductMedia media3 = new ProductMedia(product, "/images/products/3.jpeg", "jpeg", null);
                 productMediaRepository.save(media3);
-//                ProductMedia media4 = new ProductMedia(product, "img21.png", "png", user);
-//                productMediaRepository.save(media4);
             }
 
             // TODO: Remove later, for testing only

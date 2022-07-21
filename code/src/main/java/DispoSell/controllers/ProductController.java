@@ -71,5 +71,4 @@ public class ProductController {
                                                    Pageable pageable) {
         return ResponseEntity.ok(productService.filterProducts(category, pageable));
     }
-
 }

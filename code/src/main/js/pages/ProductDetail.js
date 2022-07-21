@@ -48,6 +48,7 @@ function ProductDetail() {
             Number(productDetail.sellingPrice), Number(1)));
     }
 
+
     return (
         <div className={localStyles["product-detail-page"]} style={{minHeight: "100vh"}}>
             <div className={`align-self-center ${localStyles["float_left"]}`} style={{marginBottom: "10rem"}}>
