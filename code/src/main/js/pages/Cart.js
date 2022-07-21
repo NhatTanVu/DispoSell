@@ -30,6 +30,7 @@ export default function Cart() {
     const [cartReady, setCartReady] = useState(false);
     const [paymentTransactionID, setPaymentTransactionID] = useState(undefined);
     const [paymentAmount, setPaymentAmount] = useState(0);
+    const [isInputReady, setIsInputReady] = useState(false);
     let [totalPrice, setTotalPrice] = useState(0);
     let cart = useSelector((state) => state.cart);
 
@@ -176,6 +177,12 @@ export default function Cart() {
         return totalPrice.toFixed(2);
     }
 
+    function onInputCheck(){
+        if((firstName || lastName || deliveryAddress || email || phoneNumber) !== ''){
+            setIsInputReady(true);
+        }
+    }
+
     const decreaseQuantity = (e, item) => {
         dispatch(removeCartItem(item.product.productID, 1));
 
@@ -266,7 +273,6 @@ export default function Cart() {
                                 style={{width: "10vw", paddingLeft: "1rem"}}> PRICE </h6>
                         </div>
                         <hr/>
-
 
                         {store.getState().cart.orderDetails.map((item, index) => (
                             <>
@@ -420,22 +426,34 @@ export default function Cart() {
                                     />
                                 </div>
 
-                                    <Payment show={true} canPay={canPay} paymentAmountProps={totalPrice.toFixed(2)}
-                                             onPaymentCompleted={onPaymentCompleted}
-                                             onPaymentError={onPaymentError}/>
+                                <Button
+                                    type="primary"
+                                    //className="ms-2"
+                                    id={localStyles['btn']}
+                                    onClick={onInputCheck}
+                                    style={{marginLeft: "0"}}
+                                >
+                                    Submit Shipping Information
+                                </Button>
 
-                                    <Button
-                                        type="primary"
-                                        //className="ms-2"
-                                        id={localStyles['btn']}
-                                        disabled={!canCheckout}
-                                        onClick={onCheckoutClick}
-                                        style={{marginLeft:"0"}}
-                                    >
-                                        Checkout
-                                    </Button>
+                                {(isInputReady) ?
+                                    <>
+                                        <Payment show={true} canPay={canPay} paymentAmountProps={totalPrice.toFixed(2)}
+                                                 onPaymentCompleted={onPaymentCompleted}
+                                                 onPaymentError={onPaymentError}/>
 
-
+                                        <Button
+                                            type="primary"
+                                            //className="ms-2"
+                                            id={localStyles['btn']}
+                                            disabled={!canCheckout}
+                                            onClick={onCheckoutClick}
+                                            style={{marginLeft: "0"}}
+                                        >
+                                            Checkout
+                                        </Button>
+                                    </>
+                                    : <></>}
 
                             </div> : (<>
                                 <h5 className={`text-start`}>You are not logged in</h5>
@@ -511,7 +529,6 @@ export default function Cart() {
                                 Browse
                             </Button>
                         </div>
-
 
                     </div>
                 )}
