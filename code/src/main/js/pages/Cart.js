@@ -11,6 +11,8 @@ import store from '../redux/store';
 import {setUserInfo, initialState, clearCart, removeCartItem, addCartItem} from "../redux/cartSlice";
 
 export default function Cart() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [canPay, setCanPay] = useState(true);
     const [canCheckout, setCanCheckout] = useState(false);
     const [readyCheckout, setReadyCheckout] = useState(false);
@@ -28,49 +30,21 @@ export default function Cart() {
     const [cartReady, setCartReady] = useState(false);
     const [paymentTransactionID, setPaymentTransactionID] = useState(undefined);
     const [paymentAmount, setPaymentAmount] = useState(0);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+    let [totalPrice, setTotalPrice] = useState(0);
     let cart = useSelector((state) => state.cart);
-
-    function onChangeFirstName(e) {
-        setFirstName(e.target.value);
-    }
-
-    function onChangeLastName(e) {
-        setLastName(e.target.value);
-    }
-
-    function onChangeEmail(e) {
-        setEmail(e.target.value);
-    }
-
-    function onChangeDeliveryAddress(e) {
-        setDeliveryAddress(e.target.value);
-    }
-
-    function onChangePhoneNumber(e) {
-        setPhoneNumber(e.target.value);
-    }
-
-    const signOut = () => {
-        AuthService.logout();
-        setIsUser(false);
-        setIsShipper(false);
-        setIsAdmin(false);
-        setCurrentUser(null);
-        navigate("/");
-        window.location.reload();
-    }
 
     useEffect(() => {
         const localUser = AuthService.getCurrentUser();
 
-        if (cart === initialState) {
+        console.log(store.getState().cart.orderDetails);
+
+        if (cart === initialState || store.getState().cart.orderDetails.length === 0) {
             setCartReady(false);
-            console.log("cart is empty" + JSON.stringify(cart));
+            console.log("cart is empty " + cart);
         } else {
             setCartReady(true);
-            console.log(cart);
+            let currentCart = store.getState().cart;
+            calculateTotal(currentCart);
         }
 
         EventBus.on("logout", () => {
@@ -93,6 +67,26 @@ export default function Cart() {
             EventBus.remove("logout");
         }
     }, []);
+
+    function onChangeFirstName(e) {
+        setFirstName(e.target.value);
+    }
+
+    function onChangeLastName(e) {
+        setLastName(e.target.value);
+    }
+
+    function onChangeEmail(e) {
+        setEmail(e.target.value);
+    }
+
+    function onChangeDeliveryAddress(e) {
+        setDeliveryAddress(e.target.value);
+    }
+
+    function onChangePhoneNumber(e) {
+        setPhoneNumber(e.target.value);
+    }
 
     function onPaymentCompleted(paymentAmount, transactionID) {
         setPaymentAmount(paymentAmount);
@@ -174,44 +168,79 @@ export default function Cart() {
         );
     }
 
-    const decreaseQuantity = (e, index, item) => {
-        dispatch(removeCartItem(item.product.productID, 1));
-
-        let qty = parseInt(document.getElementById(`qty${index}`).value, 10);
-        qty = isNaN(qty) ? 0 : ((qty < 2) ? 2 : qty);
-        qty--;
-        document.getElementById(`qty${index}`).value = qty;
-
-        let price = '$' + `<span>${item.price}</span>`;
-        document.getElementById(`price${index}`).innerHTML = price;
-        price = '$' + `<span>${item.price * qty}</span>`;
-        document.getElementById(`price${index}`).innerHTML = price;
+    function calculateTotal(currentCart) {
+        let total = 0;
+        for (let i in currentCart.orderDetails) {
+            setTotalPrice(total += currentCart.orderDetails[i].price * currentCart.orderDetails[i].quantity);
+        }
+        return totalPrice.toFixed(2);
     }
 
-    const addQuantity = (e, index, item) => {
-        console.log(cart);
+    const decreaseQuantity = (e, item) => {
+        dispatch(removeCartItem(item.product.productID, 1));
 
+        let qty = parseInt(document.getElementById(`qty${item.product.productID}`).value, 10);
+        qty = isNaN(qty) ? 0 : ((qty < 1) ? 1 : qty);
+        qty--;
+        document.getElementById(`qty${item.product.productID}`).value = qty;
+
+        let price = '$' + `<span>${(item.price).toFixed(2)}</span>`;
+        document.getElementById(`price${item.product.productID}`).innerHTML = price;
+        price = '$' + `<span>${(item.price).toFixed(2) * qty}</span>`;
+        document.getElementById(`price${item.product.productID}`).innerHTML = price;
+
+        console.log(cart);
+        console.log(store.getState().cart);
+
+        let currentCart = store.getState().cart;
+        calculateTotal(currentCart);
+
+        if (store.getState().cart.orderDetails.length === 0) {
+            setCartReady(false);
+        }
+    }
+
+    const addQuantity = (e, item) => {
         dispatch(addCartItem(item.product.productID, item.product.productName, item.product.productMedia, item.price, 1));
 
         let price = '$' + `<span>${item.price}</span>`;
-        document.getElementById(`price${index}`).innerHTML = price;
+        document.getElementById(`price${item.product.productID}`).innerHTML = price;
 
-        let qty = parseInt(document.getElementById(`qty${index}`).value, 10);
+        let qty = parseInt(document.getElementById(`qty${item.product.productID}`).value, 10);
         qty = isNaN(qty) ? 0 : ((qty > 9) ? 9 : qty);
         qty++;
-        document.getElementById(`qty${index}`).value = qty;
+        document.getElementById(`qty${item.product.productID}`).value = qty;
         price = '$' + `<span>${item.price * qty}</span>`;
-        document.getElementById(`price${index}`).innerHTML = price;
+        document.getElementById(`price${item.product.productID}`).innerHTML = price;
 
         console.log(cart);
+        console.log(store.getState().cart);
+
+        let currentCart = store.getState().cart;
+        calculateTotal(currentCart);
     }
 
-    const removeItem = (e, index, item) => {
+    const removeItem = (e, item) => {
         dispatch(removeCartItem(item.product.productID, item.quantity));
-
-        document.getElementById(`show${index}`).style = "display:none";
-
         console.log(cart);
+        console.log(store.getState().cart);
+
+        let currentCart = store.getState().cart;
+        calculateTotal(currentCart);
+
+        if (store.getState().cart.orderDetails.length === 0) {
+            setCartReady(false);
+        }
+    }
+
+    const signOut = () => {
+        AuthService.logout();
+        setIsUser(false);
+        setIsShipper(false);
+        setIsAdmin(false);
+        setCurrentUser(null);
+        navigate("/");
+        window.location.reload();
     }
 
     return (
@@ -258,9 +287,9 @@ export default function Cart() {
                                                 border: "black",
                                                 backgroundColor: "transparent",
                                                 color: "black"
-                                            }} onClick={(e) => decreaseQuantity(e, index, item)}>-</Button>
+                                            }} onClick={(e) => decreaseQuantity(e, item)}>-</Button>
                                             <input
-                                                id={`qty${index}`}
+                                                id={`qty${item.product.productID}`}
                                                 className='text-center'
                                                 type="text"
                                                 min={item.quantity}
@@ -275,10 +304,10 @@ export default function Cart() {
                                                 backgroundColor: "transparent",
                                                 color: "black"
                                             }}
-                                                    onClick={(e) => addQuantity(e, index, item)}>+</Button>
+                                                    onClick={(e) => addQuantity(e, item)}>+</Button>
                                         </div>
                                         <div style={{width: "10vw"}} className='text-center'>
-                                            <a onClick={(e) => removeItem(e, index, item)}>Remove</a>
+                                            <a onClick={(e) => removeItem(e, item)}>Remove</a>
                                         </div>
                                     </div>
                                     <h6 className='text-uppercase' style={{
@@ -290,7 +319,7 @@ export default function Cart() {
                                             width: "10vw",
                                             paddingLeft: "1rem"
                                         }}
-                                        id={`price${index}`}> ${Number(item.price) * Number(item.quantity)} </h6>
+                                        id={`price${item.product.productID}`}> ${(Number(item.price) * Number(item.quantity)).toFixed(2)} </h6>
                                 </div>
                                 <hr/>
                             </>
@@ -301,7 +330,8 @@ export default function Cart() {
                             <h6 className='text-uppercase fw-bold'
                                 style={{width: "40vw", paddingLeft: "1rem"}}> TOTAL </h6>
                             <h6 className='text-uppercase fw-bold'
-                                style={{width: "10vw", paddingLeft: "1rem"}}>$30</h6>
+                                style={{width: "10vw", paddingLeft: "1rem"}}
+                                id='totalPrice'> ${totalPrice.toFixed(2)} </h6>
                         </div>
                     </div>
 
@@ -390,19 +420,22 @@ export default function Cart() {
                                     />
                                 </div>
 
-                                <Payment show={true} canPay={canPay} paymentAmountProps={paymentAmount}
-                                         onPaymentCompleted={onPaymentCompleted}
-                                         onPaymentError={onPaymentError}/>
+                                    <Payment show={true} canPay={canPay} paymentAmountProps={totalPrice.toFixed(2)}
+                                             onPaymentCompleted={onPaymentCompleted}
+                                             onPaymentError={onPaymentError}/>
 
-                                <Button
-                                    type="primary"
-                                    className="ms-2"
-                                    id={localStyles['btn']}
-                                    disabled={!canCheckout}
-                                    onClick={onCheckoutClick}
-                                >
-                                    Checkout
-                                </Button>
+                                    <Button
+                                        type="primary"
+                                        //className="ms-2"
+                                        id={localStyles['btn']}
+                                        disabled={!canCheckout}
+                                        onClick={onCheckoutClick}
+                                        style={{marginLeft:"0"}}
+                                    >
+                                        Checkout
+                                    </Button>
+
+
 
                             </div> : (<>
                                 <h5 className={`text-start`}>You are not logged in</h5>

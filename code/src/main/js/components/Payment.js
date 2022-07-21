@@ -42,9 +42,9 @@ export default function Payment(props) {
         }
     }, []);
 
-    function onChangePaymentAmount(e) {
-        setPaymentAmount(parseInt(e.target.value) ?? 0);
-    }
+    // function onChangePaymentAmount(e) {
+    //     setPaymentAmount(parseInt(e.target.value) ?? 0);
+    // }
 
     function onPaymentClick(e) {
         if (braintreeInstance && paymentAmount > 0) {
@@ -90,7 +90,8 @@ export default function Payment(props) {
                     className="form-control"
                     name="paymentAmount"
                     value={paymentAmount}
-                    onChange={onChangePaymentAmount}
+                    //onChange={onChangePaymentAmount}
+                    readOnly
                 />
             </div>
 
