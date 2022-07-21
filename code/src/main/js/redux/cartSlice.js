@@ -1,19 +1,8 @@
 import {createSlice, nanoid} from '@reduxjs/toolkit'
 
-let savedCart = localStorage.getItem("savedCart");
-let savedCartObj = JSON.parse(savedCart);
-
-export let initialState = {
+export const initialState = {
     "orderDetails": []
 };
-
-if(savedCartObj === null){
-    initialState = {
-        "orderDetails": []
-    };
-} else {
-    initialState = savedCartObj;
-}
 
 const cartSlice = createSlice({
     name: 'cart',

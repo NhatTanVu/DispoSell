@@ -11,8 +11,8 @@ import store from '../redux/store';
 import {setUserInfo, initialState, clearCart, removeCartItem, addCartItem} from "../redux/cartSlice";
 
 export default function Cart() {
-    let savedCart = localStorage.getItem("savedCart");
-    let savedCartObj = JSON.parse(savedCart);
+    // let savedCart = localStorage.getItem("savedCart");
+    // let savedCartObj = JSON.parse(savedCart);
     const [canPay, setCanPay] = useState(true);
     const [canCheckout, setCanCheckout] = useState(false);
     const [readyCheckout, setReadyCheckout] = useState(false);
@@ -30,12 +30,10 @@ export default function Cart() {
     const [cartReady, setCartReady] = useState(false);
     const [paymentTransactionID, setPaymentTransactionID] = useState(undefined);
     const [paymentAmount, setPaymentAmount] = useState(0);
-    const [isCartNew, setCartNew] = useState(false);
+    const [isCartNew, setCartNew] = useState(true);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     let cart = useSelector((state) => state.cart);
-
-    let qty, price;
 
     function onChangeFirstName(e) {
         setFirstName(e.target.value);
@@ -70,34 +68,35 @@ export default function Cart() {
     useEffect(() => {
         const localUser = AuthService.getCurrentUser();
 
-        if (savedCart === null) {
-            if (cart !== initialState) {
-                setCartReady(true);
-                setCartNew(true);
-                localStorage.setItem("savedCart", JSON.stringify(cart));
-                savedCart = localStorage.getItem("savedCart");
-                savedCartObj = JSON.parse(savedCart);
-                console.log(savedCartObj);
-            } else {
-                setCartReady(false);
-                console.log("cart is empty" + JSON.stringify(cart));
-            }
+        if (cart === initialState) {
+            setCartReady(false);
+            console.log("cart is empty" + JSON.stringify(cart));
+            // if (cart !== initialState) {
+            //     setCartReady(true);
+            //     setCartNew(true);
+            //     localStorage.setItem("savedCart", JSON.stringify(cart));
+            //     savedCart = localStorage.getItem("savedCart");
+            //     savedCartObj = JSON.parse(savedCart);
+            //     console.log(savedCartObj);
+            // } else {
+            //     setCartReady(false);
+            //     console.log("cart is empty" + JSON.stringify(cart));
+            // }
         } else {
             setCartReady(true);
-            //cart = savedCartObj;
-
-            if ("savedCart" in localStorage && cart === initialState) {
-                console.log(cart);
-                console.log(savedCartObj);
-                console.log("only page refresh");
-            }
-            if ("savedCart" in localStorage && cart !== initialState) {
-                console.log(cart);
-                localStorage.setItem("savedCart", JSON.stringify(cart));
-                savedCart = localStorage.getItem("savedCart");
-                savedCartObj = JSON.parse(savedCart);
-                console.log(savedCartObj);
-            }
+            console.log(cart);
+            // if ("savedCart" in localStorage && cart === initialState) {
+            //     console.log(cart);
+            //     console.log(savedCartObj);
+            //     console.log("only page refresh");
+            // }
+            // if ("savedCart" in localStorage && cart !== initialState) {
+            //     console.log(cart);
+            //     localStorage.setItem("savedCart", JSON.stringify(cart));
+            //     savedCart = localStorage.getItem("savedCart");
+            //     savedCartObj = JSON.parse(savedCart);
+            //     console.log(savedCartObj);
+            // }
         }
 
         EventBus.on("logout", () => {
