@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
     BrowserRouter as Router,
     Routes,
@@ -19,8 +19,10 @@ import Profile from "./pages/Profile";
 import Register from "./pages/Register";
 import Cart from "./pages/Cart";
 import ProductDetail from "./pages/ProductDetail";
+import { useNavigate } from "react-router-dom";
 
 export default function App() {
+    // onClick={() => window.location.reload(false)}
     return (
         <Router>
             <div className="App">
@@ -30,7 +32,6 @@ export default function App() {
                         <Routes>
                             <Route path="/" element={<Home/>}/>
                             <Route path="/aboutUs" element={<AboutUs/>}/>
-
                             <Route path="/user" element={<UserContent/>}/>
                             <Route path="/delivery" element={<DeliveryContent/>}/>
                             <Route path="/admin" element={<AdminContent/>}/>
@@ -39,7 +40,7 @@ export default function App() {
                             <Route path="/register" element={<Register/>}/>
                             <Route path="/cart" element={<Cart />} />
                             <Route path="/productDetail/:id" element={<ProductDetail/>}/>
-                            <Route path="/browse" element={<Browse/>}/>
+                            <Route path="/browse" element={<Browse/>} />
                         </Routes>
                     {/*</Container>*/}
                 </main>

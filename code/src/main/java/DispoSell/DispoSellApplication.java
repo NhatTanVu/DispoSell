@@ -9,6 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -90,10 +93,12 @@ public class DispoSellApplication {
                 product.setSellingPrice(30f);
                 ProductCategory productCategory1=productCategoryRepository.findById(4l).get();
                 product.setCategory(productCategory1);
+//                product.setPublishedDate(ZonedDateTime.of(LocalDateTime.parse("2019-03-27 10:15:30 am"), ZoneId.systemDefault()));
+                product.setPublishedDate(ZonedDateTime.of(2013,10,21,12,15,22,00,ZoneId.systemDefault()));
                 productRepository.save(product);
 
                 product = productRepository.findByName("White Side Table").get();
-                ProductMedia media1 = new ProductMedia(product, "/images/products/4.jpeg", "jpeg", null);
+                ProductMedia media1 = new ProductMedia(product, "/images/products/4.jpeg", "jpeg", null, null, true);
                 productMediaRepository.save(media1);
 //                ProductMedia media2 = new ProductMedia(product, "/images/products/5.jpeg", "jpeg", user);
 //                productMediaRepository.save(media2);
@@ -106,13 +111,13 @@ public class DispoSellApplication {
                 product.setSellingPrice(100.99f);
                 ProductCategory productCategory2=productCategoryRepository.findById(1l).get();
                 product.setCategory(productCategory2);
+//                product.setPublishedDate(ZonedDateTime.of(LocalDateTime.parse("2018-03-27 10:15:30 am"), ZoneId.systemDefault()));
+                product.setPublishedDate(ZonedDateTime.of(2014,10,21,12,15,22,00,ZoneId.systemDefault()));
                 productRepository.save(product);
 
                 product = productRepository.findByName("Thin White Bed Frame").get();
-                ProductMedia media3 = new ProductMedia(product, "/images/products/3.jpeg", "jpeg", null);
+                ProductMedia media3 = new ProductMedia(product, "/images/products/3.jpeg", "jpeg", null, null, true);
                 productMediaRepository.save(media3);
-//                ProductMedia media4 = new ProductMedia(product, "img21.png", "png", user);
-//                productMediaRepository.save(media4);
             }
 
             // TODO: Remove later, for testing only
@@ -142,12 +147,14 @@ public class DispoSellApplication {
                 product.setSellingPrice(20.49f);
                 ProductCategory productCategory1=productCategoryRepository.findById(2l).get();
                 product.setCategory(productCategory1);
+//                product.setPublishedDate(ZonedDateTime.of(LocalDateTime.parse("2020-03-27 10:15:30 am"), ZoneId.systemDefault()));
+                product.setPublishedDate(ZonedDateTime.of(2015,10,21,12,15,22,00,ZoneId.systemDefault()));
                 productRepository.save(product);
 
                 product = productRepository.findByName("Off White Folding Chair").get();
-                ProductMedia media1 = new ProductMedia(product, "/images/products/2.jpg", "jpg", null);
+                ProductMedia media1 = new ProductMedia(product, "/images/products/2.jpg", "jpg", null, null, true);
                 productMediaRepository.save(media1);
-                ProductMedia media2 = new ProductMedia(product, "/images/products/5.jpeg", "jpeg", user);
+                ProductMedia media2 = new ProductMedia(product, "/images/products/5.jpeg", "jpeg", user, java.time.ZonedDateTime.now(), false);
                 productMediaRepository.save(media2);
 //                ProductMedia media21 = new ProductMedia(product, "off_white_folding_chair_3.jpg", "jpg", user);
 //                productMediaRepository.save(media21);
@@ -160,13 +167,68 @@ public class DispoSellApplication {
                 product.setSellingPrice(99.9f);
                 ProductCategory productCategory2=productCategoryRepository.findById(5l).get();
                 product.setCategory(productCategory2);
+//                product.setPublishedDate(ZonedDateTime.of(LocalDateTime.parse("2021-03-27 10:15:30 am"), ZoneId.systemDefault()));
+                product.setPublishedDate(ZonedDateTime.of(2016,10,21,12,15,22,00,ZoneId.systemDefault()));
                 productRepository.save(product);
 
                 product = productRepository.findByName("Light Gray Lounge Sofa").get();
-                ProductMedia media3 = new ProductMedia(product, "/images/products/1.jpeg", "jpeg", null);
+                ProductMedia media3 = new ProductMedia(product, "/images/products/1.jpeg", "jpeg", null, null, true);
                 productMediaRepository.save(media3);
 //                ProductMedia media4 = new ProductMedia(product, "light_gray_lounge_sofa_2.webp", "webp", user);
 //                productMediaRepository.save(media4);
+
+                product = new Product();
+                product.setName("Bar Stools");
+                product.setCondition(condition);
+                product.setDescription("Description 5");
+                product.setAvailableQuantity(10);
+                product.setSellingPrice(149.0f);
+                ProductCategory productCategory3=productCategoryRepository.findById(6l).get();
+                product.setCategory(productCategory3);
+//                product.setPublishedDate(ZonedDateTime.of(LocalDateTime.parse("2022-03-27 10:15:30 am"), ZoneId.systemDefault()));
+                product.setPublishedDate(ZonedDateTime.of(2017,10,21,12,15,22,00,ZoneId.systemDefault()));
+                productRepository.save(product);
+
+                product = productRepository.findByName("Bar Stools").get();
+                ProductMedia media4 = new ProductMedia(product, "/images/products/stools.jpg", "jpg", null, null, true);
+                productMediaRepository.save(media4);
+                ProductMedia media5 = new ProductMedia(product, "/images/products/stools1.jpg", "jpg", null, null, false);
+                productMediaRepository.save(media5);
+
+                product = new Product();
+                product.setName("Extendable Dining Table");
+                product.setCondition(condition);
+                product.setDescription("Description 6");
+                product.setAvailableQuantity(2);
+                product.setSellingPrice(579.0f);
+                ProductCategory productCategory4=productCategoryRepository.findById(3l).get();
+                product.setCategory(productCategory4);
+//                product.setPublishedDate(ZonedDateTime.of(LocalDateTime.parse("2023-03-27 10:15:30 am"), ZoneId.systemDefault()));
+                product.setPublishedDate(ZonedDateTime.of(2018,10,21,12,15,22,00,ZoneId.systemDefault()));
+                productRepository.save(product);
+
+                product = productRepository.findByName("Extendable Dining Table").get();
+                ProductMedia media6 = new ProductMedia(product, "/images/products/diningTable1.jpg", "jpg", null, null, true);
+                productMediaRepository.save(media6);
+                ProductMedia media7 = new ProductMedia(product, "/images/products/diningTable2.jpg", "jpg", null, null, false);
+                productMediaRepository.save(media7);
+
+                product = new Product();
+                product.setName("Round Dining Table");
+                product.setCondition(condition);
+                product.setDescription("Description 7");
+                product.setAvailableQuantity(6);
+                product.setSellingPrice(449.0f);
+                ProductCategory productCategory5=productCategoryRepository.findById(3l).get();
+                product.setCategory(productCategory5);
+                product.setPublishedDate(ZonedDateTime.of(2019,10,21,12,15,22,00,ZoneId.systemDefault()));
+                productRepository.save(product);
+
+                product = productRepository.findByName("Round Dining Table").get();
+                ProductMedia media8 = new ProductMedia(product, "/images/products/diningTable3.jpg", "jpg", null, null, true);
+                productMediaRepository.save(media8);
+                ProductMedia media9 = new ProductMedia(product, "/images/products/diningTable4.jpg", "jpg", null, null, false);
+                productMediaRepository.save(media9);
             }
 
             // TODO: Remove later, for testing only
