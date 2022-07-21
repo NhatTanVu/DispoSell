@@ -31,6 +31,19 @@ function Product({products}) {
             Number(price), Number(1)));
     }
 
+    // const found = products.map((val)=>(
+    //     val.productMedia.find(element => {
+    //     return element.productID ===1;
+    // })));
+    // const found=products.find((product) => {
+    //     product.find((media)=>{
+    //         return media.some((item) => {
+    //             return item.isDefault == true;
+    //         });
+    //     })
+    // });
+    // console.log(found);
+    // `${product.productMedia[0].url}`
     return (
         <div className="d-inline-flex row justify-content-around" style={{padding: "2rem"}}>
             {products.map((product, _id) => (
@@ -38,7 +51,7 @@ function Product({products}) {
                     {/*<div id="productID" style={{visibility:"visible"}}>{product.productID}</div>*/}
                     {product.productMedia && product.productMedia.length > 0 &&
                         <Link as={Link} to={`/productDetail/${product.productID}`}>
-                            <img src={`${product.productMedia[0].url}`} alt={product.name} width={250}
+                            <img src={`${product.productMedia.find(media => media.isDefault == true)?.url}`} alt={product.name} width={250}
                                  loading="lazy"
                                  style={{
                                      display: "block",
@@ -47,7 +60,8 @@ function Product({products}) {
                                      minWidth: "80%",
                                      maxWidth: "100%",
                                  }}/>
-                        </Link>} <Link as={Link} to={`/productDetail/${product.productID}`}>
+                        </Link>}
+                    <Link as={Link} to={`/productDetail/${product.productID}`}>
                     <h6 className='text-uppercase fw-bold'><span id='productName'>{product.name}</span></h6></Link>
                     <h5>$<span id='price'>{product.sellingPrice}</span></h5>
                     // TODO: delete later. added for testing latest arrival

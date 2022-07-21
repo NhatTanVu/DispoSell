@@ -109,6 +109,9 @@ function Browse() {
                 left: "0",
                 position: "fixed",
             }}>
+                {/*<Link as={Link} to={`/browse`}>*/}
+                {/*    <h3>All Categories</h3>*/}
+                {/*</Link>*/}
                 <h3>All Categories</h3>
                 {category.map((val)=>(
                     <a onClick={(e) => handleFilter(e,val.categoryID)}>{val.name}<br/></a>
