@@ -54,6 +54,7 @@ function ProductDetail() {
             <div className={`align-self-center ${localStyles["float_left"]}`} style={{marginBottom: "10rem"}}>
                 <h6 className='text-uppercase fw-bold'> {productDetail.name} </h6>
                 <p>{productDetail.description}</p>
+                {/*<p>{productDetail.publishedDate}</p>*/}
             </div>
 
             <div className={localStyles["middleSection"]}>
