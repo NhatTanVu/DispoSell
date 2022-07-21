@@ -66,7 +66,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.browseProductsWithSorting(pageable));
     }
 
-    @GetMapping("api/products/search/filter")
+    @GetMapping("/api/products/search/filter")
     public ResponseEntity browseProductsWithFilter(@RequestParam(name="category") ProductCategory category,
                                                    Pageable pageable) {
         return ResponseEntity.ok(productService.filterProducts(category, pageable));

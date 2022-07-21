@@ -167,6 +167,54 @@ public class DispoSellApplication {
                 productMediaRepository.save(media3);
 //                ProductMedia media4 = new ProductMedia(product, "light_gray_lounge_sofa_2.webp", "webp", user);
 //                productMediaRepository.save(media4);
+
+                product = new Product();
+                product.setName("Bar Stools");
+                product.setCondition(condition);
+                product.setDescription("Description 5");
+                product.setAvailableQuantity(10);
+                product.setSellingPrice(149.0f);
+                ProductCategory productCategory3=productCategoryRepository.findById(6l).get();
+                product.setCategory(productCategory3);
+                productRepository.save(product);
+
+                product = productRepository.findByName("Bar Stools").get();
+                ProductMedia media4 = new ProductMedia(product, "/images/products/stools.jpg", "jpg", null);
+                productMediaRepository.save(media4);
+                ProductMedia media5 = new ProductMedia(product, "/images/products/stools1.jpg", "jpg", null);
+                productMediaRepository.save(media5);
+
+                product = new Product();
+                product.setName("Extendable Dining Table");
+                product.setCondition(condition);
+                product.setDescription("Description 6");
+                product.setAvailableQuantity(2);
+                product.setSellingPrice(579.0f);
+                ProductCategory productCategory4=productCategoryRepository.findById(3l).get();
+                product.setCategory(productCategory4);
+                productRepository.save(product);
+
+                product = productRepository.findByName("Extendable Dining Table").get();
+                ProductMedia media6 = new ProductMedia(product, "/images/products/diningTable1.jpg", "jpg", null);
+                productMediaRepository.save(media6);
+                ProductMedia media7 = new ProductMedia(product, "/images/products/diningTable2.jpg", "jpg", null);
+                productMediaRepository.save(media7);
+
+                product = new Product();
+                product.setName("Round Dining Table");
+                product.setCondition(condition);
+                product.setDescription("Description 7");
+                product.setAvailableQuantity(6);
+                product.setSellingPrice(449.0f);
+                ProductCategory productCategory5=productCategoryRepository.findById(3l).get();
+                product.setCategory(productCategory5);
+                productRepository.save(product);
+
+                product = productRepository.findByName("Round Dining Table").get();
+                ProductMedia media8 = new ProductMedia(product, "/images/products/diningTable3.jpg", "jpg", null);
+                productMediaRepository.save(media8);
+                ProductMedia media9 = new ProductMedia(product, "/images/products/diningTable4.jpg", "jpg", null);
+                productMediaRepository.save(media9);
             }
 
             // TODO: Remove later, for testing only

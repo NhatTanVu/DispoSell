@@ -5,32 +5,8 @@ import ProductService from "../services/product.service";
 import {addCartItem} from "../redux/cartSlice";
 import {useDispatch} from "react-redux";
 
-function Products() {
-    const [products, setProducts] = useState([]);
+function Product({products}) {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        ProductService.getProducts().then(
-            response => {
-                setProducts(response.data);
-                console.log(response.data);
-            },
-            error => {
-                setProducts(
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString()
-                );
-
-                if (error.response && (error.response.status == 401 || error.response.status == 403)) {
-                    navigate("/");
-                }
-            }
-        )
-    }, []);
 
     const onClick = (e, product) => {
         e.persist();
@@ -42,7 +18,6 @@ function Products() {
         const productMediaType = product.productMedia[0]?.fileType;
 
         console.log(product.productMedia[0]?.url);
-
 
         dispatch(addCartItem(
             Number(id),
@@ -85,4 +60,4 @@ function Products() {
     )
 }
 
-export default Products;
+export default Product;
