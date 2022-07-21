@@ -8,7 +8,7 @@ import localStyles from "../../scss/pages/cart.module.scss";
 import EventBus from "../common/EventBus";
 import {useDispatch, useSelector} from "react-redux";
 import store from '../redux/store';
-import {setUserInfo, initialState, clearCart, addCartItem, removeCartItem} from "../redux/cartSlice";
+import {setUserInfo, initialState, clearCart, removeCartItem, addCartItem} from "../redux/cartSlice";
 
 export default function Cart() {
     let savedCart = localStorage.getItem("savedCart");
@@ -33,7 +33,9 @@ export default function Cart() {
     const [isCartNew, setCartNew] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const cart = useSelector((state) => state.cart);
+    let cart = useSelector((state) => state.cart);
+
+    let qty, price;
 
     function onChangeFirstName(e) {
         setFirstName(e.target.value);
@@ -68,9 +70,7 @@ export default function Cart() {
     useEffect(() => {
         const localUser = AuthService.getCurrentUser();
 
-        console.log(JSON.stringify(cart));
-
-        if (savedCart === JSON.stringify(initialState) || savedCart === null) {
+        if (savedCart === null) {
             if (cart !== initialState) {
                 setCartReady(true);
                 setCartNew(true);
@@ -84,6 +84,7 @@ export default function Cart() {
             }
         } else {
             setCartReady(true);
+            //cart = savedCartObj;
 
             if ("savedCart" in localStorage && cart === initialState) {
                 console.log(cart);
@@ -147,8 +148,8 @@ export default function Cart() {
         OrderService.createPurchaseOrder(localCart).then(
             (value) => {
                 alert(JSON.stringify(localCart));
-                dispatch(clearCart());
                 localStorage.removeItem("savedCart");
+                dispatch(clearCart());
                 navigate("/");
             },
             (reason) => {
@@ -200,58 +201,44 @@ export default function Cart() {
         );
     }
 
-    const decreaseQuantity = (e, index, id, name, url, type, productPrice) => {
+    const decreaseQuantity = (e, index, item) => {
+        dispatch(removeCartItem(item.product.productID, 1));
+
         let qty = parseInt(document.getElementById(`qty${index}`).value, 10);
         qty = isNaN(qty) ? 0 : ((qty < 2) ? 2 : qty);
         qty--;
         document.getElementById(`qty${index}`).value = qty;
 
-        let price = '$' + `<span>${productPrice}</span>`;
+        let price = '$' + `<span>${item.price}</span>`;
         document.getElementById(`price${index}`).innerHTML = price;
-        price = '$' + `<span>${productPrice * qty}</span>`;
+        price = '$' + `<span>${item.price * qty}</span>`;
         document.getElementById(`price${index}`).innerHTML = price;
-
     }
 
-    const addQuantity = (e, index, id, name, url, type, productPrice) => {
-        e.persist();
+    const addQuantity = (e, index, item) => {
+        console.log(cart);
 
-        // dispatch(addCartItem(
-        //     Number(id),
-        //     name,
-        //     [{
-        //         "url": url,
-        //         "fileType": type
-        //     }],
-        //     Number(price), Number(1)));
+        dispatch(addCartItem(item.product.productID, item.product.productName, item.product.productMedia, item.price, 1));
 
-        let price = '$' + `<span>${productPrice}</span>`;
+        let price = '$' + `<span>${item.price}</span>`;
         document.getElementById(`price${index}`).innerHTML = price;
 
         let qty = parseInt(document.getElementById(`qty${index}`).value, 10);
         qty = isNaN(qty) ? 0 : ((qty > 9) ? 9 : qty);
         qty++;
         document.getElementById(`qty${index}`).value = qty;
-        price = '$' + `<span>${productPrice * qty}</span>`;
+        price = '$' + `<span>${item.price * qty}</span>`;
         document.getElementById(`price${index}`).innerHTML = price;
 
-        console.log(id);
-        console.log(name);
-        console.log(url);
-        console.log(type);
-        console.log(`price${index}`);
+        console.log(cart);
     }
 
-    const removeItem = (e, index) => {
-        // dispatch(removeCartItem(
-        //     id, quantity
-        // ));
+    const removeItem = (e, index, item) => {
+        dispatch(removeCartItem(item.product.productID, item.quantity));
 
-        e.persist();
         document.getElementById(`show${index}`).style = "display:none";
 
-
-        console.log(index);
+        console.log(cart);
     }
 
     return (
@@ -299,9 +286,7 @@ export default function Cart() {
                                                         border: "black",
                                                         backgroundColor: "transparent",
                                                         color: "black"
-                                                    }} onClick={(e) => decreaseQuantity(e, index, item.product.productID, item.product.productName,
-                                                        item.product.productMedia[0].url, item.product.productMedia[0].fileType,
-                                                        item.price)}>-</Button>
+                                                    }} onClick={(e) => decreaseQuantity(e, index, item)}>-</Button>
                                                     <input
                                                         id={`qty${index}`}
                                                         className='text-center'
@@ -318,12 +303,10 @@ export default function Cart() {
                                                         backgroundColor: "transparent",
                                                         color: "black"
                                                     }}
-                                                            onClick={(e) => addQuantity(e, index, item.product.productID, item.product.productName,
-                                                                item.product.productMedia[0].url, item.product.productMedia[0].fileType,
-                                                                item.price)}>+</Button>
+                                                            onClick={(e) => addQuantity(e, index, item)}>+</Button>
                                                 </div>
                                                 <div style={{width: "10vw"}} className='text-center'>
-                                                    <a>Remove</a>
+                                                    <a onClick={(e) => removeItem(e, index, item)}>Remove</a>
                                                 </div>
                                             </div>
                                             <h6 className='text-uppercase' style={{
@@ -334,7 +317,8 @@ export default function Cart() {
                                                 style={{
                                                     width: "10vw",
                                                     paddingLeft: "1rem"
-                                                }} id={`price${index}`}> ${item.price} </h6>
+                                                }}
+                                                id={`price${index}`}> ${Number(item.price) * Number(item.quantity)} </h6>
                                         </div>
                                         <hr/>
                                     </>
@@ -363,9 +347,7 @@ export default function Cart() {
                                                             backgroundColor: "transparent",
                                                             color: "black"
                                                         }}
-                                                                onClick={(e) => decreaseQuantity(e, index, savedItem.product.productID, savedItem.product.productName,
-                                                                    savedItem.product.productMedia[0].url, savedItem.product.productMedia[0].fileType,
-                                                                    savedItem.price)}>-</Button>
+                                                                onClick={(e) => decreaseQuantity(e, index, savedItem)}>-</Button>
                                                         <input
                                                             id={`qty${index}`}
                                                             className='text-center'
@@ -382,12 +364,10 @@ export default function Cart() {
                                                             backgroundColor: "transparent",
                                                             color: "black"
                                                         }}
-                                                                onClick={(e) => addQuantity(e, index, savedItem.product.productID, savedItem.product.productName,
-                                                                    savedItem.product.productMedia[0].url, savedItem.product.productMedia[0].fileType,
-                                                                    savedItem.price)}>+</Button>
+                                                                onClick={(e) => addQuantity(e, index, savedItem)}>+</Button>
                                                     </div>
                                                     <div style={{width: "10vw"}} className='text-center'>
-                                                        <a onClick={(e) => removeItem(e, index)}>Remove</a>
+                                                        <a onClick={(e) => removeItem(e, index, savedItem)}>Remove</a>
                                                     </div>
                                                 </div>
 
@@ -399,7 +379,8 @@ export default function Cart() {
                                                     style={{
                                                         width: "10vw",
                                                         paddingLeft: "1rem"
-                                                    }} id={`price${index}`}> ${savedItem.price} </h6>
+                                                    }}
+                                                    id={`price${index}`}> ${Number(savedItem.price) * Number(savedItem.quantity)}</h6>
                                             </div>
                                             <hr/>
                                         </>
