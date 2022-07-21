@@ -43,7 +43,11 @@ export default function Payment(props) {
     }, []);
 
     function onChangePaymentAmount(e) {
-        setPaymentAmount(parseInt(e.target.value) ?? 0);
+        let amount = parseInt(e.target.value);
+        if (isNaN(amount))
+            setPaymentAmount(0);
+        else
+            setPaymentAmount(amount);
     }
 
     function onPaymentClick(e) {
@@ -74,8 +78,14 @@ export default function Payment(props) {
                     }
                 });
         } else {
-            if (onPaymentError)
-                onPaymentError("Error in processing payment");
+            if (onPaymentError) {
+                if (paymentAmount <= 0) {
+                    onPaymentError("Payment Amount must be > 0");
+                }
+                else {
+                    onPaymentError("Error in processing payment");
+                }
+            }
             setEnablePayment(true);
         }
     }
