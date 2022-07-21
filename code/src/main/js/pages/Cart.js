@@ -11,8 +11,6 @@ import store from '../redux/store';
 import {setUserInfo, initialState, clearCart, removeCartItem, addCartItem} from "../redux/cartSlice";
 
 export default function Cart() {
-    // let savedCart = localStorage.getItem("savedCart");
-    // let savedCartObj = JSON.parse(savedCart);
     const [canPay, setCanPay] = useState(true);
     const [canCheckout, setCanCheckout] = useState(false);
     const [readyCheckout, setReadyCheckout] = useState(false);
@@ -30,7 +28,6 @@ export default function Cart() {
     const [cartReady, setCartReady] = useState(false);
     const [paymentTransactionID, setPaymentTransactionID] = useState(undefined);
     const [paymentAmount, setPaymentAmount] = useState(0);
-    const [isCartNew, setCartNew] = useState(true);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     let cart = useSelector((state) => state.cart);
@@ -71,32 +68,9 @@ export default function Cart() {
         if (cart === initialState) {
             setCartReady(false);
             console.log("cart is empty" + JSON.stringify(cart));
-            // if (cart !== initialState) {
-            //     setCartReady(true);
-            //     setCartNew(true);
-            //     localStorage.setItem("savedCart", JSON.stringify(cart));
-            //     savedCart = localStorage.getItem("savedCart");
-            //     savedCartObj = JSON.parse(savedCart);
-            //     console.log(savedCartObj);
-            // } else {
-            //     setCartReady(false);
-            //     console.log("cart is empty" + JSON.stringify(cart));
-            // }
         } else {
             setCartReady(true);
             console.log(cart);
-            // if ("savedCart" in localStorage && cart === initialState) {
-            //     console.log(cart);
-            //     console.log(savedCartObj);
-            //     console.log("only page refresh");
-            // }
-            // if ("savedCart" in localStorage && cart !== initialState) {
-            //     console.log(cart);
-            //     localStorage.setItem("savedCart", JSON.stringify(cart));
-            //     savedCart = localStorage.getItem("savedCart");
-            //     savedCartObj = JSON.parse(savedCart);
-            //     console.log(savedCartObj);
-            // }
         }
 
         EventBus.on("logout", () => {
@@ -264,128 +238,64 @@ export default function Cart() {
                         </div>
                         <hr/>
 
-                        {(isCartNew) ?
-                            <>
-                                {store.getState().cart.orderDetails.map((item, index) => (
-                                    <>
-                                        <div className="justify-content-between d-inline-flex" style={{}}>
-                                            <div style={{width: "7vw"}}>
-                                                <img src={`${item.product.productMedia[0].url}`}
-                                                     loading="lazy"
-                                                     style={{
-                                                         display: "block",
-                                                         width: "inherit"
-                                                     }}/>
-                                            </div>
-                                            <div className='d-inline' style={{width: "10vw"}}>
-                                                <div style={{display: "inline-block", width: "10vw"}}
-                                                     className='text-center'>
-                                                    <Button style={{
-                                                        padding: "auto",
-                                                        border: "black",
-                                                        backgroundColor: "transparent",
-                                                        color: "black"
-                                                    }} onClick={(e) => decreaseQuantity(e, index, item)}>-</Button>
-                                                    <input
-                                                        id={`qty${index}`}
-                                                        className='text-center'
-                                                        type="text"
-                                                        min={item.quantity}
-                                                        max={10}
-                                                        defaultValue={item.quantity}
-                                                        style={{border: "none", maxWidth: "20px", padding: "auto"}}
-                                                        readOnly
-                                                    />
-                                                    <Button style={{
-                                                        padding: "auto",
-                                                        border: "black",
-                                                        backgroundColor: "transparent",
-                                                        color: "black"
-                                                    }}
-                                                            onClick={(e) => addQuantity(e, index, item)}>+</Button>
-                                                </div>
-                                                <div style={{width: "10vw"}} className='text-center'>
-                                                    <a onClick={(e) => removeItem(e, index, item)}>Remove</a>
-                                                </div>
-                                            </div>
-                                            <h6 className='text-uppercase' style={{
-                                                width: "40vw",
-                                                paddingLeft: "1rem"
-                                            }}> {item.product.productName} </h6>
-                                            <h6 className='text-uppercase'
-                                                style={{
-                                                    width: "10vw",
-                                                    paddingLeft: "1rem"
-                                                }}
-                                                id={`price${index}`}> ${Number(item.price) * Number(item.quantity)} </h6>
-                                        </div>
-                                        <hr/>
-                                    </>
-                                ))}
-                            </>
-                            : (
-                                <>
-                                    {savedCartObj.orderDetails.map((savedItem, index) => (
-                                        <>
-                                            <div className="justify-content-between d-inline-flex"
-                                                 style={{display: "block"}} id={`show${index}`}>
-                                                <div style={{width: "7vw"}}>
-                                                    <img src={`${savedItem.product.productMedia[0].url}`}
-                                                         loading="lazy"
-                                                         style={{
-                                                             display: "block",
-                                                             width: "inherit"
-                                                         }}/>
-                                                </div>
-                                                <div className='d-inline' style={{width: "10vw"}}>
-                                                    <div style={{display: "inline-block", width: "10vw"}}
-                                                         className='text-center'>
-                                                        <Button style={{
-                                                            padding: "auto",
-                                                            border: "black",
-                                                            backgroundColor: "transparent",
-                                                            color: "black"
-                                                        }}
-                                                                onClick={(e) => decreaseQuantity(e, index, savedItem)}>-</Button>
-                                                        <input
-                                                            id={`qty${index}`}
-                                                            className='text-center'
-                                                            type="text"
-                                                            min={savedItem.quantity}
-                                                            max={10}
-                                                            defaultValue={savedItem.quantity}
-                                                            style={{border: "none", maxWidth: "20px", padding: "auto"}}
-                                                            readOnly
-                                                        />
-                                                        <Button style={{
-                                                            padding: "auto",
-                                                            border: "black",
-                                                            backgroundColor: "transparent",
-                                                            color: "black"
-                                                        }}
-                                                                onClick={(e) => addQuantity(e, index, savedItem)}>+</Button>
-                                                    </div>
-                                                    <div style={{width: "10vw"}} className='text-center'>
-                                                        <a onClick={(e) => removeItem(e, index, savedItem)}>Remove</a>
-                                                    </div>
-                                                </div>
 
-                                                <h6 className='text-uppercase' style={{
-                                                    width: "40vw",
-                                                    paddingLeft: "1rem"
-                                                }}> {savedItem.product.productName} </h6>
-                                                <h6 className='text-uppercase'
-                                                    style={{
-                                                        width: "10vw",
-                                                        paddingLeft: "1rem"
-                                                    }}
-                                                    id={`price${index}`}> ${Number(savedItem.price) * Number(savedItem.quantity)}</h6>
-                                            </div>
-                                            <hr/>
-                                        </>
-                                    ))}
-                                </>
-                            )}
+                        {store.getState().cart.orderDetails.map((item, index) => (
+                            <>
+                                <div className="justify-content-between d-inline-flex" style={{}}>
+                                    <div style={{width: "7vw"}}>
+                                        <img src={`${item.product.productMedia[0].url}`}
+                                             loading="lazy"
+                                             style={{
+                                                 display: "block",
+                                                 width: "inherit"
+                                             }}/>
+                                    </div>
+                                    <div className='d-inline' style={{width: "10vw"}}>
+                                        <div style={{display: "inline-block", width: "10vw"}}
+                                             className='text-center'>
+                                            <Button style={{
+                                                padding: "auto",
+                                                border: "black",
+                                                backgroundColor: "transparent",
+                                                color: "black"
+                                            }} onClick={(e) => decreaseQuantity(e, index, item)}>-</Button>
+                                            <input
+                                                id={`qty${index}`}
+                                                className='text-center'
+                                                type="text"
+                                                min={item.quantity}
+                                                max={10}
+                                                defaultValue={item.quantity}
+                                                style={{border: "none", maxWidth: "20px", padding: "auto"}}
+                                                readOnly
+                                            />
+                                            <Button style={{
+                                                padding: "auto",
+                                                border: "black",
+                                                backgroundColor: "transparent",
+                                                color: "black"
+                                            }}
+                                                    onClick={(e) => addQuantity(e, index, item)}>+</Button>
+                                        </div>
+                                        <div style={{width: "10vw"}} className='text-center'>
+                                            <a onClick={(e) => removeItem(e, index, item)}>Remove</a>
+                                        </div>
+                                    </div>
+                                    <h6 className='text-uppercase' style={{
+                                        width: "40vw",
+                                        paddingLeft: "1rem"
+                                    }}> {item.product.productName} </h6>
+                                    <h6 className='text-uppercase'
+                                        style={{
+                                            width: "10vw",
+                                            paddingLeft: "1rem"
+                                        }}
+                                        id={`price${index}`}> ${Number(item.price) * Number(item.quantity)} </h6>
+                                </div>
+                                <hr/>
+                            </>
+                        ))}
+
                         <div className="justify-content-between d-inline-flex" style={{}}>
                             <div style={{width: "17vw", backgroundColor: "transparent"}}></div>
                             <h6 className='text-uppercase fw-bold'
