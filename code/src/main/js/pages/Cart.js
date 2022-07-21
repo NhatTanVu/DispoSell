@@ -148,8 +148,8 @@ export default function Cart() {
         OrderService.createPurchaseOrder(localCart).then(
             (value) => {
                 alert(JSON.stringify(localCart));
-                dispatch(clearCart());
                 localStorage.removeItem("savedCart");
+                dispatch(clearCart());
                 navigate("/");
             },
             (reason) => {
