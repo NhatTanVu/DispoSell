@@ -93,7 +93,7 @@ public class DispoSellApplication {
                 productRepository.save(product);
 
                 product = productRepository.findByName("White Side Table").get();
-                ProductMedia media1 = new ProductMedia(product, "/images/products/4.jpeg", "jpeg", null);
+                ProductMedia media1 = new ProductMedia(product, "/images/products/4.jpeg", "jpeg", null, null, true);
                 productMediaRepository.save(media1);
 //                ProductMedia media2 = new ProductMedia(product, "/images/products/5.jpeg", "jpeg", user);
 //                productMediaRepository.save(media2);
@@ -109,7 +109,7 @@ public class DispoSellApplication {
                 productRepository.save(product);
 
                 product = productRepository.findByName("Thin White Bed Frame").get();
-                ProductMedia media3 = new ProductMedia(product, "/images/products/3.jpeg", "jpeg", null);
+                ProductMedia media3 = new ProductMedia(product, "/images/products/3.jpeg", "jpeg", null, null, true);
                 productMediaRepository.save(media3);
             }
 
@@ -143,9 +143,9 @@ public class DispoSellApplication {
                 productRepository.save(product);
 
                 product = productRepository.findByName("Off White Folding Chair").get();
-                ProductMedia media1 = new ProductMedia(product, "/images/products/2.jpg", "jpg", null);
+                ProductMedia media1 = new ProductMedia(product, "/images/products/2.jpg", "jpg", null, null, true);
                 productMediaRepository.save(media1);
-                ProductMedia media2 = new ProductMedia(product, "/images/products/5.jpeg", "jpeg", user);
+                ProductMedia media2 = new ProductMedia(product, "/images/products/5.jpeg", "jpeg", user, java.time.ZonedDateTime.now(), false);
                 productMediaRepository.save(media2);
 //                ProductMedia media21 = new ProductMedia(product, "off_white_folding_chair_3.jpg", "jpg", user);
 //                productMediaRepository.save(media21);
@@ -161,7 +161,7 @@ public class DispoSellApplication {
                 productRepository.save(product);
 
                 product = productRepository.findByName("Light Gray Lounge Sofa").get();
-                ProductMedia media3 = new ProductMedia(product, "/images/products/1.jpeg", "jpeg", null);
+                ProductMedia media3 = new ProductMedia(product, "/images/products/1.jpeg", "jpeg", null, null, true);
                 productMediaRepository.save(media3);
 //                ProductMedia media4 = new ProductMedia(product, "light_gray_lounge_sofa_2.webp", "webp", user);
 //                productMediaRepository.save(media4);
@@ -177,9 +177,9 @@ public class DispoSellApplication {
                 productRepository.save(product);
 
                 product = productRepository.findByName("Bar Stools").get();
-                ProductMedia media4 = new ProductMedia(product, "/images/products/stools.jpg", "jpg", null);
+                ProductMedia media4 = new ProductMedia(product, "/images/products/stools.jpg", "jpg", null, null, true);
                 productMediaRepository.save(media4);
-                ProductMedia media5 = new ProductMedia(product, "/images/products/stools1.jpg", "jpg", null);
+                ProductMedia media5 = new ProductMedia(product, "/images/products/stools1.jpg", "jpg", null, null, false);
                 productMediaRepository.save(media5);
 
                 product = new Product();
@@ -193,9 +193,9 @@ public class DispoSellApplication {
                 productRepository.save(product);
 
                 product = productRepository.findByName("Extendable Dining Table").get();
-                ProductMedia media6 = new ProductMedia(product, "/images/products/diningTable1.jpg", "jpg", null);
+                ProductMedia media6 = new ProductMedia(product, "/images/products/diningTable1.jpg", "jpg", null, null, true);
                 productMediaRepository.save(media6);
-                ProductMedia media7 = new ProductMedia(product, "/images/products/diningTable2.jpg", "jpg", null);
+                ProductMedia media7 = new ProductMedia(product, "/images/products/diningTable2.jpg", "jpg", null, null, false);
                 productMediaRepository.save(media7);
 
                 product = new Product();
@@ -209,9 +209,9 @@ public class DispoSellApplication {
                 productRepository.save(product);
 
                 product = productRepository.findByName("Round Dining Table").get();
-                ProductMedia media8 = new ProductMedia(product, "/images/products/diningTable3.jpg", "jpg", null);
+                ProductMedia media8 = new ProductMedia(product, "/images/products/diningTable3.jpg", "jpg", null, null, true);
                 productMediaRepository.save(media8);
-                ProductMedia media9 = new ProductMedia(product, "/images/products/diningTable4.jpg", "jpg", null);
+                ProductMedia media9 = new ProductMedia(product, "/images/products/diningTable4.jpg", "jpg", null, null, false);
                 productMediaRepository.save(media9);
             }
 
