@@ -100,11 +100,11 @@ public class ProductMedia {
         this.publishedDate = publishedDate;
     }
 
-    public boolean isDefault() {
+    public boolean getIsDefault() {
         return isDefault;
     }
 
-    public void setDefault(boolean aDefault) {
-        isDefault = aDefault;
+    public void setIsDefault(boolean isDefault) {
+        this.isDefault = isDefault;
     }
 }
