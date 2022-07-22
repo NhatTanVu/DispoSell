@@ -40,7 +40,7 @@ export default function App() {
                             <Route path="/cart" element={<Cart />} />
                             <Route path="/productDetail/:id" element={<ProductDetail/>}/>
                             <Route path="/browse" element={<Browse/>} />
-                            {/*<Route path="/search" element={<Search/>} />*/}
+                            <Route path="/search" element={<Search/>} />
                         </Routes>
                 </main>
                 <Footer/>
