@@ -457,7 +457,6 @@ export default function Cart() {
 
                                             <Button
                                                 type="primary"
-                                                //className="ms-2"
                                                 id={localStyles['btn']}
                                                 disabled={!canCheckout}
                                                 onClick={onCheckoutClick}
