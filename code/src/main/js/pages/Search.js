@@ -30,19 +30,18 @@ function Search() {
             }
         )
     }, []);
-    const handleSearch = (e) => {
-        var keywords = e.target.value.toLowerCase(); //the name of product in database must all lowercase
-        console.log(keywords);
-        if (keywords == '') {
-            ProductService.getProducts().then(
-                response => {
-                    setFilterProduct(response.data);
-                }
-            )
-        } else {
-            setFilterProduct(products.filter((product) => product.name.toLowerCase().includes(keywords)));
-        }
-    }
+const handleSearch=(e)=>{
+    var keywords=e.target.value.toLowerCase(); //the name of product in database must all lowercase
+    console.log(keywords);
+    if(keywords==''){
+        ProductService.getProducts().then(
+            response => {
+                setFilterProduct(response.data);
+            }
+        )
+    }else{
+        setFilterProduct(products.filter((product)=>product.name.toLowerCase().includes(keywords)));    }
+}
     return (
         <div className={localStyles["browse-page"]}>
             <div className={localStyles["middleSection"]}>
