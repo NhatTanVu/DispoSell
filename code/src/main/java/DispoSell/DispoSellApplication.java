@@ -100,8 +100,6 @@ public class DispoSellApplication {
                 product = productRepository.findByName("white side table").get();
                 ProductMedia media1 = new ProductMedia(product, "/images/products/4.jpeg", "jpeg", null, null, true);
                 productMediaRepository.save(media1);
-//                ProductMedia media2 = new ProductMedia(product, "/images/products/5.jpeg", "jpeg", user);
-//                productMediaRepository.save(media2);
 
                 product = new Product();
                 product.setName("thin white bed frame");

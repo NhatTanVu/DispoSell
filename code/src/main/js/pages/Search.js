@@ -43,8 +43,6 @@ const handleSearch=(e)=>{
 }
     return (
         <div className={localStyles["browse-page"]}>
-
-
             <div className={localStyles["middleSection"]}>
                 <div id="bedframes">
                     <div className="container">
@@ -58,7 +56,6 @@ const handleSearch=(e)=>{
                     </div>
                 </div>
             </div>
-
         </div>
     )
 }

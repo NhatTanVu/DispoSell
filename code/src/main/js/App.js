@@ -23,13 +23,11 @@ import { useNavigate } from "react-router-dom";
 import Search from "./pages/Search";
 
 export default function App() {
-    // onClick={() => window.location.reload(false)}
     return (
         <Router>
             <div className="App">
                 <Header/>
                 <main>
-                    {/*<Container>*/}
                         <Routes>
                             <Route path="/" element={<Home/>}/>
                             <Route path="/aboutUs" element={<AboutUs/>}/>
@@ -44,7 +42,6 @@ export default function App() {
                             <Route path="/browse" element={<Browse/>} />
                             <Route path="/search" element={<Search/>} />
                         </Routes>
-                    {/*</Container>*/}
                 </main>
                 <Footer/>
             </div>
