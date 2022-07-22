@@ -78,8 +78,8 @@ main {
 /* ------------------- */
 /* Mobile view         */
 /* ------------------- */
-//@media only screen and (max-width: 767px) {
-//  html {
-//    font-size: 4vmin; /* 15px for 375px-viewport */
-//  }
-//}
+@media only screen and (max-width: 767px) {
+  a, h6, h5, input, label, button {
+    font-size: small;
+  }
+}
