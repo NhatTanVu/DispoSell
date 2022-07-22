@@ -64,8 +64,8 @@ function Header() {
                             <Nav className={`align-items-center`}>
                                 <Nav.Link as={Link} to="/browse" onClick={handleRefesh}>Browse</Nav.Link>
                                 &nbsp;
-                                {/*<Nav.Link as={Link} to="/search">Search</Nav.Link>*/}
-                                {/*&nbsp;*/}
+                                <Nav.Link as={Link} to="/search">Search</Nav.Link>
+                                &nbsp;
                                 <NavDropdown title="Account" key="down" drop="down" className={localStyles['dropdownMenu']}>
                                     {currentUser ? (<>
                                         <Nav.Link as={Link} to="/profile"

@@ -6,12 +6,14 @@ import {Link, useNavigate} from "react-router-dom";
 
 function Search() {
     const [products, setProducts] = useState([]);
+    const [filterdProduct, setFilterProduct]=useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         ProductService.getProducts().then(
             response => {
                 setProducts(response.data);
+                setFilterProduct(response.data);
             },
             error => {
                 setProducts(
@@ -34,11 +36,11 @@ const handleSearch=(e)=>{
     if(keywords==''){
         ProductService.getProducts().then(
             response => {
-                setProducts(response.data);
+                setFilterProduct(response.data);
             }
         )
     }else{
-        setProducts(products.filter((product)=>product.name.includes(keywords)));
+        setFilterProduct(products.filter((product)=>product.name.includes(keywords)));
     }
 }
     return (
@@ -51,7 +53,7 @@ const handleSearch=(e)=>{
                                    onChange={handleSearch}/>
                         </div>
                         <div className="row d-flex justify-content-around">
-                            <Product products={products}/>
+                            <Product products={filterdProduct}/>
                         </div>
                     </div>
                 </div>
