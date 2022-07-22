@@ -84,7 +84,7 @@ public class DispoSellApplication {
                 user = userRepository.findByUsername("test_user_123456").get();
                 Product product = new Product();
                 ProductCondition condition = productConditionRepository.findByName(EProductCondition.PRODUCT_CONDITION_UNUSED).get();
-                product.setName("White Side Table");
+                product.setName("white side table");
                 product.setCondition(condition);
                 product.setDescription("Description 1");
                 product.setApprover(user);
@@ -97,14 +97,14 @@ public class DispoSellApplication {
                 product.setPublishedDate(ZonedDateTime.of(2013,10,21,12,15,22,00,ZoneId.systemDefault()));
                 productRepository.save(product);
 
-                product = productRepository.findByName("White Side Table").get();
+                product = productRepository.findByName("white side table").get();
                 ProductMedia media1 = new ProductMedia(product, "/images/products/4.jpeg", "jpeg", null, null, true);
                 productMediaRepository.save(media1);
 //                ProductMedia media2 = new ProductMedia(product, "/images/products/5.jpeg", "jpeg", user);
 //                productMediaRepository.save(media2);
 
                 product = new Product();
-                product.setName("Thin White Bed Frame");
+                product.setName("thin white bed frame");
                 product.setCondition(condition);
                 product.setDescription("Description 2");
                 product.setAvailableQuantity(20);
@@ -115,7 +115,7 @@ public class DispoSellApplication {
                 product.setPublishedDate(ZonedDateTime.of(2014,10,21,12,15,22,00,ZoneId.systemDefault()));
                 productRepository.save(product);
 
-                product = productRepository.findByName("Thin White Bed Frame").get();
+                product = productRepository.findByName("thin white bed frame").get();
                 ProductMedia media3 = new ProductMedia(product, "/images/products/3.jpeg", "jpeg", null, null, true);
                 productMediaRepository.save(media3);
             }
@@ -138,7 +138,7 @@ public class DispoSellApplication {
                 user = userRepository.findByUsername("test_user_290194").get();
                 Product product = new Product();
                 ProductCondition condition = productConditionRepository.findByName(EProductCondition.PRODUCT_CONDITION_UNUSED).get();
-                product.setName("Off White Folding Chair");
+                product.setName("off white folding chair");
                 product.setCondition(condition);
                 product.setDescription("Description 3");
                 product.setApprover(user);
@@ -151,7 +151,7 @@ public class DispoSellApplication {
                 product.setPublishedDate(ZonedDateTime.of(2015,10,21,12,15,22,00,ZoneId.systemDefault()));
                 productRepository.save(product);
 
-                product = productRepository.findByName("Off White Folding Chair").get();
+                product = productRepository.findByName("off white folding chair").get();
                 ProductMedia media1 = new ProductMedia(product, "/images/products/2.jpg", "jpg", null, null, true);
                 productMediaRepository.save(media1);
                 ProductMedia media2 = new ProductMedia(product, "/images/products/5.jpeg", "jpeg", user, java.time.ZonedDateTime.now(), false);
@@ -160,7 +160,7 @@ public class DispoSellApplication {
 //                productMediaRepository.save(media21);
 
                 product = new Product();
-                product.setName("Light Gray Lounge Sofa");
+                product.setName("light gray lounge sofa");
                 product.setCondition(condition);
                 product.setDescription("Description 4");
                 product.setAvailableQuantity(50);
@@ -171,14 +171,14 @@ public class DispoSellApplication {
                 product.setPublishedDate(ZonedDateTime.of(2016,10,21,12,15,22,00,ZoneId.systemDefault()));
                 productRepository.save(product);
 
-                product = productRepository.findByName("Light Gray Lounge Sofa").get();
+                product = productRepository.findByName("light gray lounge sofa").get();
                 ProductMedia media3 = new ProductMedia(product, "/images/products/1.jpeg", "jpeg", null, null, true);
                 productMediaRepository.save(media3);
 //                ProductMedia media4 = new ProductMedia(product, "light_gray_lounge_sofa_2.webp", "webp", user);
 //                productMediaRepository.save(media4);
 
                 product = new Product();
-                product.setName("Bar Stools");
+                product.setName("bar stools");
                 product.setCondition(condition);
                 product.setDescription("Description 5");
                 product.setAvailableQuantity(10);
@@ -189,14 +189,14 @@ public class DispoSellApplication {
                 product.setPublishedDate(ZonedDateTime.of(2017,10,21,12,15,22,00,ZoneId.systemDefault()));
                 productRepository.save(product);
 
-                product = productRepository.findByName("Bar Stools").get();
+                product = productRepository.findByName("bar stools").get();
                 ProductMedia media4 = new ProductMedia(product, "/images/products/stools.jpg", "jpg", null, null, true);
                 productMediaRepository.save(media4);
                 ProductMedia media5 = new ProductMedia(product, "/images/products/stools1.jpg", "jpg", null, null, false);
                 productMediaRepository.save(media5);
 
                 product = new Product();
-                product.setName("Extendable Dining Table");
+                product.setName("extendable dining table");
                 product.setCondition(condition);
                 product.setDescription("Description 6");
                 product.setAvailableQuantity(2);
@@ -207,14 +207,14 @@ public class DispoSellApplication {
                 product.setPublishedDate(ZonedDateTime.of(2018,10,21,12,15,22,00,ZoneId.systemDefault()));
                 productRepository.save(product);
 
-                product = productRepository.findByName("Extendable Dining Table").get();
+                product = productRepository.findByName("extendable dining table").get();
                 ProductMedia media6 = new ProductMedia(product, "/images/products/diningTable1.jpg", "jpg", null, null, true);
                 productMediaRepository.save(media6);
                 ProductMedia media7 = new ProductMedia(product, "/images/products/diningTable2.jpg", "jpg", null, null, false);
                 productMediaRepository.save(media7);
 
                 product = new Product();
-                product.setName("Round Dining Table");
+                product.setName("round dining table");
                 product.setCondition(condition);
                 product.setDescription("Description 7");
                 product.setAvailableQuantity(6);
@@ -224,7 +224,7 @@ public class DispoSellApplication {
                 product.setPublishedDate(ZonedDateTime.of(2019,10,21,12,15,22,00,ZoneId.systemDefault()));
                 productRepository.save(product);
 
-                product = productRepository.findByName("Round Dining Table").get();
+                product = productRepository.findByName("round dining table").get();
                 ProductMedia media8 = new ProductMedia(product, "/images/products/diningTable3.jpg", "jpg", null, null, true);
                 productMediaRepository.save(media8);
                 ProductMedia media9 = new ProductMedia(product, "/images/products/diningTable4.jpg", "jpg", null, null, false);
@@ -248,7 +248,7 @@ public class DispoSellApplication {
                 Long orderID = tradeOrderRepository.save(order).getOrderID();
 
                 order = tradeOrderRepository.findById(orderID).get();
-                Product product = productRepository.findByName("Off White Folding Chair").get();
+                Product product = productRepository.findByName("off white folding chair").get();
                 OrderDetail orderDetail = new OrderDetail(order, product, 2);
                 orderDetailRepository.save(orderDetail);
 

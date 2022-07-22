@@ -20,6 +20,7 @@ import Register from "./pages/Register";
 import Cart from "./pages/Cart";
 import ProductDetail from "./pages/ProductDetail";
 import { useNavigate } from "react-router-dom";
+import Search from "./pages/Search";
 
 export default function App() {
     // onClick={() => window.location.reload(false)}
@@ -41,6 +42,7 @@ export default function App() {
                             <Route path="/cart" element={<Cart />} />
                             <Route path="/productDetail/:id" element={<ProductDetail/>}/>
                             <Route path="/browse" element={<Browse/>} />
+                            <Route path="/search" element={<Search/>} />
                         </Routes>
                     {/*</Container>*/}
                 </main>
