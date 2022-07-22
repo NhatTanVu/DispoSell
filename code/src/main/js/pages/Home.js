@@ -1,9 +1,35 @@
-import React from 'react';
+import React, {useState, useEffect} from "react";
 import localStyles from '../../scss/pages/Home.module.scss';
 import Product from "../components/Product.js";
 import {HashLink as Link} from "react-router-hash-link";
+import ProductService from "../services/product.service";
+import {useNavigate} from "react-router-dom";
 
 function Home() {
+    const [products, setProducts] = useState([]);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        ProductService.getProducts().then(
+            response => {
+                setProducts(response.data);
+                console.log(response.data);
+            },
+            error => {
+                setProducts(
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString()
+                );
+
+                if (error.response && (error.response.status == 401 || error.response.status == 403)) {
+                    navigate("/");
+                }
+            }
+        )
+    }, []);
 
     return (
         <div className={localStyles["home"]}>
@@ -16,7 +42,7 @@ function Home() {
                     <div className={`justify-content-evenly ${localStyles["div-hover"]}`}>
                         <Link to="#featured-products" className={localStyles["anchor"]}>
                             <img className={localStyles["anchorScrollDown"]} src="/images/home/anchor-scrolldown.png"
-                                 alt="Featured Products anchor" loading='lazy'/>
+                                 alt="Featured Product anchor" loading='lazy'/>
                         </Link>
                     </div>
                 </div>
@@ -27,19 +53,10 @@ function Home() {
                 <div className='row align-content-center justify-content-center'>
                     <div className='align-self-baseline text-center'
                          style={{position: "relative", marginTop: "3em", marginBottom: "2em"}}>
-                        <h2>Featured Products</h2>
+                        <h2>Featured Product</h2>
                     </div>
                         <div className="col-md-auto">
-                            <Product/>
-                        </div>
-                        <div className="col-md-auto">
-                            <Product/>
-                        </div>
-                        <div className="col-md-auto">
-                            <Product/>
-                        </div>
-                        <div className="col-md-auto">
-                            <Product/>
+                            <Product products={products}/>
                         </div>
                 </div>
             </div>
@@ -64,5 +81,6 @@ function Home() {
         </div>
     )
 }
+
 
 export default Home;

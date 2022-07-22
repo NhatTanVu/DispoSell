@@ -1,0 +1,137 @@
+.float_right {
+  right: 0;
+  flex: 18%;
+  -webkit-flex: 18%;
+  margin-top: 10rem;
+  margin-right: 2rem;
+  text-align: right;
+}
+
+.btn, #btn {
+  flex: 1 1 0;
+  padding: 0.25em 1em;
+  border: black solid;
+  width: 100%;
+  color: white;
+  background-color: rgb(0, 0, 0);
+  -webkit-appearance: none;
+  margin-top: 1em;
+}
+
+.btn:hover, #btn:hover {
+  flex: 1 1 0;
+  padding: 0.25em 1em;
+  border: black solid;
+  width: 100%;
+  color: #000000;
+  background-color: rgb(255, 255, 255);
+  -webkit-appearance: none;
+  transition: 0.5s ease;
+  -webkit-transition: 0.5s ease;
+}
+
+.emptyCart {
+  margin-bottom: 2rem;
+  min-height: 50vh;
+  margin-top: 6rem;
+  max-height: 50rem;
+  width: 100%;
+  display: block;
+}
+
+.rightColumn {
+  width: 50vw;
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+
+.showMobile {
+  display: none;
+}
+
+.cartList {
+  width: 100vw;
+  padding-right: 2rem;
+  padding-left: 1rem;
+  margin-bottom: 2rem;
+}
+
+.cartListContainer {
+  min-height: auto;
+  margin: 7rem 2rem 2rem;
+  max-height: 200vh;
+  display: block;
+}
+
+.whiteSpace{
+  width: 7vw;
+}
+
+.qtyTitle {
+  width: auto;
+  padding-right:5rem;
+}
+
+.itemTitle {
+  width: 40vw;
+  padding-right: 2rem;
+}
+
+.priceTitle {
+  width: 10vw;
+  padding-right: 2rem;
+}
+
+@media (max-width: 767px) and (orientation: portrait) {
+  .emptyCart {
+    margin-bottom: 2rem;
+    margin-top: 15rem;
+    min-height: 50vh;
+    width: 100%;
+    display: block;
+  }
+
+  .cartListContainer {
+    margin: 5.5rem 1rem 1rem;
+
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  .cartList {
+    width: 100vw;
+    padding-right: 0;
+    padding-left: 0;
+    a, h6, p, input, button {
+      font-size: small;
+    }
+  }
+
+  .whiteSpace{
+    width: 15%;
+  }
+
+  .qtyTitle {
+    width: 20%;
+    padding-left: 1rem;
+  }
+
+  .itemTitle {
+    width: 40%;
+    padding-right: 0.5rem;
+  }
+
+  .priceTitle {
+    width: 30%;
+    padding-left: 1rem;
+    padding-right: 0;
+  }
+
+  .rightColumn {
+    flex-grow: 1;
+  }
+
+  //.showMobile {
+  //  display: inline-block;
+  //}
+}

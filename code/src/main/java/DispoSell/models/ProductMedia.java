@@ -38,16 +38,18 @@ public class ProductMedia {
     @Column(name = "publishedDate")
     private ZonedDateTime publishedDate;
 
+    private boolean isDefault = true;
+
     public ProductMedia() {
     }
 
-    public ProductMedia(Product product, String url, String fileType, User publisher) {
+    public ProductMedia(Product product, String url, String fileType, User publisher, ZonedDateTime publishedDate, boolean isDefault) {
         this.product = product;
         this.url = url;
         this.fileType = fileType;
         this.publisher = publisher;
-        if (this.publisher != null)
-            this.publishedDate = java.time.ZonedDateTime.now();
+        this.publishedDate = publishedDate;
+        this.isDefault = isDefault;
     }
 
     public Long getId() {
@@ -96,5 +98,13 @@ public class ProductMedia {
 
     public void setPublishedDate(ZonedDateTime publishedDate) {
         this.publishedDate = publishedDate;
+    }
+
+    public boolean getIsDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(boolean isDefault) {
+        this.isDefault = isDefault;
     }
 }

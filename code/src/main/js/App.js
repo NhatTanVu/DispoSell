@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {
     BrowserRouter as Router,
     Routes,
@@ -17,6 +17,10 @@ import AdminContent from "./pages/test/AdminContent";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
+import Cart from "./pages/Cart";
+import ProductDetail from "./pages/ProductDetail";
+import { useNavigate } from "react-router-dom";
+import Search from "./pages/Search";
 
 export default function App() {
     return (
@@ -24,22 +28,20 @@ export default function App() {
             <div className="App">
                 <Header/>
                 <main>
-                    {/*<Container>*/}
                         <Routes>
                             <Route path="/" element={<Home/>}/>
                             <Route path="/aboutUs" element={<AboutUs/>}/>
-
                             <Route path="/user" element={<UserContent/>}/>
                             <Route path="/delivery" element={<DeliveryContent/>}/>
                             <Route path="/admin" element={<AdminContent/>}/>
-
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/profile" element={<Profile/>}/>
                             <Route path="/register" element={<Register/>}/>
-
-                            <Route path="/browse" element={<Browse/>}/>
+                            <Route path="/cart" element={<Cart />} />
+                            <Route path="/productDetail/:id" element={<ProductDetail/>}/>
+                            <Route path="/browse" element={<Browse/>} />
+                            <Route path="/search" element={<Search/>} />
                         </Routes>
-                    {/*</Container>*/}
                 </main>
                 <Footer/>
             </div>

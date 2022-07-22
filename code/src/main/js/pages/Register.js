@@ -11,6 +11,16 @@ export default function Register() {
     const [message, setMessage] = useState("");
     const [deliveryAddress, setDeliveryAddress] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+
+    function onChangeFirstName(e) {
+        setFirstName(e.target.value);
+    }
+
+    function onChangeLastName(e) {
+        setLastName(e.target.value);
+    }
 
     function onChangeUsername(e) {
         setUsername(e.target.value);
@@ -40,6 +50,8 @@ export default function Register() {
 
         AuthService.register(
             username,
+            firstName,
+            lastName,
             email,
             password,
             deliveryAddress,
@@ -78,6 +90,28 @@ export default function Register() {
                         >
                             {!successful && (
                                 <>
+                                    <div className="col-12">
+                                        <label htmlFor="name" className="form-label text-start">First Name</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            name="First Name"
+                                            value={firstName}
+                                            onChange={onChangeFirstName}
+                                        />
+                                    </div>
+
+                                    <div className="col-12">
+                                        <label htmlFor="name" className="form-label text-start">Last Name</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            name="Last Name"
+                                            value={lastName}
+                                            onChange={onChangeLastName}
+                                        />
+                                    </div>
+
                                     <div className="col-12">
                                         <label htmlFor="username" className="form-label text-start">Username</label>
                                         <input

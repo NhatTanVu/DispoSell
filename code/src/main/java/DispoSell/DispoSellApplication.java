@@ -9,6 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -81,27 +84,38 @@ public class DispoSellApplication {
                 user = userRepository.findByUsername("test_user_123456").get();
                 Product product = new Product();
                 ProductCondition condition = productConditionRepository.findByName(EProductCondition.PRODUCT_CONDITION_UNUSED).get();
-                product.setName("Furniture 1");
+                product.setName("white side table");
                 product.setCondition(condition);
                 product.setDescription("Description 1");
                 product.setApprover(user);
                 product.setApprovedDate(java.time.ZonedDateTime.now());
                 product.setAvailableQuantity(10);
+                product.setSellingPrice(30f);
+                ProductCategory productCategory1=productCategoryRepository.findById(4l).get();
+                product.setCategory(productCategory1);
+//                product.setPublishedDate(ZonedDateTime.of(LocalDateTime.parse("2019-03-27 10:15:30 am"), ZoneId.systemDefault()));
+                product.setPublishedDate(ZonedDateTime.of(2013,10,21,12,15,22,00,ZoneId.systemDefault()));
                 productRepository.save(product);
 
-                product = productRepository.findByName("Furniture 1").get();
-                ProductMedia media1 = new ProductMedia(product, "img1.png", "png", null);
+                product = productRepository.findByName("white side table").get();
+                ProductMedia media1 = new ProductMedia(product, "/images/products/4.jpeg", "jpeg", null, null, true);
                 productMediaRepository.save(media1);
 
-                ProductMedia media2 = new ProductMedia(product, "img2.png", "png", user);
-                productMediaRepository.save(media2);
-
                 product = new Product();
-                product.setName("Furniture 2");
+                product.setName("thin white bed frame");
                 product.setCondition(condition);
                 product.setDescription("Description 2");
                 product.setAvailableQuantity(20);
+                product.setSellingPrice(100.99f);
+                ProductCategory productCategory2=productCategoryRepository.findById(1l).get();
+                product.setCategory(productCategory2);
+//                product.setPublishedDate(ZonedDateTime.of(LocalDateTime.parse("2018-03-27 10:15:30 am"), ZoneId.systemDefault()));
+                product.setPublishedDate(ZonedDateTime.of(2014,10,21,12,15,22,00,ZoneId.systemDefault()));
                 productRepository.save(product);
+
+                product = productRepository.findByName("thin white bed frame").get();
+                ProductMedia media3 = new ProductMedia(product, "/images/products/3.jpeg", "jpeg", null, null, true);
+                productMediaRepository.save(media3);
             }
 
             // TODO: Remove later, for testing only
@@ -122,28 +136,97 @@ public class DispoSellApplication {
                 user = userRepository.findByUsername("test_user_290194").get();
                 Product product = new Product();
                 ProductCondition condition = productConditionRepository.findByName(EProductCondition.PRODUCT_CONDITION_UNUSED).get();
-                product.setName("Furniture 3");
+                product.setName("off white folding chair");
                 product.setCondition(condition);
                 product.setDescription("Description 3");
                 product.setApprover(user);
                 product.setApprovedDate(java.time.ZonedDateTime.now());
                 product.setAvailableQuantity(40);
+                product.setSellingPrice(20.49f);
+                ProductCategory productCategory1=productCategoryRepository.findById(2l).get();
+                product.setCategory(productCategory1);
+//                product.setPublishedDate(ZonedDateTime.of(LocalDateTime.parse("2020-03-27 10:15:30 am"), ZoneId.systemDefault()));
+                product.setPublishedDate(ZonedDateTime.of(2015,10,21,12,15,22,00,ZoneId.systemDefault()));
                 productRepository.save(product);
 
-                product = productRepository.findByName("Furniture 3").get();
-                ProductMedia media1 = new ProductMedia(product, "img3.png", "png", null);
+                product = productRepository.findByName("off white folding chair").get();
+                ProductMedia media1 = new ProductMedia(product, "/images/products/2.jpg", "jpg", null, null, true);
                 productMediaRepository.save(media1);
-
-                ProductMedia media2 = new ProductMedia(product, "img4.png", "png", user);
+                ProductMedia media2 = new ProductMedia(product, "/images/products/5.jpeg", "jpeg", user, java.time.ZonedDateTime.now(), false);
                 productMediaRepository.save(media2);
+//                ProductMedia media21 = new ProductMedia(product, "off_white_folding_chair_3.jpg", "jpg", user);
+//                productMediaRepository.save(media21);
 
                 product = new Product();
-                product.setName("Furniture 4");
+                product.setName("light gray lounge sofa");
                 product.setCondition(condition);
                 product.setDescription("Description 4");
                 product.setAvailableQuantity(50);
+                product.setSellingPrice(99.9f);
+                ProductCategory productCategory2=productCategoryRepository.findById(5l).get();
+                product.setCategory(productCategory2);
+//                product.setPublishedDate(ZonedDateTime.of(LocalDateTime.parse("2021-03-27 10:15:30 am"), ZoneId.systemDefault()));
+                product.setPublishedDate(ZonedDateTime.of(2016,10,21,12,15,22,00,ZoneId.systemDefault()));
                 productRepository.save(product);
 
+                product = productRepository.findByName("light gray lounge sofa").get();
+                ProductMedia media3 = new ProductMedia(product, "/images/products/1.jpeg", "jpeg", null, null, true);
+                productMediaRepository.save(media3);
+//                ProductMedia media4 = new ProductMedia(product, "light_gray_lounge_sofa_2.webp", "webp", user);
+//                productMediaRepository.save(media4);
+
+                product = new Product();
+                product.setName("bar stools");
+                product.setCondition(condition);
+                product.setDescription("Description 5");
+                product.setAvailableQuantity(10);
+                product.setSellingPrice(149.0f);
+                ProductCategory productCategory3=productCategoryRepository.findById(6l).get();
+                product.setCategory(productCategory3);
+//                product.setPublishedDate(ZonedDateTime.of(LocalDateTime.parse("2022-03-27 10:15:30 am"), ZoneId.systemDefault()));
+                product.setPublishedDate(ZonedDateTime.of(2017,10,21,12,15,22,00,ZoneId.systemDefault()));
+                productRepository.save(product);
+
+                product = productRepository.findByName("bar stools").get();
+                ProductMedia media4 = new ProductMedia(product, "/images/products/stools.jpg", "jpg", null, null, true);
+                productMediaRepository.save(media4);
+                ProductMedia media5 = new ProductMedia(product, "/images/products/stools1.jpg", "jpg", null, null, false);
+                productMediaRepository.save(media5);
+
+                product = new Product();
+                product.setName("extendable dining table");
+                product.setCondition(condition);
+                product.setDescription("Description 6");
+                product.setAvailableQuantity(2);
+                product.setSellingPrice(579.0f);
+                ProductCategory productCategory4=productCategoryRepository.findById(3l).get();
+                product.setCategory(productCategory4);
+//                product.setPublishedDate(ZonedDateTime.of(LocalDateTime.parse("2023-03-27 10:15:30 am"), ZoneId.systemDefault()));
+                product.setPublishedDate(ZonedDateTime.of(2018,10,21,12,15,22,00,ZoneId.systemDefault()));
+                productRepository.save(product);
+
+                product = productRepository.findByName("extendable dining table").get();
+                ProductMedia media6 = new ProductMedia(product, "/images/products/diningTable1.jpg", "jpg", null, null, true);
+                productMediaRepository.save(media6);
+                ProductMedia media7 = new ProductMedia(product, "/images/products/diningTable2.jpg", "jpg", null, null, false);
+                productMediaRepository.save(media7);
+
+                product = new Product();
+                product.setName("round dining table");
+                product.setCondition(condition);
+                product.setDescription("Description 7");
+                product.setAvailableQuantity(6);
+                product.setSellingPrice(449.0f);
+                ProductCategory productCategory5=productCategoryRepository.findById(3l).get();
+                product.setCategory(productCategory5);
+                product.setPublishedDate(ZonedDateTime.of(2019,10,21,12,15,22,00,ZoneId.systemDefault()));
+                productRepository.save(product);
+
+                product = productRepository.findByName("round dining table").get();
+                ProductMedia media8 = new ProductMedia(product, "/images/products/diningTable3.jpg", "jpg", null, null, true);
+                productMediaRepository.save(media8);
+                ProductMedia media9 = new ProductMedia(product, "/images/products/diningTable4.jpg", "jpg", null, null, false);
+                productMediaRepository.save(media9);
             }
 
             // TODO: Remove later, for testing only
@@ -157,10 +240,13 @@ public class DispoSellApplication {
                 order.setStatus(status);
                 order.setContactNumber(user.getPhoneNumber());
                 order.setAddress(user.getContactAddress());
+                order.setEmail(user.getEmail());
+                order.setFirstName(user.getFirstName());
+                order.setLastName(user.getLastName());
                 Long orderID = tradeOrderRepository.save(order).getOrderID();
 
                 order = tradeOrderRepository.findById(orderID).get();
-                Product product = productRepository.findByName("Furniture 3").get();
+                Product product = productRepository.findByName("off white folding chair").get();
                 OrderDetail orderDetail = new OrderDetail(order, product, 2);
                 orderDetailRepository.save(orderDetail);
 
@@ -190,24 +276,6 @@ public class DispoSellApplication {
                 shipper = userRepository.findByUsername("test_shipper_123456").get();
                 shipperDelivery.setShipper(shipper);
                 shipperDeliveryRepository.save(shipperDelivery);
-            }
-
-            // TODO: Remove later, for testing only
-            if(purchaseOrderRepository.count() == 0) {
-                PurchaseOrder order = new PurchaseOrder();
-                order.setOrderedDate(java.time.ZonedDateTime.now());
-                User user = userRepository.findByUsername("test_user_290194").get();
-                OrderStatus status = orderStatusRepository.findByName(EOrderStatus.ORDER_STATUS_NEW).get();
-                order.setUser(user);
-                order.setStatus(status);
-                order.setContactNumber(user.getPhoneNumber());
-                order.setAddress(user.getContactAddress());
-                Long orderID = purchaseOrderRepository.save(order).getOrderID();
-
-                order = purchaseOrderRepository.findById(orderID).get();
-                Product product = productRepository.findByName("Furniture 4").get();
-                OrderDetail orderDetail = new OrderDetail(order, product, 5);
-                orderDetailRepository.save(orderDetail);
             }
 
         };
