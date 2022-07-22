@@ -93,6 +93,9 @@
 
   .cartListContainer {
     margin: 5.5rem 1rem 1rem;
+
+    display: flex;
+    flex-flow: row wrap;
   }
 
   .cartList {
@@ -125,10 +128,10 @@
   }
 
   .rightColumn {
-    display: none;
+    flex-grow: 1;
   }
 
-  .showMobile {
-    display: block;
-  }
+  //.showMobile {
+  //  display: inline-block;
+  //}
 }
