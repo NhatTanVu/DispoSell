@@ -64,8 +64,8 @@ function Header() {
                             <Nav className={`align-items-center`}>
                                 <Nav.Link as={Link} to="/browse" onClick={handleRefesh}>Browse</Nav.Link>
                                 &nbsp;
-                                <Nav.Link as={Link} to="/search">Search</Nav.Link>
-                                &nbsp;
+                                {/*<Nav.Link as={Link} to="/search">Search</Nav.Link>*/}
+                                {/*&nbsp;*/}
                                 <NavDropdown title="Account" key="down" drop="down" className={localStyles['dropdownMenu']}>
                                     {currentUser ? (<>
                                         <Nav.Link as={Link} to="/profile"
@@ -100,10 +100,10 @@ function Header() {
                                          alt="Browse"/>
                                     <span className="nav-link">Browse</span>
                                 </Nav.Link>
-                                <Nav.Link as={Link} to="/search">
-                                    <img className={localStyles["icon"]} src="/images/icons/search.png" alt="Search"/>
-                                    <span className="nav-link">Search</span>
-                                </Nav.Link>
+                                {/*<Nav.Link as={Link} to="/search">*/}
+                                {/*    <img className={localStyles["icon"]} src="/images/icons/search.png" alt="Search"/>*/}
+                                {/*    <span className="nav-link">Search</span>*/}
+                                {/*</Nav.Link>*/}
                                 <div className={localStyles['accountMobile']}>
                                     <a><img className={localStyles["icon"]} src="/images/icons/account.png" alt="Account" id={localStyles['accountImg']}/></a>
                                     <NavDropdown title="Account" key="up" drop="up" className={localStyles['dropdownMenu']} id={localStyles["dropdown-basic"]}>

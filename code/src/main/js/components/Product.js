@@ -64,7 +64,6 @@ function Product({products}) {
                     <Link as={Link} to={`/productDetail/${product.productID}`}>
                     <h6 className='text-uppercase fw-bold'><span id='productName'>{product.name}</span></h6></Link>
                     <h5>$<span id='price'>{product.sellingPrice}</span></h5>
-                    {/*<p>{product.publishedDate}</p>*/}
                     <button className={`mb-4 ${localStyles["btnToCart"]}`} onClick={(e) => onClick(e, product)}>ADD TO
                         CART
                     </button>
