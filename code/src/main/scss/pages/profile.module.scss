@@ -1,0 +1,12 @@
+.orderTable {
+  overflow-x: auto;
+
+  tr{
+    th, td{
+      text-align: start;
+      padding: 0.5rem;
+      min-width: 9rem;
+      align-self: baseline;
+    }
+  }
+}

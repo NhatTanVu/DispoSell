@@ -14,6 +14,10 @@ class OrderService {
             headers: authHeader()
         });
     }
+
+    getTradeOrder() {
+        return axios.get('/api/tradeorders');
+    }
 }
 
 export default new OrderService();

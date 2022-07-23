@@ -257,6 +257,19 @@ public class DispoSellApplication {
                 delivery.setEndLocation("End 1");
                 Long deliveryID = deliveryRepository.save(delivery).getDeliveryID();
 
+                User admin = new User();
+                admin.setUsername("admin");
+                admin.setEmail("admin@gmail.com");
+                admin.setContactAddress("123 delivery address");
+                admin.setPhoneNumber("123456789");
+                admin.setPassword(passwordEncoder.encode("asdfasdf"));
+                admin.setAvatarUrl("admin_avatar.png");
+                Role adminRole = roleRepository.findByName(ERole.ROLE_ADMINISTRATOR).get();
+                Set<Role> roles = new HashSet<>();
+                roles.add(adminRole);
+                admin.setRoles(roles);
+                userRepository.save(admin);
+
                 User shipper = new User();
                 shipper.setUsername("test_shipper_123456");
                 shipper.setEmail("test_shipper_123456@gmail.com");
@@ -265,7 +278,7 @@ public class DispoSellApplication {
                 shipper.setPassword(passwordEncoder.encode("test_shipper_123456"));
                 shipper.setAvatarUrl("test_shipper_123456 avatar.png");
                 Role userRole = roleRepository.findByName(ERole.ROLE_SHIPPER).get();
-                Set<Role> roles = new HashSet<>();
+                //Set<Role> roles = new HashSet<>();
                 roles.add(userRole);
                 shipper.setRoles(roles);
                 userRepository.save(shipper);
