@@ -1,0 +1,49 @@
+.order-detail-page{
+  margin-top: 5rem;
+  margin-left:9rem;
+}
+.content{
+  display: flex;
+}
+.list-product{
+  flex: 50%;
+  -webkit-flex: 50%;
+}
+.user-info{
+  flex: 30%;
+  -webkit-flex: 30%;
+  padding-left: 4rem;
+  padding-right: 9rem;
+}
+td{
+  width:2rem;
+  height:2rem;
+  vertical-align: middle;
+}
+table img{
+  border-radius: 0;
+  width: 50%;
+}
+table tr td{
+  text-align: inherit;
+}
+
+.card-header-class{
+  border-bottom: none;
+}
+h2{
+  display: inline-flex;
+  margin-bottom: 0;
+}
+button{
+  position: relative;
+  top: -0.5rem;
+  margin-left: 2rem;
+}
+.order-date{
+  position: relative;
+  top:-0.5rem;
+  //style={{fontStyle:"italic", marginLeft:"2rem", marginTop:"0"}}
+  font-style: italic;
+  //margin-left: 2rem;
+}
