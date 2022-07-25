@@ -47,3 +47,25 @@ button{
   font-style: italic;
   //margin-left: 2rem;
 }
+@media (min-width: 768px) and (max-width: 1023px){
+  .order-detail-page{
+    margin-left: 3rem;
+  }
+  .user-info{
+    padding-left: 2rem;
+    padding-right: 6rem;
+  }
+}
+@media (max-width: 767px) and (orientation: portrait){
+  .order-detail-page{
+    margin-left: 3rem;
+  }
+  .user-info{
+    padding-left: 2rem;
+    padding-right: 3rem;
+  }
+  .content{
+    display: block;
+    margin-right: 3rem;
+  }
+}
