@@ -21,6 +21,7 @@ import Cart from "./pages/Cart";
 import ProductDetail from "./pages/ProductDetail";
 import { useNavigate } from "react-router-dom";
 import Search from "./pages/Search";
+import OrderDetail from "./pages/OrderDetail.js";
 
 export default function App() {
     return (
@@ -41,6 +42,7 @@ export default function App() {
                             <Route path="/productDetail/:id" element={<ProductDetail/>}/>
                             <Route path="/browse" element={<Browse/>} />
                             <Route path="/search" element={<Search/>} />
+                            <Route path="/orderDetail" element={<OrderDetail/>} />
                         </Routes>
                 </main>
                 <Footer/>
