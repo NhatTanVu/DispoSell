@@ -29,7 +29,7 @@ export default function Profile() {
         }
 
         OrderService.getTradeOrder().then(
-            response=>{
+            response => {
                 console.log(response.data);
                 setTradeOrder(response.data);
             }
@@ -48,6 +48,16 @@ export default function Profile() {
     const onDateChange = (e) => {
         setDate(e.target.value);
     }
+
+
+    const onLoadValue = (e, order) => {
+        if (order.purchaseOrder === 'false') {
+            console.log('trade')
+        } else {
+            document.getElementById(`orderType${order.orderID}`).value = 'Purchase';
+        }
+    }
+
 
     return (
         <div style={{marginTop: "5rem", marginBottom: "2rem", marginRight: "2rem", marginLeft: "2rem"}}>
@@ -88,51 +98,60 @@ export default function Profile() {
                                         <hr/>
                                     </div>
 
-                                    <div style={{overflowY: "auto", height: "50vh"}}>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Purchase</td>
-                                            <td></td>
-                                            <td>asdf</td>
-                                            <td>Asdf</td>
-                                            <td>Jkl</td>
-                                            <td>asdf@gmail.com</td>
-                                            <td>123412341</td>
-                                            <td>
-                                                <ul>
-                                                    <li>1</li>
-                                                    <li>4</li>
-                                                    <li>2</li>
-                                                </ul>
-                                            </td>
-                                            <td>
-                                                <ul>
-                                                    <li>Chair</li>
-                                                    <li>Bed Frame</li>
-                                                    <li>Table</li>
-                                                </ul>
-                                            </td>
-                                            <td>123 Street</td>
-                                            <td><input
-                                                type="text"
-                                                className="form-control"
-                                                id="testInput"
-                                                defaultValue={'July 7, 2022'}
-                                                placeholder={'First name is required'}
-                                                style={{border: "none"}}
-                                                onChange={onDateChange}
-                                                readOnly
-                                            />
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                        <hr/>
+                                    <div style={{overflowY: "auto", height: "50vh"}}
+                                         style={{overflowWrap: 'break-word'}}>
+                                        {tradeOrders.map((order, index) => (
+                                            <>
+                                                <tr>
+                                                    <td>{order.orderID}</td>
+                                                    <td>
+                                                        {order.purchaseOrder === false ? ('Trade') : ('Purchase')}
+                                                    </td>
+                                                    <td>
+                                                        {order.credit === null ? ('0') : order.credit}
+                                                    </td>
+                                                    <td>username</td>
+                                                    <td>{order.firstName === null ? ('null') : order.firstName}</td>
+                                                    <td>{order.lastName === null ? ('null') : order.lastName}</td>
+                                                    <td>{order.email}</td>
+                                                    <td>{order.contactNumber}</td>
+                                                    <td>
+                                                        <ul>
+                                                            {order.orderDetails.map((item, index) => (
+                                                                <li>{item.quantity}</li>
+                                                                ))}
+                                                        </ul>
+                                                    </td>
+                                                    <td>
+                                                        <ul>
+                                                            {order.orderDetails.map((item, index) => (
+                                                                <li>{item.product.name}</li>
+                                                            ))}
+                                                        </ul>
+                                                    </td>
+                                                    <td>123 Street</td>
+                                                    <td><input
+                                                        type="text"
+                                                        className="form-control"
+                                                        id="testInput"
+                                                        defaultValue={'July 7, 2022'}
+                                                        placeholder={'First name is required'}
+                                                        style={{border: "none"}}
+                                                        onChange={onDateChange}
+                                                        readOnly
+                                                    />
+                                                    </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <hr/>
+                                            </>
+                                        ))}
                                     </div>
                                 </table>
                             </div>
