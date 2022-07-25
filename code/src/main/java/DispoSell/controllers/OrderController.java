@@ -10,6 +10,7 @@ import DispoSell.repositories.PurchaseOrderRepository;
 import DispoSell.repositories.TradeOrderRepository;
 import DispoSell.services.OrderService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,5 +52,19 @@ public class OrderController {
     @PostMapping("/api/createpurchaseorder")
     public ResponseEntity<?> createPurchaseOrder(@RequestBody PurchaseOrder purchaseOrder) {
         return ResponseEntity.ok(orderService.createPurchaseOrder(purchaseOrder));
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/api/purchaseorder")
+    public Order getPurchaseOrderByID(@RequestParam(value = "orderID") Long orderID) {
+        Order id = purchaseOrderRepository.findByOrderID(orderID);
+        return id;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/api/tradeorder")
+    public Order getTradeOrderByID(@RequestParam(value = "orderID") Long orderID) {
+        Order id = tradeOrderRepository.findByOrderID(orderID);
+        return id;
     }
 }
