@@ -29,25 +29,11 @@ export default function Profile() {
         }
 
         OrderService.getTradeOrder().then(
-            response => {
+            response=>{
+                console.log(response.data);
                 setTradeOrder(response.data);
-            },
-            error => {
-                setTradeOrder(
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString()
-                );
-
-                if (error.response && (error.response.status == 401 || error.response.status == 403)) {
-                    navigate("/");
-                }
             }
         )
-
-        console.log(tradeOrders);
 
     }, []);
 
