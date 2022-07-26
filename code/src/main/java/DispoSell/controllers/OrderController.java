@@ -54,14 +54,12 @@ public class OrderController {
         return ResponseEntity.ok(orderService.createPurchaseOrder(purchaseOrder));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/api/purchaseorder")
     public Order getPurchaseOrderByID(@RequestParam(value = "orderID") Long orderID) {
         Order id = purchaseOrderRepository.findByOrderID(orderID);
         return id;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/api/tradeorder")
     public Order getTradeOrderByID(@RequestParam(value = "orderID") Long orderID) {
         Order id = tradeOrderRepository.findByOrderID(orderID);
