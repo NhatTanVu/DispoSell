@@ -142,8 +142,7 @@ export default function Profile() {
                                         <hr/>
                                     </div>
 
-                                    <div style={{overflowY: "auto", height: "50vh"}}
-                                         style={{overflowWrap: 'break-word'}}>
+                                    <div style={{overflowY: "auto", height: "50vh", overflowWrap: 'break-word'}} className='align-items-baseline align-self-baseline'>
                                         {tradeOrders.map((order, index) => (
                                             <>
                                                 <tr>
