@@ -1,8 +1,16 @@
 import React, {useState, useEffect} from "react";
 import localStyles from "../../scss/pages/OrderDetail.module.scss";
 import {Button, Card, Table} from "react-bootstrap";
+import {useNavigate, useParams} from "react-router-dom";
 
 function OrderDetail() {
+    let {id} = useParams();
+    const params = useParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        console.log(params.id);
+    })
 
     return (
         <div className={localStyles["order-detail-page"]}>

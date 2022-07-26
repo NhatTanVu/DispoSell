@@ -3,7 +3,7 @@ import AuthService from "../services/auth.service";
 import EventBus from "../common/EventBus";
 import localStyles from "../../scss/pages/profile.module.scss";
 import OrderService from "../services/order.service";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export default function Profile() {
     const [isUserReady, setUserReady] = useState(false);
@@ -33,6 +33,8 @@ export default function Profile() {
     const [shipper, setShipper] = useState([]);
     const [tradeOrders, setTradeOrder] = useState([]);
     const [purchaseOrders, setPurchaseOrder] = useState([]);
+    const [isClicked, setIsClicked] = useState(false);
+    const [isClicked2, setIsClicked2] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -136,96 +138,111 @@ export default function Profile() {
             document.getElementById(`shipper${order.orderID}`).removeAttribute('readonly')
             document.getElementById(`shipper${order.orderID}`).style.border = "solid";
         }
+        if (isClicked === false) {
+            setIsClicked(true);
+            document.getElementById(`editBtn`).innerText = 'Save';
+            console.log(isClicked);
+        }
+        if (isClicked === true) {
+            document.getElementById(`editBtn`).innerText = 'Edit';
+            setIsClicked(false);
+
+            if (index >= 0) {
+                document.getElementById(`address${order.orderID}${index}`).readOnly = true;
+                document.getElementById(`address${order.orderID}${index}`).style.border = "none";
+                document.getElementById(`address2${order.orderID}${index}`).readOnly = true;
+                document.getElementById(`address2${order.orderID}${index}`).style.border = "none";
+                document.getElementById(`city${order.orderID}${index}`).readOnly = true;
+                document.getElementById(`city${order.orderID}${index}`).style.border = "none";
+                document.getElementById(`province${order.orderID}${index}`).readOnly = true;
+                document.getElementById(`province${order.orderID}${index}`).style.border = "none";
+                document.getElementById(`zip${order.orderID}${index}`).readOnly = true;
+                document.getElementById(`zip${order.orderID}${index}`).style.border = "none";
+                document.getElementById(`deliveryDate${order.orderID}${index}`).readOnly = true;
+                document.getElementById(`deliveryDate${order.orderID}${index}`).style.border = "none";
+                document.getElementById(`firstName${order.orderID}${index}`).readOnly = true;
+                document.getElementById(`firstName${order.orderID}${index}`).style.border = "none";
+                document.getElementById(`lastName${order.orderID}${index}`).readOnly = true;
+                document.getElementById(`lastName${order.orderID}${index}`).style.border = "none";
+                document.getElementById(`phone${order.orderID}${index}`).readOnly = true;
+                document.getElementById(`phone${order.orderID}${index}`).style.border = "none";
+                document.getElementById(`email${order.orderID}${index}`).readOnly = true;
+                document.getElementById(`email${order.orderID}${index}`).style.border = "none";
+                document.getElementById(`endTime${order.orderID}${index}`).readOnly = true;
+                document.getElementById(`endTime${order.orderID}${index}`).style.border = "none";
+                document.getElementById(`startTime${order.orderID}${index}`).readOnly = true;
+                document.getElementById(`startTime${order.orderID}${index}`).style.border = "none";
+                document.getElementById(`carType${order.orderID}${index}`).readOnly = true;
+                document.getElementById(`carType${order.orderID}${index}`).style.border = "none";
+                document.getElementById(`carNumber${order.orderID}${index}`).readOnly = true;
+                document.getElementById(`carNumber${order.orderID}${index}`).style.border = "none";
+                document.getElementById(`endLocation${order.orderID}${index}`).readOnly = true;
+                document.getElementById(`endLocation${order.orderID}${index}`).style.border = "none";
+                document.getElementById(`startLocation${order.orderID}${index}`).readOnly = true;
+                document.getElementById(`startLocation${order.orderID}${index}`).style.border = "none";
+                document.getElementById(`shipper${order.orderID}${index}`).readOnly = true;
+                document.getElementById(`shipper${order.orderID}${index}`).style.border = "none";
+
+            } else {
+                document.getElementById(`address${order.orderID}`).readOnly = true;
+                document.getElementById(`address${order.orderID}`).style.border = "none";
+                document.getElementById(`address2${order.orderID}`).readOnly = true;
+                document.getElementById(`address2${order.orderID}`).style.border = "none";
+                document.getElementById(`city${order.orderID}`).readOnly = true;
+                document.getElementById(`city${order.orderID}`).style.border = "none";
+                document.getElementById(`province${order.orderID}`).readOnly = true;
+                document.getElementById(`province${order.orderID}`).style.border = "none";
+                document.getElementById(`zip${order.orderID}`).readOnly = true;
+                document.getElementById(`zip${order.orderID}`).style.border = "none";
+                document.getElementById(`deliveryDate${order.orderID}`).readOnly = true;
+                document.getElementById(`deliveryDate${order.orderID}`).style.border = "none";
+                document.getElementById(`firstName${order.orderID}`).readOnly = true;
+                document.getElementById(`firstName${order.orderID}`).style.border = "none";
+                document.getElementById(`lastName${order.orderID}`).readOnly = true;
+                document.getElementById(`lastName${order.orderID}`).style.border = "none";
+                document.getElementById(`phone${order.orderID}`).readOnly = true;
+                document.getElementById(`phone${order.orderID}`).style.border = "none";
+                document.getElementById(`email${order.orderID}`).readOnly = true;
+                document.getElementById(`email${order.orderID}`).style.border = "none";
+                document.getElementById(`endTime${order.orderID}`).readOnly = true;
+                document.getElementById(`endTime${order.orderID}`).style.border = "none";
+                document.getElementById(`startTime${order.orderID}`).readOnly = true;
+                document.getElementById(`startTime${order.orderID}`).style.border = "none";
+                document.getElementById(`carType${order.orderID}`).readOnly = true;
+                document.getElementById(`carType${order.orderID}`).style.border = "none";
+                document.getElementById(`carNumber${order.orderID}`).readOnly = true;
+                document.getElementById(`carNumber${order.orderID}`).style.border = "none";
+                document.getElementById(`endLocation${order.orderID}`).readOnly = true;
+                document.getElementById(`endLocation${order.orderID}`).style.border = "none";
+                document.getElementById(`startLocation${order.orderID}`).readOnly = true;
+                document.getElementById(`startLocation${order.orderID}`).style.border = "none";
+                document.getElementById(`shipper${order.orderID}`).readOnly = true;
+                document.getElementById(`shipper${order.orderID}`).style.border = "none";
+            }
+        }
+
     }
 
     const editQtyItem = (e, order, item) => {
-        document.getElementById(`item${order.orderID}${item.product.productID}${item.product.name}`).removeAttribute('readonly')
-        document.getElementById(`item${order.orderID}${item.product.productID}${item.product.name}`).style.border = "solid";
-        document.getElementById(`qty${order.orderID}${item.product.productID}${item.quantity}`).removeAttribute('readonly')
-        document.getElementById(`qty${order.orderID}${item.product.productID}${item.quantity}`).style.border = "solid";
-    }
-
-    const saveButton = (e, order, index) => {
-        if (index >= 0) {
-            document.getElementById(`address${order.orderID}${index}`).readOnly = true;
-            document.getElementById(`address${order.orderID}${index}`).style.border = "none";
-            document.getElementById(`address2${order.orderID}${index}`).readOnly = true;
-            document.getElementById(`address2${order.orderID}${index}`).style.border = "none";
-            document.getElementById(`city${order.orderID}${index}`).readOnly = true;
-            document.getElementById(`city${order.orderID}${index}`).style.border = "none";
-            document.getElementById(`province${order.orderID}${index}`).readOnly = true;
-            document.getElementById(`province${order.orderID}${index}`).style.border = "none";
-            document.getElementById(`zip${order.orderID}${index}`).readOnly = true;
-            document.getElementById(`zip${order.orderID}${index}`).style.border = "none";
-            document.getElementById(`deliveryDate${order.orderID}${index}`).readOnly = true;
-            document.getElementById(`deliveryDate${order.orderID}${index}`).style.border = "none";
-            document.getElementById(`firstName${order.orderID}${index}`).readOnly = true;
-            document.getElementById(`firstName${order.orderID}${index}`).style.border = "none";
-            document.getElementById(`lastName${order.orderID}${index}`).readOnly = true;
-            document.getElementById(`lastName${order.orderID}${index}`).style.border = "none";
-            document.getElementById(`phone${order.orderID}${index}`).readOnly = true;
-            document.getElementById(`phone${order.orderID}${index}`).style.border = "none";
-            document.getElementById(`email${order.orderID}${index}`).readOnly = true;
-            document.getElementById(`email${order.orderID}${index}`).style.border = "none";
-            document.getElementById(`endTime${order.orderID}${index}`).readOnly = true;
-            document.getElementById(`endTime${order.orderID}${index}`).style.border = "none";
-            document.getElementById(`startTime${order.orderID}${index}`).readOnly = true;
-            document.getElementById(`startTime${order.orderID}${index}`).style.border = "none";
-            document.getElementById(`carType${order.orderID}${index}`).readOnly = true;
-            document.getElementById(`carType${order.orderID}${index}`).style.border = "none";
-            document.getElementById(`carNumber${order.orderID}${index}`).readOnly = true;
-            document.getElementById(`carNumber${order.orderID}${index}`).style.border = "none";
-            document.getElementById(`endLocation${order.orderID}${index}`).readOnly = true;
-            document.getElementById(`endLocation${order.orderID}${index}`).style.border = "none";
-            document.getElementById(`startLocation${order.orderID}${index}`).readOnly = true;
-            document.getElementById(`startLocation${order.orderID}${index}`).style.border = "none";
-            document.getElementById(`shipper${order.orderID}${index}`).readOnly = true;
-            document.getElementById(`shipper${order.orderID}${index}`).style.border = "none";
-
-        } else {
-            document.getElementById(`address${order.orderID}`).readOnly = true;
-            document.getElementById(`address${order.orderID}`).style.border = "none";
-            document.getElementById(`address2${order.orderID}`).readOnly = true;
-            document.getElementById(`address2${order.orderID}`).style.border = "none";
-            document.getElementById(`city${order.orderID}`).readOnly = true;
-            document.getElementById(`city${order.orderID}`).style.border = "none";
-            document.getElementById(`province${order.orderID}`).readOnly = true;
-            document.getElementById(`province${order.orderID}`).style.border = "none";
-            document.getElementById(`zip${order.orderID}`).readOnly = true;
-            document.getElementById(`zip${order.orderID}`).style.border = "none";
-            document.getElementById(`deliveryDate${order.orderID}`).readOnly = true;
-            document.getElementById(`deliveryDate${order.orderID}`).style.border = "none";
-            document.getElementById(`firstName${order.orderID}`).readOnly = true;
-            document.getElementById(`firstName${order.orderID}`).style.border = "none";
-            document.getElementById(`lastName${order.orderID}`).readOnly = true;
-            document.getElementById(`lastName${order.orderID}`).style.border = "none";
-            document.getElementById(`phone${order.orderID}`).readOnly = true;
-            document.getElementById(`phone${order.orderID}`).style.border = "none";
-            document.getElementById(`email${order.orderID}`).readOnly = true;
-            document.getElementById(`email${order.orderID}`).style.border = "none";
-            document.getElementById(`endTime${order.orderID}`).readOnly = true;
-            document.getElementById(`endTime${order.orderID}`).style.border = "none";
-            document.getElementById(`startTime${order.orderID}`).readOnly = true;
-            document.getElementById(`startTime${order.orderID}`).style.border = "none";
-            document.getElementById(`carType${order.orderID}`).readOnly = true;
-            document.getElementById(`carType${order.orderID}`).style.border = "none";
-            document.getElementById(`carNumber${order.orderID}`).readOnly = true;
-            document.getElementById(`carNumber${order.orderID}`).style.border = "none";
-            document.getElementById(`endLocation${order.orderID}`).readOnly = true;
-            document.getElementById(`endLocation${order.orderID}`).style.border = "none";
-            document.getElementById(`startLocation${order.orderID}`).readOnly = true;
-            document.getElementById(`startLocation${order.orderID}`).style.border = "none";
-            document.getElementById(`shipper${order.orderID}`).readOnly = true;
-            document.getElementById(`shipper${order.orderID}`).style.border = "none";
+        if (isClicked2 === false) {
+            setIsClicked2(true);
+            document.getElementById(`editQtyBtn${item.product.productID}`).innerText = 'Save Quantity & Item';
+            document.getElementById(`item${order.orderID}${item.product.productID}${item.product.name}`).removeAttribute('readonly')
+            document.getElementById(`item${order.orderID}${item.product.productID}${item.product.name}`).style.border = "solid";
+            document.getElementById(`qty${order.orderID}${item.product.productID}${item.quantity}`).removeAttribute('readonly')
+            document.getElementById(`qty${order.orderID}${item.product.productID}${item.quantity}`).style.border = "solid";
+        }
+        if (isClicked2 === true) {
+            document.getElementById(`editQtyBtn${item.product.productID}`).innerText = 'Edit Quantity & Item';
+            setIsClicked2(false);
+            document.getElementById(`item${order.orderID}${item.product.productID}${item.product.name}`).readOnly = true;
+            document.getElementById(`item${order.orderID}${item.product.productID}${item.product.name}`).style.border = "none";
+            document.getElementById(`qty${order.orderID}${item.product.productID}${item.quantity}`).readOnly = true;
+            document.getElementById(`qty${order.orderID}${item.product.productID}${item.quantity}`).style.border = "none";
         }
     }
 
-    const saveQtyItem = (e, order, item) => {
-        document.getElementById(`item${order.orderID}${item.product.productID}${item.product.name}`).readOnly = true;
-        document.getElementById(`item${order.orderID}${item.product.productID}${item.product.name}`).style.border = "none";
-        document.getElementById(`qty${order.orderID}${item.product.productID}${item.quantity}`).readOnly = true;
-        document.getElementById(`qty${order.orderID}${item.product.productID}${item.quantity}`).style.border = "none";
-    }
+    //const saveQtyItem = (e, order, item) => {}
 
     const onDateChange = (e) => {
         setDate(e.target.value);
@@ -348,7 +365,7 @@ export default function Profile() {
                                                     <th>Order ID</th>
                                                     <th>Order Status</th>
                                                     <th>Order Date</th>
-                                                    <th>Total Credit</th>
+                                                    <th>Total</th>
                                                     {/*<th>Username</th>*/}
                                                     <th>First Name</th>
                                                     <th>Last Name</th>
@@ -386,14 +403,10 @@ export default function Profile() {
                                                                             editButton(e, purchaseorder, index)
                                                                         }}>Edit
                                                                 </button>
-                                                                <button className={`btn ${localStyles['btnProfile']}`}
-                                                                        style={{cursor: "pointer"}}
-                                                                        onClick={(e) => {
-                                                                            saveButton(e, purchaseorder, index)
-                                                                        }}>Save
-                                                                </button>
                                                             </td>
-                                                            <td>{purchaseorder.orderID}</td>
+                                                            <td><Link as={Link}
+                                                                      to={`/orderDetail`}>{purchaseorder.orderID}</Link>
+                                                            </td>
                                                             <td id={`orderStatus${purchaseorder.orderID}`}>
                                                                 {purchaseorder.status.statusID === 1 ? ('New Order') : purchaseorder.status.statusID === 2 ? ('Scheduled') : purchaseorder.status.statusID === 3 ? ('Paid') : purchaseorder.status.statusID === 4 ? ('In Delivery') : purchaseorder.status.statusID === 5 ? ('Order Fulfilled') : purchaseorder.status.statusID === 6 ? ('Cancelled') : ('Status N/A')}
                                                             </td>
@@ -401,7 +414,7 @@ export default function Profile() {
                                                                 {purchaseorder.orderedDate}
                                                             </td>
                                                             <td>
-                                                                {purchaseorder.credit === null ? ('0') : purchaseorder.credit}
+                                                                {purchaseorder.paymentAmount === null ? ('$0') : (`$${purchaseorder.paymentAmount}`)}
                                                             </td>
                                                             {/*<td>username</td>*/}
                                                             <td>
@@ -473,14 +486,18 @@ export default function Profile() {
                                                                        onChange={onItemQuantityChange}
                                                                        readOnly
                                                                    />
-                                                                        <p
+                                                                        <button
+                                                                            className={`btn ${localStyles['btnProfile']}`}
                                                                             style={{
                                                                                 cursor: "pointer",
-                                                                                textDecoration: "underline"
+                                                                                marginTop: "0",
+                                                                                fontSize: "small"
                                                                             }}
+                                                                            id={`editQtyBtn${purchaseitem.product.productID}`}
                                                                             onClick={(e) => {
                                                                                 editQtyItem(e, purchaseorder, purchaseitem)
-                                                                            }}>Edit quantity & item</p>
+                                                                            }}>Edit Quantity & Item
+                                                                        </button>
                                                                     </>
                                                                 ))}
                                                             </td>
@@ -505,14 +522,15 @@ export default function Profile() {
                                                                           onChange={onItemNameChange}
                                                                           readOnly
                                                                       />
-                                                                            <p
+                                                                            <button
+                                                                                className={`btn ${localStyles['btnProfile']}`}
                                                                                 style={{
                                                                                     cursor: "pointer",
-                                                                                    textDecoration: "underline"
-                                                                                }}
-                                                                                onClick={(e) => {
-                                                                                    saveQtyItem(e, purchaseorder, purchaseitem)
-                                                                                }}>Save quantity & item</p>
+                                                                                    marginTop: "0",
+                                                                                    fontSize: "small",
+                                                                                    visibility: "hidden"
+                                                                                }}>Save Quantity & Item
+                                                                            </button>
                                                                         </>
                                                                     ))}
                                                                 </>
@@ -725,21 +743,18 @@ export default function Profile() {
                                                                             editButton(e, order)
                                                                         }}>Edit
                                                                 </button>
-                                                                <button className={`btn ${localStyles['btnProfile']}`}
-                                                                        style={{cursor: "pointer"}}
-                                                                        onClick={(e) => {
-                                                                            saveButton(e, order)
-                                                                        }}>Save
+                                                                <button
+                                                                    className={`btn ${localStyles['btnProfile']}`}
+                                                                    onClick={(e) => {
+                                                                        cancelButton(e, order)
+                                                                    }}
+                                                                    style={{marginRight: "1rem"}}>Cancel
+                                                                    Order
                                                                 </button>
-                                                                {order.purchaseOrder === false ? (
-                                                                    <button
-                                                                        className={`btn ${localStyles['btnProfile']}`}
-                                                                        onClick={(e) => {
-                                                                            cancelButton(e, order)
-                                                                        }}
-                                                                        style={{marginRight: "1rem"}}>Cancel Order</button>) : ('')}
                                                             </td>
-                                                            <td>{order.orderID}</td>
+                                                            <td><Link as={Link}
+                                                                      to={`/orderDetail`}>{order.orderID}</Link>
+                                                            </td>
                                                             <td id={`orderStatus${order.orderID}`}>
                                                                 {order.status.statusID === 1 ? ('New Order') : order.status.statusID === 2 ? ('Scheduled') : order.status.statusID === 3 ? ('Paid') : order.status.statusID === 4 ? ('In Delivery') : order.status.statusID === 5 ? ('Order Fulfilled') : order.status.statusID === 6 ? ('Cancelled') : ('Status N/A')}
                                                             </td>
@@ -802,31 +817,35 @@ export default function Profile() {
                                                             <td>
                                                                 {order.orderDetails.map((item, index) => (
                                                                     <>
-                                                                   <textarea
-                                                                       type="number"
-                                                                       className="form-control"
-                                                                       id={`qty${order.orderID}${item.product.productID}${item.quantity}`}
-                                                                       defaultValue={item.quantity}
-                                                                       placeholder={'Required'}
-                                                                       style={{
-                                                                           border: "none",
-                                                                           backgroundColor: "transparent",
-                                                                           wordBreak: "break-word",
-                                                                           resize: "none",
-                                                                           overflow: "auto", display: "list-item",
-                                                                       }}
-                                                                       onChange={onItemQuantityChange}
-                                                                       maxLength={2}
-                                                                       readOnly
-                                                                   />
-                                                                        <p
+                                                <textarea
+                                                    type="number"
+                                                    className="form-control"
+                                                    id={`qty${order.orderID}${item.product.productID}${item.quantity}`}
+                                                    defaultValue={item.quantity}
+                                                    placeholder={'Required'}
+                                                    style={{
+                                                        border: "none",
+                                                        backgroundColor: "transparent",
+                                                        wordBreak: "break-word",
+                                                        resize: "none",
+                                                        overflow: "auto", display: "list-item",
+                                                    }}
+                                                    onChange={onItemQuantityChange}
+                                                    maxLength={2}
+                                                    readOnly
+                                                />
+                                                                        <button
+                                                                            className={`btn ${localStyles['btnProfile']}`}
                                                                             style={{
                                                                                 cursor: "pointer",
-                                                                                textDecoration: "underline"
+                                                                                marginTop: "0",
+                                                                                fontSize: "small"
                                                                             }}
+                                                                            id={`editQtyBtn${item.product.productID}`}
                                                                             onClick={(e) => {
                                                                                 editQtyItem(e, order, item)
-                                                                            }}>Edit quantity & item</p>
+                                                                            }}>Edit Quantity & Item
+                                                                        </button>
                                                                     </>
                                                                 ))}
                                                             </td>
@@ -834,32 +853,33 @@ export default function Profile() {
                                                                 <>
                                                                     {order.orderDetails.map((item, index) => (
                                                                         <>
-                                                                      <textarea
-                                                                          type="text"
-                                                                          className="form-control"
-                                                                          id={`item${order.orderID}${item.product.productID}${item.product.name}`}
-                                                                          defaultValue={item.product.name}
-                                                                          placeholder={'Required'}
-                                                                          style={{
-                                                                              border: "none",
-                                                                              backgroundColor: "transparent",
-                                                                              wordBreak: "break-word",
-                                                                              resize: "none",
-                                                                              overflow: "auto",
-                                                                              display: "list-item",
-                                                                          }}
-                                                                          maxLength={200}
-                                                                          onChange={onItemNameChange}
-                                                                          readOnly
-                                                                      />
-                                                                            <p
+                                                <textarea
+                                                    type="text"
+                                                    className="form-control"
+                                                    id={`item${order.orderID}${item.product.productID}${item.product.name}`}
+                                                    defaultValue={item.product.name}
+                                                    placeholder={'Required'}
+                                                    style={{
+                                                        border: "none",
+                                                        backgroundColor: "transparent",
+                                                        wordBreak: "break-word",
+                                                        resize: "none",
+                                                        overflow: "auto",
+                                                        display: "list-item",
+                                                    }}
+                                                    maxLength={200}
+                                                    onChange={onItemNameChange}
+                                                    readOnly
+                                                />
+                                                                            <button
+                                                                                className={`btn ${localStyles['btnProfile']}`}
                                                                                 style={{
                                                                                     cursor: "pointer",
-                                                                                    textDecoration: "underline"
-                                                                                }}
-                                                                                onClick={(e) => {
-                                                                                    saveQtyItem(e, order, item)
-                                                                                }}>Save quantity & item</p>
+                                                                                    marginTop: "0",
+                                                                                    fontSize: "small",
+                                                                                    visibility: 'hidden'
+                                                                                }}>Edit Quantity & Item
+                                                                            </button>
                                                                         </>
                                                                     ))}
                                                                 </>
@@ -1027,38 +1047,138 @@ export default function Profile() {
                         : <> {(isShipper) ?
                             <h1>shipper</h1>
                             : <> {(isUser) ?
-                                <div>
-                                    <p>
-                                        <strong>Token:</strong>{" "}
-                                        {currentUser.accessToken.substring(0, 20)} ...{" "}
-                                        {currentUser.accessToken.substring(currentUser.accessToken.length - 20)}
-                                    </p>
-                                    <p>
-                                        <strong>Id:</strong>{" "}
-                                        {currentUser.id}
-                                    </p>
-                                    <p>
-                                        <strong>Email:</strong>{" "}
-                                        {currentUser.email}
-                                    </p>
-                                    <p>
-                                        <strong>Delivery Address:</strong>{" "}
-                                        {currentUser.deliveryAddress}
-                                    </p>
-                                    <p>
-                                        <strong>Phone Number:</strong>{" "}
-                                        {currentUser.phoneNumber}
-                                    </p>
-                                    <strong>Authorities:</strong>
-                                    <ul>
-                                        {currentUser.roles &&
-                                            currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-                                    </ul>
-                                </div> : null}
+                               <>
+                                   <div style={{marginTop: "1rem", marginBottom: "0.5rem"}}>
+                                       <h3>Order Details</h3>
+                                   </div>
+                                   <div className={localStyles['orderTable']} style={{overflowX: "auto"}}>
+                                       <table style={{marginTop: "1rem", marginBottom: "0.5rem", width:"100%"}}>
+                                           <div>
+                                               <tr style={{fontWeight: "bold", borderBottomStyle: "solid"}}>
+                                                   <th>Order ID</th>
+                                                   <th>Order Status</th>
+                                                   <th>Order Date</th>
+                                                   <th>Total</th>
+                                                   <th></th>
+                                                   {/*<th>Username</th>*/}
+                                               </tr>
+                                               <hr/>
+                                           </div>
+
+                                           <div style={{overflowY: "auto", height: "50vh", overflowWrap: 'break-word'}}
+                                                className='align-items-baseline align-self-baseline'>
+                                               {purchaseOrders.map((purchaseorder, index) => (
+                                                   <>
+                                                       <tr key={purchaseorder.orderID}>
+                                                           <td><Link as={Link}
+                                                                     to={`/orderDetail`}>{purchaseorder.orderID}</Link>
+                                                           </td>
+                                                           <td id={`orderStatus${purchaseorder.orderID}`}>
+                                                               {purchaseorder.status.statusID === 1 ? ('New Order') : purchaseorder.status.statusID === 2 ? ('Scheduled') : purchaseorder.status.statusID === 3 ? ('Paid') : purchaseorder.status.statusID === 4 ? ('In Delivery') : purchaseorder.status.statusID === 5 ? ('Order Fulfilled') : purchaseorder.status.statusID === 6 ? ('Cancelled') : ('Status N/A')}
+                                                           </td>
+                                                           <td>
+                                                               {purchaseorder.orderedDate}
+                                                           </td>
+                                                           <td>
+                                                               {purchaseorder.paymentAmount === null ? ('$0') : (`$${purchaseorder.paymentAmount}`)}
+                                                           </td>
+                                                           <td>
+                                                               <button className={`btn ${localStyles['btnProfile']}`}
+                                                                       style={{cursor: "pointer"}}
+                                                                       onClick={(e)=>{navigate('/orderDetail')}}> View Order
+                                                               </button>
+                                                           </td>
+                                                           {/*<td>username</td>*/}
+                                                       </tr>
+                                                       <hr/>
+                                                   </>
+                                               ))}
+                                           </div>
+                                       </table>
+                                   </div>
+                               </>
+                                : null}
                             </>}
                         </>}
-                </> : null
+                </>
+                : null
             }
         </div>
     );
 }
+
+
+// const saveButton = (e, order, index) => {
+//     if (index >= 0) {
+//         document.getElementById(`address${order.orderID}${index}`).readOnly = true;
+//         document.getElementById(`address${order.orderID}${index}`).style.border = "none";
+//         document.getElementById(`address2${order.orderID}${index}`).readOnly = true;
+//         document.getElementById(`address2${order.orderID}${index}`).style.border = "none";
+//         document.getElementById(`city${order.orderID}${index}`).readOnly = true;
+//         document.getElementById(`city${order.orderID}${index}`).style.border = "none";
+//         document.getElementById(`province${order.orderID}${index}`).readOnly = true;
+//         document.getElementById(`province${order.orderID}${index}`).style.border = "none";
+//         document.getElementById(`zip${order.orderID}${index}`).readOnly = true;
+//         document.getElementById(`zip${order.orderID}${index}`).style.border = "none";
+//         document.getElementById(`deliveryDate${order.orderID}${index}`).readOnly = true;
+//         document.getElementById(`deliveryDate${order.orderID}${index}`).style.border = "none";
+//         document.getElementById(`firstName${order.orderID}${index}`).readOnly = true;
+//         document.getElementById(`firstName${order.orderID}${index}`).style.border = "none";
+//         document.getElementById(`lastName${order.orderID}${index}`).readOnly = true;
+//         document.getElementById(`lastName${order.orderID}${index}`).style.border = "none";
+//         document.getElementById(`phone${order.orderID}${index}`).readOnly = true;
+//         document.getElementById(`phone${order.orderID}${index}`).style.border = "none";
+//         document.getElementById(`email${order.orderID}${index}`).readOnly = true;
+//         document.getElementById(`email${order.orderID}${index}`).style.border = "none";
+//         document.getElementById(`endTime${order.orderID}${index}`).readOnly = true;
+//         document.getElementById(`endTime${order.orderID}${index}`).style.border = "none";
+//         document.getElementById(`startTime${order.orderID}${index}`).readOnly = true;
+//         document.getElementById(`startTime${order.orderID}${index}`).style.border = "none";
+//         document.getElementById(`carType${order.orderID}${index}`).readOnly = true;
+//         document.getElementById(`carType${order.orderID}${index}`).style.border = "none";
+//         document.getElementById(`carNumber${order.orderID}${index}`).readOnly = true;
+//         document.getElementById(`carNumber${order.orderID}${index}`).style.border = "none";
+//         document.getElementById(`endLocation${order.orderID}${index}`).readOnly = true;
+//         document.getElementById(`endLocation${order.orderID}${index}`).style.border = "none";
+//         document.getElementById(`startLocation${order.orderID}${index}`).readOnly = true;
+//         document.getElementById(`startLocation${order.orderID}${index}`).style.border = "none";
+//         document.getElementById(`shipper${order.orderID}${index}`).readOnly = true;
+//         document.getElementById(`shipper${order.orderID}${index}`).style.border = "none";
+//
+//     } else {
+//         document.getElementById(`address${order.orderID}`).readOnly = true;
+//         document.getElementById(`address${order.orderID}`).style.border = "none";
+//         document.getElementById(`address2${order.orderID}`).readOnly = true;
+//         document.getElementById(`address2${order.orderID}`).style.border = "none";
+//         document.getElementById(`city${order.orderID}`).readOnly = true;
+//         document.getElementById(`city${order.orderID}`).style.border = "none";
+//         document.getElementById(`province${order.orderID}`).readOnly = true;
+//         document.getElementById(`province${order.orderID}`).style.border = "none";
+//         document.getElementById(`zip${order.orderID}`).readOnly = true;
+//         document.getElementById(`zip${order.orderID}`).style.border = "none";
+//         document.getElementById(`deliveryDate${order.orderID}`).readOnly = true;
+//         document.getElementById(`deliveryDate${order.orderID}`).style.border = "none";
+//         document.getElementById(`firstName${order.orderID}`).readOnly = true;
+//         document.getElementById(`firstName${order.orderID}`).style.border = "none";
+//         document.getElementById(`lastName${order.orderID}`).readOnly = true;
+//         document.getElementById(`lastName${order.orderID}`).style.border = "none";
+//         document.getElementById(`phone${order.orderID}`).readOnly = true;
+//         document.getElementById(`phone${order.orderID}`).style.border = "none";
+//         document.getElementById(`email${order.orderID}`).readOnly = true;
+//         document.getElementById(`email${order.orderID}`).style.border = "none";
+//         document.getElementById(`endTime${order.orderID}`).readOnly = true;
+//         document.getElementById(`endTime${order.orderID}`).style.border = "none";
+//         document.getElementById(`startTime${order.orderID}`).readOnly = true;
+//         document.getElementById(`startTime${order.orderID}`).style.border = "none";
+//         document.getElementById(`carType${order.orderID}`).readOnly = true;
+//         document.getElementById(`carType${order.orderID}`).style.border = "none";
+//         document.getElementById(`carNumber${order.orderID}`).readOnly = true;
+//         document.getElementById(`carNumber${order.orderID}`).style.border = "none";
+//         document.getElementById(`endLocation${order.orderID}`).readOnly = true;
+//         document.getElementById(`endLocation${order.orderID}`).style.border = "none";
+//         document.getElementById(`startLocation${order.orderID}`).readOnly = true;
+//         document.getElementById(`startLocation${order.orderID}`).style.border = "none";
+//         document.getElementById(`shipper${order.orderID}`).readOnly = true;
+//         document.getElementById(`shipper${order.orderID}`).style.border = "none";
+//     }
+// }
