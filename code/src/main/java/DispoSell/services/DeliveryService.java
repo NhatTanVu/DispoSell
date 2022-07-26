@@ -4,6 +4,7 @@ import DispoSell.models.*;
 import DispoSell.payload.request.*;
 import DispoSell.repositories.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
@@ -28,6 +29,23 @@ public class DeliveryService {
         this.orderStatusRepository = orderStatusRepository;
         this.userRepository = userRepository;
         this.emailService = emailService;
+    }
+
+    public String getOrderType(Order order) {
+        return (order instanceof PurchaseOrder) ? "Purchase Order" : "Trade Order";
+    }
+
+    public String getMailContent(Order order) {
+        String baseUrl = ServletUriComponentsBuilder.fromCurrentRequestUri()
+                .replacePath(null)
+                .build()
+                .toUriString();
+        String content = getOrderType(order) + " <a target='_blank' href='" + baseUrl + "/orderDetails/" + order.getOrderID() + "'>#" + order.getOrderID() + "</a> was scheduled for delivery.";
+        return content;
+    }
+
+    public String getMailSubject(Order order) {
+        return "[DispoSell] " + getOrderType(order) + " scheduled";
     }
 
     public Delivery scheduleDelivery(ScheduleDeliveryRequest deliveryRequest) throws IllegalArgumentException {
@@ -61,8 +79,8 @@ public class DeliveryService {
         order.setStatus(status);
         this.orderRepository.save(order);
 
-        this.emailService.sendSimpleMessage(order.getEmail(), "[DispoSell] Order scheduled", "Your order #" + order.getOrderID() + " was scheduled for delivery.");
-        this.emailService.sendSimpleMessageToAdmin( "[DispoSell] Order scheduled", "Order #" + order.getOrderID() + " was scheduled for delivery.");
+        this.emailService.sendHtmlMessage(order.getEmail(), getMailSubject(order), getMailContent(order));
+        this.emailService.sendHtmlMessageToAdmin(getMailSubject(order), getMailContent(order));
 
         return this.deliveryRepository.findById(newDelivery.getDeliveryID()).get();
     }

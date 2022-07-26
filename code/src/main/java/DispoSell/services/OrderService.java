@@ -3,6 +3,7 @@ package DispoSell.services;
 import DispoSell.models.*;
 import DispoSell.repositories.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.transaction.Transactional;
 
@@ -25,6 +26,23 @@ public class OrderService {
         this.purchaseOrderRepository = purchaseOrderRepository;
         this.emailService = emailService;
         this.orderStatusRepository = orderStatusRepository;
+    }
+
+    public String getOrderType(Order order) {
+        return (order instanceof PurchaseOrder) ? "Purchase Order" : "Trade Order";
+    }
+
+    public String getMailContent(Order order) {
+        String baseUrl = ServletUriComponentsBuilder.fromCurrentRequestUri()
+                .replacePath(null)
+                .build()
+                .toUriString();
+        String content = getOrderType(order) + " <a target='_blank' href='" + baseUrl + "/orderDetails/" + order.getOrderID() + "'>#" + order.getOrderID() + "</a> was created.";
+        return content;
+    }
+
+    public String getMailSubject(Order order) {
+        return "[DispoSell] " + getOrderType(order) + " created";
     }
 
     public TradeOrder createTradeOrder(TradeOrder tradeOrder) {
@@ -50,8 +68,8 @@ public class OrderService {
             }
         }
 
-        this.emailService.sendSimpleMessage(newOrder.getEmail(), "[DispoSell] Trade Order created", "Your trade order #" + newOrder.getOrderID() + " was created.");
-        this.emailService.sendSimpleMessageToAdmin( "[DispoSell] Trade Order created", "New trade order #" + newOrder.getOrderID() + " was created.");
+        this.emailService.sendHtmlMessage(newOrder.getEmail(), getMailSubject(newOrder), getMailContent(newOrder));
+        this.emailService.sendHtmlMessageToAdmin( getMailSubject(newOrder), getMailContent(newOrder));
 
         return newOrder;
     }
@@ -84,8 +102,8 @@ public class OrderService {
                 this.orderDetailRepository.save(orderDetail);
             }
 
-            this.emailService.sendSimpleMessage(newOrder.getEmail(), "[DispoSell] Purchase Order created", "Your purchase order #" + newOrder.getOrderID() + " was created.");
-            this.emailService.sendSimpleMessageToAdmin( "[DispoSell] Purchase Order created", "New purchase order #" + newOrder.getOrderID() + " was created.");
+            this.emailService.sendHtmlMessage(newOrder.getEmail(), getMailSubject(newOrder), getMailContent(newOrder));
+            this.emailService.sendHtmlMessageToAdmin( getMailSubject(newOrder), getMailContent(newOrder));
 
             return newOrder;
         } else
