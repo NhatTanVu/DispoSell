@@ -56,7 +56,7 @@ public class OrderService {
         return newOrder;
     }
 
-    public PurchaseOrder createPurchaseOrder(PurchaseOrder purchaseOrder) {
+    public PurchaseOrder createPurchaseOrder(PurchaseOrder purchaseOrder) throws IllegalArgumentException {
         if (purchaseOrder == null)
             throw new IllegalArgumentException();
 

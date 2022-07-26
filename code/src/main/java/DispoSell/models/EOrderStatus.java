@@ -2,6 +2,8 @@ package DispoSell.models;
 
 public enum EOrderStatus {
     ORDER_STATUS_NEW,
+    ORDER_STATUS_APPROVED,
+    ORDER_STATUS_REJECTED,
     ORDER_STATUS_SCHEDULED,
     ORDER_STATUS_PAID,
     ORDER_STATUS_IN_DELIVERY,

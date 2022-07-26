@@ -1,9 +1,6 @@
 package DispoSell.controllers;
 
-import DispoSell.models.Order;
-import DispoSell.models.ProductCategory;
-import DispoSell.models.PurchaseOrder;
-import DispoSell.models.TradeOrder;
+import DispoSell.models.*;
 import DispoSell.payload.request.LoginRequest;
 import DispoSell.payload.response.JwtResponse;
 import DispoSell.repositories.PurchaseOrderRepository;
@@ -51,7 +48,13 @@ public class OrderController {
 
     @PostMapping("/api/createpurchaseorder")
     public ResponseEntity<?> createPurchaseOrder(@RequestBody PurchaseOrder purchaseOrder) {
-        return ResponseEntity.ok(orderService.createPurchaseOrder(purchaseOrder));
+        try {
+            PurchaseOrder newPurchaseOrder = orderService.createPurchaseOrder(purchaseOrder);
+            return ResponseEntity.ok(newPurchaseOrder);
+        }
+        catch (IllegalArgumentException illegalArgumentException) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/api/purchaseorder")

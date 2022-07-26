@@ -41,8 +41,8 @@ function ProductDetail() {
             productDetail.name,
             [
                 {
-                    "url": productDetail.productMedia[0].url,
-                    "fileType": productDetail.productMedia[0].fileType,
+                    "url": productDetail.productMedia.find(p => p.isDefault)?.url,
+                    "fileType": productDetail.productMedia.find(p => p.isDefault)?.fileType,
                 }
             ],
             Number(productDetail.sellingPrice), Number(1)));

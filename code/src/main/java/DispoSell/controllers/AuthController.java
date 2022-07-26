@@ -129,7 +129,7 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     @GetMapping("/shippers")
     public List<User> getAllShippers() {
 

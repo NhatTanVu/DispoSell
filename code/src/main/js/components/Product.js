@@ -14,10 +14,10 @@ function Product({products}) {
         const price = product.sellingPrice;
         const id = product.productID;
         const productName = product.name;
-        const productMediaURL = product.productMedia[0]?.url;
-        const productMediaType = product.productMedia[0]?.fileType;
+        const productMediaURL = product.productMedia.find(p => p.isDefault)?.url;
+        const productMediaType = product.productMedia.find(p => p.isDefault)?.fileType;
 
-        console.log(product.productMedia[0]?.url);
+        console.log(product.productMedia.find(p => p.isDefault)?.url);
 
         dispatch(addCartItem(
             Number(id),
