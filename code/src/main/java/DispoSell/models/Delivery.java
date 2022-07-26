@@ -5,6 +5,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "deliveries")
@@ -34,6 +36,12 @@ public class Delivery {
 
     @NotBlank
     private String endLocation;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "shipperdeliveries",
+            joinColumns = @JoinColumn(name = "deliveryID"),
+            inverseJoinColumns = @JoinColumn(name = "shipperID"))
+    private Set<User> shippers = new HashSet<>();
 
     public Delivery(){
     }
@@ -108,5 +116,13 @@ public class Delivery {
 
     public void setEndLocation(String endLocation) {
         this.endLocation = endLocation;
+    }
+
+    public Set<User> getShippers() {
+        return shippers;
+    }
+
+    public void setShippers(Set<User> shippers) {
+        this.shippers = shippers;
     }
 }

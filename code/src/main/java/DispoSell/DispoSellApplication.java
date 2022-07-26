@@ -45,8 +45,10 @@ public class DispoSellApplication {
             }
             if (orderStatusRepository.count() == 0) {
                 orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_NEW));
-                orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_SCHEDULED));
+                orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_APPROVED));
+                orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_REJECTED));
                 orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_PAID));
+                orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_SCHEDULED));
                 orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_IN_DELIVERY));
                 orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_DONE));
                 orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_CANCELLED));
@@ -293,6 +295,22 @@ public class DispoSellApplication {
                 shipper = userRepository.findByUsername("test_shipper_123456").get();
                 shipperDelivery.setShipper(shipper);
                 shipperDeliveryRepository.save(shipperDelivery);
+            }
+
+            // TODO: Remove later, for testing only
+            if (userRepository.findByUsername("test_admin").isEmpty()) {
+                User user = new User();
+                user.setUsername("test_admin");
+                user.setEmail("test_admin@gmail.com");
+                user.setContactAddress("test_admin delivery address");
+                user.setPhoneNumber("123456789");
+                user.setPassword(passwordEncoder.encode("test_admin"));
+                user.setAvatarUrl("test_admin avatar.png");
+                Role userRole = roleRepository.findByName(ERole.ROLE_ADMINISTRATOR).get();
+                Set<Role> roles = new HashSet<>();
+                roles.add(userRole);
+                user.setRoles(roles);
+                userRepository.save(user);
             }
 
         };

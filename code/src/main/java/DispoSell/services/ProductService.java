@@ -37,7 +37,7 @@ public class ProductService {
         return newProduct;
     }
 
-    public Product updateAvailableQuantity(long productID, int purchasedQuantity) {
+    public Product updateAvailableQuantity(long productID, int purchasedQuantity) throws IllegalArgumentException {
         Product product = this.productRepository.findById(productID).get();
         if (product.getAvailableQuantity() < purchasedQuantity) {
             throw new IllegalArgumentException();
