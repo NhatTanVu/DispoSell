@@ -5,9 +5,35 @@
     th, td{
       text-align: start;
       padding: 0.5rem;
-      min-width: 9rem;
+      min-width: 11rem;
       align-self: baseline;
-      overflow-wrap: break-word;
+      overflow-wrap: anywhere;
+      margin-right: 2rem;
+      word-break: break-all;
+      word-wrap: break-word;
     }
   }
+}
+
+.btnProfile {
+  flex: 1 1 0;
+  padding: 0.25em 1em;
+  border: black solid;
+  width: 100%;
+  color: white;
+  background-color: rgb(0, 0, 0);
+  -webkit-appearance: none;
+  margin-top: 1em;
+}
+
+.btnProfile:hover {
+  flex: 1 1 0;
+  padding: 0.25em 1em;
+  border: black solid;
+  width: 100%;
+  color: #000000;
+  background-color: rgb(255, 255, 255);
+  -webkit-appearance: none;
+  transition: 0.5s ease;
+  -webkit-transition: 0.5s ease;
 }

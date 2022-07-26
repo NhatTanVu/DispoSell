@@ -250,6 +250,10 @@ public class DispoSellApplication {
                 OrderDetail orderDetail = new OrderDetail(order, product, 2);
                 orderDetailRepository.save(orderDetail);
 
+                product = productRepository.findByName("white side table").get();
+                orderDetail = new OrderDetail(order, product, 4);
+                orderDetailRepository.save(orderDetail);
+
                 Delivery delivery = new Delivery();
                 order = tradeOrderRepository.findById(orderID).get();
                 delivery.setOrder(order);

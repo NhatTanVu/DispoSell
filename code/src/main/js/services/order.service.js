@@ -18,6 +18,10 @@ class OrderService {
     getTradeOrder() {
         return axios.get('/api/tradeorders');
     }
+
+    // getTradeOrder(id){
+    //     return axios.get('./api/tradeorder',{params:{orderID:id}});
+    // }
 }
 
 export default new OrderService();
