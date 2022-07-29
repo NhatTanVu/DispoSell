@@ -19,6 +19,9 @@ public class ScheduleDeliveryRequest {
     @NotNull
     private ZonedDateTime startTime;
 
+    @NotNull
+    private ZonedDateTime endTime;
+
     @NotBlank
     private String startLocation;
 
@@ -82,5 +85,13 @@ public class ScheduleDeliveryRequest {
 
     public void setShippers(List<Long> shippers) {
         this.shippers = shippers;
+    }
+
+    public ZonedDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(ZonedDateTime endTime) {
+        this.endTime = endTime;
     }
 }

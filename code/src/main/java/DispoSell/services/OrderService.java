@@ -28,20 +28,20 @@ public class OrderService {
         this.orderStatusRepository = orderStatusRepository;
     }
 
-    public String getOrderType(Order order) {
+    private String getOrderType(Order order) {
         return (order instanceof PurchaseOrder) ? "Purchase Order" : "Trade Order";
     }
 
-    public String getMailContent(Order order) {
+    private String getMailContent(Order order) {
         String baseUrl = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .replacePath(null)
                 .build()
                 .toUriString();
-        String content = getOrderType(order) + " <a target='_blank' href='" + baseUrl + "/orderDetails/" + order.getOrderID() + "'>#" + order.getOrderID() + "</a> was created.";
+        String content = getOrderType(order) + " <a target='_blank' href='" + baseUrl + "/orderDetail/" + order.getOrderID() + "'>#" + order.getOrderID() + "</a> was created.";
         return content;
     }
 
-    public String getMailSubject(Order order) {
+    private String getMailSubject(Order order) {
         return "[DispoSell] " + getOrderType(order) + " created";
     }
 
