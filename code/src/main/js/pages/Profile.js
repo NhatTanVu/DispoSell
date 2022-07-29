@@ -405,7 +405,7 @@ export default function Profile() {
                                                                 </button>
                                                             </td>
                                                             <td><Link as={Link}
-                                                                      to={`/orderDetail`}>{purchaseorder.orderID}</Link>
+                                                                      to={`/orderDetail/${purchaseorder.orderID}`}>{purchaseorder.orderID}</Link>
                                                             </td>
                                                             <td id={`orderStatus${purchaseorder.orderID}`}>
                                                                 {purchaseorder.status.statusID === 1 ? ('New Order') : purchaseorder.status.statusID === 2 ? ('Scheduled') : purchaseorder.status.statusID === 3 ? ('Paid') : purchaseorder.status.statusID === 4 ? ('In Delivery') : purchaseorder.status.statusID === 5 ? ('Order Fulfilled') : purchaseorder.status.statusID === 6 ? ('Cancelled') : ('Status N/A')}
@@ -753,7 +753,7 @@ export default function Profile() {
                                                                 </button>
                                                             </td>
                                                             <td><Link as={Link}
-                                                                      to={`/orderDetail`}>{order.orderID}</Link>
+                                                                      to={`/orderDetail/${order.orderID}`}>{order.orderID}</Link>
                                                             </td>
                                                             <td id={`orderStatus${order.orderID}`}>
                                                                 {order.status.statusID === 1 ? ('New Order') : order.status.statusID === 2 ? ('Scheduled') : order.status.statusID === 3 ? ('Paid') : order.status.statusID === 4 ? ('In Delivery') : order.status.statusID === 5 ? ('Order Fulfilled') : order.status.statusID === 6 ? ('Cancelled') : ('Status N/A')}
@@ -1071,7 +1071,7 @@ export default function Profile() {
                                                    <>
                                                        <tr key={purchaseorder.orderID}>
                                                            <td><Link as={Link}
-                                                                     to={`/orderDetail`}>{purchaseorder.orderID}</Link>
+                                                                     to={`/orderDetail/${purchaseorder.orderID}`}>{purchaseorder.orderID}</Link>
                                                            </td>
                                                            <td id={`orderStatus${purchaseorder.orderID}`}>
                                                                {purchaseorder.status.statusID === 1 ? ('New Order') : purchaseorder.status.statusID === 2 ? ('Scheduled') : purchaseorder.status.statusID === 3 ? ('Paid') : purchaseorder.status.statusID === 4 ? ('In Delivery') : purchaseorder.status.statusID === 5 ? ('Order Fulfilled') : purchaseorder.status.statusID === 6 ? ('Cancelled') : ('Status N/A')}
