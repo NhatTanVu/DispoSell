@@ -42,7 +42,7 @@ export default function App() {
                             <Route path="/productDetail/:id" element={<ProductDetail/>}/>
                             <Route path="/browse" element={<Browse/>} />
                             <Route path="/search" element={<Search/>} />
-                            <Route path="/orderDetail/:id" element={<OrderDetail/>} />
+                            <Route path="/orderDetails/:id" element={<OrderDetail/>} />
                         </Routes>
                 </main>
                 <Footer/>
