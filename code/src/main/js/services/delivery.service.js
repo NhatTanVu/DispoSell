@@ -1,14 +1,31 @@
 import axios from "axios";
 import authHeader from './auth-header';
 
+const API_URL = './api/auth/shippers';
+
 class DeliveryService {
-    createScheduleDelivery(delivery) {
-        return axios.post("./api/scheduleDelivery",
-            delivery);
+    createScheduleDelivery( orderID,
+                            vehicleNumber,
+                            vehicleType,
+                            startTime,
+                            endTime,
+                            startLocation,
+                            endLocation,
+                            shippers) {
+        return axios.post("./api/scheduleDelivery",{
+            orderID,
+            vehicleNumber,
+            vehicleType,
+            startTime,
+            endTime,
+            startLocation,
+            endLocation,
+            shippers
+        });
     }
 
     getShippers() {
-        return axios.get("./api/auth/shippers", {
+        return axios.get(API_URL + 'admin', {
             headers: authHeader()
         });
 

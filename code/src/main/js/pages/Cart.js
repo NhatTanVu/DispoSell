@@ -102,6 +102,7 @@ export default function Cart() {
     }
 
     function onCheckoutClick(e) {
+        setCanCheckout(false);
         dispatch(setUserInfo(firstName,
             lastName,
             phoneNumber,
@@ -180,22 +181,33 @@ export default function Cart() {
     function onInputCheck() {
         if ((firstName && lastName && deliveryAddress && email && phoneNumber) !== '') {
             const phoneNumRegex = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
+            const addressRegex = /^(\d{1,5}) ([^,]+), ([^,]+), ([A-Z]{2}), ([A-Za-z]\d[A-Za-z][ -]?\d[A-Z]\d)$/;
             const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             if (emailRegex.test(email.toLowerCase())) {
-                if (phoneNumRegex.test(phoneNumber)) {
-                    setIsInputReady(true);
-                } else {
+                if(addressRegex.test(deliveryAddress)){
+                    if (phoneNumRegex.test(phoneNumber)) {
+                        setIsInputReady(true);
+                    } else {
+                        setIsInputReady(false);
+                        alert("Accepted format: \n(123) 456-7890\n" +
+                            "+(123) 456-7890\n" +
+                            "+(123)-456-7890\n" +
+                            "+(123) - 456-7890\n" +
+                            "+(123) - 456-78-90\n" +
+                            "123-456-7890\n" +
+                            "123.456.7890\n" +
+                            "1234567890\n" +
+                            "+31636363634\n" +
+                            "075-63546725");
+                    }
+                }
+                else{
                     setIsInputReady(false);
-                    alert("Accepted format: \n(123) 456-7890\n" +
-                        "+(123) 456-7890\n" +
-                        "+(123)-456-7890\n" +
-                        "+(123) - 456-7890\n" +
-                        "+(123) - 456-78-90\n" +
-                        "123-456-7890\n" +
-                        "123.456.7890\n" +
-                        "1234567890\n" +
-                        "+31636363634\n" +
-                        "075-63546725");
+                    alert("Suggested format: \n123 Street St, Vancouver, BC, X1X 2X3\n" +
+                        "1234 Street St Unit 123, Vancouver, BC, X1X 2X3\n" +
+                        "1234 Street St #123, Vancouver, BC, X1X 2X3\n" +
+                        "1234 Street St Building ABC, Vancouver, BC, X1X 2X3\n" +
+                        "12345 Street St Building ABC #123, Vancouver, BC, X1X 2X3");
                 }
             } else {
                 setIsInputReady(false);
@@ -383,7 +395,7 @@ export default function Cart() {
                                             className="form-control"
                                             id="firstName"
                                             value={firstName}
-                                            placeholder={'First name is required'}
+                                            placeholder={'First name'}
                                             onChange={onChangeFirstName}
                                         />
                                     </div>
@@ -395,7 +407,7 @@ export default function Cart() {
                                             className="form-control"
                                             id="lastName"
                                             value={lastName}
-                                            placeholder={'Last name is required'}
+                                            placeholder={'Last name'}
                                             onChange={onChangeLastName}
                                         />
                                     </div>
@@ -407,7 +419,7 @@ export default function Cart() {
                                             className="form-control"
                                             id="email"
                                             value={email}
-                                            placeholder={'Email is required'}
+                                            placeholder={'address@email.com'}
                                             onChange={onChangeEmail}
                                             required
                                         />
@@ -421,7 +433,7 @@ export default function Cart() {
                                             className="form-control"
                                             id="address"
                                             value={deliveryAddress}
-                                            placeholder={'Delivery address is required'}
+                                            placeholder={'123 Delivery St, Vancouver, BC, X1X 2X3'}
                                             onChange={onChangeDeliveryAddress}
                                         />
                                     </div>
@@ -434,7 +446,7 @@ export default function Cart() {
                                             className="form-control"
                                             id="phoneNumber"
                                             value={phoneNumber}
-                                            placeholder={'Phone number is required'}
+                                            placeholder={'123 456 7890'}
                                             onChange={onChangePhoneNumber}
                                         />
                                     </div>

@@ -4,17 +4,23 @@ import {Button, Card, Table} from "react-bootstrap";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import OrderService from "../services/order.service";
 import DeliveryService from "../services/delivery.service";
-import {clearCart, setUserInfo} from "../redux/cartSlice";
-import store from "../redux/store";
 
 function ScheduleDelivery() {
     let {id} = useParams();
-    const [orderDetail, setOrderDetail] = useState({});
-    const [shippers, setShippers] = useState({});
-    const [carType, setCarType] = useState('');
-
     const params = useParams();
     const navigate = useNavigate();
+    const [orderDetail, setOrderDetail] = useState({});
+    const [shippers, setShippers] = useState([]);
+    //let shippers = [];
+    const [carType, setCarType] = useState('');
+    const [deliveryAddress, setDeliveryAddress] = useState('');
+    const [deliveryDate, setDeliveryDate] = useState('');
+    const [carNumber, setCarNumber] = useState('');
+    const [startLocation, setStartLocation] = useState('');
+    const [endLocation, setEndLocation] = useState('');
+    const [endTime, setEndTime] = useState('');
+    const [startTime, setStartTime] = useState('');
+
 
     useEffect(() => {
         console.log(params.id);
@@ -22,7 +28,6 @@ function ScheduleDelivery() {
         DeliveryService.getShippers().then(
             response => {
                 console.log(response.data);
-                setShippers(response.data);
             }
         )
 
@@ -47,36 +52,84 @@ function ScheduleDelivery() {
         );
     }, []);
 
+
+    function addShippers(e) {
+        e.preventDefault()
+        let boxvalue;
+        boxvalue = document.getElementById('shippersInput').value;
+        shippers.push(boxvalue);
+        console.log(shippers);
+        return false; // stop submission
+    }
+
+
     function saveDeliveryInfo(e) {
-        const deliveryInfo =
-            {
-                "orderID": params.id,
-                "vehicleNumber": "12345",
-                "vehicleType": "van",
-                "startTime": "2022-07-26T10:54:00-07:00",
-                "endTime": "2022-07-26T15:54:00-07:00",
-                "startLocation": "from somewhere",
-                "endLocation": "to somewhere",
-                "shippers": [3]
+        e.preventDefault();
+
+        if ((shippers || deliveryDate || carNumber || carType || startLocation || endLocation || endTime || startTime) !== '') {
+            const addressRegex = /^(\d{1,5}) ([^,]+), ([^,]+), ([A-Z]{2}), ([A-Za-z]\d[A-Za-z][ -]?\d[A-Z]\d)$/;
+            if (addressRegex.test(endLocation)) {
+                DeliveryService.createScheduleDelivery(params.id,
+                    carNumber,
+                    carType,
+                    startTime,
+                    endTime,
+                    startLocation,
+                    endLocation,
+                    shippers).then(
+                    (value) => {
+                        alert(JSON.stringify(params.id));
+                        alert(JSON.stringify(endLocation));
+                        alert(JSON.stringify(startLocation));
+                    },
+                    (reason) => {
+                        const resMessage =
+                            (reason.response &&
+                                reason.response.data &&
+                                reason.response.data.message) ||
+                            reason.message ||
+                            reason.toString();
+                        alert("Error when purchasing products");
+                        console.log(resMessage);
+                    });
+            } else {
+                alert("Suggested format: \n123 Street St, Vancouver, BC, X1X 2X3\n" +
+                    "1234 Street St Unit 123, Vancouver, BC, X1X 2X3\n" +
+                    "1234 Street St #123, Vancouver, BC, X1X 2X3\n" +
+                    "1234 Street St Building ABC, Vancouver, BC, X1X 2X3\n" +
+                    "12345 Street St Building ABC #123, Vancouver, BC, X1X 2X3");
             }
-        DeliveryService.createScheduleDelivery(deliveryInfo).then(
-            (value) => {
-                alert(JSON.stringify(deliveryInfo));
-            },
-            (reason) => {
-                const resMessage =
-                    (reason.response &&
-                        reason.response.data &&
-                        reason.response.data.message) ||
-                    reason.message ||
-                    reason.toString();
-                alert("Error when purchasing products");
-                console.log(resMessage);
-            });
+        } else {
+            alert("Please fill in the required fields.")
+        }
+    }
+
+    const onDateChange = (e) => {
+        setDeliveryDate(e.target.value);
     }
 
     const onCarTypeChange = (e) => {
         setCarType(e.target.value);
+    }
+
+    const onCarNumberChange = (e) => {
+        setCarNumber(e.target.value);
+    }
+
+    const onEndTimeChange = (e) => {
+        setEndTime(e.target.value);
+    }
+
+    const onStartTimeChange = (e) => {
+        setStartTime(e.target.value);
+    }
+
+    const onEndLocationChange = (e) => {
+        setEndLocation(e.target.value);
+    }
+
+    const onStartLocationChange = (e) => {
+        setStartLocation(e.target.value);
     }
 
     return (
@@ -94,24 +147,33 @@ function ScheduleDelivery() {
                                 <Table responsive="sm">
                                     <tbody>
                                     <tr>
-                                        <td><b>Shipping Address</b>
-                                            <br/>
-                                            {orderDetail.address}</td>
-                                    </tr>
-                                    <tr>
                                         <td><b>Delivery Date</b>
-                                            <br/><input type="date" defaultValue=""/>
+                                            <br/><input type="date"
+                                                        className="form-control"
+                                                        id={`deliveryDate${orderDetail.orderID}`}
+                                                        onChange={onDateChange}/>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td><b>Shipper(s)</b>
                                             <br/>
+                                            <form onSubmit={addShippers}>
+                                                <input type="text" id="shippersInput"/>
+                                                <input type="submit" value="Submit"/>
+                                            </form>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td><b>Vehicle Number</b>
                                             <br/>
-                                            <input type='text'/>
+                                            <input type="text"
+                                                   className="form-control"
+                                                   id={`carNumber${orderDetail.orderID}`}
+                                                   placeholder={'AB1 23C'}
+                                                   style={{border: "none"}}
+                                                   onChange={onCarNumberChange}
+                                                   maxLength={10}
+                                            />
                                         </td>
                                     </tr>
                                     <tr>
@@ -121,29 +183,59 @@ function ScheduleDelivery() {
                                                 className="form-control"
                                                 id={`carType${orderDetail.orderID}`}
                                                 placeholder={'Required'}
-                                                style={{border: "none", backgroundColor: "transparent"}}
+                                                style={{border: "none"}}
                                                 onChange={onCarTypeChange}
                                                 maxLength={10}
-                                                readOnly
+
                                             /></td>
                                     </tr>
                                     <tr>
                                         <td><b>Start Location</b>
-                                            <br/>{orderDetail.contactNumber}</td>
+                                            <br/><input type='text'
+                                                        defaultValue={'Warehouse'}
+                                                        className="form-control"
+                                                        id={`startLocation${orderDetail.orderID}`}
+                                                        placeholder={'Required'}
+                                                        style={{border: "none"}}
+                                                        onChange={onStartLocationChange}
+                                                        maxLength={100}
+                                            /></td>
                                     </tr>
                                     <tr>
-                                        <td><b>End Location</b>
-                                            <br/>{orderDetail.contactNumber}</td>
+                                        <td><b>End Location/Shipping Address</b>
+                                            <br/><input type='text'
+                                                        defaultValue={orderDetail.address}
+                                                        className="form-control"
+                                                        id={`startLocation${orderDetail.orderID}`}
+                                                        placeholder={'Required'}
+                                                        style={{border: "none"}}
+                                                        onChange={onEndLocationChange}
+                                                        maxLength={100}
+                                            /></td>
                                     </tr>
                                     <tr>
                                         <td><b>Start Time</b>
                                             <br/>
-                                            <input type="time" required/></td>
+                                            <input type="time"
+                                                   className="form-control"
+                                                   id={`startTime${orderDetail.orderID}`}
+                                                   placeholder={'Required'}
+                                                   style={{border: "none"}}
+                                                   onChange={onStartTimeChange}
+                                                   maxLength={10}
+                                            /></td>
                                     </tr>
                                     <tr>
                                         <td><b>End Time</b>
                                             <br/>
-                                            <input type="time" required/></td>
+                                            <input type="time"
+                                                   className="form-control"
+                                                   id={`endTime${orderDetail.orderID}`}
+                                                   placeholder={'Required'}
+                                                   style={{border: "none"}}
+                                                   onChange={onEndTimeChange}
+                                                   maxLength={10}
+                                            /></td>
                                     </tr>
                                     </tbody>
                                 </Table>
@@ -151,7 +243,10 @@ function ScheduleDelivery() {
                             <button className={`btn ${localStyles['btnProfile']}`}
                                     id={`editBtn`}
                                     style={{cursor: "pointer"}}
-                            >Edit
+                                    onClick={(e) => {
+                                        saveDeliveryInfo(e)
+                                    }}
+                            >Save
                             </button>
                         </Card.Body>
                     </Card>
@@ -166,10 +261,10 @@ function ScheduleDelivery() {
                                 <Table responsive="sm">
                                     <tbody>
                                     <tr>
-                                        <td><b> Email</b> <br/>{orderDetail.email}</td>
+                                        <td><b>Email</b> <br/>{orderDetail.email}</td>
                                     </tr>
                                     <tr>
-                                        <td><b> Phone Number</b><br/>{orderDetail.contactNumber}</td>
+                                        <td><b>Phone Number</b><br/>{orderDetail.contactNumber}</td>
                                     </tr>
                                     </tbody>
                                 </Table>
