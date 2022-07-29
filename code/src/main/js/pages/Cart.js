@@ -415,20 +415,7 @@ export default function Cart() {
 
                                     <div className="col-12">
                                         <label htmlFor="deliveryAddress" className="form-label text-start">Delivery
-                                            Address Line 1</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            id="address"
-                                            value={deliveryAddress}
-                                            placeholder={'Delivery address is required'}
-                                            onChange={onChangeDeliveryAddress}
-                                        />
-                                    </div>
-
-                                    <div className="col-12">
-                                        <label htmlFor="deliveryAddress" className="form-label text-start">Delivery
-                                            Address Line 2</label>
+                                            Address</label>
                                         <input
                                             type="text"
                                             className="form-control"
@@ -534,7 +521,6 @@ export default function Cart() {
                                 </>)}
                         </div>
                     </div>
-
                 </>
                 : (
                     <div

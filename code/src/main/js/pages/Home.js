@@ -49,7 +49,7 @@ function Home() {
             </div>
 
             <div id="featured-products"
-                 className={`text-center align-content-center justify-content-center ${localStyles['featuredProducts']}`}>
+                 className={`align-content-center justify-content-center ${localStyles['featuredProducts']}`}>
                 <div className='row align-content-center justify-content-center'>
                     <div className='align-self-baseline text-center'
                          style={{position: "relative", marginTop: "3em", marginBottom: "2em"}}>

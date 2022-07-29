@@ -22,6 +22,7 @@ import ProductDetail from "./pages/ProductDetail";
 import { useNavigate } from "react-router-dom";
 import Search from "./pages/Search";
 import OrderDetail from "./pages/OrderDetail.js";
+import ScheduleDelivery from "./pages/scheduleDelivery.js";
 
 export default function App() {
     return (
@@ -43,6 +44,7 @@ export default function App() {
                             <Route path="/browse" element={<Browse/>} />
                             <Route path="/search" element={<Search/>} />
                             <Route path="/orderDetails/:id" element={<OrderDetail/>} />
+                            <Route path="/scheduleDelivery/:id" element={<ScheduleDelivery/>} />
                         </Routes>
                 </main>
                 <Footer/>
