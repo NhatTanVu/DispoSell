@@ -94,7 +94,7 @@ public class OrderService {
                 throw new IllegalArgumentException();
             }
 
-            OrderStatus status = orderStatusRepository.findByName(EOrderStatus.ORDER_STATUS_PAID).get();
+            OrderStatus status = this.orderStatusRepository.findByName(EOrderStatus.ORDER_STATUS_PAID).get();
             purchaseOrder.setStatus(status);
             PurchaseOrder newOrder = this.purchaseOrderRepository.save(purchaseOrder);
             for (OrderDetail orderDetail : purchaseOrder.getOrderDetails()) {
