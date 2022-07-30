@@ -77,6 +77,15 @@ class OrderControllerTest {
 
     @Test
     void getPurchaseOrderByID() {
+        PurchaseOrder purchaseOrder = new PurchaseOrder();
+        purchaseOrder.setOrderID(1L);
+        Order id = purchaseOrder;
+
+        when(purchaseOrderRepository.findByOrderID(purchaseOrder.getOrderID())).thenReturn(purchaseOrder);
+
+        Order orderID = orderControllerImpl.getPurchaseOrderByID(1L);
+
+        assertEquals(id, orderID);
     }
 
     @Test

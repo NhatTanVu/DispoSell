@@ -80,20 +80,8 @@ function Browse() {
                          borderStyle: "solid",
                          padding: "2% 10%"
                      }}>
-                    {/*<Dropdown id={localStyles['dropdownMenu']}>*/}
-                    {/*    <Dropdown.Toggle className="dropdown-basic" id={localStyles['dropdown-basic']}>*/}
+
                     <a>Category</a>
-                    {/*    </Dropdown.Toggle>*/}
-                    {/*    <Dropdown.Menu className={`text-center`} style={{inset:"unset"}}>*/}
-                    {/*        <a href="" >All Categories</a><br/>*/}
-                    {/*        <a href="#bedframes">Bed Frames</a><br/>*/}
-                    {/*        <a href="#chairs">Chairs</a><br/>*/}
-                    {/*        <a href="#diningTables">Dining Tables</a><br/>*/}
-                    {/*        <a href="#sideTables">Side Tables</a><br/>*/}
-                    {/*        <a href="#sofas">Sofas</a><br/>*/}
-                    {/*        <a href="#stools">Stools</a>*/}
-                    {/*    </Dropdown.Menu>*/}
-                    {/*</Dropdown>*/}
                 </div>
                 <div style={{
                     width: "-webkit-fill-available",
@@ -109,12 +97,9 @@ function Browse() {
                 left: "0",
                 position: "fixed",
             }}>
-                {/*<Link as={Link} to={`/browse`}>*/}
-                {/*    <h3>All Categories</h3>*/}
-                {/*</Link>*/}
                 <h3>All Categories</h3>
                 {category.map((val)=>(
-                    <a onClick={(e) => handleFilter(e,val.categoryID)}>{val.name}<br/></a>
+                    <a onClick={(e) => handleFilter(e,val.categoryID)} style={{cursor:"pointer"}}>{val.name}<br/></a>
                 ))}
             </div>
 
@@ -130,9 +115,9 @@ function Browse() {
 
             <div className={localStyles["float_right"]}>
                 <h3>Sort</h3>
-                <a onClick={(e) => handleSort(e,categoryid,"publishedDate,DESC")}>Latest Arrivals</a> <br/>
-                <a onClick={(e) => handleSort(e,categoryid,"sellingPrice")}>Price: Low to High</a> <br/>
-                <a onClick={(e) => handleSort(e,categoryid,"sellingPrice,DESC")}>Price: High to Low</a>
+                <a onClick={(e) => handleSort(e,categoryid,"publishedDate,DESC")} style={{cursor:"pointer"}}>Latest Arrivals</a> <br/>
+                <a onClick={(e) => handleSort(e,categoryid,"sellingPrice")} style={{cursor:"pointer"}}>Price: Low to High</a> <br/>
+                <a onClick={(e) => handleSort(e,categoryid,"sellingPrice,DESC")} style={{cursor:"pointer"}}>Price: High to Low</a>
             </div>
         </div>
     )

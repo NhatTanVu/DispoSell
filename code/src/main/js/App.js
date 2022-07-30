@@ -10,7 +10,6 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import AboutUs from "./pages/AboutUs";
 import Browse from "./pages/Browse"
-import {Container} from "react-bootstrap";
 import UserContent from "./pages/test/UserContent";
 import DeliveryContent from "./pages/test/DeliveryContent";
 import AdminContent from "./pages/test/AdminContent";
@@ -19,7 +18,6 @@ import Profile from "./pages/Profile";
 import Register from "./pages/Register";
 import Cart from "./pages/Cart";
 import ProductDetail from "./pages/ProductDetail";
-import { useNavigate } from "react-router-dom";
 import Search from "./pages/Search";
 import OrderDetail from "./pages/OrderDetail.js";
 import ScheduleDelivery from "./pages/scheduleDelivery.js";
