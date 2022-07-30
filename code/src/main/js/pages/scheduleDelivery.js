@@ -192,14 +192,14 @@ function ScheduleDelivery() {
                                     <Card.Text>
                                         <Table responsive="sm">
                                             <tbody>
-                                            <tr>
-                                                <td><b>Delivery Date</b>
-                                                    <br/><input type="date"
-                                                                className="form-control"
-                                                                id={`deliveryDate${orderDetail.orderID}`}
-                                                                onChange={onDateChange}/>
-                                                </td>
-                                            </tr>
+                                            {/*<tr>*/}
+                                                {/*<td><b>Delivery Date</b>*/}
+                                                {/*    <br/><input type="date"*/}
+                                                {/*                className="form-control"*/}
+                                                {/*                id={`deliveryDate${orderDetail.orderID}`}*/}
+                                                {/*                onChange={onDateChange}/>*/}
+                                                {/*</td>*/}
+                                            {/*</tr>*/}
                                             <tr>
                                                 <td><b>Shipper(s)</b>
                                                     <br/>
