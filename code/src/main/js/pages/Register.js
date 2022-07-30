@@ -1,8 +1,6 @@
 import React, {useState} from "react";
 import AuthService from "../services/auth.service";
-
 import localStyles from '../../scss/pages/login.module.scss';
-import DeliveryService from "../services/delivery.service";
 
 export default function Register() {
     const [username, setUsername] = useState("");

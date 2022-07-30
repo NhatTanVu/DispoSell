@@ -409,7 +409,7 @@ export default function Profile() {
                                                                       to={`/orderDetails/${purchaseorder.orderID}`}>{purchaseorder.orderID}</Link>
                                                             </td>
                                                             <td id={`orderStatus${purchaseorder.orderID}`}>
-                                                                {purchaseorder.status.statusID === 1 ? ('New Order') : purchaseorder.status.statusID === 2 ? ('Scheduled') : purchaseorder.status.statusID === 3 ? ('Paid') : purchaseorder.status.statusID === 4 ? ('In Delivery') : purchaseorder.status.statusID === 5 ? ('Order Fulfilled') : purchaseorder.status.statusID === 6 ? ('Cancelled') : ('Status N/A')}
+                                                                {purchaseorder.status.statusID === 1 ? ('New Order') : purchaseorder.status.statusID === 2 ? ('Approved') : purchaseorder.status.statusID === 3 ? ('Rejected') : purchaseorder.status.statusID === 4 ? ('Paid') : purchaseorder.status.statusID === 5 ? ('Scheduled') : purchaseorder.status.statusID === 6 ? ('In Delivery') : purchaseorder.status.statusID === 7 ? ('Done') : purchaseorder.status.statusID === 8 ? ('Cancelled') : ('Status N/A')}
                                                             </td>
                                                             <td>
                                                                 {purchaseorder.orderedDate}
