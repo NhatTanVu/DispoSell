@@ -537,13 +537,18 @@ export default function Profile() {
                                                                 ))}
                                                             </td>
                                                             <td>
-                                                                <button className={`btn ${localStyles['btnProfile']}`}
-                                                                        id={`editBtn`}
-                                                                        style={{cursor: "pointer"}}
-                                                                        onClick={(e) => {
-                                                                            navigate(`/scheduleDelivery/${purchaseorder.orderID}`)
-                                                                        }}>Schedule
-                                                                </button>
+                                                                {purchaseorder.status.statusID === 4 ? ( <button className={`btn ${localStyles['btnProfile']}`}
+                                                                                                                 id={`editBtn`}
+                                                                                                                 style={{cursor: "pointer"}}
+                                                                                                                 onClick={(e) => {
+                                                                                                                     navigate(`/scheduleDelivery/${purchaseorder.orderID}`)
+                                                                                                                 }}>Schedule
+                                                                </button>) : <button className={`btn ${localStyles['btnProfile']}`}
+                                                                                     id={`editBtn`}
+                                                                                     style={{cursor: "pointer"}}
+                                                                                     disabled
+                                                                                     >Already Scheduled
+                                                                </button>}
                                                             </td>
                                                             {/*<td><textarea*/}
                                                             {/*    type="text"*/}
@@ -723,7 +728,7 @@ export default function Profile() {
                                                     <th>Phone Number</th>
                                                     <th>Items</th>
                                                     <th>Quantity</th>
-                                                    <th>Delivery</th>
+                                                    {/*<th>Delivery</th>*/}
                                                     {/*<th>Address Line 1</th>*/}
                                                     {/*<th>Address Line 2</th>*/}
                                                     {/*<th>City</th>*/}
@@ -767,7 +772,7 @@ export default function Profile() {
                                                                       to={`/orderDetails/${order.orderID}`}>{order.orderID}</Link>
                                                             </td>
                                                             <td id={`orderStatus${order.orderID}`}>
-                                                                {order.status.statusID === 1 ? ('New Order') : order.status.statusID === 2 ? ('Scheduled') : order.status.statusID === 3 ? ('Paid') : order.status.statusID === 4 ? ('In Delivery') : order.status.statusID === 5 ? ('Order Fulfilled') : order.status.statusID === 6 ? ('Cancelled') : ('Status N/A')}
+                                                                {order.status.statusID === 1 ? ('New Order') : order.status.statusID === 2 ? ('Approved') : order.status.statusID === 3 ? ('Rejected') : order.status.statusID === 4 ? ('Paid') : order.status.statusID === 5 ? ('Scheduled') : order.status.statusID === 6 ? ('In Delivery') : order.status.statusID === 7 ? ('Done') : order.status.statusID === 8 ? ('Cancelled') : ('Status N/A')}
                                                             </td>
                                                             <td>
                                                                 {order.orderedDate}
@@ -895,15 +900,15 @@ export default function Profile() {
                                                                     </>
                                                                 ))}
                                                             </td>
-                                                            <td>
-                                                                <button className={`btn ${localStyles['btnProfile']}`}
-                                                                        id={`editBtn`}
-                                                                        style={{cursor: "pointer"}}
-                                                                        onClick={(e) => {
-                                                                            navigate(`/scheduleDelivery/${order.orderID}`)
-                                                                        }}>Schedule
-                                                                </button>
-                                                            </td>
+                                                            {/*<td>*/}
+                                                            {/*    <button className={`btn ${localStyles['btnProfile']}`}*/}
+                                                            {/*            id={`editBtn`}*/}
+                                                            {/*            style={{cursor: "pointer"}}*/}
+                                                            {/*            onClick={(e) => {*/}
+                                                            {/*                navigate(`/scheduleDelivery/${order.orderID}`)*/}
+                                                            {/*            }}>Schedule*/}
+                                                            {/*    </button>*/}
+                                                            {/*</td>*/}
                                                             {/*<td><textarea*/}
                                                             {/*    type="text"*/}
                                                             {/*    className="form-control"*/}

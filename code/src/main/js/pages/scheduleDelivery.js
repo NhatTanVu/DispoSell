@@ -14,12 +14,15 @@ function ScheduleDelivery() {
     const [orderDetail, setOrderDetail] = useState({});
     const [shippers, setShippers] = useState([]);
     let shippersToGo = [];
-    const [carType, setCarType] = useState('');
+    // const [carType, setCarType] = useState('');
+    let carType = '';
     const [deliveryAddress, setDeliveryAddress] = useState('');
     const [deliveryDate, setDeliveryDate] = useState('');
     const [carNumber, setCarNumber] = useState('');
-    const [startLocation, setStartLocation] = useState('');
-    const [endLocation, setEndLocation] = useState('');
+    //const [startLocation, setStartLocation] = useState('');
+    //const [endLocation, setEndLocation] = useState('');
+    let endLocation = '';
+    let startLocation = '';
     const [endTime, setEndTime] = useState('');
     const [startTime, setStartTime] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
@@ -90,30 +93,36 @@ function ScheduleDelivery() {
     function saveDeliveryInfo(e) {
         e.preventDefault();
 
+        startLocation = 'Warehouse';
+        endLocation = orderDetail.address;
+        carType = document.getElementById(`vehicleSelected`).value;
+
         if ((shippersToGo || deliveryDate || carNumber || carType || startLocation || endLocation || endTime || startTime) !== '') {
-            const addressRegex = /^(\d{1,5}) ([^,]+), ([^,]+), ([A-Z]{2}), ([A-Za-z]\d[A-Za-z][ -]?\d[A-Z]\d)$/;
-            if (addressRegex.test(endLocation)) {
-                DeliveryService.createScheduleDelivery(Number(orderDetail.orderID), shippersToGo, startLocation, endLocation, startTime, endTime, carNumber, carType).then(
-                    () => {
-                        console.log(JSON.stringify(endTime));
-                    },
-                    (reason) => {
-                        const resMessage =
-                            (reason.response &&
-                                reason.response.data &&
-                                reason.response.data.message) ||
-                            reason.message ||
-                            reason.toString();
-                        alert("Error");
-                        console.log(resMessage);
-                    });
-            } else {
-                alert("Suggested format: \n123 Street St, Vancouver, BC, X1X 2X3\n" +
-                    "1234 Street St Unit 123, Vancouver, BC, X1X 2X3\n" +
-                    "1234 Street St #123, Vancouver, BC, X1X 2X3\n" +
-                    "1234 Street St Building ABC, Vancouver, BC, X1X 2X3\n" +
-                    "12345 Street St Building ABC #123, Vancouver, BC, X1X 2X3");
-            }
+            DeliveryService.createScheduleDelivery(Number(orderDetail.orderID), shippersToGo, startLocation, endLocation, startTime, endTime, carNumber, carType).then(
+                () => {
+                    alert('Successfully Scheduled')
+                    navigate("/profile");
+                },
+                (reason) => {
+                    const resMessage =
+                        (reason.response &&
+                            reason.response.data &&
+                            reason.response.data.message) ||
+                        reason.message ||
+                        reason.toString();
+                    alert("Error");
+                    console.log(resMessage);
+                });
+            // const addressRegex = /^(\d{1,5}) ([^,]+), ([^,]+), ([A-Z]{2}), ([A-Za-z]\d[A-Za-z][ -]?\d[A-Z]\d)$/;
+            // if (addressRegex.test(endLocation)) {
+            //
+            // } else {
+            //     alert("Suggested format: \n123 Street St, Vancouver, BC, X1X 2X3\n" +
+            //         "1234 Street St Unit 123, Vancouver, BC, X1X 2X3\n" +
+            //         "1234 Street St #123, Vancouver, BC, X1X 2X3\n" +
+            //         "1234 Street St Building ABC, Vancouver, BC, X1X 2X3\n" +
+            //         "12345 Street St Building ABC #123, Vancouver, BC, X1X 2X3");
+            // }
         } else {
             alert("Please fill in the required fields.")
         }
@@ -123,9 +132,9 @@ function ScheduleDelivery() {
         setDeliveryDate(e.target.value);
     }
 
-    const onCarTypeChange = (e) => {
-        setCarType(e.target.value);
-    }
+    // const onCarTypeChange = (e) => {
+    //     setCarType(e.target.value);
+    // }
 
     const onCarNumberChange = (e) => {
         setCarNumber(e.target.value);
@@ -139,18 +148,31 @@ function ScheduleDelivery() {
         setStartTime(e.target.value);
     }
 
-    const onEndLocationChange = (e) => {
-        setEndLocation(e.target.value);
-    }
+    // const onEndLocationChange = (e) => {
+    //     setEndLocation(e.target.value);
+    // }
 
-    const onStartLocationChange = (e) => {
-        setStartLocation(e.target.value);
-    }
+    // const onStartLocationChange = (e) => {
+    //     setStartLocation(e.target.value);
+    // }
 
-    function addShippers(e, shipper) {
+    function addShippers(e) {
         e.preventDefault()
-        shippersToGo.push(Number(shipper.id));
-        console.log(shippersToGo);
+        if(shippersToGo.includes(Number(document.getElementById(`shipperUsernameSelected`).value))){
+            document.getElementById(`currentShippers`).innerText = '\nYou have selected this shipper\n' + 'Current shipper id(s): ' + shippersToGo;
+        } else{
+            shippersToGo.push(Number(document.getElementById(`shipperUsernameSelected`).value));
+            console.log(shippersToGo);
+            document.getElementById(`currentShippers`).innerText = '\nCurrent shipper id(s): ' + shippersToGo;
+            return false; // stop submission
+        }
+    }
+
+    function addVehicle(e) {
+        e.preventDefault();
+        carType = document.getElementById(`vehicleSelected`).value;
+        console.log(carType);
+        document.getElementById(`currentCar`).innerText = '\nChosen vehicle type: ' + carType;
         return false; // stop submission
     }
 
@@ -185,22 +207,21 @@ function ScheduleDelivery() {
                                                     {/*    <input type="text" id="shippersInput"/>*/}
                                                     {/*    <input type="submit" value="Submit"/>*/}
                                                     {/*</form>*/}
-                                                    {shippers.map((shipper)=>(
-                                                        <>
-                                                            <input list="shipperUsername" className='form-control'/>
-                                                            <datalist id="shipperUsername">
-                                                                <option value={shipper.username}/>
-                                                            </datalist>
-                                                            <button className={`btn ${localStyles['btnProfile']}`}
-                                                                    id={`editBtn`}
-                                                                    style={{cursor: "pointer"}}
-                                                                    onClick={(e) => {
-                                                                        addShippers(e, shipper)
-                                                                    }}
-                                                            >Add Shipper
-                                                            </button>
-                                                        </>
-                                                    ))}
+                                                    <select id='shipperUsernameSelected'
+                                                            className='form-control'>
+                                                        {shippers.map((shipper) => (
+                                                            <option value={shipper.id}>{shipper.username}</option>
+                                                        ))}
+                                                    </select>
+                                                    <button className={`btn ${localStyles['btnProfile']}`}
+                                                            id={`editBtn`}
+                                                            style={{cursor: "pointer"}}
+                                                            onClick={(e) => {
+                                                                addShippers(e)
+                                                            }}
+                                                    >Add Shipper
+                                                    </button>
+                                                    <h6 id='currentShippers'></h6>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -218,16 +239,30 @@ function ScheduleDelivery() {
                                             </tr>
                                             <tr>
                                                 <td><b>Vehicle Type</b>
-                                                    <br/><input
-                                                        type="text"
-                                                        className="form-control"
-                                                        id={`carType${orderDetail.orderID}`}
-                                                        placeholder={'Required'}
-                                                        style={{border: "none"}}
-                                                        onChange={onCarTypeChange}
-                                                        maxLength={10}
-
-                                                    /></td>
+                                                    <br/>
+                                                    {/*<input*/}
+                                                    {/*    type="text"*/}
+                                                    {/*    className="form-control"*/}
+                                                    {/*    id={`carType${orderDetail.orderID}`}*/}
+                                                    {/*    placeholder={'Required'}*/}
+                                                    {/*    style={{border: "none"}}*/}
+                                                    {/*    onChange={onCarTypeChange}*/}
+                                                    {/*    maxLength={10}*/}
+                                                    {/*/>*/}
+                                                    <select id='vehicleSelected' className='form-control'>
+                                                        <option value={'Van'}>Van</option>
+                                                        <option value={'Truck'}>Truck</option>
+                                                    </select>
+                                                    <button className={`btn ${localStyles['btnProfile']}`}
+                                                            id={`editBtn`}
+                                                            style={{cursor: "pointer"}}
+                                                            onClick={(e) => {
+                                                                addVehicle(e)
+                                                            }}
+                                                    >Submit
+                                                    </button>
+                                                    <h6 id='currentCar'></h6>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td><b>Start Location</b>
@@ -237,20 +272,22 @@ function ScheduleDelivery() {
                                                                 id={`startLocation${orderDetail.orderID}`}
                                                                 placeholder={'Required'}
                                                                 style={{border: "none"}}
-                                                                onChange={onStartLocationChange}
+                                                                //onChange={onStartLocationChange}
                                                                 maxLength={100}
+                                                                readOnly
                                                     /></td>
                                             </tr>
                                             <tr>
                                                 <td><b>End Location/Shipping Address</b>
                                                     <br/><input type='text'
-                                                                defaultValue={orderDetail.address}
+                                                                value={orderDetail.address}
                                                                 className="form-control"
                                                                 id={`startLocation${orderDetail.orderID}`}
                                                                 placeholder={'Required'}
                                                                 style={{border: "none"}}
-                                                                onChange={onEndLocationChange}
+                                                                //onChange={onEndLocationChange}
                                                                 maxLength={100}
+                                                                readOnly
                                                     /></td>
                                             </tr>
                                             <tr>
@@ -263,7 +300,6 @@ function ScheduleDelivery() {
                                                            placeholder={'Required'}
                                                            style={{border: "none"}}
                                                            onChange={onStartTimeChange}
-                                                           maxLength={10}
                                                     /></td>
                                             </tr>
                                             <tr>
@@ -276,7 +312,6 @@ function ScheduleDelivery() {
                                                            placeholder={'Required'}
                                                            style={{border: "none"}}
                                                            onChange={onEndTimeChange}
-                                                           maxLength={10}
                                                     /></td>
                                             </tr>
                                             </tbody>
