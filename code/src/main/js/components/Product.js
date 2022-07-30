@@ -51,7 +51,7 @@ function Product({products}) {
                     {/*<div id="productID" style={{visibility:"visible"}}>{product.productID}</div>*/}
                     {product.productMedia && product.productMedia.length > 0 &&
                         <Link as={Link} to={`/productDetail/${product.productID}`}>
-                            <img src={`${product.productMedia.find(media => media.isDefault == true)?.url}`} alt={product.name} width={250}
+                            <img src={`${product.productMedia.find(media => media.isDefault == true)?.url}`} alt={product.name} width={250} height={350}
                                  loading="lazy"
                                  style={{
                                      display: "block",

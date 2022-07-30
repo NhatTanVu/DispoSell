@@ -3,13 +3,19 @@ import localStyles from "../../scss/pages/OrderDetail.module.scss";
 import {Button, Card, Table} from "react-bootstrap";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import OrderService from "../services/order.service";
+import moment from 'moment';
 
 function OrderDetail() {
     let {id} = useParams();
     const [orderDetail, setOrderDetail] = useState({});
+    // const [orderDate, setOrderDate]=useState("");
 
     const params = useParams();
     const navigate = useNavigate();
+
+    // var moment = require('moment');
+    // var a = moment().toString();
+    // console.log(a);
 
     useEffect(() => {
         console.log(params.id);
@@ -17,6 +23,7 @@ function OrderDetail() {
             response => {
                 console.log(response.data);
                 setOrderDetail(response.data);
+                // setOrderDate(response.data.orderedDate);
             },
             error => {
                 setOrderDetail(
@@ -39,7 +46,7 @@ function OrderDetail() {
             <h2 className={localStyles["orderID"]}>Order ID: {orderDetail.orderID}</h2>
             <Button className={localStyles["btn-track-order"]} variant="outline-primary" size="sm"
                     href="https://track-delivery-demo.herokuapp.com/">Track Order</Button>
-            <div className={localStyles["order-date"]}>Order Date: {orderDetail.orderedDate}</div>
+            <div className={localStyles["order-date"]}>Order Date: {moment(orderDetail.orderedDate).format("MMMM d, YYYY")}</div>
             <div className={localStyles["content"]}>
                 <div className={localStyles["list-product"]}>
                     <Card style={{marginTop: "20px", backgroundColor: "#F8F8FA", borderRadius: "15px"}}>
