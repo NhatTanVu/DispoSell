@@ -14,10 +14,10 @@ function Product({products}) {
         const price = product.sellingPrice;
         const id = product.productID;
         const productName = product.name;
-        const productMediaURL = product.productMedia[0]?.url;
-        const productMediaType = product.productMedia[0]?.fileType;
+        const productMediaURL = product.productMedia.find(p => p.isDefault)?.url;
+        const productMediaType = product.productMedia.find(p => p.isDefault)?.fileType;
 
-        console.log(product.productMedia[0]?.url);
+        console.log(product.productMedia.find(p => p.isDefault)?.url);
 
         dispatch(addCartItem(
             Number(id),
@@ -51,7 +51,7 @@ function Product({products}) {
                     {/*<div id="productID" style={{visibility:"visible"}}>{product.productID}</div>*/}
                     {product.productMedia && product.productMedia.length > 0 &&
                         <Link as={Link} to={`/productDetail/${product.productID}`}>
-                            <img src={`${product.productMedia.find(media => media.isDefault == true)?.url}`} alt={product.name} width={250}
+                            <img src={`${product.productMedia.find(media => media.isDefault == true)?.url}`} alt={product.name} width={250} height={350}
                                  loading="lazy"
                                  style={{
                                      display: "block",

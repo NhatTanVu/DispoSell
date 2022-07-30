@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TradeOrderRepository extends JpaRepository<TradeOrder, Long> {
-
+    Order findByOrderID(Long orderID);
 }

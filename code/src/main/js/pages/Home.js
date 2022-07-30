@@ -6,22 +6,20 @@ import ProductService from "../services/product.service";
 import {useNavigate} from "react-router-dom";
 
 function Home() {
-    const [products, setProducts] = useState([]);
+    const [featuredProduct,setFeaturedProduct]= useState([])
+    const size=4;
     const navigate = useNavigate();
 
     useEffect(() => {
-        ProductService.getProducts().then(
+        ProductService.getSort("publishedDate,DESC").then(
             response => {
-                setProducts(response.data);
-                console.log(response.data);
+                setFeaturedProduct(response.data.productList.slice(0,size));
+                console.log(response.data.productList.slice(0,size));
             },
             error => {
-                setProducts(
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString()
+                setFeaturedProduct(
+                    (error.response && error.response.data && error.response.data.message) ||
+                    error.message || error.toString()
                 );
 
                 if (error.response && (error.response.status == 401 || error.response.status == 403)) {
@@ -49,14 +47,14 @@ function Home() {
             </div>
 
             <div id="featured-products"
-                 className={`text-center align-content-center justify-content-center ${localStyles['featuredProducts']}`}>
+                 className={`align-content-center justify-content-center ${localStyles['featuredProducts']}`}>
                 <div className='row align-content-center justify-content-center'>
                     <div className='align-self-baseline text-center'
                          style={{position: "relative", marginTop: "3em", marginBottom: "2em"}}>
                         <h2>Featured Product</h2>
                     </div>
                         <div className="col-md-auto">
-                            <Product products={products}/>
+                            <Product products={featuredProduct} />
                         </div>
                 </div>
             </div>
@@ -81,6 +79,5 @@ function Home() {
         </div>
     )
 }
-
 
 export default Home;

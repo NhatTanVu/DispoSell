@@ -11,12 +11,12 @@ import java.io.Serializable;
 @IdClass(ShipperDeliveryPKId.class)
 public class ShipperDelivery implements Serializable{
     @Id
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "deliveryID", referencedColumnName = "deliveryID")
     private Delivery delivery;
 
     @Id
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shipperID", referencedColumnName = "id")
     private User shipper;
 

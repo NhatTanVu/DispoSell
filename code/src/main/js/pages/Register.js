@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import AuthService from "../services/auth.service";
-
 import localStyles from '../../scss/pages/login.module.scss';
 
 export default function Register() {
@@ -48,31 +47,40 @@ export default function Register() {
         setMessage("");
         setSuccessful(false);
 
-        AuthService.register(
-            username,
-            firstName,
-            lastName,
-            email,
-            password,
-            deliveryAddress,
-            phoneNumber
-        ).then(
-            response => {
-                setMessage(response.data.message);
-                setSuccessful(true);
-            },
-            error => {
-                const resMessage =
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString();
+        const addressRegex = /^(\d{1,5}) ([^,]+), ([^,]+), ([A-Z]{2}), ([A-Za-z]\d[A-Za-z][ -]?\d[A-Z]\d)$/;
+        if (addressRegex.test(deliveryAddress)) {
+            AuthService.register(
+                username,
+                firstName,
+                lastName,
+                email,
+                password,
+                deliveryAddress,
+                phoneNumber
+            ).then(
+                response => {
+                    setMessage(response.data.message);
+                    setSuccessful(true);
+                },
+                error => {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
 
-                setMessage(resMessage);
-                setSuccessful(false);
-            }
-        );
+                    setMessage(resMessage);
+                    setSuccessful(false);
+                }
+            );
+        } else {
+            alert("Suggested format: \n123 Street St, Vancouver, BC, X1X 2X3\n" +
+                "1234 Street St Unit 123, Vancouver, BC, X1X 2X3\n" +
+                "1234 Street St #123, Vancouver, BC, X1X 2X3\n" +
+                "1234 Street St Building ABC, Vancouver, BC, X1X 2X3\n" +
+                "12345 Street St Building ABC #123, Vancouver, BC, X1X 2X3");
+        }
     }
 
     return (
@@ -97,6 +105,7 @@ export default function Register() {
                                             className="form-control"
                                             name="First Name"
                                             value={firstName}
+                                            placeholder={'First name'}
                                             onChange={onChangeFirstName}
                                         />
                                     </div>
@@ -108,6 +117,7 @@ export default function Register() {
                                             className="form-control"
                                             name="Last Name"
                                             value={lastName}
+                                            placeholder={'Last name'}
                                             onChange={onChangeLastName}
                                         />
                                     </div>
@@ -119,6 +129,7 @@ export default function Register() {
                                             className="form-control"
                                             name="username"
                                             value={username}
+                                            placeholder={'username'}
                                             onChange={onChangeUsername}
                                         />
                                     </div>
@@ -130,6 +141,7 @@ export default function Register() {
                                             className="form-control"
                                             name="password"
                                             value={password}
+                                            placeholder={'password'}
                                             onChange={onChangePassword}
                                         />
                                     </div>
@@ -141,6 +153,7 @@ export default function Register() {
                                             className="form-control"
                                             name="email"
                                             value={email}
+                                            placeholder={'email@address.com'}
                                             onChange={onChangeEmail}
                                         />
                                     </div>
@@ -153,6 +166,7 @@ export default function Register() {
                                             className="form-control"
                                             name="deliveryAddress"
                                             value={deliveryAddress}
+                                            placeholder={'123 Street St, Vancouver, BC, X1X 2X3'}
                                             onChange={onChangeDeliveryAddress}
                                         />
                                     </div>
@@ -165,6 +179,7 @@ export default function Register() {
                                             className="form-control"
                                             name="phoneNumber"
                                             value={phoneNumber}
+                                            placeholder={'123 456 7890'}
                                             onChange={onChangePhoneNumber}
                                         />
                                     </div>

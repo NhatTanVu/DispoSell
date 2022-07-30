@@ -102,6 +102,7 @@ export default function Cart() {
     }
 
     function onCheckoutClick(e) {
+        setCanCheckout(false);
         dispatch(setUserInfo(firstName,
             lastName,
             phoneNumber,
@@ -115,7 +116,7 @@ export default function Cart() {
         const localCart = store.getState().cart;
         OrderService.createPurchaseOrder(localCart).then(
             (value) => {
-                alert(JSON.stringify(localCart));
+                alert("Successfully Purchased");
                 localStorage.removeItem("savedCart");
                 dispatch(clearCart());
                 navigate("/");
@@ -180,22 +181,33 @@ export default function Cart() {
     function onInputCheck() {
         if ((firstName && lastName && deliveryAddress && email && phoneNumber) !== '') {
             const phoneNumRegex = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
+            const addressRegex = /^(\d{1,5}) ([^,]+), ([^,]+), ([A-Z]{2}), ([A-Za-z]\d[A-Za-z][ -]?\d[A-Z]\d)$/;
             const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             if (emailRegex.test(email.toLowerCase())) {
-                if (phoneNumRegex.test(phoneNumber)) {
-                    setIsInputReady(true);
-                } else {
+                if(addressRegex.test(deliveryAddress)){
+                    if (phoneNumRegex.test(phoneNumber)) {
+                        setIsInputReady(true);
+                    } else {
+                        setIsInputReady(false);
+                        alert("Accepted format: \n(123) 456-7890\n" +
+                            "+(123) 456-7890\n" +
+                            "+(123)-456-7890\n" +
+                            "+(123) - 456-7890\n" +
+                            "+(123) - 456-78-90\n" +
+                            "123-456-7890\n" +
+                            "123.456.7890\n" +
+                            "1234567890\n" +
+                            "+31636363634\n" +
+                            "075-63546725");
+                    }
+                }
+                else{
                     setIsInputReady(false);
-                    alert("Accepted format: \n(123) 456-7890\n" +
-                        "+(123) 456-7890\n" +
-                        "+(123)-456-7890\n" +
-                        "+(123) - 456-7890\n" +
-                        "+(123) - 456-78-90\n" +
-                        "123-456-7890\n" +
-                        "123.456.7890\n" +
-                        "1234567890\n" +
-                        "+31636363634\n" +
-                        "075-63546725");
+                    alert("Suggested format: \n123 Street St, Vancouver, BC, X1X 2X3\n" +
+                        "1234 Street St Unit 123, Vancouver, BC, X1X 2X3\n" +
+                        "1234 Street St #123, Vancouver, BC, X1X 2X3\n" +
+                        "1234 Street St Building ABC, Vancouver, BC, X1X 2X3\n" +
+                        "12345 Street St Building ABC #123, Vancouver, BC, X1X 2X3");
                 }
             } else {
                 setIsInputReady(false);
@@ -383,7 +395,7 @@ export default function Cart() {
                                             className="form-control"
                                             id="firstName"
                                             value={firstName}
-                                            placeholder={'First name is required'}
+                                            placeholder={'First name'}
                                             onChange={onChangeFirstName}
                                         />
                                     </div>
@@ -395,7 +407,7 @@ export default function Cart() {
                                             className="form-control"
                                             id="lastName"
                                             value={lastName}
-                                            placeholder={'Last name is required'}
+                                            placeholder={'Last name'}
                                             onChange={onChangeLastName}
                                         />
                                     </div>
@@ -407,7 +419,7 @@ export default function Cart() {
                                             className="form-control"
                                             id="email"
                                             value={email}
-                                            placeholder={'Email is required'}
+                                            placeholder={'address@email.com'}
                                             onChange={onChangeEmail}
                                             required
                                         />
@@ -421,7 +433,7 @@ export default function Cart() {
                                             className="form-control"
                                             id="address"
                                             value={deliveryAddress}
-                                            placeholder={'Delivery address is required'}
+                                            placeholder={'123 Delivery St, Vancouver, BC, X1X 2X3'}
                                             onChange={onChangeDeliveryAddress}
                                         />
                                     </div>
@@ -434,7 +446,7 @@ export default function Cart() {
                                             className="form-control"
                                             id="phoneNumber"
                                             value={phoneNumber}
-                                            placeholder={'Phone number is required'}
+                                            placeholder={'123 456 7890'}
                                             onChange={onChangePhoneNumber}
                                         />
                                     </div>
@@ -521,177 +533,6 @@ export default function Cart() {
                                 </>)}
                         </div>
                     </div>
-
-                    {/*<div className={localStyles["showMobile"]} style={{paddingLeft: "1rem", width:"100%", paddingRight: "1rem", paddingBottom:"2rem", minHeight:"100vh", maxHeight:"auto"}}>*/}
-                    {/*    {(readyCheckout) ?*/}
-                    {/*        <div className={`text-start`}>*/}
-                    {/*            {(isUserReady) ?*/}
-                    {/*                <>*/}
-                    {/*                    <h5>Logged in as <Link as={Link} to={"/profile"}*/}
-                    {/*                                           style={{textDecoration: "underline"}}>{currentUser.username}</Link>*/}
-                    {/*                    </h5>*/}
-                    {/*                    <p>Not {currentUser.username}? Sign in as another user <Link*/}
-                    {/*                        as={Link} to="/cart"*/}
-                    {/*                        style={{textDecoration: "underline", cursor: "pointer"}}*/}
-                    {/*                        onClick={signOut}>here</Link>.*/}
-                    {/*                    </p>*/}
-                    {/*                </>*/}
-                    {/*                :*/}
-                    {/*                <>*/}
-                    {/*                    <h5>Checking out as a guest</h5>*/}
-                    {/*                    <p>Have an account? Click <Link*/}
-                    {/*                        as={Link} to="/cart"*/}
-                    {/*                        style={{textDecoration: "underline", cursor: "pointer"}}*/}
-                    {/*                        onClick={signOut}>here</Link> to login.*/}
-                    {/*                    </p>*/}
-                    {/*                </>*/}
-                    {/*            }*/}
-
-                    {/*            <div className="col-12">*/}
-                    {/*                <label htmlFor="name" className="form-label text-start">First Name</label>*/}
-                    {/*                <input*/}
-                    {/*                    type="text"*/}
-                    {/*                    className="form-control"*/}
-                    {/*                    id="firstName"*/}
-                    {/*                    value={firstName}*/}
-                    {/*                    placeholder={'First name is required'}*/}
-                    {/*                    onChange={onChangeFirstName}*/}
-                    {/*                />*/}
-                    {/*            </div>*/}
-
-                    {/*            <div className="col-12">*/}
-                    {/*                <label htmlFor="name" className="form-label text-start">Last Name</label>*/}
-                    {/*                <input*/}
-                    {/*                    type="text"*/}
-                    {/*                    className="form-control"*/}
-                    {/*                    id="lastName"*/}
-                    {/*                    value={lastName}*/}
-                    {/*                    placeholder={'Last name is required'}*/}
-                    {/*                    onChange={onChangeLastName}*/}
-                    {/*                />*/}
-                    {/*            </div>*/}
-
-                    {/*            <div className="col-12">*/}
-                    {/*                <label htmlFor="email" className="form-label text-start">Email</label>*/}
-                    {/*                <input*/}
-                    {/*                    type="email"*/}
-                    {/*                    className="form-control"*/}
-                    {/*                    id="email"*/}
-                    {/*                    value={email}*/}
-                    {/*                    placeholder={'Email is required'}*/}
-                    {/*                    onChange={onChangeEmail}*/}
-                    {/*                    required*/}
-                    {/*                />*/}
-                    {/*            </div>*/}
-
-                    {/*            <div className="col-12">*/}
-                    {/*                <label htmlFor="deliveryAddress" className="form-label text-start">Delivery*/}
-                    {/*                    Address</label>*/}
-                    {/*                <input*/}
-                    {/*                    type="text"*/}
-                    {/*                    className="form-control"*/}
-                    {/*                    id="address"*/}
-                    {/*                    value={deliveryAddress}*/}
-                    {/*                    placeholder={'Delivery address is required'}*/}
-                    {/*                    onChange={onChangeDeliveryAddress}*/}
-                    {/*                />*/}
-                    {/*            </div>*/}
-
-                    {/*            <div className="col-12">*/}
-                    {/*                <label htmlFor="phoneNumber" className="form-label text-start">Phone*/}
-                    {/*                    Number</label>*/}
-                    {/*                <input*/}
-                    {/*                    type="text"*/}
-                    {/*                    className="form-control"*/}
-                    {/*                    id="phoneNumber"*/}
-                    {/*                    value={phoneNumber}*/}
-                    {/*                    placeholder={'Phone number is required'}*/}
-                    {/*                    onChange={onChangePhoneNumber}*/}
-                    {/*                />*/}
-                    {/*            </div>*/}
-
-                    {/*            <Button*/}
-                    {/*                type="primary"*/}
-                    {/*                id={localStyles['btn']}*/}
-                    {/*                onClick={onInputCheck}*/}
-                    {/*                style={{marginLeft: "0"}}*/}
-                    {/*            >*/}
-                    {/*                Submit Shipping Information*/}
-                    {/*            </Button>*/}
-
-                    {/*            {(isInputReady) ?*/}
-                    {/*                <>*/}
-                    {/*                    <Payment show={true} canPay={canPay}*/}
-                    {/*                             paymentAmountProps={totalPrice.toFixed(2)}*/}
-                    {/*                             onPaymentCompleted={onPaymentCompleted}*/}
-                    {/*                             onPaymentError={onPaymentError}/>*/}
-
-                    {/*                    <Button*/}
-                    {/*                        type="primary"*/}
-                    {/*                        //className="ms-2"*/}
-                    {/*                        id={localStyles['btn']}*/}
-                    {/*                        disabled={!canCheckout}*/}
-                    {/*                        onClick={onCheckoutClick}*/}
-                    {/*                        style={{marginLeft: "0"}}*/}
-                    {/*                    >*/}
-                    {/*                        Checkout*/}
-                    {/*                    </Button>*/}
-                    {/*                </>*/}
-                    {/*                : <></>}*/}
-
-                    {/*        </div> : (<>*/}
-                    {/*            <h5 className={`text-start`}>You are not logged in</h5>*/}
-                    {/*            <p className={`text-start`}>Log in to check out or check out as guest <a*/}
-                    {/*                style={{textDecoration: "underline", cursor: "pointer"}}*/}
-                    {/*                onClick={checkoutGuest}>here</a>.*/}
-                    {/*            </p>*/}
-                    {/*            <form className="row g-3"*/}
-                    {/*                  onSubmit={handleLogin}*/}
-                    {/*            >*/}
-                    {/*                <div className="col-12">*/}
-                    {/*                    <label htmlFor="username" className="form-label text-start">Username</label>*/}
-                    {/*                    <input*/}
-                    {/*                        type="text"*/}
-                    {/*                        className="form-control"*/}
-                    {/*                        name="username"*/}
-                    {/*                        value={username}*/}
-                    {/*                        onChange={onChangeUsername}*/}
-                    {/*                    />*/}
-                    {/*                </div>*/}
-
-                    {/*                <div className="col-12">*/}
-                    {/*                    <label htmlFor="password" className="form-label text-start">Password</label>*/}
-                    {/*                    <input*/}
-                    {/*                        type="password"*/}
-                    {/*                        className="form-control"*/}
-                    {/*                        name="password"*/}
-                    {/*                        value={password}*/}
-                    {/*                        onChange={onChangePassword}*/}
-                    {/*                    />*/}
-                    {/*                </div>*/}
-
-                    {/*                <div className="col-12 text-start">*/}
-                    {/*                    <button*/}
-                    {/*                        className={`btn ${localStyles['btn']}`}*/}
-                    {/*                        disabled={loading}*/}
-                    {/*                    >*/}
-                    {/*                        {loading && (*/}
-                    {/*                            <span className="spinner-border spinner-border-sm"></span>*/}
-                    {/*                        )}*/}
-                    {/*                        <span>Login</span>*/}
-                    {/*                    </button>*/}
-                    {/*                </div>*/}
-
-                    {/*                {message && (*/}
-                    {/*                    <div className="col-12">*/}
-                    {/*                        <div className="alert alert-danger" role="alert">*/}
-                    {/*                            {message}*/}
-                    {/*                        </div>*/}
-                    {/*                    </div>*/}
-                    {/*                )}*/}
-                    {/*            </form>*/}
-                    {/*        </>)}*/}
-                    {/*</div>*/}
                 </>
                 : (
                     <div

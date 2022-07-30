@@ -45,8 +45,10 @@ public class DispoSellApplication {
             }
             if (orderStatusRepository.count() == 0) {
                 orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_NEW));
-                orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_SCHEDULED));
+                orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_APPROVED));
+                orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_REJECTED));
                 orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_PAID));
+                orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_SCHEDULED));
                 orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_IN_DELIVERY));
                 orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_DONE));
                 orderStatusRepository.save(new OrderStatus(EOrderStatus.ORDER_STATUS_CANCELLED));
@@ -250,12 +252,29 @@ public class DispoSellApplication {
                 OrderDetail orderDetail = new OrderDetail(order, product, 2);
                 orderDetailRepository.save(orderDetail);
 
+                product = productRepository.findByName("white side table").get();
+                orderDetail = new OrderDetail(order, product, 4);
+                orderDetailRepository.save(orderDetail);
+
                 Delivery delivery = new Delivery();
                 order = tradeOrderRepository.findById(orderID).get();
                 delivery.setOrder(order);
                 delivery.setStartLocation("Start 1");
                 delivery.setEndLocation("End 1");
                 Long deliveryID = deliveryRepository.save(delivery).getDeliveryID();
+
+                User admin = new User();
+                admin.setUsername("admin");
+                admin.setEmail("admin@gmail.com");
+                admin.setContactAddress("123 delivery address");
+                admin.setPhoneNumber("123456789");
+                admin.setPassword(passwordEncoder.encode("asdfasdf"));
+                admin.setAvatarUrl("admin_avatar.png");
+                Role adminRole = roleRepository.findByName(ERole.ROLE_ADMINISTRATOR).get();
+                Set<Role> roles = new HashSet<>();
+                roles.add(adminRole);
+                admin.setRoles(roles);
+                userRepository.save(admin);
 
                 User shipper = new User();
                 shipper.setUsername("test_shipper_123456");
@@ -265,7 +284,7 @@ public class DispoSellApplication {
                 shipper.setPassword(passwordEncoder.encode("test_shipper_123456"));
                 shipper.setAvatarUrl("test_shipper_123456 avatar.png");
                 Role userRole = roleRepository.findByName(ERole.ROLE_SHIPPER).get();
-                Set<Role> roles = new HashSet<>();
+                //Set<Role> roles = new HashSet<>();
                 roles.add(userRole);
                 shipper.setRoles(roles);
                 userRepository.save(shipper);
@@ -276,6 +295,22 @@ public class DispoSellApplication {
                 shipper = userRepository.findByUsername("test_shipper_123456").get();
                 shipperDelivery.setShipper(shipper);
                 shipperDeliveryRepository.save(shipperDelivery);
+            }
+
+            // TODO: Remove later, for testing only
+            if (userRepository.findByUsername("test_admin").isEmpty()) {
+                User user = new User();
+                user.setUsername("test_admin");
+                user.setEmail("test_admin@gmail.com");
+                user.setContactAddress("test_admin delivery address");
+                user.setPhoneNumber("123456789");
+                user.setPassword(passwordEncoder.encode("test_admin"));
+                user.setAvatarUrl("test_admin avatar.png");
+                Role userRole = roleRepository.findByName(ERole.ROLE_ADMINISTRATOR).get();
+                Set<Role> roles = new HashSet<>();
+                roles.add(userRole);
+                user.setRoles(roles);
+                userRepository.save(user);
             }
 
         };
