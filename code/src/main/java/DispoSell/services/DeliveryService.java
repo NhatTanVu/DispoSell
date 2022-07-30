@@ -35,16 +35,19 @@ public class DeliveryService {
         return (order instanceof PurchaseOrder) ? "Purchase Order" : "Trade Order";
     }
 
-    public String getMailContent(Order order) {
+    private String getMailContent(Order order, Delivery delivery) {
         String baseUrl = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .replacePath(null)
                 .build()
                 .toUriString();
-        String content = getOrderType(order) + " <a target='_blank' href='" + baseUrl + "/orderDetails/" + order.getOrderID() + "'>#" + order.getOrderID() + "</a> was scheduled for delivery.";
+        String content = getOrderType(order) + " <a target='_blank' href='" + baseUrl + "/orderDetail/"
+                + order.getOrderID() + "'>#" + order.getOrderID()
+                + "</a> was scheduled for delivery on "
+                + delivery.getEndTime() + ".";
         return content;
     }
 
-    public String getMailSubject(Order order) {
+    private String getMailSubject(Order order) {
         return "[DispoSell] " + getOrderType(order) + " scheduled";
     }
 
@@ -69,6 +72,7 @@ public class DeliveryService {
         delivery.setStartLocation(deliveryRequest.getStartLocation());
         delivery.setEndLocation(deliveryRequest.getEndLocation());
         delivery.setStartTime(deliveryRequest.getStartTime());
+        delivery.setEndTime(deliveryRequest.getEndTime());
         delivery.setVehicleNumber(deliveryRequest.getVehicleNumber());
         delivery.setVehicleType(deliveryRequest.getVehicleType());
 
@@ -79,9 +83,11 @@ public class DeliveryService {
         order.setStatus(status);
         this.orderRepository.save(order);
 
-        this.emailService.sendHtmlMessage(order.getEmail(), getMailSubject(order), getMailContent(order));
-        this.emailService.sendHtmlMessageToAdmin(getMailSubject(order), getMailContent(order));
+        newDelivery = this.deliveryRepository.findById(newDelivery.getDeliveryID()).get();
 
-        return this.deliveryRepository.findById(newDelivery.getDeliveryID()).get();
+        this.emailService.sendHtmlMessage(order.getEmail(), getMailSubject(order), getMailContent(order, newDelivery));
+        this.emailService.sendHtmlMessageToAdmin(getMailSubject(order), getMailContent(order, newDelivery));
+
+        return newDelivery;
     }
 }
