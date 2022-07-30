@@ -7,6 +7,8 @@ import DeliveryService from "../services/delivery.service";
 import AuthService from "../services/auth.service";
 import EventBus from "../common/EventBus";
 
+let shippersToGo = [];
+
 function ScheduleDelivery() {
     let {id} = useParams();
     const params = useParams();
@@ -97,7 +99,7 @@ function ScheduleDelivery() {
         endLocation = orderDetail.address;
         carType = document.getElementById(`vehicleSelected`).value;
 
-        if ((shippersToGo || deliveryDate || carNumber || carType || startLocation || endLocation || endTime || startTime) !== '') {
+        if ((shippersToGo || carNumber || carType || startLocation || endLocation || endTime || startTime) !== '') {
             DeliveryService.createScheduleDelivery(Number(orderDetail.orderID), shippersToGo, startLocation, endLocation, startTime, endTime, carNumber, carType).then(
                 () => {
                     alert('Successfully Scheduled')
@@ -126,10 +128,6 @@ function ScheduleDelivery() {
         } else {
             alert("Please fill in the required fields.")
         }
-    }
-
-    const onDateChange = (e) => {
-        setDeliveryDate(e.target.value);
     }
 
     // const onCarTypeChange = (e) => {
@@ -192,14 +190,6 @@ function ScheduleDelivery() {
                                     <Card.Text>
                                         <Table responsive="sm">
                                             <tbody>
-                                            {/*<tr>*/}
-                                                {/*<td><b>Delivery Date</b>*/}
-                                                {/*    <br/><input type="date"*/}
-                                                {/*                className="form-control"*/}
-                                                {/*                id={`deliveryDate${orderDetail.orderID}`}*/}
-                                                {/*                onChange={onDateChange}/>*/}
-                                                {/*</td>*/}
-                                            {/*</tr>*/}
                                             <tr>
                                                 <td><b>Shipper(s)</b>
                                                     <br/>
