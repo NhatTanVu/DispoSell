@@ -12,9 +12,8 @@ function ScheduleDelivery() {
     const params = useParams();
     const navigate = useNavigate();
     const [orderDetail, setOrderDetail] = useState({});
-    //const [shippers, setShippers] = useState([]);
-    //const shippers = useState([]);
-    let shippers = [];
+    const [shippers, setShippers] = useState([]);
+    let shippersToGo = [];
     const [carType, setCarType] = useState('');
     const [deliveryAddress, setDeliveryAddress] = useState('');
     const [deliveryDate, setDeliveryDate] = useState('');
@@ -41,6 +40,7 @@ function ScheduleDelivery() {
         DeliveryService.getShippers().then(
             response => {
                 console.log(response.data);
+                setShippers(response.data);
             },
             error => {
                 console.log(
@@ -78,35 +78,24 @@ function ScheduleDelivery() {
         );
     }, []);
 
-    function addShippers(e) {
-        e.preventDefault()
-        let value;
-        value = document.getElementById('shippersInput').value;
-        shippers.push(value);
-        console.log(shippers);
-        return false; // stop submission
-    }
+    // function addShippers(e) {
+    //     e.preventDefault()
+    //     let value;
+    //     value = document.getElementById('shippersInput').value;
+    //     shippers.push(Number(value));
+    //     console.log(shippers);
+    //     return false; // stop submission
+    // }
 
     function saveDeliveryInfo(e) {
         e.preventDefault();
 
-        if ((shippers || deliveryDate || carNumber || carType || startLocation || endLocation || endTime || startTime) !== '') {
+        if ((shippersToGo || deliveryDate || carNumber || carType || startLocation || endLocation || endTime || startTime) !== '') {
             const addressRegex = /^(\d{1,5}) ([^,]+), ([^,]+), ([A-Z]{2}), ([A-Za-z]\d[A-Za-z][ -]?\d[A-Z]\d)$/;
-            if (!addressRegex.test(endLocation)) {
-                const deliveryInfo =
-                    {
-                        "orderID": 2,
-                        "vehicleNumber": "12345",
-                        "vehicleType": "van",
-                        "startTime": "2022-07-26T10:54:00-07:00",
-                        "endTime": "2022-07-26T15:54:00-07:00",
-                        "startLocation": "from somewhere",
-                        "endLocation": "to somewhere",
-                        "shippers": [4]
-                    }
-                DeliveryService.createScheduleDelivery(deliveryInfo).then(
+            if (addressRegex.test(endLocation)) {
+                DeliveryService.createScheduleDelivery(Number(orderDetail.orderID), shippersToGo, startLocation, endLocation, startTime, endTime, carNumber, carType).then(
                     () => {
-                        console.log(JSON.stringify(deliveryInfo));
+                        console.log(JSON.stringify(endTime));
                     },
                     (reason) => {
                         const resMessage =
@@ -158,6 +147,13 @@ function ScheduleDelivery() {
         setStartLocation(e.target.value);
     }
 
+    function addShippers(e, shipper) {
+        e.preventDefault()
+        shippersToGo.push(Number(shipper.id));
+        console.log(shippersToGo);
+        return false; // stop submission
+    }
+
     return (
         <div className={localStyles["order-detail-page"]}>
             {(isAdmin) ?
@@ -185,10 +181,26 @@ function ScheduleDelivery() {
                                             <tr>
                                                 <td><b>Shipper(s)</b>
                                                     <br/>
-                                                    <form onSubmit={addShippers}>
-                                                        <input type="text" id="shippersInput"/>
-                                                        <input type="submit" value="Submit"/>
-                                                    </form>
+                                                    {/*<form onSubmit={addShippers}>*/}
+                                                    {/*    <input type="text" id="shippersInput"/>*/}
+                                                    {/*    <input type="submit" value="Submit"/>*/}
+                                                    {/*</form>*/}
+                                                    {shippers.map((shipper)=>(
+                                                        <>
+                                                            <input list="shipperUsername" className='form-control'/>
+                                                            <datalist id="shipperUsername">
+                                                                <option value={shipper.username}/>
+                                                            </datalist>
+                                                            <button className={`btn ${localStyles['btnProfile']}`}
+                                                                    id={`editBtn`}
+                                                                    style={{cursor: "pointer"}}
+                                                                    onClick={(e) => {
+                                                                        addShippers(e, shipper)
+                                                                    }}
+                                                            >Add Shipper
+                                                            </button>
+                                                        </>
+                                                    ))}
                                                 </td>
                                             </tr>
                                             <tr>
@@ -244,7 +256,8 @@ function ScheduleDelivery() {
                                             <tr>
                                                 <td><b>Start Time</b>
                                                     <br/>
-                                                    <input type="time"
+                                                    <input type="datetime-local"
+                                                           step='1'
                                                            className="form-control"
                                                            id={`startTime${orderDetail.orderID}`}
                                                            placeholder={'Required'}
@@ -256,8 +269,9 @@ function ScheduleDelivery() {
                                             <tr>
                                                 <td><b>End Time</b>
                                                     <br/>
-                                                    <input type="time"
+                                                    <input type="datetime-local"
                                                            className="form-control"
+                                                           step='1'
                                                            id={`endTime${orderDetail.orderID}`}
                                                            placeholder={'Required'}
                                                            style={{border: "none"}}
@@ -274,7 +288,7 @@ function ScheduleDelivery() {
                                             onClick={(e) => {
                                                 saveDeliveryInfo(e)
                                             }}
-                                    >Save
+                                    >Schedule
                                     </button>
                                 </Card.Body>
                             </Card>
