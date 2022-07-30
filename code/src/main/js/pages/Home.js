@@ -6,17 +6,20 @@ import ProductService from "../services/product.service";
 import {useNavigate} from "react-router-dom";
 
 function Home() {
-    const [products, setProducts] = useState([]);
+    // const [products, setProducts] = useState([])
+    const size=4;
+    const [featuredProduct,setFeaturedProduct]= useState([])
     const navigate = useNavigate();
 
     useEffect(() => {
-        ProductService.getProducts().then(
+        ProductService.getSort("publishedDate,DESC").then(
             response => {
-                setProducts(response.data);
-                console.log(response.data);
+                // setProducts(response.data);
+                setFeaturedProduct(response.data.productList.slice(0,size));
+                console.log(response.data.productList.slice(0,size));
             },
             error => {
-                setProducts(
+                setFeaturedProduct(
                     (error.response &&
                         error.response.data &&
                         error.response.data.message) ||
@@ -56,7 +59,7 @@ function Home() {
                         <h2>Featured Product</h2>
                     </div>
                         <div className="col-md-auto">
-                            <Product products={products}/>
+                            <Product products={featuredProduct}/>
                         </div>
                 </div>
             </div>
