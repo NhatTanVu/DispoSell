@@ -9,7 +9,7 @@ class DeliveryService {
     }
 
     getShippers() {
-        return axios.get(API_URL , { headers: authHeader() });
+        return axios.get(API_URL , {headers: authHeader()});
     }
 }
 
