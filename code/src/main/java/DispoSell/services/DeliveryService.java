@@ -40,7 +40,7 @@ public class DeliveryService {
                 .replacePath(null)
                 .build()
                 .toUriString();
-        String content = getOrderType(order) + " <a target='_blank' href='" + baseUrl + "/orderDetail/"
+        String content = getOrderType(order) + " <a target='_blank' href='" + baseUrl + "/orderDetails/"
                 + order.getOrderID() + "'>#" + order.getOrderID()
                 + "</a> was scheduled for delivery on "
                 + delivery.getEndTime() + ".";

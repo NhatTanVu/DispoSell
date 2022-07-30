@@ -37,7 +37,7 @@ public class OrderService {
                 .replacePath(null)
                 .build()
                 .toUriString();
-        String content = getOrderType(order) + " <a target='_blank' href='" + baseUrl + "/orderDetail/" + order.getOrderID() + "'>#" + order.getOrderID() + "</a> was created.";
+        String content = getOrderType(order) + " <a target='_blank' href='" + baseUrl + "/orderDetails/" + order.getOrderID() + "'>#" + order.getOrderID() + "</a> was created.";
         return content;
     }
 

@@ -116,7 +116,7 @@ export default function Cart() {
         const localCart = store.getState().cart;
         OrderService.createPurchaseOrder(localCart).then(
             (value) => {
-                alert(JSON.stringify(localCart));
+                alert("Successfully Purchased");
                 localStorage.removeItem("savedCart");
                 dispatch(clearCart());
                 navigate("/");

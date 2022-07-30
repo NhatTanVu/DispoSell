@@ -55,7 +55,7 @@ class OrderServiceTest {
         Long orderID = 1L;
         String testEmail = "test@gmail.com";
         String testEmailSubject = "[DispoSell] Trade Order created";
-        String testEmailContent = "Trade Order <a target='_blank' href='http://localhost/orderDetail/" + orderID + "'>#" + orderID + "</a> was created.";
+        String testEmailContent = "Trade Order <a target='_blank' href='http://localhost/orderDetails/" + orderID + "'>#" + orderID + "</a> was created.";
         TradeOrder tradeOrder = new TradeOrder();
         tradeOrder.setOrderID(orderID);
         tradeOrder.setEmail(testEmail);
@@ -108,7 +108,7 @@ class OrderServiceTest {
         int productQuantity = 2;
         String testEmail = "test@gmail.com";
         String testEmailSubject = "[DispoSell] Purchase Order created";
-        String testEmailContent = "Purchase Order <a target='_blank' href='http://localhost/orderDetail/" + orderID + "'>#" + orderID + "</a> was created.";
+        String testEmailContent = "Purchase Order <a target='_blank' href='http://localhost/orderDetails/" + orderID + "'>#" + orderID + "</a> was created.";
         PurchaseOrder purchaseOrder = new PurchaseOrder();
         purchaseOrder.setEmail(testEmail);
         purchaseOrder.setOrderID(orderID);
