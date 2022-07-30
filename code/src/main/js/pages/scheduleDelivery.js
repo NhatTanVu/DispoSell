@@ -15,7 +15,7 @@ function ScheduleDelivery() {
     const navigate = useNavigate();
     const [orderDetail, setOrderDetail] = useState({});
     const [shippers, setShippers] = useState([]);
-    let shippersToGo = [];
+    //let shippersToGo = [];
     // const [carType, setCarType] = useState('');
     let carType = '';
     const [deliveryAddress, setDeliveryAddress] = useState('');
@@ -214,19 +214,7 @@ function ScheduleDelivery() {
                                                     <h6 id='currentShippers'></h6>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td><b>Vehicle Number</b>
-                                                    <br/>
-                                                    <input type="text"
-                                                           className="form-control"
-                                                           id={`carNumber${orderDetail.orderID}`}
-                                                           placeholder={'AB1 23C'}
-                                                           style={{border: "none"}}
-                                                           onChange={onCarNumberChange}
-                                                           maxLength={10}
-                                                    />
-                                                </td>
-                                            </tr>
+
                                             <tr>
                                                 <td><b>Vehicle Type</b>
                                                     <br/>
@@ -252,6 +240,20 @@ function ScheduleDelivery() {
                                                     >Submit
                                                     </button>
                                                     <h6 id='currentCar'></h6>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td><b>Vehicle Number</b>
+                                                    <br/>
+                                                    <input type="text"
+                                                           className="form-control"
+                                                           id={`carNumber${orderDetail.orderID}`}
+                                                           placeholder={'AB1 23C'}
+                                                           style={{border: "none"}}
+                                                           onChange={onCarNumberChange}
+                                                           maxLength={10}
+                                                    />
                                                 </td>
                                             </tr>
                                             <tr>
