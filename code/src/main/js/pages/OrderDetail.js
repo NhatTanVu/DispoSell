@@ -46,7 +46,7 @@ function OrderDetail() {
             <h2 className={localStyles["orderID"]}>Order ID: {orderDetail.orderID}</h2>
             <Button className={localStyles["btn-track-order"]} variant="outline-primary" size="sm"
                     href="https://track-delivery-demo.herokuapp.com/">Track Order</Button>
-            <div className={localStyles["order-date"]}>Order Date: {moment(orderDetail.orderedDate).format("MMMM d, YYYY")}</div>
+            <div className={localStyles["order-date"]}>Order Date: {moment(orderDetail.orderedDate).format("MMM D, YYYY")}</div>
             <div className={localStyles["content"]}>
                 <div className={localStyles["list-product"]}>
                     <Card style={{marginTop: "20px", backgroundColor: "#F8F8FA", borderRadius: "15px"}}>
