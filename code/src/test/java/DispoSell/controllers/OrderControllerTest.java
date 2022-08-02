@@ -102,7 +102,7 @@ class OrderControllerTest {
         ResponseEntity<?> response = orderControllerImpl.createTradeOrder(tradeOrder);
 
         assertEquals(tradeOrder, response.getBody());
-
+        assertEquals(false, tradeOrder.getPurchaseOrder());
         verify(orderService).createTradeOrder(tradeOrder);
     }
 
@@ -135,6 +135,8 @@ class OrderControllerTest {
         ResponseEntity<?> response = orderControllerImpl.createPurchaseOrder(purchaseOrder);
 
         assertEquals(purchaseOrder, response.getBody());
+        assertEquals(1L, purchaseOrder.getOrderID());
+        verify(orderService).createPurchaseOrder(purchaseOrder);
     }
 
     @Test
