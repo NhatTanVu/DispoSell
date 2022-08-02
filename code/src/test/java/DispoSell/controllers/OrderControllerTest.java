@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.*;
@@ -101,6 +102,7 @@ class OrderControllerTest {
 
         ResponseEntity<?> response = orderControllerImpl.createTradeOrder(tradeOrder);
 
+        assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());
         assertEquals(tradeOrder, response.getBody());
         assertEquals(false, tradeOrder.getPurchaseOrder());
         verify(orderService).createTradeOrder(tradeOrder);
@@ -134,6 +136,7 @@ class OrderControllerTest {
 
         ResponseEntity<?> response = orderControllerImpl.createPurchaseOrder(purchaseOrder);
 
+        assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());
         assertEquals(purchaseOrder, response.getBody());
         assertEquals(1L, purchaseOrder.getOrderID());
         verify(orderService).createPurchaseOrder(purchaseOrder);
