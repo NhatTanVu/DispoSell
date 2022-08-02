@@ -6,16 +6,14 @@ import DispoSell.services.*;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class OrderControllerTest {
@@ -80,6 +78,10 @@ class OrderControllerTest {
         user.setLastName("LastName");
         user.setPassword("password");
         user.setUsername("user");
+        Set<Role> role = new HashSet<>();
+        Role roleUser = new Role(ERole.ROLE_USER);
+        role.add(roleUser);
+        user.setRoles(role);
         Set<OrderDetail> orderDetailSet = new HashSet<>();
         TradeOrder tradeOrder = new TradeOrder();
         tradeOrder.setOrderID(1L);
@@ -100,6 +102,8 @@ class OrderControllerTest {
         ResponseEntity<?> response = orderControllerImpl.createTradeOrder(tradeOrder);
 
         assertEquals(tradeOrder, response.getBody());
+
+        verify(orderService).createTradeOrder(tradeOrder);
     }
 
     @Test
