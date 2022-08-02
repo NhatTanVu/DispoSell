@@ -54,7 +54,7 @@ class DispoSellApplicationTests {
     }
 
     @Test
-    public void integration_authenticateUser() {
+    public void integration_authenticateUser_successful() {
         assumeTrue(integrationTestEnabled);
 
         HttpHeaders headers = new HttpHeaders();
@@ -64,6 +64,19 @@ class DispoSellApplicationTests {
         ResponseEntity<JwtResponse> response = testRestTemplate.postForEntity("/api/auth/signin", httpEntity, JwtResponse.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void integration_authenticateUser_unauthorized() {
+        assumeTrue(integrationTestEnabled);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        String jsonString = "{\"username\":\"test_admin\",\"password\":\"test_admin_123\"}";
+        HttpEntity<String> httpEntity = new HttpEntity<String>(jsonString, headers);
+        ResponseEntity<JwtResponse> response = testRestTemplate.postForEntity("/api/auth/signin", httpEntity, JwtResponse.class);
+
+        assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
     }
 
     @Test
