@@ -3,9 +3,6 @@ package DispoSell.controllers;
 import DispoSell.models.*;
 import DispoSell.payload.request.ScheduleDeliveryRequest;
 import DispoSell.repositories.DeliveryRepository;
-import DispoSell.repositories.OrderRepository;
-import DispoSell.repositories.RoleRepository;
-import DispoSell.repositories.UserRepository;
 import DispoSell.services.DeliveryService;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
@@ -15,11 +12,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.time.ZonedDateTime;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,18 +28,6 @@ class DeliveryControllerTest {
 
     @Mock
     private DeliveryRepository deliveryRepository;
-
-    @Mock
-    private UserRepository userRepository;
-
-    @Mock
-    private OrderRepository orderRepository;
-
-    @Mock
-    private RoleRepository roleRepository;
-
-    @Mock
-    private ScheduleDeliveryRequest scheduleDeliveryRequest;
 
     @Before("")
     public void init() {
@@ -77,7 +60,6 @@ class DeliveryControllerTest {
         // Assert
         assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());
         assertEquals(scheduleDelivery, response.getBody());
-
     }
 
 

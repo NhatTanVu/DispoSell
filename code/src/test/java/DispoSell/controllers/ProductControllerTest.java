@@ -20,9 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
@@ -150,7 +148,7 @@ class ProductControllerTest {
     /**
      * In productController, when we sort, it returns ResponseEntity
      * (contains PaginatedProductResponse as a body and HttpStatus.OK)
-     * Our goal is create a mockResponseEntity which contains mockPaginatedProductResponse as a body
+     * Our goal is to create a mockResponseEntity which contains mockPaginatedProductResponse as a body
      * We get mockPaginatedProductResponse by using productService.
      * In productService, when we sort with mockPageable,
      * it will return mockPaginatedProductResponse
@@ -170,11 +168,8 @@ class ProductControllerTest {
                 .productList(mockProducts.getContent())
                 .build();
 
-//        HttpHeaders header = new HttpHeaders(); //don't need specify header for this mock, because we don't need to test it
-//        header.setContentType(MediaType.APPLICATION_JSON);
         ResponseEntity mockResponseEntity = new ResponseEntity<>(
                 mockPaginatedProductResponse,
-//                header,
                 HttpStatus.OK
         );
 
