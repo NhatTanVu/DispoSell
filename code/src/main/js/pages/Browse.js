@@ -8,6 +8,7 @@ function Browse() {
     const [products, setProducts] = useState([]);
     const [category,setCategory]=useState([]);
     const [categoryid,setcategoryID]=useState(null);
+    const [isSelected, setIsSelected] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -106,9 +107,9 @@ function Browse() {
                 position: "fixed",
             }}>
 
-                    <h3 onClick={(e)=>handleAllProduct(e)}>All Categories</h3>
+                    <a onClick={(e)=>handleAllProduct(e)} style={{cursor:"pointer"}} id={'allCategories'}>All Categories<br/></a>
                 {category.map((val)=>(
-                    <a onClick={(e) => handleFilter(e,val.categoryID)} style={{cursor:"pointer"}}>{val.name}<br/></a>
+                    <a onClick={(e) => handleFilter(e,val.categoryID)} style={{cursor:"pointer"}} id={`${val.categoryID}`}>{val.name}<br/></a>
                 ))}
             </div>
 

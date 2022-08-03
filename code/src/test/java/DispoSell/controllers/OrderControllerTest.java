@@ -30,9 +30,6 @@ class OrderControllerTest {
     @Mock
     private TradeOrderRepository tradeOrderRepository;
 
-    @Mock
-    private OrderStatusRepository orderStatusRepository;
-
     @Before("")
     public void init() {
         MockitoAnnotations.openMocks(this);
