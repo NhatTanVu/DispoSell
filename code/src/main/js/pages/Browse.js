@@ -66,7 +66,15 @@ function Browse() {
                 }
             )
         }
+    }
 
+    const handleAllProduct=(e)=>{
+        e.preventDefault();
+        ProductService.getProducts().then(
+            response => {
+                setProducts(response.data);
+            }
+        )
     }
 
     return (
@@ -97,7 +105,8 @@ function Browse() {
                 left: "0",
                 position: "fixed",
             }}>
-                <h3>All Categories</h3>
+
+                    <h3 onClick={(e)=>handleAllProduct(e)}>All Categories</h3>
                 {category.map((val)=>(
                     <a onClick={(e) => handleFilter(e,val.categoryID)} style={{cursor:"pointer"}}>{val.name}<br/></a>
                 ))}
