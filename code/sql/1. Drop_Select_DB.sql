@@ -1,0 +1,22 @@
+DROP TABLE orderdetail;
+DROP TABLE purchaseorders;
+DROP TABLE tradeorders;
+DROP TABLE shipperdeliveries;
+DROP TABLE deliveries;
+DROP TABLE orders;
+DROP TABLE productmedia;
+DROP TABLE products;
+DROP TABLE userroles;
+DROP TABLE users;
+DROP TABLE productcategories;
+DROP TABLE orderstatuses;
+DROP TABLE productconditions;
+DROP TABLE roles;
+-----------------------------
+select * from products;
+select * from productmedia;
+select * from orderdetail;
+select * from orders;
+select * from purchaseorders;
+select * from tradeorders;
+select u.id, u.avatarUrl, u.contactAddress, u.email, u.firstName, u.lastName, u.username, r.name from userroles ur join roles r on ur.roleID = r.id join users u on ur.userID = u.id;
