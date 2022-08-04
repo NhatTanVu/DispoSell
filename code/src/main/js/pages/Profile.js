@@ -537,18 +537,20 @@ export default function Profile() {
                                                                 ))}
                                                             </td>
                                                             <td>
-                                                                {purchaseorder.status.statusID === 4 ? ( <button className={`btn ${localStyles['btnProfile']}`}
-                                                                                                                 id={`editBtn`}
-                                                                                                                 style={{cursor: "pointer"}}
-                                                                                                                 onClick={(e) => {
-                                                                                                                     navigate(`/scheduleDelivery/${purchaseorder.orderID}`)
-                                                                                                                 }}>Schedule
-                                                                </button>) : <button className={`btn ${localStyles['btnProfile']}`}
-                                                                                     id={`editBtn`}
-                                                                                     style={{cursor: "pointer"}}
-                                                                                     disabled
-                                                                                     >Already Scheduled
-                                                                </button>}
+                                                                {purchaseorder.status.statusID === 4 ? (
+                                                                        <button className={`btn ${localStyles['btnProfile']}`}
+                                                                                id={`editBtn`}
+                                                                                style={{cursor: "pointer"}}
+                                                                                onClick={(e) => {
+                                                                                    navigate(`/scheduleDelivery/${purchaseorder.orderID}`)
+                                                                                }}>Schedule
+                                                                        </button>) :
+                                                                    <button className={`btn ${localStyles['btnProfile']}`}
+                                                                            id={`editBtn`}
+                                                                            style={{cursor: "pointer"}}
+                                                                            disabled
+                                                                    >Already Scheduled
+                                                                    </button>}
                                                             </td>
                                                             {/*<td><textarea*/}
                                                             {/*    type="text"*/}
@@ -1070,59 +1072,60 @@ export default function Profile() {
                                 </>)}
                         </div>
                         : <> {(isShipper) ?
-                            <h1>shipper</h1>
+                            <h1>You are a shipper</h1>
                             : <> {(isUser) ?
                                 <>
-                                    <div style={{marginTop: "1rem", marginBottom: "0.5rem"}}>
-                                        <h3>Order Details</h3>
-                                    </div>
-                                    <div className={localStyles['orderTable']} style={{overflowX: "auto"}}>
-                                        <table style={{marginTop: "1rem", marginBottom: "0.5rem", width: "100%"}}>
-                                            <div>
-                                                <tr style={{fontWeight: "bold", borderBottomStyle: "solid"}}>
-                                                    <th>Order ID</th>
-                                                    <th>Order Status</th>
-                                                    <th>Order Date</th>
-                                                    <th>Total</th>
-                                                    <th></th>
-                                                    {/*<th>Username</th>*/}
-                                                </tr>
-                                                <hr/>
-                                            </div>
+                                    <h1>You are a user</h1>
+                                    {/*<div style={{marginTop: "1rem", marginBottom: "0.5rem"}}>*/}
+                                    {/*    <h3>Order Details</h3>*/}
+                                    {/*</div>*/}
+                                    {/*<div className={localStyles['orderTable']} style={{overflowX: "auto"}}>*/}
+                                    {/*    <table style={{marginTop: "1rem", marginBottom: "0.5rem", width: "100%"}}>*/}
+                                    {/*        <div>*/}
+                                    {/*            <tr style={{fontWeight: "bold", borderBottomStyle: "solid"}}>*/}
+                                    {/*                <th>Order ID</th>*/}
+                                    {/*                <th>Order Status</th>*/}
+                                    {/*                <th>Order Date</th>*/}
+                                    {/*                <th>Total</th>*/}
+                                    {/*                <th></th>*/}
+                                    {/*                /!*<th>Username</th>*!/*/}
+                                    {/*            </tr>*/}
+                                    {/*            <hr/>*/}
+                                    {/*        </div>*/}
 
-                                            <div style={{overflowY: "auto", height: "50vh", overflowWrap: 'break-word'}}
-                                                 className='align-items-baseline align-self-baseline'>
-                                                {purchaseOrders.map((purchaseorder, index) => (
-                                                    <>
-                                                        <tr key={purchaseorder.orderID}>
-                                                            <td><Link as={Link}
-                                                                      to={`/orderDetails/${purchaseorder.orderID}`}>{purchaseorder.orderID}</Link>
-                                                            </td>
-                                                            <td id={`orderStatus${purchaseorder.orderID}`}>
-                                                                {purchaseorder.status.statusID === 1 ? ('New') : purchaseorder.status.statusID === 2 ? ('Approved') : purchaseorder.status.statusID === 3 ? ('Rejected') : purchaseorder.status.statusID === 4 ? ('Paid') : purchaseorder.status.statusID === 5 ? ('Scheduled') : purchaseorder.status.statusID === 6 ? ('In Delivery') : purchaseorder.status.statusID === 7 ? "Done" : purchaseorder.status.statusID === 8 ? "Cancelled" : ('N/A')}
-                                                            </td>
-                                                            <td>
-                                                                {purchaseorder.orderedDate}
-                                                            </td>
-                                                            <td>
-                                                                {purchaseorder.paymentAmount === null ? ('$0') : (`$${purchaseorder.paymentAmount}`)}
-                                                            </td>
-                                                            <td>
-                                                                <button className={`btn ${localStyles['btnProfile']}`}
-                                                                        style={{cursor: "pointer"}}
-                                                                        onClick={(e) => {
-                                                                            navigate(`/orderDetails/${purchaseorder.orderID}`)
-                                                                        }}> View Order
-                                                                </button>
-                                                            </td>
-                                                            {/*<td>username</td>*/}
-                                                        </tr>
-                                                        <hr/>
-                                                    </>
-                                                ))}
-                                            </div>
-                                        </table>
-                                    </div>
+                                    {/*        <div style={{overflowY: "auto", height: "50vh", overflowWrap: 'break-word'}}*/}
+                                    {/*             className='align-items-baseline align-self-baseline'>*/}
+                                    {/*            {purchaseOrders.map((purchaseorder, index) => (*/}
+                                    {/*                <>*/}
+                                    {/*                    <tr key={purchaseorder.orderID}>*/}
+                                    {/*                        <td><Link as={Link}*/}
+                                    {/*                                  to={`/orderDetails/${purchaseorder.orderID}`}>{purchaseorder.orderID}</Link>*/}
+                                    {/*                        </td>*/}
+                                    {/*                        <td id={`orderStatus${purchaseorder.orderID}`}>*/}
+                                    {/*                            {purchaseorder.status.statusID === 1 ? ('New') : purchaseorder.status.statusID === 2 ? ('Approved') : purchaseorder.status.statusID === 3 ? ('Rejected') : purchaseorder.status.statusID === 4 ? ('Paid') : purchaseorder.status.statusID === 5 ? ('Scheduled') : purchaseorder.status.statusID === 6 ? ('In Delivery') : purchaseorder.status.statusID === 7 ? "Done" : purchaseorder.status.statusID === 8 ? "Cancelled" : ('N/A')}*/}
+                                    {/*                        </td>*/}
+                                    {/*                        <td>*/}
+                                    {/*                            {purchaseorder.orderedDate}*/}
+                                    {/*                        </td>*/}
+                                    {/*                        <td>*/}
+                                    {/*                            {purchaseorder.paymentAmount === null ? ('$0') : (`$${purchaseorder.paymentAmount}`)}*/}
+                                    {/*                        </td>*/}
+                                    {/*                        <td>*/}
+                                    {/*                            <button className={`btn ${localStyles['btnProfile']}`}*/}
+                                    {/*                                    style={{cursor: "pointer"}}*/}
+                                    {/*                                    onClick={(e) => {*/}
+                                    {/*                                        navigate(`/orderDetails/${purchaseorder.orderID}`)*/}
+                                    {/*                                    }}> View Order*/}
+                                    {/*                            </button>*/}
+                                    {/*                        </td>*/}
+                                    {/*                        /!*<td>username</td>*!/*/}
+                                    {/*                    </tr>*/}
+                                    {/*                    <hr/>*/}
+                                    {/*                </>*/}
+                                    {/*            ))}*/}
+                                    {/*        </div>*/}
+                                    {/*    </table>*/}
+                                    {/*</div>*/}
                                 </>
                                 : null}
                             </>}
