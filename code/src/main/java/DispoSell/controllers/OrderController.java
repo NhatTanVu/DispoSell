@@ -1,13 +1,10 @@
 package DispoSell.controllers;
 
 import DispoSell.models.*;
-import DispoSell.payload.request.LoginRequest;
-import DispoSell.payload.response.JwtResponse;
 import DispoSell.repositories.PurchaseOrderRepository;
 import DispoSell.repositories.TradeOrderRepository;
 import DispoSell.services.OrderService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,9 +32,25 @@ public class OrderController {
         return list;
     }
 
+    @GetMapping("/api/purchaseordersbyuserid/{userID}")
+    public List<PurchaseOrder> getAllPurchaseOrdersByUserID(@PathVariable(value = "userID") Long userID) {
+        User user = new User();
+        user.setId(userID);
+        List<PurchaseOrder> list = purchaseOrderRepository.findByUser(user);
+        return list;
+    }
+
     @GetMapping("/api/tradeorders")
     public List<TradeOrder> getAllTradeOrders() {
         List<TradeOrder> list = tradeOrderRepository.findAll();
+        return list;
+    }
+
+    @GetMapping("/api/tradeordersbyuserid/{userID}")
+    public List<TradeOrder> getAllTradeOrdersByUserID(@PathVariable(value = "userID") Long userID) {
+        User user = new User();
+        user.setId(userID);
+        List<TradeOrder> list = tradeOrderRepository.findByUser(user);
         return list;
     }
 

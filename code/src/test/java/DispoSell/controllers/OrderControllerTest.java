@@ -164,4 +164,34 @@ class OrderControllerTest {
 
         assertEquals(id, orderID);
     }
+
+    @Test
+    void getAllPurchaseOrdersByUserID() {
+        // Arrange
+        PurchaseOrder purchaseOrder1 = new PurchaseOrder();
+        purchaseOrder1.setOrderID(1L);
+        List<PurchaseOrder> purchaseOrders = new ArrayList<>(
+                Arrays.asList(purchaseOrder1)
+        );
+        when(purchaseOrderRepository.findByUser(any(User.class))).thenReturn(purchaseOrders);
+        // Act
+        List<PurchaseOrder> orders = orderControllerImpl.getAllPurchaseOrdersByUserID(anyLong());
+        // Assert
+        assertEquals(purchaseOrders, orders);
+    }
+
+    @Test
+    void getAllTradeOrdersByUserID() {
+        // Arrange
+        TradeOrder tradeOrder = new TradeOrder();
+        tradeOrder.setOrderID(1L);
+        List<TradeOrder> tradeOrders = new ArrayList<>(
+                Arrays.asList(tradeOrder)
+        );
+        when(tradeOrderRepository.findByUser(any(User.class))).thenReturn(tradeOrders);
+        // Act
+        List<TradeOrder> orders = orderControllerImpl.getAllTradeOrdersByUserID(anyLong());
+        // Assert
+        assertEquals(tradeOrders, orders);
+    }
 }
