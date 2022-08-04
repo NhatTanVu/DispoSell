@@ -30,6 +30,14 @@ class OrderService {
     getOnePurchaseOrder(id){
         return axios.get('/api/purchaseorder',{params:{orderID:id}});
     }
+
+    getPurchaseOrderByUserID(UserID){
+        return axios.get('/api/purchaseordersbyuserid/' + UserID)
+    }
+
+    getTradeOrderByUserID(UserID){
+        return axios.get('/api/tradeordersbyuserid/' + UserID)
+    }
 }
 
 export default new OrderService();

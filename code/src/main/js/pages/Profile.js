@@ -48,21 +48,38 @@ export default function Profile() {
             setIsUser(currentUser.roles.includes("ROLE_USER"));
             setIsAdmin(currentUser.roles.includes("ROLE_ADMINISTRATOR"));
             setIsShipper(currentUser.roles.includes("ROLE_SHIPPER"));
+            console.log(currentUser);
+
+            if(currentUser.roles.includes("ROLE_USER")){
+                OrderService.getPurchaseOrderByUserID(currentUser.id).then(
+                    response => {
+                        console.log(response.data);
+                        setPurchaseOrder(response.data);
+                    }
+                )
+
+                OrderService.getTradeOrderByUserID(currentUser.id).then(
+                    response => {
+                        console.log(response.data);
+                        setTradeOrder(response.data);
+                    }
+                )
+            } else {
+                OrderService.getTradeOrder().then(
+                    response => {
+                        console.log(response.data);
+                        setTradeOrder(response.data);
+                    }
+                )
+
+                OrderService.getPurchaseOrder().then(
+                    response => {
+                        console.log(response.data);
+                        setPurchaseOrder(response.data);
+                    }
+                )
+            }
         }
-
-        OrderService.getTradeOrder().then(
-            response => {
-                console.log(response.data);
-                setTradeOrder(response.data);
-            }
-        )
-
-        OrderService.getPurchaseOrder().then(
-            response => {
-                console.log(response.data);
-                setPurchaseOrder(response.data);
-            }
-        )
 
     }, []);
 
@@ -1075,57 +1092,57 @@ export default function Profile() {
                             <h1>You are a shipper</h1>
                             : <> {(isUser) ?
                                 <>
-                                    <h1>You are a user</h1>
-                                    {/*<div style={{marginTop: "1rem", marginBottom: "0.5rem"}}>*/}
-                                    {/*    <h3>Order Details</h3>*/}
-                                    {/*</div>*/}
-                                    {/*<div className={localStyles['orderTable']} style={{overflowX: "auto"}}>*/}
-                                    {/*    <table style={{marginTop: "1rem", marginBottom: "0.5rem", width: "100%"}}>*/}
-                                    {/*        <div>*/}
-                                    {/*            <tr style={{fontWeight: "bold", borderBottomStyle: "solid"}}>*/}
-                                    {/*                <th>Order ID</th>*/}
-                                    {/*                <th>Order Status</th>*/}
-                                    {/*                <th>Order Date</th>*/}
-                                    {/*                <th>Total</th>*/}
-                                    {/*                <th></th>*/}
-                                    {/*                /!*<th>Username</th>*!/*/}
-                                    {/*            </tr>*/}
-                                    {/*            <hr/>*/}
-                                    {/*        </div>*/}
+                                    {/*<h1>You are a user</h1>*/}
+                                    <div style={{marginTop: "1rem", marginBottom: "0.5rem"}}>
+                                        <h3>Order Details</h3>
+                                    </div>
+                                    <div className={localStyles['orderTable']} style={{overflowX: "auto"}}>
+                                        <table style={{marginTop: "1rem", marginBottom: "0.5rem", width: "100%"}}>
+                                            <div>
+                                                <tr style={{fontWeight: "bold", borderBottomStyle: "solid"}}>
+                                                    <th>Order ID</th>
+                                                    <th>Order Status</th>
+                                                    <th>Order Date</th>
+                                                    <th>Total</th>
+                                                    <th></th>
+                                                    {/*<th>Username</th>*/}
+                                                </tr>
+                                                <hr/>
+                                            </div>
 
-                                    {/*        <div style={{overflowY: "auto", height: "50vh", overflowWrap: 'break-word'}}*/}
-                                    {/*             className='align-items-baseline align-self-baseline'>*/}
-                                    {/*            {purchaseOrders.map((purchaseorder, index) => (*/}
-                                    {/*                <>*/}
-                                    {/*                    <tr key={purchaseorder.orderID}>*/}
-                                    {/*                        <td><Link as={Link}*/}
-                                    {/*                                  to={`/orderDetails/${purchaseorder.orderID}`}>{purchaseorder.orderID}</Link>*/}
-                                    {/*                        </td>*/}
-                                    {/*                        <td id={`orderStatus${purchaseorder.orderID}`}>*/}
-                                    {/*                            {purchaseorder.status.statusID === 1 ? ('New') : purchaseorder.status.statusID === 2 ? ('Approved') : purchaseorder.status.statusID === 3 ? ('Rejected') : purchaseorder.status.statusID === 4 ? ('Paid') : purchaseorder.status.statusID === 5 ? ('Scheduled') : purchaseorder.status.statusID === 6 ? ('In Delivery') : purchaseorder.status.statusID === 7 ? "Done" : purchaseorder.status.statusID === 8 ? "Cancelled" : ('N/A')}*/}
-                                    {/*                        </td>*/}
-                                    {/*                        <td>*/}
-                                    {/*                            {purchaseorder.orderedDate}*/}
-                                    {/*                        </td>*/}
-                                    {/*                        <td>*/}
-                                    {/*                            {purchaseorder.paymentAmount === null ? ('$0') : (`$${purchaseorder.paymentAmount}`)}*/}
-                                    {/*                        </td>*/}
-                                    {/*                        <td>*/}
-                                    {/*                            <button className={`btn ${localStyles['btnProfile']}`}*/}
-                                    {/*                                    style={{cursor: "pointer"}}*/}
-                                    {/*                                    onClick={(e) => {*/}
-                                    {/*                                        navigate(`/orderDetails/${purchaseorder.orderID}`)*/}
-                                    {/*                                    }}> View Order*/}
-                                    {/*                            </button>*/}
-                                    {/*                        </td>*/}
-                                    {/*                        /!*<td>username</td>*!/*/}
-                                    {/*                    </tr>*/}
-                                    {/*                    <hr/>*/}
-                                    {/*                </>*/}
-                                    {/*            ))}*/}
-                                    {/*        </div>*/}
-                                    {/*    </table>*/}
-                                    {/*</div>*/}
+                                            <div style={{overflowY: "auto", height: "50vh", overflowWrap: 'break-word'}}
+                                                 className='align-items-baseline align-self-baseline'>
+                                                {purchaseOrders.map((purchaseorder, index) => (
+                                                    <>
+                                                        <tr key={purchaseorder.orderID}>
+                                                            <td><Link as={Link}
+                                                                      to={`/orderDetails/${purchaseorder.orderID}`}>{purchaseorder.orderID}</Link>
+                                                            </td>
+                                                            <td id={`orderStatus${purchaseorder.orderID}`}>
+                                                                {purchaseorder.status.statusID === 1 ? ('New') : purchaseorder.status.statusID === 2 ? ('Approved') : purchaseorder.status.statusID === 3 ? ('Rejected') : purchaseorder.status.statusID === 4 ? ('Paid') : purchaseorder.status.statusID === 5 ? ('Scheduled') : purchaseorder.status.statusID === 6 ? ('In Delivery') : purchaseorder.status.statusID === 7 ? "Done" : purchaseorder.status.statusID === 8 ? "Cancelled" : ('N/A')}
+                                                            </td>
+                                                            <td>
+                                                                {purchaseorder.orderedDate}
+                                                            </td>
+                                                            <td>
+                                                                {purchaseorder.paymentAmount === null ? ('$0') : (`$${purchaseorder.paymentAmount}`)}
+                                                            </td>
+                                                            <td>
+                                                                <button className={`btn ${localStyles['btnProfile']}`}
+                                                                        style={{cursor: "pointer"}}
+                                                                        onClick={(e) => {
+                                                                            navigate(`/orderDetails/${purchaseorder.orderID}`)
+                                                                        }}> View Order
+                                                                </button>
+                                                            </td>
+                                                            {/*<td>username</td>*/}
+                                                        </tr>
+                                                        <hr/>
+                                                    </>
+                                                ))}
+                                            </div>
+                                        </table>
+                                    </div>
                                 </>
                                 : null}
                             </>}
