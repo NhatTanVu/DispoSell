@@ -48,21 +48,38 @@ export default function Profile() {
             setIsUser(currentUser.roles.includes("ROLE_USER"));
             setIsAdmin(currentUser.roles.includes("ROLE_ADMINISTRATOR"));
             setIsShipper(currentUser.roles.includes("ROLE_SHIPPER"));
+            console.log(currentUser);
+
+            if(currentUser.roles.includes("ROLE_USER")){
+                OrderService.getPurchaseOrderByUserID(currentUser.id).then(
+                    response => {
+                        console.log(response.data);
+                        setPurchaseOrder(response.data);
+                    }
+                )
+
+                OrderService.getTradeOrderByUserID(currentUser.id).then(
+                    response => {
+                        console.log(response.data);
+                        setTradeOrder(response.data);
+                    }
+                )
+            } else {
+                OrderService.getTradeOrder().then(
+                    response => {
+                        console.log(response.data);
+                        setTradeOrder(response.data);
+                    }
+                )
+
+                OrderService.getPurchaseOrder().then(
+                    response => {
+                        console.log(response.data);
+                        setPurchaseOrder(response.data);
+                    }
+                )
+            }
         }
-
-        OrderService.getTradeOrder().then(
-            response => {
-                console.log(response.data);
-                setTradeOrder(response.data);
-            }
-        )
-
-        OrderService.getPurchaseOrder().then(
-            response => {
-                console.log(response.data);
-                setPurchaseOrder(response.data);
-            }
-        )
 
     }, []);
 
@@ -537,18 +554,20 @@ export default function Profile() {
                                                                 ))}
                                                             </td>
                                                             <td>
-                                                                {purchaseorder.status.statusID === 4 ? ( <button className={`btn ${localStyles['btnProfile']}`}
-                                                                                                                 id={`editBtn`}
-                                                                                                                 style={{cursor: "pointer"}}
-                                                                                                                 onClick={(e) => {
-                                                                                                                     navigate(`/scheduleDelivery/${purchaseorder.orderID}`)
-                                                                                                                 }}>Schedule
-                                                                </button>) : <button className={`btn ${localStyles['btnProfile']}`}
-                                                                                     id={`editBtn`}
-                                                                                     style={{cursor: "pointer"}}
-                                                                                     disabled
-                                                                                     >Already Scheduled
-                                                                </button>}
+                                                                {purchaseorder.status.statusID === 4 ? (
+                                                                        <button className={`btn ${localStyles['btnProfile']}`}
+                                                                                id={`editBtn`}
+                                                                                style={{cursor: "pointer"}}
+                                                                                onClick={(e) => {
+                                                                                    navigate(`/scheduleDelivery/${purchaseorder.orderID}`)
+                                                                                }}>Schedule
+                                                                        </button>) :
+                                                                    <button className={`btn ${localStyles['btnProfile']}`}
+                                                                            id={`editBtn`}
+                                                                            style={{cursor: "pointer"}}
+                                                                            disabled
+                                                                    >Already Scheduled
+                                                                    </button>}
                                                             </td>
                                                             {/*<td><textarea*/}
                                                             {/*    type="text"*/}
@@ -1070,9 +1089,10 @@ export default function Profile() {
                                 </>)}
                         </div>
                         : <> {(isShipper) ?
-                            <h1>shipper</h1>
+                            <h1>You are a shipper</h1>
                             : <> {(isUser) ?
                                 <>
+                                    {/*<h1>You are a user</h1>*/}
                                     <div style={{marginTop: "1rem", marginBottom: "0.5rem"}}>
                                         <h3>Order Details</h3>
                                     </div>
