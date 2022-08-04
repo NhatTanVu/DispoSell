@@ -8,6 +8,7 @@ function Browse() {
     const [products, setProducts] = useState([]);
     const [category,setCategory]=useState([]);
     const [categoryid,setcategoryID]=useState(null);
+    const [isSelected, setIsSelected] = useState(true);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -66,7 +67,15 @@ function Browse() {
                 }
             )
         }
+    }
 
+    const handleAllProduct=(e)=>{
+        e.preventDefault();
+        ProductService.getProducts().then(
+            response => {
+                setProducts(response.data);
+            }
+        )
     }
 
     return (
@@ -97,9 +106,10 @@ function Browse() {
                 left: "0",
                 position: "fixed",
             }}>
-                <h3>All Categories</h3>
+
+                    <a onClick={(e)=>handleAllProduct(e)} style={{cursor:"pointer"}} id={'allCategories'}>All Categories<br/></a>
                 {category.map((val)=>(
-                    <a onClick={(e) => handleFilter(e,val.categoryID)} style={{cursor:"pointer"}}>{val.name}<br/></a>
+                    <a onClick={(e) => handleFilter(e,val.categoryID)} style={{cursor:"pointer"}} id={`${val.categoryID}`}>{val.name}<br/></a>
                 ))}
             </div>
 

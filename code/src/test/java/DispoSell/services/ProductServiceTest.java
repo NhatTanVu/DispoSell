@@ -1,7 +1,6 @@
 package DispoSell.services;
 
 import DispoSell.models.*;
-import DispoSell.payload.response.PaginatedProductResponse;
 import DispoSell.repositories.*;
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
@@ -12,14 +11,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
