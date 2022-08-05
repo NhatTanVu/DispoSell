@@ -1,3 +1,5 @@
+CREATE DATABASE IF NOT EXISTS disposelldb;
+
 USE disposelldb;
 
 -- phpMyAdmin SQL Dump
