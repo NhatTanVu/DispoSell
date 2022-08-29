@@ -90,4 +90,41 @@ public class DeliveryService {
 
         return newDelivery;
     }
+
+    public Order startDelivery(Long orderID) {
+        Order order = orderRepository.findByOrderID(orderID);
+        if (order != null) {
+            OrderStatus status = this.orderStatusRepository.findByName(EOrderStatus.ORDER_STATUS_IN_DELIVERY).get();
+            order.setStatus(status);
+            return this.orderRepository.save(order);
+        } else {
+            return null;
+        }
+    }
+
+    public TrackingInfo updateTracking(TrackingInfo info) {
+        String currentLocation = "{\"lat\": " + info.getLat() + ", \"lng\": " + info.getLng() + "}";
+        Delivery delivery = deliveryRepository.findById(info.getDeliveryID()).get();
+        delivery.setCurrentLocation(currentLocation);
+        deliveryRepository.save(delivery);
+        return info;
+    }
+
+    public Order endDelivery(Long orderID) {
+        Order order = orderRepository.findByOrderID(orderID);
+        if (order != null) {
+            OrderStatus status = this.orderStatusRepository.findByName(EOrderStatus.ORDER_STATUS_DONE).get();
+            order.setStatus(status);
+            return this.orderRepository.save(order);
+        } else {
+            return null;
+        }
+    }
+
+    public boolean completeTracking(TrackingInfo info) {
+        Delivery delivery = deliveryRepository.findById(info.getDeliveryID()).get();
+        long orderID = delivery.getOrder().getOrderID();
+        endDelivery(orderID);
+        return true;
+    }
 }

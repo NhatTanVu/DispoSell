@@ -1,10 +1,8 @@
 import axios from "axios";
 import authHeader from './auth-header';
 
-const API_URL = '/api/auth/shippers';
-
 class DeliveryService {
-    createScheduleDelivery(orderID, shippers, startLocation, endLocation, startTime, endTime, carNumber, carType) {
+    scheduleDelivery(orderID, shippers, startLocation, endLocation, startTime, endTime, carNumber, carType) {
         return axios.post('/api/scheduleDelivery', {
             "orderID": orderID,
             "vehicleNumber": carNumber,
@@ -18,7 +16,15 @@ class DeliveryService {
     }
 
     getShippers() {
-        return axios.get(API_URL , {headers: authHeader()});
+        return axios.get('/api/auth/shippers', {headers: authHeader()});
+    }
+
+    startDelivery(orderID) {
+        return axios.post('/api/startDelivery', orderID, {headers: authHeader()});
+    }
+
+    getDeliveryByOrderID(orderID) {
+        return axios.get('/api/deliveryByOrderID', {headers: authHeader(), params: {orderID: orderID}});
     }
 }
 

@@ -100,7 +100,7 @@ function ScheduleDelivery() {
         carType = document.getElementById(`vehicleSelected`).value;
 
         if ((shippersToGo || carNumber || carType || startLocation || endLocation || endTime || startTime) !== '') {
-            DeliveryService.createScheduleDelivery(Number(orderDetail.orderID), shippersToGo, startLocation, endLocation, startTime, endTime, carNumber, carType).then(
+            DeliveryService.scheduleDelivery(Number(orderDetail.orderID), shippersToGo, startLocation, endLocation, startTime, endTime, carNumber, carType).then(
                 () => {
                     alert('Successfully Scheduled')
                     navigate("/profile");
