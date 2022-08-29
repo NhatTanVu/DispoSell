@@ -1,14 +1,22 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import localStyles from "../../scss/pages/OrderDetail.module.scss";
 import {Button, Card, Table} from "react-bootstrap";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import OrderService from "../services/order.service";
 import moment from 'moment';
+import TrackingMap from "../components/TrackingMap";
+import AuthService from "../services/auth.service";
+import DeliveryService from "../services/delivery.service";
 
 function OrderDetail() {
     let {id} = useParams();
     const [orderDetail, setOrderDetail] = useState({});
     // const [orderDate, setOrderDate]=useState("");
+    const isShipper = useRef(false);
+    const isAdmin = useRef(false);
+    const [delivery, setDelivery] = useState({});
+    const [startCoordinate, setStartCoordinate] = useState("");
+    const [endCoordinate, setEndCoordinate] = useState("");
 
     const params = useParams();
     const navigate = useNavigate();
@@ -17,36 +25,74 @@ function OrderDetail() {
     // var a = moment().toString();
     // console.log(a);
 
-    useEffect(() => {
-        console.log(params.id);
-        OrderService.getOnePurchaseOrder(params.id).then(
+    const handleError = (error) => {
+        console.log(
+            (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+            error.message ||
+            error.toString()
+        );
+
+        if (error.response && (error.response.status == 401 || error.response.status == 403)) {
+            navigate("/");
+        }
+    }
+    const getOrderDetails = (id) => {
+        return OrderService.getOnePurchaseOrder(id).then(
             response => {
                 console.log(response.data);
                 setOrderDetail(response.data);
-                // setOrderDate(response.data.orderedDate);
+                return response;
             },
             error => {
-                setOrderDetail(
-                    (error.response &&
-                        error.response.data &&
-                        error.response.data.message) ||
-                    error.message ||
-                    error.toString()
-                );
-
-                if (error.response && (error.response.status == 401 || error.response.status == 403)) {
-                    navigate("/");
-                }
+                handleError(error);
             }
         );
+    };
+    const getDelivery = (orderResponse) => {
+        if (orderResponse.data?.status?.name === 'ORDER_STATUS_IN_DELIVERY') {
+            DeliveryService.getDeliveryByOrderID(params.id).then(deliveryResponse => {
+                    console.log(deliveryResponse.data);
+                    setDelivery(deliveryResponse.data);
+                    setStartCoordinate((deliveryResponse.data.currentLocation != "" && deliveryResponse.data.currentLocation != null)
+                        ? deliveryResponse.data.currentLocation
+                        : deliveryResponse.data.startLocation);
+                    setEndCoordinate(deliveryResponse.data.endLocation);
+                },
+                error => {
+                    handleError(error);
+                });
+        }
+    }
+
+    useEffect(() => {
+        console.log(params.id);
+
+        const currentUser = AuthService.getCurrentUser();
+        isShipper.current = (currentUser != null) && currentUser.roles.includes("ROLE_SHIPPER");
+        isAdmin.current = (currentUser != null) && currentUser.roles.includes("ROLE_ADMINISTRATOR");
+        getOrderDetails(params.id).then(getDelivery);
     }, []);
+
+    const startDelivery = (e) => {
+        DeliveryService.startDelivery(orderDetail.orderID).then(response => {
+                alert("Successfully Started Delivery");
+                setOrderDetail(response.data);
+            },
+            error => {
+                handleError(error);
+            });
+    };
 
     return (
         <div className={localStyles["order-detail-page"]}>
             <h2 className={localStyles["orderID"]}>Order ID: {orderDetail.orderID}</h2>
-            <Button className={localStyles["btn-track-order"]} variant="outline-primary" size="sm"
-                    href="https://track-delivery-demo.herokuapp.com/">Track Order</Button>
-            <div className={localStyles["order-date"]}>Order Date: {moment(orderDetail.orderedDate).format("MMM D, YYYY")}</div>
+            {(isShipper.current || isAdmin.current) && orderDetail?.status?.name === 'ORDER_STATUS_SCHEDULED' &&
+                <Button className={localStyles["btn-track-order"]} variant="outline-primary" size="sm"
+                        onClick={(e) => startDelivery(e)}>Start Delivery</Button>}
+            <div className={localStyles["order-date"]}>Order
+                Date: {moment(orderDetail.orderedDate).format("MMM D, YYYY")}</div>
             <div className={localStyles["content"]}>
                 <div className={localStyles["list-product"]}>
                     <Card style={{marginTop: "20px", backgroundColor: "#F8F8FA", borderRadius: "15px"}}>
@@ -57,8 +103,10 @@ function OrderDetail() {
                                     <tbody>
                                     {orderDetail.orderDetails?.map((detail, index) => (
                                         <tr>
-                                            <td><img src={`${detail.product.productMedia.find(media => media.isDefault == true)?.url}`} alt={detail.product.name}
-                                                     loading="lazy"/>
+                                            <td><img
+                                                src={`${detail.product.productMedia.find(media => media.isDefault == true)?.url}`}
+                                                alt={detail.product.name}
+                                                loading="lazy"/>
                                             </td>
                                             <td>{detail.product.name.toUpperCase()}</td>
                                             <td>Qty: {detail.quantity}</td>
@@ -97,6 +145,11 @@ function OrderDetail() {
                             </Card.Text>
                         </Card.Body>
                     </Card>
+                    {orderDetail?.status?.name === 'ORDER_STATUS_IN_DELIVERY' && <TrackingMap
+                        isEditable={isShipper.current || isAdmin.current}
+                        startCoordinate={startCoordinate}
+                        endCoordinate={endCoordinate}
+                        deliveryID={delivery.deliveryID}/>}
                 </div>
                 <div className={localStyles["user-info"]}>
                     <Card style={{marginTop: "20px", backgroundColor: "#F8F8FA", borderRadius: "15px"}}>
