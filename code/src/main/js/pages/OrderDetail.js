@@ -149,6 +149,7 @@ function OrderDetail() {
                         isEditable={isShipper.current || isAdmin.current}
                         startCoordinate={startCoordinate}
                         endCoordinate={endCoordinate}
+                        key={startCoordinate + "_" + endCoordinate}
                         deliveryID={delivery.deliveryID}/>}
                 </div>
                 <div className={localStyles["user-info"]}>

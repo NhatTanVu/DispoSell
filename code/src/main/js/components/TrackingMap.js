@@ -129,10 +129,10 @@ export default function TrackingMap({
             }
         }
 
+        currentMap = map;
         initInterval = window.setInterval(() => {
             if (startMarker != null && endMarker != null) {
                 drawRoute(map, startMarker, endMarker);
-                currentMap = map;
                 connect();
                 clearInterval(initInterval);
             }
