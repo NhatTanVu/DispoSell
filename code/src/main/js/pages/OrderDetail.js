@@ -4,7 +4,7 @@ import {Button, Card, Table} from "react-bootstrap";
 import {useNavigate, useParams} from "react-router-dom";
 import OrderService from "../services/order.service";
 import moment from 'moment';
-import TrackingMap from "../components/TrackingMap";
+import DeliveryDetail from "../components/DeliveryDetail";
 import AuthService from "../services/auth.service";
 import DeliveryService from "../services/delivery.service";
 
@@ -145,12 +145,12 @@ function OrderDetail() {
                             </Card.Text>
                         </Card.Body>
                     </Card>
-                    {orderDetail?.status?.name === 'ORDER_STATUS_IN_DELIVERY' && <TrackingMap
+                    {orderDetail?.status?.name === 'ORDER_STATUS_IN_DELIVERY' && <DeliveryDetail
                         isEditable={isShipper.current || isAdmin.current}
                         startCoordinate={startCoordinate}
                         endCoordinate={endCoordinate}
                         key={startCoordinate + "_" + endCoordinate}
-                        deliveryID={delivery.deliveryID}/>}
+                        deliveryInfo={delivery}/>}
                 </div>
                 <div className={localStyles["user-info"]}>
                     <Card style={{marginTop: "20px", backgroundColor: "#F8F8FA", borderRadius: "15px"}}>

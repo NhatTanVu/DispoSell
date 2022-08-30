@@ -3,12 +3,12 @@ import GoogleMapReact from 'google-map-react';
 import {Button, Card} from "react-bootstrap";
 import localStyles from "../../scss/pages/cart.module.scss";
 
-export default function TrackingMap({
-                                        isEditable,
-                                        startCoordinate,
-                                        endCoordinate,
-                                        deliveryID
-                                    }) {
+export default function DeliveryDetail({
+                                           isEditable,
+                                           startCoordinate,
+                                           endCoordinate,
+                                           deliveryInfo
+                                       }) {
     let startMarker = null;
     let endMarker = null;
     let directionsService = null;
@@ -40,16 +40,8 @@ export default function TrackingMap({
             if (position.zoom) {
                 map.setZoom(position.zoom);
             }
-            // const icon = {
-            //     url: "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/geocode-71.png",
-            //     size: new google.maps.Size(71, 71),
-            //     origin: new google.maps.Point(0, 0),
-            //     anchor: new google.maps.Point(17, 34),
-            //     scaledSize: new google.maps.Size(25, 25),
-            // };
             return new google.maps.Marker({
                 map,
-                //icon,
                 label: {
                     text: label,
                     color: 'white'
@@ -172,7 +164,7 @@ export default function TrackingMap({
     const onTrackingUpdateClick = (lat, lng) => {
         let trackingInfo = {
             sessionID: stompSessionID.current,
-            deliveryID: deliveryID,
+            deliveryID: deliveryInfo.deliveryID,
             lat: lat,
             lng: lng
         };
@@ -184,7 +176,7 @@ export default function TrackingMap({
     const onTrackingCompleteClick = (e) => {
         let trackingInfo = {
             sessionID: stompSessionID.current,
-            deliveryID: deliveryID
+            deliveryID: deliveryInfo.deliveryID
         };
         if (stompClient.current !== null) {
             console.log(trackingInfo);
@@ -213,7 +205,20 @@ export default function TrackingMap({
                         In</Button>}
                 </Card.Header>
                 <Card.Body style={{padding: "1rem 0 0 0"}}>
-                    <Card.Text style={{height: "100%"}}>
+                    <Card.Text>
+                        {(deliveryInfo.vehicleNumber != "" || deliveryInfo.vehicleType != "") &&
+                            <table className="table">
+                                <tbody>
+                                {deliveryInfo.vehicleNumber != "" && <tr>
+                                    <td><b>Vehicle Number</b></td>
+                                    <td>{deliveryInfo.vehicleNumber}</td>
+                                </tr>}
+                                {deliveryInfo.vehicleType != "" && <tr>
+                                    <td><b>Vehicle Type</b></td>
+                                    <td>{deliveryInfo.vehicleType}</td>
+                                </tr>}
+                                </tbody>
+                            </table>}
                         <div style={{height: "500px"}}>
                             <GoogleMapReact
                                 bootstrapURLKeys={{
