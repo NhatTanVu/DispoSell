@@ -9,20 +9,20 @@ export default function DeliveryDetail({
                                            endCoordinate,
                                            deliveryInfo
                                        }) {
-    let startMarker = null;
-    let endMarker = null;
-    let directionsService = null;
-    let directionsDisplay = null;
-    let currentMap = null;
-    let initInterval = null;
+    const startMarkerRef = useRef(null);
+    const endMarkerRef = useRef(null);
+    const directionsServiceRef = useRef(null);
+    const directionsDisplayRef = useRef(null);
+    const currentMapRef = useRef(null);
+    const initIntervalRef = useRef(null);
     const [isVisible, setIsVisible] = useState(true);
+    const [eta, setEta] = useState("N/A");
     const defaultProps = {
         center: {
             lat: 49.203691381047534,
             lng: -122.91278600692749
         },
         zoom: 16,
-        mapTypeId: "roadmap",
         Warehouse: {
             lat: 49.203691381047534,
             lng: -122.91278600692749
@@ -57,43 +57,43 @@ export default function DeliveryDetail({
             destination: new google.maps.LatLng(endMarker.position.lat(), endMarker.position.lng()),
             travelMode: google.maps.TravelMode.DRIVING
         };
-        directionsDisplay.setMap(null);
-        directionsService.route(request, function (response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                directionsDisplay.setDirections(response);
-                directionsDisplay.setMap(map);
+        directionsDisplayRef.current.setMap(null);
+        directionsServiceRef.current.route(request, function (response, status) {
+            if (response.status == google.maps.DirectionsStatus.OK) {
+                setEta(response.routes[0]?.legs[0]?.duration.text);
+                directionsDisplayRef.current.setDirections(response);
+                directionsDisplayRef.current.setMap(map);
             } else {
-                alert("Directions Request from " + startPosition.toUrlValue(6) + " to " + endPosition.toUrlValue(6) + " failed: " + status);
+                alert("Directions Request from " + startMarker.position.toUrlValue(6) + " to " + endMarker.position.toUrlValue(6) + " failed: " + status);
             }
         });
     };
     const changeRoute = (lat, lng) => {
-        removeMarker(startMarker);
-        startMarker = addMarker(currentMap, {"lat": lat, "lng": lng}, 'A');
-        drawRoute(currentMap, startMarker, endMarker);
+        removeMarker(startMarkerRef.current);
+        startMarkerRef.current = addMarker(currentMapRef.current, {"lat": lat, "lng": lng}, 'A');
+        drawRoute(currentMapRef.current, startMarkerRef.current, endMarkerRef.current);
     };
     const handleApiLoaded = (map, maps) => {
-        // use map and maps objects
         if (isEditable) {
             map.addListener('click', (e) => {
                 changeRoute(e.latLng.lat(), e.latLng.lng());
             });
         }
-        directionsService = new google.maps.DirectionsService();
-        directionsDisplay = new google.maps.DirectionsRenderer({
+        directionsServiceRef.current = new google.maps.DirectionsService();
+        directionsDisplayRef.current = new google.maps.DirectionsRenderer({
             suppressMarkers: true
         });
 
         try {
-            startMarker = addMarker(map, JSON.parse(startCoordinate), 'A');
+            startMarkerRef.current = addMarker(map, JSON.parse(startCoordinate), 'A');
         } catch (ex) {
             if (defaultProps[startCoordinate]) {
-                startMarker = addMarker(map, defaultProps[startCoordinate], 'A');
+                startMarkerRef.current = addMarker(map, defaultProps[startCoordinate], 'A');
             } else {
                 const geocoder = new google.maps.Geocoder();
                 geocoder.geocode({'address': startCoordinate}, function (results, status) {
                     if (status == 'OK') {
-                        startMarker = addMarker(map, results[0].geometry.location, 'A');
+                        startMarkerRef.current = addMarker(map, results[0].geometry.location, 'A');
                     } else {
                         console.log('Geocode was not successful for the following reason: ' + status);
                     }
@@ -102,15 +102,15 @@ export default function DeliveryDetail({
         }
 
         try {
-            endMarker = addMarker(map, JSON.parse(endCoordinate), 'B');
+            endMarkerRef.current = addMarker(map, JSON.parse(endCoordinate), 'B');
         } catch (ex) {
             if (defaultProps[endCoordinate]) {
-                endMarker = addMarker(map, defaultProps[endCoordinate], 'B');
+                endMarkerRef.current = addMarker(map, defaultProps[endCoordinate], 'B');
             } else {
                 const geocoder = new google.maps.Geocoder();
                 geocoder.geocode({'address': endCoordinate}, function (results, status) {
                     if (status == 'OK') {
-                        endMarker = addMarker(map, {
+                        endMarkerRef.current = addMarker(map, {
                             lat: results[0].geometry.location.lat(),
                             lng: results[0].geometry.location.lng()
                         }, 'B');
@@ -121,18 +121,18 @@ export default function DeliveryDetail({
             }
         }
 
-        currentMap = map;
-        initInterval = window.setInterval(() => {
-            if (startMarker != null && endMarker != null) {
-                drawRoute(map, startMarker, endMarker);
+        currentMapRef.current = map;
+        initIntervalRef.current = window.setInterval(() => {
+            if (startMarkerRef.current != null && endMarkerRef.current != null) {
+                drawRoute(map, startMarkerRef.current, endMarkerRef.current);
                 connect();
-                clearInterval(initInterval);
+                clearInterval(initIntervalRef.current);
             }
         }, 200);
     };
     const zoomCurrent = (e) => {
-        currentMap.setCenter(new google.maps.LatLng(startMarker.position.lat(), startMarker.position.lng()));
-        currentMap.setZoom(16);
+        currentMapRef.current.setCenter(new google.maps.LatLng(startMarkerRef.current.position.lat(), startMarkerRef.current.position.lng()));
+        currentMapRef.current.setZoom(16);
         e.preventDefault();
     };
 
@@ -185,7 +185,7 @@ export default function DeliveryDetail({
     };
     useEffect(() => {
         return function cleanup() {
-            clearInterval(initInterval);
+            clearInterval(initIntervalRef.current);
             disconnect();
         };
     }, []);
@@ -199,26 +199,29 @@ export default function DeliveryDetail({
             }}>
                 <Card.Header className={localStyles["card-header-class"]} as="h3"
                              style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                    <span>Track Order</span>
+                    <span>Track Delivery</span>
                     {isEditable && <Button className={`${localStyles['btn']}`} onClick={(e) => zoomCurrent(e)}
                                            style={{marginTop: 0, flex: "0", whiteSpace: "nowrap"}}>Zoom
                         In</Button>}
                 </Card.Header>
                 <Card.Body style={{padding: "1rem 0 0 0"}}>
                     <Card.Text>
-                        {(deliveryInfo.vehicleNumber != "" || deliveryInfo.vehicleType != "") &&
-                            <table className="table">
-                                <tbody>
-                                {deliveryInfo.vehicleNumber != "" && <tr>
-                                    <td><b>Vehicle Number</b></td>
-                                    <td>{deliveryInfo.vehicleNumber}</td>
-                                </tr>}
-                                {deliveryInfo.vehicleType != "" && <tr>
-                                    <td><b>Vehicle Type</b></td>
-                                    <td>{deliveryInfo.vehicleType}</td>
-                                </tr>}
-                                </tbody>
-                            </table>}
+                        <table className="table">
+                            <tbody>
+                            {deliveryInfo.vehicleNumber != "" && <tr>
+                                <td><b>Vehicle Number</b></td>
+                                <td>{deliveryInfo.vehicleNumber}</td>
+                            </tr>}
+                            {deliveryInfo.vehicleType != "" && <tr>
+                                <td><b>Vehicle Type</b></td>
+                                <td>{deliveryInfo.vehicleType}</td>
+                            </tr>}
+                            <tr>
+                                <td><b>ETA</b></td>
+                                <td>{eta}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                         <div style={{height: "500px"}}>
                             <GoogleMapReact
                                 bootstrapURLKeys={{
@@ -233,7 +236,7 @@ export default function DeliveryDetail({
                         </div>
                         {isEditable && <div style={{display: "flex", gap: "1rem"}}>
                             <Button className={`${localStyles['btn']}`}
-                                    onClick={(e) => onTrackingUpdateClick(startMarker.position.lat(), startMarker.position.lng())}>Update
+                                    onClick={(e) => onTrackingUpdateClick(startMarkerRef.current.position.lat(), startMarkerRef.current.position.lng())}>Update
                                 Tracking</Button>
                             <Button className={`${localStyles['btn']}`} onClick={(e) => onTrackingCompleteClick(e)}>Complete
                                 Tracking</Button>
