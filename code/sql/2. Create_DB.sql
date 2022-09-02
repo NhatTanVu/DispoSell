@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS disposelldb;
+CREATE DATABASE IF NOT EXISTS DispoSellDB;
 
-USE disposelldb;
+USE DispoSellDB;
 
 -- phpMyAdmin SQL Dump
 -- version 5.1.3
