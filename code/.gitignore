@@ -34,3 +34,8 @@ build/
 
 src/main/resources/static/build/
 node_modules/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
