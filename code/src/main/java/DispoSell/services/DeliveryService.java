@@ -3,6 +3,7 @@ package DispoSell.services;
 import DispoSell.models.*;
 import DispoSell.payload.request.*;
 import DispoSell.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -22,6 +23,7 @@ public class DeliveryService {
     public DeliveryService() {
     }
 
+    @Autowired(required=true)
     public DeliveryService(DeliveryRepository deliveryRepository,
                            OrderRepository orderRepository,
                            OrderStatusRepository orderStatusRepository,
