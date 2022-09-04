@@ -2,6 +2,7 @@ package DispoSell.controllers;
 
 import DispoSell.models.*;
 import DispoSell.payload.request.ScheduleDeliveryRequest;
+import DispoSell.payload.request.TrackingInfo;
 import DispoSell.repositories.DeliveryRepository;
 import DispoSell.services.DeliveryService;
 import org.aspectj.lang.annotation.Before;
@@ -15,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class DeliveryControllerTest {
@@ -64,7 +65,7 @@ class DeliveryControllerTest {
 
 
     @Test
-    void scheduleDelivery_nullRequest() {
+    void scheduleDelivery_badRequest() {
         // Arrange
         ScheduleDeliveryRequest deliveryRequest = new ScheduleDeliveryRequest();
         when(deliveryService.scheduleDelivery(deliveryRequest)).thenThrow(IllegalArgumentException.class);
@@ -74,5 +75,98 @@ class DeliveryControllerTest {
         assertEquals(HttpStatus.BAD_REQUEST.value(), response.getStatusCodeValue());
     }
 
+    @Test
+    void startDelivery() {
+        // Arrange
+        long orderID = 1;
+        Order order = new Order();
+        order.setOrderID(orderID);
+        when(deliveryService.startDelivery(orderID)).thenReturn(order);
+        // Act
+        ResponseEntity<?> response = deliveryControllerImpl.startDelivery(orderID);
+        // Assert
+        assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());
+        assertEquals(order, response.getBody());
+        verify(deliveryService, times(1)).startDelivery(orderID);
+    }
 
+    @Test
+    void startDelivery_notFound() {
+        // Arrange
+        long orderID = 1;
+        when(deliveryService.startDelivery(orderID)).thenReturn(null);
+        // Act
+        ResponseEntity<?> response = deliveryControllerImpl.startDelivery(orderID);
+        // Assert
+        assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCodeValue());
+        verify(deliveryService, times(1)).startDelivery(orderID);
+    }
+
+    @Test
+    void endDelivery() {
+        // Arrange
+        long orderID = 1;
+        Order order = new Order();
+        order.setOrderID(orderID);
+        when(deliveryService.endDelivery(orderID)).thenReturn(order);
+        // Act
+        ResponseEntity<?> response = deliveryControllerImpl.endDelivery(orderID);
+        // Assert
+        assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());
+        assertEquals(order, response.getBody());
+        verify(deliveryService, times(1)).endDelivery(orderID);
+    }
+
+    @Test
+    void endDelivery_notFound() {
+        // Arrange
+        long orderID = 1;
+        when(deliveryService.endDelivery(orderID)).thenReturn(null);
+        // Act
+        ResponseEntity<?> response = deliveryControllerImpl.endDelivery(orderID);
+        // Assert
+        assertEquals(HttpStatus.NOT_FOUND.value(), response.getStatusCodeValue());
+        verify(deliveryService, times(1)).endDelivery(orderID);
+    }
+
+    @Test
+    void getDeliveryByOrderID() {
+        // Arrange
+        long orderID = 1;
+        Order order = new Order();
+        order.setOrderID(orderID);
+        Delivery delivery = new Delivery();
+        delivery.setOrder(order);
+        when(deliveryRepository.findByOrderOrderID(orderID)).thenReturn(delivery);
+        // Act
+        Delivery response = deliveryControllerImpl.getDeliveryByOrderID(orderID);
+        // Assert
+        assertEquals(delivery, response);
+        verify(deliveryRepository, times(1)).findByOrderOrderID(orderID);
+    }
+
+    @Test
+    void updateTracking() {
+        // Arrange
+        TrackingInfo info = new TrackingInfo();
+        TrackingInfo updatedInfo = new TrackingInfo();
+        when(deliveryService.updateTracking(info)).thenReturn(updatedInfo);
+        // Act
+        TrackingInfo response = deliveryControllerImpl.updateTracking(info);
+        // Assert
+        assertEquals(info, response);
+        verify(deliveryService, times(1)).updateTracking(info);
+    }
+
+    @Test
+    void completeTracking() {
+        // Arrange
+        TrackingInfo info = new TrackingInfo();
+        when(deliveryService.completeTracking(info)).thenReturn(true);
+        // Act
+        boolean response = deliveryControllerImpl.completeTracking(info);
+        // Assert
+        assertEquals(true, response);
+        verify(deliveryService, times(1)).completeTracking(info);
+    }
 }

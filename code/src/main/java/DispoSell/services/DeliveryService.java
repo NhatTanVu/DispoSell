@@ -13,11 +13,14 @@ import java.util.Set;
 @Service
 @Transactional
 public class DeliveryService {
-    private final DeliveryRepository deliveryRepository;
-    private final OrderRepository orderRepository;
-    private final OrderStatusRepository orderStatusRepository;
-    private final UserRepository userRepository;
+    private DeliveryRepository deliveryRepository;
+    private OrderRepository orderRepository;
+    private OrderStatusRepository orderStatusRepository;
+    private UserRepository userRepository;
     private EmailService emailService;
+
+    public DeliveryService() {
+    }
 
     public DeliveryService(DeliveryRepository deliveryRepository,
                            OrderRepository orderRepository,
@@ -94,6 +97,8 @@ public class DeliveryService {
     public Order startDelivery(Long orderID) {
         Order order = orderRepository.findByOrderID(orderID);
         if (order != null) {
+            if (order.getStatus().getName() != EOrderStatus.ORDER_STATUS_SCHEDULED)
+                throw new IllegalArgumentException();
             OrderStatus status = this.orderStatusRepository.findByName(EOrderStatus.ORDER_STATUS_IN_DELIVERY).get();
             order.setStatus(status);
             return this.orderRepository.save(order);
