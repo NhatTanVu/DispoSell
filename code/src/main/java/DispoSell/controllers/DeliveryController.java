@@ -45,23 +45,21 @@ public class DeliveryController {
     @PostMapping("/api/startDelivery")
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') || hasRole('ROLE_SHIPPER')")
     public ResponseEntity<?> startDelivery(@RequestBody long orderID) {
-        try {
-            Order result = deliveryService.startDelivery(orderID);
+        Order result = deliveryService.startDelivery(orderID);
+        if (result == null)
+            return ResponseEntity.notFound().build();
+        else
             return ResponseEntity.ok(result);
-        } catch (IllegalArgumentException illegalArgumentException) {
-            return ResponseEntity.badRequest().build();
-        }
     }
 
     @PostMapping("/api/endDelivery")
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR') || hasRole('ROLE_SHIPPER')")
     public ResponseEntity<?> endDelivery(@RequestBody long orderID) {
-        try {
-            Order result = deliveryService.endDelivery(orderID);
+        Order result = deliveryService.endDelivery(orderID);
+        if (result == null)
+            return ResponseEntity.notFound().build();
+        else
             return ResponseEntity.ok(result);
-        } catch (IllegalArgumentException illegalArgumentException) {
-            return ResponseEntity.badRequest().build();
-        }
     }
 
     @GetMapping("/api/deliveryByOrderID")
