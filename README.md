@@ -6,3 +6,18 @@ A website dedicated to collect unused furniture in usable condition, refurbishin
 ## Deployment
 1. AWS Elastic Beanstalk: http://disposell-dev.us-west-2.elasticbeanstalk.com/
 2. Heroku App: http://disposell.herokuapp.com/
+## How to test
+1. Open http://disposell.herokuapp.com/
+2. Add a few furniture to carts and checkout using these fake credit card:
+	* Card number: 4111 1111 1111 1111
+	* Expiry date in MM/YY format: 12/23*
+	* CVC/CVV: 123
+3. Login as an admin using these information to view the new order:
+	* Username: test_admin
+	* Password: test_admin
+4. As an admin, assign shipper and schedule delivery for this new order
+5. Login as a shipper using these information:
+	* Username: test_shipper
+	* Password: test_shipper
+6. Update delivery information for the order, i.e. real-time position for tracking delivery, for [Order 14](http://disposell.herokuapp.com/orderDetails/14) by clicking on the Google map at the bottom, then click on "Update Tracking" button right below it
+7. At the same time, open a separate tab as an anonymous user using the same link for [Order 14](http://disposell.herokuapp.com/orderDetails/14), Google map position would be updated in real-time
