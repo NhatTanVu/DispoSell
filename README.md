@@ -10,7 +10,7 @@ A website dedicated to collect unused furniture in usable condition, refurbishin
 1. Open http://disposell.herokuapp.com/
 2. Add a few furniture to carts and checkout using these fake credit card:
 	* Card number: 4111 1111 1111 1111
-	* Expiry date in MM/YY format: 12/23*
+	* Expiry date in MM/YY format: 12/23
 	* CVC/CVV: 123
 3. Login as an admin using these information to view the new order:
 	* Username: test_admin
