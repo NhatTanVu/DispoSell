@@ -21,3 +21,5 @@ A website dedicated to collect unused furniture in usable condition, refurbishin
 	* Password: test_shipper
 6. Update delivery information for the order, i.e. real-time position for tracking delivery, for [Order 14](http://disposell.herokuapp.com/orderDetails/14) by clicking on the Google map at the bottom, then click on "Update Tracking" button right below it
 7. At the same time, open a separate tab as an anonymous user using the same link for [Order 14](http://disposell.herokuapp.com/orderDetails/14), Google map position would be updated in real-time
+## The architecture
+<img src="https://user-images.githubusercontent.com/2909287/225399842-68db765f-f2ae-4ec4-8274-4812cc6c302d.png" height="500">
