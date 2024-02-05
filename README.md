@@ -5,9 +5,9 @@ A website dedicated to collect unused furniture in usable condition, refurbishin
 2. Run the application
 ## Deployment
 1. AWS Elastic Beanstalk: http://disposell-dev.us-west-2.elasticbeanstalk.com/
-2. Heroku App: http://disposell.herokuapp.com/
+2. Heroku App: http://disposell.herokuapp.com/ (Failed)
 ## How to test
-1. Open http://disposell.herokuapp.com/
+1. Open http://disposell-dev.us-west-2.elasticbeanstalk.com/
 2. Add a few furniture to carts and checkout using these fake credit card:
 	* Card number: 4111 1111 1111 1111
 	* Expiry date in MM/YY format: 12/23
